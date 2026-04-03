@@ -174,8 +174,6 @@ where $\omega_d$ is the damped natural frequency, defined as:
 Is the underdamped assumption ($\eta/2 < \omega_0$) valid for optical materials? Yes. The displacement solution $x(t) = A e^{-\eta t/2}\cos(\omega_d t+\phi)$ explicitly shows that the coefficient $\eta$ acts purely as a decay rate for the amplitude envelope, while $\omega_0$ (via the damped frequency $\omega_d=\sqrt{\omega_0^2-(\eta/2)^2}$) sets the rapid oscillation. For visible light, the natural oscillation frequency of an electron is immense: $\omega_0 \approx 10^{15}$ rad/s. In contrast, the atomic ``friction'' causing the oscillation to decay acts much more slowly. The amplitude typically takes a few nanoseconds to visibly shrink, making the decay rate roughly $\eta \approx 10^9$ s$^{-1}$. Because $10^9 \ll 10^{15}$ (meaning $\eta \ll \omega_0$), the electron will ring for millions of cycles before the envelope dies out. Therefore, atomic electron oscillators are strictly underdamped!
 \end{keyinsight}
 
-In short, replacing our ideal spring with a damped spring shows that the electron's position mathematically forms an oscillating wave whose amplitude shrinks exponentially over time due to $\eta$.
-
 \subsection{Energy Decay and the Concept of "Lifetime"}
 Now let's talk about the energy of this system. The total energy $U$ of our Classical Electron Oscillator (CEO) is the sum of its potential and kinetic energy. 
 
@@ -385,7 +383,28 @@ Since velocity is the derivative of displacement ($v = \frac{dx}{dt}$), differen
 \end{itemize}
 \end{keyinsight}
 
-In short, deriving the phasor displacement $x_0$ reveals how a single atom responds to light: it oscillates in-phase, out-of-phase, or absorbs energy intensely, depending wholly on whether the light matches the atom's natural frequency. Now we must scale this up from a single atom to an entire block of glass.
+Before we can pull these microscopic insights into the macroscopic world, we must do one mathematical housekeeping step: explicitly separating the electron's displacement phasor ($x_0$) into purely real ($x'$) and entirely imaginary ($x''$) components. This split is the strict mathematical root of why a material can simultaneously shift the phase of light while absorbing its energy.
+
+We start directly from the base equation for the displacement amplitude we just derived in the classical model:
+\begin{equation*}
+    x_0 = -\frac{e}{m} \left[ \frac{E_0}{(\omega_0^2 - \omega^2) + j\eta\omega} \right]
+\end{equation*}
+
+To isolate the real and imaginary parts, we must clear the complex unit $j$ from the denominator. We do this by multiplying the numerator and denominator by the complex conjugate of the denominator, $(\omega_0^2 - \omega^2) - j\eta\omega$:
+\begin{equation*}
+    x_0 = -\frac{e}{m} \left[ \frac{E_0}{(\omega_0^2 - \omega^2) + j\eta\omega} \cdot \frac{(\omega_0^2 - \omega^2) - j\eta\omega}{(\omega_0^2 - \omega^2) - j\eta\omega} \right] \implies x_0 = -\frac{e}{m} \left[ \frac{E_0[(\omega_0^2 - \omega^2) - j\eta\omega]}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right]
+\end{equation*}
+
+We can now cleanly separate the fraction into a purely real part ($x'$) and a purely imaginary part ($x''$), defined such that $x_0 = x' + jx''$.
+
+The real part $x'$ gives the in-phase displacement component, and the imaginary part $x''$ gives the out-of-phase (lagging) displacement component:
+
+\begin{keyresult}
+\begin{gather}
+    x' = -\frac{e}{m} \left[ \frac{E_0(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ In-Phase Displacement)} \\[1ex]
+    x'' = \frac{e}{m} \left[ \frac{E_0(\eta\omega)}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Imaginary Part $\to$ Out-of-Phase Displacement)}
+\end{gather}
+\end{keyresult}
 
 \section{Polarization, Susceptibility, and the Complex Refractive Index}
 
@@ -773,18 +792,16 @@ Recall that a plane wave propagating in the $+z$ direction through a medium with
 \end{equation*}
 where $k_0 = 2\pi/\lambda_0$ is the free-space wavenumber and $\lambda_0$ is the free-space wavelength.
 
-The first exponential $e^{-jnk_0z}$ is the oscillating phase term — it describes the wave's spatial oscillation as it travels. The second exponential $e^{\kappa k_0 z}$ is a real amplitude term. Because our $\chi''$ is inherently negative (absorption), $\kappa$ is also negative, meaning this factor causes the amplitude to decay with $z$.
+The first exponential $e^{-jnk_0z}$ is the oscillating phase term — it describes the wave's spatial oscillation as it travels. The second exponential $e^{\kappa k_0 z}$ is a real amplitude term. Because $\chi''$ is inherently negative, $\kappa$ is also negative, meaning this factor causes the amplitude to decay with $z$.
 
 The optical power (intensity) is proportional to $|E|^2$, so:
 \begin{equation*}
     P(z) \propto |E(z)|^2 \propto e^{2\kappa\,k_0\,z}
 \end{equation*}
 We define the \textbf{power attenuation coefficient} $\alpha$ so that power decays (or grows) as:
-\begin{keyresult}
 \begin{equation}
     P(z) = P(0)\,e^{-\alpha z}
 \end{equation}
-\end{keyresult}
 Comparing the two expressions:
 \begin{equation*}
     e^{-\alpha z} = e^{2\kappa\,k_0\,z} \quad \Rightarrow \quad \alpha = -2k_0\kappa
@@ -799,7 +816,6 @@ The factor of 2 cancels exactly:
     \alpha = -\frac{k_0}{n_b}\,\chi''
 \end{equation}
 \end{keyresult}
-where $k_0 = 2\pi/\lambda_0$ is the free-space wavenumber and $n_b$ is the background host refractive index.
 
 Because $\chi''$ is inherently negative in our sign convention (absorption corresponds to $\chi'' < 0$), the formula $\alpha = -k_0\chi''/n_b$ yields a strictly positive $\alpha$, enforcing exponential power decay. The physical meaning is clear:
 \begin{itemize}
@@ -830,7 +846,7 @@ However, very close to the resonance frequency $\omega_0$, something unusual hap
 \end{figure}
 
 \begin{keyinsight}[Normal Dispersion vs.\ Our Formula: The Apparent Contradiction]
-We derived $n \approx n_b + \frac{\chi'}{2n_b}$, and our near-resonance formula gives $\chi' \approx \frac{N_A e^2}{\varepsilon_0 m \eta\omega}\left(\frac{-\delta}{1+\delta^2}\right)$. As $\omega$ increases past resonance ($\delta > 0$), $\chi'$ grows more negative — so $n$ should \emph{drop}. Yet normal dispersion in glass shows $n$ rising with frequency. Why?
+We derived $n \approx n_b + \frac{\chi'}{2n_b}$, and our near-resonance formula gives $\chi' \approx \frac{N_A e^2}{\varepsilon_0 m \eta\omega}\left(\frac{-\delta}{1+\delta^2}\right)$. This formula dictates a steep downward slope near resonance, meaning $n$ should \emph{drop} as $\omega$ increases. Yet normal dispersion in glass shows $n$ smoothly rising with frequency. Why?
 
 The issue is that our $\delta$-based formula was derived solely for $\omega \approx \omega_0$. It captures only the steep anomalous dip \emph{inside} the resonance, and breaks down entirely in the broad transparent regions between resonances.
 
@@ -847,7 +863,7 @@ As we sweep across the entire electromagnetic spectrum, the refractive index $n$
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/12.jpg}
+    \includegraphics[width=0.75\textwidth]{Figures/Chapter 1/12.jpg}
     \caption{Broadband Refractive Index: Normal dispersion occurs between resonance peaks, while localized anomalous dispersion sharply dips exactly at each atomic resonance.}
     \label{fig:ch1_broadband_dispersion}
 \end{figure}
