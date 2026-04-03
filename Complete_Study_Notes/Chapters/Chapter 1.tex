@@ -483,9 +483,37 @@ where:
 
 This expression is \emph{exact} within the Lorentz model. It is a complex-valued function of frequency whose magnitude peaks sharply at $\omega = \omega_0$ and whose phase encodes whether the material response leads or lags the driving field.
 
-\subsection{The Near-Resonance Approximation and the \texorpdfstring{$\chi'$, $\chi''$}{χ', χ''} Spectral Profiles}\label{subsec:susceptibility_spectral_forms}
+\subsubsection{The Exact \texorpdfstring{$\chi'$, $\chi''$}{χ', χ''} Spectral Profiles}
 
-Because optics usually operates very close to the resonance frequency, we make a powerful simplifying assumption: $\omega \approx \omega_0$. Let's look at the term $\omega_0^2 - \omega^2$ in the denominator. This is a classic difference of squares, which explicitly factors as:
+Just like we did for the microscopic displacement $x_0$, we can decompose the total complex susceptibility $\chi(\omega)$ into its purely real part ($\chi'$) and purely imaginary part ($\chi''$). To find their exact profiles, we recall the foundational bridge equation established earlier that links the macroscopic susceptibility directly to the microscopic displacement:
+\begin{equation*}
+    \chi = -\frac{N_A e}{\varepsilon_0 E_0} x_0
+\end{equation*}
+
+Since susceptibility is mathematically complex ($\chi = \chi' + j\chi''$) and the displacement is complex ($x_0 = x' + jx''$), we can substitute these expanded forms directly into the bridge equation:
+\begin{equation*}
+    \chi' + j\chi'' = -\frac{N_A e}{\varepsilon_0 E_0} (x' + jx'')
+\end{equation*}
+
+This algebraic step proves that the real and imaginary parts of the macroscopic susceptibility are nothing more than perfectly scaled replicas of the electron's real and imaginary displacement components. By substituting our exact expressions for $x'$ and $x''$ derived in the previous section, we immediately obtain the exact mathematical forms for the macroscopic susceptibility profiles:
+\begin{keyresult}
+\begin{gather}
+    \chi'(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m} \left[ \frac{\omega_0^2 - \omega^2}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ Controls Dispersion)} \\[1ex]
+    \chi''(\omega) = -\frac{N_A\,e^2}{\varepsilon_0\,m} \left[ \frac{\eta\omega}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Imaginary Part $\to$ Controls Absorption)}
+\end{gather}
+\end{keyresult}
+
+\begin{keyinsight}[The Universal Scope of the Exact Profiles]
+These exact classical equations are universally true. They completely dictate the optical response of the material at \emph{every} possible electromagnetic frequency — from $0$ Hz (a DC field) all the way up to extreme X-rays. While physically flawless, their massive denominator terms make them bulky and slightly unintuitive to manipulate when mathematically modeling modern lasers or narrow-band filters.
+\end{keyinsight}
+
+In short, the full macroscopic susceptibility profiles perfectly inherit the real and imaginary structure of the isolated electron's displacement. Because dealing with these exact, full-spectrum formulas is mathematically cumbersome, we will now zoom in strictly on the ultra-narrow frequency range where lasers actually operate to derive a far more elegant and powerful approximation.
+
+\subsubsection{The Near-Resonance Approximation}\label{subsec:susceptibility_spectral_forms}
+
+While the exact equations cover the entire electromagnetic spectrum, in laser physics and applied optics we almost exclusively operate extremely close to the atomic resonance peak. This allows us to make a powerful simplifying assumption: $\omega \approx \omega_0$. 
+
+Let's look at the term $\omega_0^2 - \omega^2$ appearing in our susceptibility equations. This is a classic difference of squares, which explicitly factors as:
 \begin{equation*}
     \omega_0^2 - \omega^2 = (\omega_0 - \omega)(\omega_0 + \omega)
 \end{equation*}
@@ -732,7 +760,11 @@ We know from electromagnetics that the refractive index of a material is defined
 \begin{equation*}
     \tilde{n}^2 = \varepsilon_r = n_b^2 + \chi, \qquad \tilde{n} \equiv n + j\kappa
 \end{equation*}
-
+where:
+\begin{itemize}
+    \item $n$: the real refractive index. It determines how fast the wave's phase propagates through the medium (phase velocity is $c_o/n$). It ``rides'' on top of the host background $n_b$, shifted slightly by the dispersive part $\chi'$ of the transition atoms' susceptibility.
+    \item $\kappa$: the \textbf{extinction coefficient}. It determines how quickly the wave's amplitude grows or decays as it propagates. It is entirely due to the absorptive part $\chi''$, and is scaled down by the host index $n_b$.
+\end{itemize}
 
 Our goal now is to isolate $n$ and $\kappa$ individually in terms of quantities we already know: $n_b$, $\chi'$, and $\chi''$. We start by relating them through the square root of the relative permittivity:
 \begin{equation*}
@@ -769,12 +801,6 @@ Matching this directly against our definition $\tilde{n} = n + j\kappa$, we can 
 \end{align}
 \end{keyresult}
 
-where:
-\begin{itemize}
-    \item $n$: the real refractive index. It determines how fast the wave's phase propagates through the medium (phase velocity is $c_o/n$). It ``rides'' on top of the host background $n_b$, shifted slightly by the dispersive part $\chi'$ of the transition atoms' susceptibility.
-    \item $\kappa$: the \textbf{extinction coefficient}. It determines how quickly the wave's amplitude grows or decays as it propagates. It is entirely due to the absorptive part $\chi''$, and is scaled down by the host index $n_b$.
-\end{itemize}
-
 We can notice that if the transition atoms are switched off entirely ($\chi = 0$), then $n \to n_b$ and $\kappa \to 0$: the wave propagates through the host with no attenuation, exactly as expected.
 
 \begin{keyinsight}[The Vacuum Case]
@@ -782,7 +808,7 @@ If the transition atoms were not embedded in a solid host medium but were instea
 \end{keyinsight}
 
 In short, by factoring the relative permittivity as $\varepsilon_r = n_b^2 + \chi$ and applying the binomial expansion (justified by the geometric restriction $|\chi| \ll n_b^2$), we dissect the complex refractive index into two fundamentally distinct physical components. The real refractive index $n$ governs the wave's phase velocity and is overwhelmingly dominated by the passive background host. In contrast, the extinction coefficient $\kappa$ exclusively controls the exponential amplitude growth or decay, and is driven entirely by the active quantum transitions of our dopant atoms. Together, these two fundamental numbers dictate the complete macroscopic evolution of an electromagnetic wave traversing a medium. Armed with these parameters, we can now investigate exactly how they manifest in the propagating electric field itself.
-
+\newpage
 \section{Wave Propagation: Attenuation and Dispersion}
 \subsection{Power Attenuation and the Absorption Coefficient \texorpdfstring{$\alpha$}{α}}\label{subsec:power_attenuation}
 
