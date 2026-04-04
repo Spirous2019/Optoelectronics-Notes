@@ -6,6 +6,8 @@ Generates all matplotlib figures for Chapter 1 of the Optoelectronics notes.
 Currently produces:
   - 9.jpg  :  The Susceptibility Line Shapes (chi', chi'') vs normalised detuning δ,
                with the three key detuning cases annotated.
+  - 14.jpg :  The Output Transmission Spectrum with two Lorentzian absorption dips,
+               FWHM bandwidth shaded regions replacing the old arrow annotations.
 
 Run this script from any working directory.  The output image is saved
 alongside this script in the same folder.
@@ -163,6 +165,72 @@ def plot_susceptibility_lineshapes():
     plt.close(fig)
 
 
+# ═══════════════════════════════════════════════════════════════════════════
+#  FIGURE 14  —  Output Transmission Spectrum with shaded absorption bands
+# ═══════════════════════════════════════════════════════════════════════════
+
+def plot_transmission_spectrum():
+    """
+    T(ν) = exp(−α₁(ν) − α₂(ν))  where αᵢ(ν) is a Lorentzian.
+
+    Output is saved to the same folder as this script for manual revision
+    before the user moves it to Figures/Chapter 1/.
+
+    Clean presentation: shaded FWHM bands communicate that absorption lines
+    are finite-bandwidth regions. No arrows, no callout labels, no centre lines.
+    """
+    nu = np.linspace(0.0, 11.0, 6000)
+
+    # ── Resonance parameters ─────────────────────────────────────────────────
+    nu0_1, dnu_1, aL_1 = 3.0, 0.50, 1.50   # ν₀, FWHM, α_peak·L
+    nu0_2, dnu_2, aL_2 = 7.5, 0.70, 2.50
+
+    # Lorentzian absorption profiles and total transmission
+    alpha_1 = aL_1 / (1.0 + ((nu - nu0_1) / (dnu_1 / 2.0))**2)
+    alpha_2 = aL_2 / (1.0 + ((nu - nu0_2) / (dnu_2 / 2.0))**2)
+    T = np.exp(-(alpha_1 + alpha_2))
+
+    # ── FWHM band boundaries (ν₀ ± Δν/2) ───────────────────────────────────
+    b1_lo, b1_hi = nu0_1 - dnu_1 / 2, nu0_1 + dnu_1 / 2   # 2.75 – 3.25
+    b2_lo, b2_hi = nu0_2 - dnu_2 / 2, nu0_2 + dnu_2 / 2   # 7.15 – 7.85
+
+    # ── Figure setup ────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.set_facecolor(WHITE)
+    fig.patch.set_facecolor(WHITE)
+
+    # ── Transmission curve ───────────────────────────────────────────────────
+    ax.plot(nu, T, color=TEAL, linewidth=2.5, label="Transmission Spectrum")
+
+    # ── FWHM shading (drawn first so the curve sits on top) ─────────────────
+    ax.axvspan(b1_lo, b1_hi, alpha=0.11, color=CORAL,
+               label=r"Absorption Bandwidth ($\Delta\nu$ FWHM region)")
+    ax.axvspan(b2_lo, b2_hi, alpha=0.11, color=CORAL)
+
+    # ── Axes cosmetics ───────────────────────────────────────────────────────
+    ax.set_xlim(0.0, 11.0)
+    ax.set_ylim(0.0, 1.12)
+    ax.set_xticks([nu0_1, nu0_2])
+    ax.set_xticklabels([r"$\nu_{0,1}$", r"$\nu_{0,2}$"], fontsize=12)
+    ax.set_xlabel(r"Frequency $\nu$", fontsize=13)
+    ax.set_ylabel(r"Output Transmission $T(\nu) = e^{-\alpha(\nu)L}$", fontsize=13)
+    ax.set_title("The Output Transmission Spectrum", fontsize=15, pad=12)
+    ax.grid(True)
+
+    legend = ax.legend(loc="upper right", framealpha=1,
+                       facecolor="#f5f5f5", edgecolor="#cccccc",
+                       labelcolor=AXES_CLR)
+
+    fig.tight_layout()
+
+    # Save to same folder as script for revision before manual move
+    out_path = os.path.join(OUT_DIR, "14.jpg")
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
 # ── Entry point ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     plot_susceptibility_lineshapes()
+    plot_transmission_spectrum()
