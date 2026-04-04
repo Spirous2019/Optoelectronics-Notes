@@ -324,10 +324,6 @@ x_0(-\omega^2) + x_0(j\eta\omega) + x_0(\omega_0^2) = -\frac{e}{m} E_0
 \begin{equation*}
 x_0 \left(-\omega^2+j\eta\omega + \omega_0^2 \right) = -\frac{e}{m} E_0
 \end{equation*}
-% To isolate the phasor amplitude $x_0$, we explicitly divide both sides of the equation by the entire parenthetical term:
-% \begin{equation*}
-% \frac{x_0 \left( \omega_0^2-\omega^2+j\eta\omega \right)}{\left( \omega_0^2-\omega^2+j\eta\omega \right)} = \frac{-\frac{e}{m} E_0}{\left( \omega_0^2-\omega^2+j\eta\omega \right)}
-% \end{equation*}
 This perfectly simplifies to our final solution for the phasor displacement $x_0$:
 \begin{keyresult}
 \begin{equation}
@@ -412,7 +408,7 @@ In short, by applying the complex conjugate technique to the displacement phasor
 
 \subsection{From Single-Atom Dipole to Macroscopic Polarization}
 
-Now we'll scale up from a single microscopic atom to an entire macroscopic block of material. Recall that we derived the phasor displacement $x_0$ of the electron relative to its nucleus. This displaced charge pair — the positive nucleus and the displaced negative electron — forms an electric dipole. Physically, the \textbf{atomic dipole moment} quantifies how far the charge has been pulled apart and how strong the resulting local electric field distortion is. We define it as charge times displacement:
+Now we'll scale up from a single microscopic atom to an entire macroscopic block of material. Recall from \textbf{\nameref{subsec:driven_equation}} that we derived the phasor displacement $x_0$ of the electron relative to its nucleus. This displaced charge pair — the positive nucleus and the displaced negative electron — forms an electric dipole. Physically, the \textbf{atomic dipole moment} quantifies how far the charge has been pulled apart and how strong the resulting local electric field distortion is. We define it as charge times displacement:
 \begin{equation*}
     p_0 = q\,x_0 = -e\,x_0
 \end{equation*}
@@ -451,7 +447,7 @@ To find a concrete expression for $\chi(\omega)$, we equate our two definitions 
 \begin{equation*}
     \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e\,x_0
 \end{equation*}
-Substitute the phasor displacement $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$ that we derived in the previous section:
+Substitute the phasor displacement $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$ that we derived in \textbf{\nameref{subsec:driven_equation}}:
 \begin{equation*}
     \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e \left(-\frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}\right) \implies \varepsilon_0\,\chi(\omega)\,E_0 = N_A\,e \cdot \frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}
 \end{equation*}
@@ -493,7 +489,7 @@ For two complex equations to be mathematically equal, their purely real parts mu
     \chi' = -\frac{N_A e}{\varepsilon_0 E_0}x' \quad \text{and} \quad \chi'' = -\frac{N_A e}{\varepsilon_0 E_0}x''
 \end{equation*}
 
-Finally, we simply substitute our exact algebraic formulas for $x'$ and $x''$ derived in the previous section into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
+Finally, we simply substitute our exact algebraic formulas for $x'$ and $x''$ derived in \textbf{\nameref{subsec:driven_equation}} into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
 \begin{keyresult}
 \begin{gather}
     \chi'(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m} \left[ \frac{\omega_0^2 - \omega^2}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ Controls Dispersion)} \\[1ex]
@@ -892,7 +888,7 @@ As we sweep across the entire electromagnetic spectrum, the refractive index $n$
     \label{fig:ch1_broadband_dispersion}
 \end{figure}
 
-In short, real materials possess multiple resonances spread across the spectrum. The overall refractive index $n(\omega)$ is the cumulative result of all of them, with each resonance contributing its own absorption band and local anomalous dispersion dip. At this point, we have a complete toolkit from the classical model: susceptibility $\chi$, refractive index $\tilde{n}$, and attenuation coefficient $\alpha$. Now let's use these tools to understand the spectral profile of absorption — the line shape function.
+In short, real materials possess multiple atomic and molecular resonances spread widely across the electromagnetic spectrum. The overall broadband refractive index $n(\omega)$ that we measure in the laboratory is the continuous cumulative result of all of them perfectly overlapping, with each distinct resonance contributing its own dedicated absorption band and highly localised anomalous dispersion dip. At this point, we have built a complete, powerful toolkit strictly from the classical model: the susceptibility $\chi$, the complex refractive index $\tilde{n}$, and the macroscopic attenuation coefficient $\alpha$. Now let's confidently use these foundational tools to dissect the exact spectral profile of absorption — the line shape function.
 
 \section{The Line Shape Function}
 
@@ -950,7 +946,7 @@ To model this smeared probability mathematically, we define the \textbf{line sha
 
 In short, an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
 
-\subsection{Deriving \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)} from the Absorption Coefficient}
+\subsection{Deriving \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)} from the Absorption Coefficient}\label{subsec:deriving_lineshape}
 
 We will derive the line shape function directly from the absorption coefficient $\alpha$ that we obtained in the previous section. Recall the result from \textbf{\nameref{subsubsec:host_medium}}:
 \begin{equation*}
@@ -1252,7 +1248,7 @@ Now we derive the formula for $\sigma(\nu)$. We start from what we already know:
 \end{equation*}
 This is the radiation lifetime — the only quantity in our expression that accounts for how quickly the excited state spontaneously emits. It is a pure material/geometric constant.
 
-Recall that:
+Recall from \textbf{\nameref{subsec:deriving_lineshape}} that:
 \begin{equation*}
     \alpha = \frac{N_A q^2}{4\varepsilon_0 m n C_0}\cdot g_{\nu_0}(\nu)
 \end{equation*}
@@ -1364,7 +1360,7 @@ In short, a stationary atom absorbs maximally at $\nu_0$. A moving atom absorbs 
 
 \subsection{The Line Shape Function for a Moving Atom}
 
-As we already know from the previous section, the line shape function $g_{\nu_0}(\nu)$ for a stationary atom (at $V=0$) is:
+As we derived in \textbf{\nameref{subsec:deriving_lineshape}}, the line shape function $g_{\nu_0}(\nu)$ for a stationary atom (at $V=0$) is:
 \begin{equation*}
     g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu-\nu_0)^2} \qquad \text{(from source at } V=0\text{)}
 \end{equation*}
