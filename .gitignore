@@ -39,3 +39,6 @@
 ## OS generated files:
 .DS_Store
 Thumbs.db
+
+## Ignore temporary plot outputs:
+Complete_Study_Notes/Plots/**/*.jpg
