@@ -1,0 +1,79 @@
+\documentclass[12pt,oneside,openany]{book}
+
+\input{Preamble.tex}
+\setlength{\headheight}{24.65pt}
+
+\definecolor{rulegray}{gray}{0.6}
+
+\begin{document}
+
+% ============================================================
+% COVER PAGE
+% ============================================================
+\begin{titlepage}
+    \centering
+    \vspace*{1.4cm}
+
+    % Logo
+    \includegraphics[width=0.25\textwidth]{../Complete_Study_Notes/Figures/logo.png}\par
+
+    \vspace{2.2cm}
+
+    % Decorative rule
+    {\color{rulegray}\rule{0.45\textwidth}{0.5pt}}\par
+
+    \vspace{0.55cm}
+
+    % Title
+    {\fontsize{32}{38}\selectfont\bfseries Optoelectronics\par}
+
+    \vspace{0.75cm}
+
+    % Decorative rule
+    {\color{rulegray}\rule{0.45\textwidth}{0.5pt}}\par
+
+    \vspace{1.2cm}
+
+    % Subtitle
+    {\Large\textit{Sheets and Solutions}\par}
+
+    \vspace{0.75cm}
+
+    % Decorative separator
+    {\color{rulegray}\rule{0.15\textwidth}{0.5pt}}\par
+
+    \vspace{0.8cm}
+
+    % Author
+    {\Large SPIROUS\par}
+
+    \vspace{0.3cm}
+
+    % Year
+    {\large Spring 2026\par}
+
+    \vspace*{1cm}
+
+\end{titlepage}
+{
+\hypersetup{linkcolor=black}
+\tableofcontents
+}
+
+\chapter*{Sheet 1}
+\addcontentsline{toc}{chapter}{Sheet 1}
+\input{"Sheets/Sheet 1"}
+
+\chapter*{Sheet 2}
+\addcontentsline{toc}{chapter}{Sheet 2}
+\input{"Sheets/Sheet 2"}
+
+\chapter*{Sheet 3}
+\addcontentsline{toc}{chapter}{Sheet 3}
+\input{"Sheets/Sheet 3"}
+
+\chapter*{Sheet 4}
+\addcontentsline{toc}{chapter}{Sheet 4}
+\input{"Sheets/Sheet 4"}
+
+\end{document}

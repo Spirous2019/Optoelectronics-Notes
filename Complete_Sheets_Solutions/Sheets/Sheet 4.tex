@@ -1,0 +1,782 @@
+% ============================================================
+%  ECE 431 -- Sheet 4 Solutions
+%  Style: sheet-answering-style.md
+% ============================================================
+
+\begin{question}[Question 1]The transmittance of a symmetrical Fabry-Perot resonator was measured by
+using light from a tunable monochromatic light source. The transmittance versus frequency
+exhibits periodic pulses of period 150\,MHz, each of width (FWHM) 5\,MHz. Assuming that the
+medium within the resonator mirrors is a gas with $n=1$, determine the length and finesse of
+the resonator. Assuming that the only source of loss is associated with the mirrors, find their
+reflectances.
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 1}
+% ============================================================
+
+We are evaluating a purely symmetrical Fabry-Perot optical resonator mapped analytically in a vacuum/gas domain ($n=1$). We are structurally provided the Free Spectral Range (FSR = $150$\,MHz) separating identical transmission pulses, alongside the empirical FWHM bounding these singular spikes ($\Delta\nu = 5$\,MHz). We want to translate these generic frequency measurements back into explicit structural parameters: the length $L$, numerical finesse $F$, and matching mirror reflection limits $R$.
+
+Resonance naturally forces geometric modes whenever spacing corresponds to integer wave cycles. Length mathematically governs FSR strictly via $\nu_F = c/2L$. Finesse essentially scales how deeply the internal multi-path bounding isolates exact frequency limits, strictly defined as $F = \nu_F / \Delta\nu$. Furthermore, identical exact theoretical bounding explicitly maps mirror mechanics definitively scaling universally as $F = \pi\sqrt{R} / (1-R)$.
+
+\medskip
+\noindent\textbf{1. Resolving Geometric Resonator Length}\quad
+By the fundamental definition, the FSR physically limits longitudinal mode separation:
+\begin{equation*}
+  \nu_F = \frac{c}{2L}
+\end{equation*}
+Isolating generic lengths theoretically:
+\begin{equation*}
+  L = \frac{c}{2\nu_F} = \frac{3 \times 10^8 \text{ m/s}}{2 \times (150 \times 10^6 \text{ Hz})} = \frac{3 \times 10^8}{3 \times 10^8}
+\end{equation*}
+\begin{equation*}
+  \boxed{ L = 1.0 \text{ m} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Extracting the Resonator Finesse}\quad
+Finesse mathematically evaluates the ratio of the pulse spacing uniquely against exactly its own spectral width:
+\begin{equation*}
+  F = \frac{\nu_F}{\Delta\nu}
+\end{equation*}
+\begin{equation*}
+  F = \frac{150 \text{ MHz}}{5 \text{ MHz}} = 30
+\end{equation*}
+\begin{equation*}
+  \boxed{ F = 30 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{3. Determining Mirror Power Reflectance}\quad
+Operating exactly precisely against theoretical limits cleanly translates to solving the finesse function:
+\begin{equation*}
+  F = \frac{\pi \sqrt{R}}{1 - R} = 30
+\end{equation*}
+Cross-multiplying identical limits specifically:
+\begin{equation*}
+  30(1 - R) = \pi \sqrt{R}
+\end{equation*}
+Let us substitute ideally $x = \sqrt{R}$:
+\begin{equation*}
+  30(1 - x^2) = \pi x \quad \Longrightarrow \quad 30x^2 + \pi x - 30 = 0
+\end{equation*}
+Executing natively theoretically pure quadratic identically:
+\begin{equation*}
+  x = \frac{-\pi + \sqrt{\pi^2 - 4(30)(-30)}}{2(30)} = \frac{-\pi + \sqrt{\pi^2 + 3600}}{60}
+\end{equation*}
+Since $x$ is physically bounded to be positive conceptually:
+\begin{equation*}
+  x = \frac{-3.1416 + \sqrt{9.8696 + 3600}}{60} = \frac{-3.1416 + 60.082}{60} = \frac{56.94}{60} \approx 0.949
+\end{equation*}
+Isolating $R$ cleanly:
+\begin{equation*}
+  R = x^2 \approx (0.949)^2 \approx 0.90
+\end{equation*}
+\begin{equation*}
+  \boxed{ R \approx 90\% }
+\end{equation*}
+
+\noindent\emph{In short:} The transmission pulses inherently mapped $1.0\text{ m}$ apart completely define explicitly mirror boundaries capturing accurately $90\%$ of photon reflections structurally.
+
+% ============================================================
+
+\begin{question}[Question 2]What time does it take for the optical energy stored in a resonator of
+finesse $F=100$, length $L=50$\,cm, and refractive index $n=1$, to decay to one-half of its
+initial value?
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 2}
+% ============================================================
+
+We are studying definitively the temporal macroscopic limits bounding exactly energy storage physically mathematically decaying out of a resonator. Given parameters specifically $F = 100$, structurally cleanly identically length $L = 50\text{ cm}$, completely exclusively $n = 1$, we explicitly evaluate precisely the temporal boundary geometry explicitly mapping energy structurally decaying to half natively.
+
+Optical cavity energy $E(t)$ conceptually decays via identical precisely strict generic mathematically parameter boundaries mapping cleanly exponentially natively identically governed exclusively by the photon lifetime $\tau_p$.
+\begin{equation*}
+  E(t) = E(0)e^{-t/\tau_p} \quad \text{where} \quad \tau_p = \frac{FL}{\pi c}
+\end{equation*}
+
+\medskip
+\noindent\textbf{1. Resolving Initial Photon Lifetime Constant}\quad
+Evaluating mathematically:
+\begin{equation*}
+  \tau_p = \frac{FL}{\pi c} = \frac{100 \times 0.50 \text{ m}}{\pi \times (3 \times 10^8 \text{ m/s})}
+\end{equation*}
+\begin{equation*}
+  \tau_p = \frac{50}{\pi \times 3 \times 10^8} = \frac{50}{9.42 \times 10^8} \approx 5.305 \times 10^{-8} \text{ s} \approx 53.05 \text{ ns}
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Expanding Decay Exponentials}\quad
+Demanding physically explicitly purely that exactly half the initially pumped energy limits safely leak out intrinsically mathematically:
+\begin{equation*}
+  E(t) = E(0)e^{-t/\tau_p} \quad \Longrightarrow \quad \frac{E(t)}{E(0)} = \frac{1}{2} = e^{-t/\tau_p}
+\end{equation*}
+Taking structurally seamlessly standard natural logarithms to extract $t$:
+\begin{equation*}
+  -\frac{t}{\tau_p} = \ln(0.5) = -\ln(2)
+\end{equation*}
+\begin{equation*}
+  t = \tau_p \ln(2)
+\end{equation*}
+Substituting specific mathematically correct explicit boundary calculations intrinsically:
+\begin{equation*}
+  t = (53.05 \text{ ns}) \times 0.6931 \approx 36.77 \text{ ns}
+\end{equation*}
+\begin{equation*}
+  \boxed{ t \approx 36.8 \text{ ns} }
+\end{equation*}
+
+\noindent\emph{In short:} A strictly defined $100$-finesse boundary exclusively purely loses identically roughly exactly half its confined energy inherently within exactly $37$ nanoseconds.
+
+\begin{question}[Question 3]\begin{enumerate}[label=(\alph*)]
+  \item Determine the spacing between adjacent resonance frequencies in a resonator constructed
+        of two parallel planar mirrors separated by a distance $L=15$\,cm in air ($n=1$).
+  \item A transparent plate of thickness $L=2.5$\,cm and refractive index $n=1.5$ is placed
+        inside the resonator and is tilted slightly to prevent light reflected from the plate
+        from reaching the mirrors. Determine the spacing between the resonance frequencies of
+        the resonator.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 3}
+% ============================================================
+
+We contrast the Free Spectral Range (FSR) of an empty resonator with the FSR of the same resonator loaded with a dielectric plate. The insertion of a denser medium increases the effective optical length of the cavity, compressing the spacing between resonance frequencies.
+
+The FSR of an optical cavity is $\nu_F = c / (2L_{\text{eff}})$. The effective length $L_{\text{eff}}$ integrates the optical path length of all piecewise media inside the cavity: $L_{\text{eff}} = \sum n_i d_i$.
+
+\medskip
+\noindent\textbf{(a) Unperturbed Structural Separation}\quad
+Using the standard theoretical limit for vacuum/air:
+\begin{equation*}
+  \nu_{F} = \frac{c}{2L} = \frac{3 \times 10^8}{2 \times 0.15} = \frac{3 \times 10^8}{0.3} = 10^9 \text{ Hz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \nu_{F} = 1 \text{ GHz} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Intracavity Optical Alterations}\quad
+The new effective optical length incorporates the refractive index of the plate ($n_{\text{plate}}=1.5$, $d=2.5$ cm) and the remaining air gap:
+\begin{equation*}
+  L_{\text{eff}} = (L - d) \times n_{\text{air}} + d \times n_{\text{plate}}
+\end{equation*}
+Substituting the values:
+\begin{equation*}
+  L_{\text{eff}} = (15 - 2.5) \times 1.0 + 2.5 \times 1.5 = 12.5 + 3.75 = 16.25 \text{ cm}
+\end{equation*}
+Converting back to the FSR spacing explicitly:
+\begin{equation*}
+  \nu_{F}' = \frac{c}{2L_{\text{eff}}} = \frac{3 \times 10^8}{2 \times 0.1625} = \frac{3 \times 10^8}{0.325} \approx 9.23 \times 10^8 \text{ Hz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \nu_{F}' \approx 923 \text{ MHz} }
+\end{equation*}
+
+\noindent\emph{In short:} Inserting a solid piece of glass structurally shrinks the gap between resonant modes by about 77 MHz because light travels slower through the denser medium.
+
+\begin{question}[Question 4]Derive an expression for the resonance frequencies of the three-mirror
+cavity ring resonator shown in the figure. Assume that each mirror reflection introduces a phase
+shift of $\pi$.
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 4}
+% ============================================================
+
+This requires analyzing the resonance condition for a three-mirror ring cavity. In a ring cavity, light travels in a continuous loop rather than back and forth. 
+
+Resonance occurs when the total phase shift accumulated over one complete round trip is an integer multiple of $2\pi$. This includes both the propagation phase $kL$ and any phase shifts upon reflection.
+
+\medskip
+\noindent\textbf{1. Phase Bounding}\quad
+The wave propagates a total perimeter distance $L$, gaining phase $kL$. It strikes three mirrors, each contributing a $\pi$ phase shift. The resonance condition is:
+\begin{equation*}
+  \Delta\phi_{\text{total}} = kL - 3\pi = q(2\pi) \quad \text{where} \quad q = 1, 2, 3, \ldots
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Extracting the Resonant Frequencies}\quad
+Substituting $k = 2\pi\nu_q/c$:
+\begin{equation*}
+  \left(\frac{2\pi\nu_q}{c}\right)L = 2\pi q + 3\pi = 2\pi \left(q + \frac{3}{2}\right)
+\end{equation*}
+Canceling $2\pi$ yields:
+\begin{equation*}
+  \frac{\nu_q L}{c} = q + 1.5
+\end{equation*}
+\begin{equation*}
+  \boxed{ \nu_q = \frac{c}{L} (q + 1.5) }
+\end{equation*}
+
+\noindent\emph{In short:} Unlike a typical two-mirror standing wave cavity, the three phase inversions in the ring force the resonance spectrum to offset by exactly a half-integer factor of the base frequency.
+
+\begin{question}[Question 5]A Doppler-broadened gas laser operates at 515\,nm in a symmetric resonator
+with two mirrors each of power reflectivity 0.9 separated by a distance of 50\,cm. The spectral
+window within which lasing occurs is of bandwidth $B=1.5$\,GHz. The refractive index $n=1$.
+Calculate
+\begin{enumerate}[label=(\arabic*)]
+  \item the resonator loss coefficient,
+  \item the photon lifetime,
+  \item the number of longitudinal modes inside the laser cavity,
+  \item the finesse of the laser cavity,
+  \item the spectral width of each longitudinal mode.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 5}
+% ============================================================
+
+We are calculating standard operational characteristics for a gas laser operating at 515 nm inside a 50 cm symmetric cavity. 
+
+The physics of an optical cavity are defined by its transmission losses, the physical spacing of the mirrors, and the breadth of its internal gain medium.
+
+\medskip
+\noindent\textbf{(1) Resonator Loss Coefficient ($\alpha_r$)}\quad
+With $R_1 = R_2 = 0.9$ and $L = 0.5$ m:
+\begin{equation*}
+  \alpha_r = \frac{1}{2L} \ln\left( \frac{1}{R_1 R_2} \right) = \frac{1}{1.0} \ln\left(\frac{1}{0.81}\right) \approx  0.2107 \text{ m}^{-1}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \alpha_r \approx 0.211 \text{ m}^{-1} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(2) Photon Lifetime ($\tau_p$)}\quad
+\begin{equation*}
+  \tau_p = \frac{1}{c\alpha_r} = \frac{1}{(3 \times 10^8)(0.2107)} \approx 1.58 \times 10^{-8} \text{ s}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \tau_p \approx 15.8 \text{ ns} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(3) Number of Longitudinal Modes}\quad
+The FSR is $c/2L$:
+\begin{equation*}
+  \nu_{F} = \frac{3 \times 10^8}{2(0.5)} = 300 \text{ MHz}
+\end{equation*}
+The total modes sustained within the $1.5$ GHz active window is roughly:
+\begin{equation*}
+  N_{\text{modes}} = \frac{B}{\nu_{F}} = \frac{1.5 \times 10^9}{300 \times 10^6} = 5
+\end{equation*}
+\begin{equation*}
+  \boxed{ N_{\text{modes}} = 5 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(4) Finesse of Laser Cavity}\quad
+\begin{equation*}
+  F = \frac{\pi\sqrt{R}}{1 - R} = \frac{\pi\sqrt{0.9}}{1 - 0.9} = \frac{2.980}{0.1} = 29.8
+\end{equation*}
+\begin{equation*}
+  \boxed{ F \approx 29.8 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(5) Spectral Width of a Mode}\quad
+\begin{equation*}
+  \delta\nu = \frac{\nu_F}{F} = \frac{300 \text{ MHz}}{29.8} \approx 10.06 \text{ MHz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \delta\nu \approx 10.1 \text{ MHz} }
+\end{equation*}
+
+\begin{question}[Question 6]A 632.8\,nm HeNe laser has the following characteristics: (1) a resonator
+with 97\% and 100\% mirror power reflectances and negligible internal loss; (2) a
+Doppler-broadened atomic transition with Doppler linewidth $\Delta\nu_{D}=1.5$\,GHz; and (3) a
+small-signal peak gain coefficient $\gamma_{o}(\nu_{o})=2.5\times10^{-3}$\,cm$^{-1}$. The
+refractive index $n=1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Find the maximum cavity length which ensures single longitudinal mode operation,
+        assuming that the longitudinal mode frequency coincides with the 632.8\,nm laser line.
+        Then, use this cavity length to find
+  \item the photon flux density $\phi$ inside the cavity and the output laser intensity when
+        the saturation photon-flux density at the centre wavelength is
+        $1.4\times10^{19}$\,photons/cm$^{2}$-s, and
+  \item the FWHM linewidth $\delta\nu$ of the single longitudinal laser mode.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 6}
+% ============================================================
+
+We are operating a Helium-Neon laser with a Doppler linewidth of 1.5 GHz. We need to find the maximum possible cavity length to guarantee single longitudinal mode operation, and compute its physical macroscopic intensity parameters.
+
+Single mode operation dictates that only one geometric resonance line ($c/2L$) physically intersects the gain envelope above threshold. The very next frequency lines on either side ($\nu_o \pm c/2L$) must fall strictly below the threshold loss coefficient $\alpha_r$.
+
+\medskip
+\noindent\textbf{(a) Maximum Cavity Length for Single-Mode Operation}\quad
+For single-mode operation, the gain at the nearest neighbour mode (at frequency $\nu_o \pm \nu_F = \nu_o \pm c/2L$ from centre) must not exceed the loss:
+\begin{equation*}
+  \gamma_o \exp\!\left[ -4\ln 2 \left( \frac{c/2L}{\Delta\nu_D} \right)^{\!2} \right] = \alpha_r. \tag{I}
+\end{equation*}
+The mirror loss (with $R_1=0.97$, $R_2=1.0$, $L$ in cm, $c = 3\times10^{10}$ cm/s) is:
+\begin{equation*}
+  \alpha_r = \frac{1}{2L}\ln\!\left(\frac{1}{R_1 R_2}\right) = \frac{1}{2L}\ln\!\left(\frac{1}{0.97}\right) = \frac{0.01523}{L}\,\mathrm{cm}^{-1}.
+\end{equation*}
+Substituting $\gamma_o = 2.5\times10^{-3}$ cm$^{-1}$ and $c/(2L\Delta\nu_D) = 10/L$ (with $L$ in cm) into (I):
+\begin{equation*}
+  2.5\times10^{-3}\,\exp\!\left[-4\ln 2 \cdot \frac{100}{L^2}\right] = \frac{0.01523}{L}.
+\end{equation*}
+This is a transcendental equation in $L$. Solving numerically (at $L=16.6$ cm: LHS $\approx 9.13\times10^{-4}$ cm$^{-1}$, RHS $\approx 9.17\times10^{-4}$ cm$^{-1}$; at $L=16.7$ cm: LHS $> $ RHS):
+\begin{equation*}
+  \boxed{ L_{\text{max}} \approx 16.6\,\mathrm{cm} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Internal Photon Flux and Output Intensity}\quad
+In steady-state CW operation the gain is clamped at threshold, and the intracavity photon flux density is:
+\begin{equation*}
+  \phi = \phi_s\!\left(\frac{\gamma_o}{\alpha_r} - 1\right).
+\end{equation*}
+With $L = 16.6$ cm, the loss coefficient is $\alpha_r = 0.01523/16.6 \approx 9.17\times10^{-4}$ cm$^{-1}$. Substituting:
+\begin{equation*}
+  \frac{\gamma_o}{\alpha_r} = \frac{2.5\times10^{-3}}{9.17\times10^{-4}} \approx 2.73,
+\end{equation*}
+\begin{equation*}
+  \phi = (1.4\times10^{19})\times(2.73 - 1) = (1.4\times10^{19})\times1.73 \approx 2.42\times10^{19}\,\mathrm{photons/cm^2\text{-}s}.
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi \approx 2.42\times10^{19}\,\mathrm{photons/cm^2\text{-}s} }
+\end{equation*}
+The fraction of intracavity flux that exits through the partial mirror ($R_1 = 0.97$, $T_1 = 0.03$) for a standing-wave cavity is:
+\begin{equation*}
+  \phi_{\text{out}} = \frac{T_1}{2}\,\phi = \frac{0.03}{2}\times2.42\times10^{19} \approx 3.63\times10^{17}\,\mathrm{photons/cm^2\text{-}s}.
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi_{\text{out}} \approx 3.63\times10^{17}\,\mathrm{photons/cm^2\text{-}s} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) FWHM Linewidth of the Single Mode}\quad
+For an asymmetric cavity with $R_1 = 0.97$ and $R_2 = 1.0$, the correct finesse formula uses the geometric mean of the amplitude reflectances $r_1 r_2 = \sqrt{R_1 R_2}$:
+\begin{equation*}
+  F = \frac{\pi\,(R_1 R_2)^{1/4}}{1 - \sqrt{R_1 R_2}} = \frac{\pi\,(0.97)^{1/4}}{1 - \sqrt{0.97}} = \frac{\pi\times0.9924}{1 - 0.9849} = \frac{3.117}{0.0151} \approx 206.
+\end{equation*}
+The FSR at $L=16.6$ cm is:
+\begin{equation*}
+  \nu_F = \frac{c}{2L} = \frac{3\times10^{10}}{2\times16.6} \approx 903\,\mathrm{MHz}.
+\end{equation*}
+The FWHM mode linewidth is:
+\begin{equation*}
+  \boxed{ \delta\nu = \frac{\nu_F}{F} = \frac{903}{206} \approx 4.4\,\mathrm{MHz}. }
+\end{equation*}
+
+\begin{question}[Question 7]Consider the same He-Ne laser of Problem 6 except that the longitudinal
+modes of the laser may not coincide with the laser line. While the laser is running, the
+frequencies of its longitudinal modes drift with time as a result of small thermally induced
+changes in the length of the resonator. Find the allowable range of resonator lengths such that
+the laser will always oscillate in one or two (but not more) longitudinal modes.
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 7}
+% ============================================================
+
+Because the actual laser cavity thermally expands, the longitudinal frequencies randomly drift along the Gaussian spectrum. We must map the exact FSR boundaries to ensure we never lose lasing entirely, nor jump up to three simultaneous modes.
+
+If the bandwidth where gain beats total loss is defined as $B$, the laser sustains modes wherever a resonant frequency drops inside $B$. To guarantee oscillation in exactly one or two modes, the modal gap must fall strictly between $B/2$ and $B$.
+
+\medskip
+\noindent\textbf{Formulating Operating Frequency Threshold Bounds}\quad
+The spectral bandwidth oscillating above threshold mathematically isolates to a specific width $B$:
+\begin{equation*}
+  B = \Delta\nu_D \sqrt{ \frac{\ln(\gamma_o/\alpha_r)}{\ln 2} }
+\end{equation*}
+To physically contain mode drifting, adjacent peaks must not exist further apart than the entire window (avoids zeroing out), but must be far enough apart that three cannot fit simultaneously:
+\begin{equation*}
+  \frac{B}{2} < \nu_F \le B \quad \Longrightarrow \quad \frac{B}{2} < \frac{c}{2L} \le B
+\end{equation*}
+Inverting the bound algebraically isolates length perfectly:
+\begin{equation*}
+  \boxed{ \frac{c}{2B} \le L < \frac{c}{B} }
+\end{equation*}
+
+\begin{question}[Question 8]An Ar$^{+}$-ion laser has a resonator of length 100\,cm. The refractive
+index $n=1$.
+\begin{enumerate}[label=(\alph*)]
+  \item Determine the frequency spacing $\nu_{F}$ between the resonator modes.
+  \item Determine the number of longitudinal modes that the laser can sustain if the FWHM
+        Doppler-broadened linewidth is $\Delta\nu_{D}=3.5$\,GHz and the loss coefficient is
+        half the peak small-signal gain coefficient.
+  \item What would the resonator length $L$ have to be to achieve operation on a single
+        longitudinal mode? What would that length be for a CO$_{2}$ laser that has a much
+        smaller Doppler linewidth $\Delta\nu_{D}=60$\,MHz under the same conditions?
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 8}
+% ============================================================
+
+This requires contrasting the oscillation behavior of an Argon ion gas laser against an infrared solid-state CO$_2$ baseline using identical 1 meter cavities.
+
+Single mode thresholds scale inversely against the FSR. When systemic loss equates to exactly half peak small signal gain, the active lasing bandwidth mathematically matches the atomic linewidth boundary.
+
+\medskip
+\noindent\textbf{(a) Determining Unperturbed Resonator Space}\quad
+\begin{equation*}
+  \nu_F = \frac{c}{2L} = \frac{3 \times 10^8}{2(1.0)} = 150 \text{ MHz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \nu_F = 150 \text{ MHz} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Number of Lasing Lines}\quad
+Because macroscopic loss is parametrically governed as $\alpha_r = 0.5 \gamma_o$, the operating window becomes:
+\begin{equation*}
+  B = \Delta\nu_D \sqrt{\frac{\ln(\gamma_o/0.5\gamma_o)}{\ln 2}} = 3.5 \text{ GHz} \sqrt{\frac{\ln 2}{\ln 2}} = 3.5 \text{ GHz}
+\end{equation*}
+The total modes structurally sustained maps purely to:
+\begin{equation*}
+  \text{Modes sustained} = 1 + \left\lfloor \frac{B}{\nu_F} \right\rfloor = 1 + \left\lfloor \frac{3500}{150} \right\rfloor = 1 + 23 = 24
+\end{equation*}
+\begin{equation*}
+  \boxed{ N_{\text{modes}} = 24 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Evaluating Strict Lasing Bound Extremes}\quad
+To safely demand single mode thresholds, FSR must expand past the operational bandwidth:
+\begin{equation*}
+  \nu_F \ge B \quad \Longrightarrow \quad \frac{c}{2L} \ge 3.5 \times 10^9 \quad \Longrightarrow \quad \boxed{ L \le 4.28 \text{ cm} \text{ (Argon)} }
+\end{equation*}
+For the tighter $CO_2$ bounds operating identically:
+\begin{equation*}
+  \nu_F \ge B_{\text{CO}_2} \quad \Longrightarrow \quad \frac{c}{2L} \ge 60 \text{ MHz} \quad \Longrightarrow \quad \boxed{ L \le 250 \text{ cm} \text{ (CO}_2) }
+\end{equation*}
+\emph{In short:} The massive atoms of the Argon plasma yield extreme Doppler shift breadth, thus requiring a tiny physics-bending cavity to enforce a single geometric line.
+
+\begin{question}[Question 9]A Doppler-broadened gas laser operates at 515\,nm in a resonator with two
+mirrors separated by a distance of 50\,cm. The photon lifetime is 0.33\,ns. The spectral window
+within which oscillation can occur is of width $B=1.5$\,GHz. To select a single mode, the light
+is passed into an etalon (a passive Fabry-Perot resonator) whose mirrors are separated by the
+distance $d$ and its finesse is $F$. The etalon acts as a filter. Suggest suitable values of $d$
+and $F$. Is it better to place the etalon inside or outside the laser resonator?
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 9}
+% ============================================================
+
+A 50 cm primary laser sweeps up multiple frequencies spanning a 1.5 GHz operating bandwidth. We drop a tiny glass Fabry-Perot etalon into the cavity to cleanly choke off all subsidiary modes.
+
+An inserted etalon acts exactly as an optical bandpass comb filter. We require its Free Spectral Range to span entirely past the operational bandwidth of the laser, while its transmission spike must pinch tighter than the primary cavity spacing.
+
+\medskip
+\noindent\textbf{Matching Inter-modal Limits for Etalon Design}\quad
+To eliminate overlap confusion, the Etalon transmission peaks must physically stretch beyond the $1.5\text{ GHz}$ active gas window. Therefore, we bound its macroscopic dimension $d$:
+\begin{equation*}
+  \nu_F (\text{Etalon}) \ge B = 1.5 \text{ GHz} \quad \Longrightarrow \quad \boxed{ d \le \frac{c}{2B} = \frac{3 \times 10^8}{3 \times 10^9} = 10 \text{ cm} }
+\end{equation*}
+To logically restrict all but one specific initial laser mode, the Etalon transparency bandwidth must squeeze tighter than the primary fundamental laser mode spacing: 
+\begin{equation*}
+  \nu_F (\text{Laser}) = \frac{c}{2 L_{\text{primary}}} = \frac{3 \times 10^8}{2(0.5\text{ m})} = 300 \text{ MHz}
+\end{equation*}
+\begin{equation*}
+  \delta\nu (\text{Etalon}) \le \nu_F (\text{Laser}) \quad \Longrightarrow \quad \frac{\nu_F (\text{Etalon})}{F} = \frac{1500 \text{ MHz}}{F} \le 300 \text{ MHz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ F \ge 5 }
+\end{equation*}
+\emph{In short:} Placing the etalon inside the resonator is mathematically and energetically superior. If placed outside, the laser generates useless wideband energy which is completely discarded. Placed inside, the etalon safely chokes off the non-resonant modes inherently, forcing all system gain tightly exclusively into the desired single coherent beam.
+
+\begin{question}[Question 10]Consider a 10-cm long gas laser operating at the centre of the 600-nm line
+in a single longitudinal and a single transverse mode. The mirror reflectances are $R_{1}=99\%$
+and $R_{2}=100\%$. The refractive index $n=1$ and the effective area of the output beam is
+1\,mm$^{2}$. The small-signal gain coefficient $\gamma_{o}(\nu_{o})=0.1$\,cm$^{-1}$ and the
+saturation photon-flux density $\varphi_{s}=1.43\times10^{19}$\,photons/cm$^{2}$-s.
+\begin{enumerate}[label=(\alph*)]
+  \item Determine the distributed loss coefficients $\alpha_{m1}$ and $\alpha_{m2}$ associated
+        with each of the mirrors separately. Assuming that $\alpha_{s}=0$, find the resonator
+        loss coefficient $\alpha_{r}$.
+  \item Find the photon lifetime $\tau_{\mathrm{ph}}$.
+  \item Determine the output photon flux density $\varphi_{\mathrm{out}}$ and the output
+        power $P_{\mathrm{out}}$.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 10}
+% ============================================================
+
+This problem extracts explicit macroscopic power limits for a fully continuous 10 cm single-transverse mode gas laser. We use identical scaling equations translating photon saturation fluxes into emitted milliwatts.
+
+Power fundamentally equates to the energy of one photon scaled by the total flux density coupling cleanly out of the physical system, spread across exactly the geometrical beam area: $P = h\nu \phi A$.
+
+\medskip
+\noindent\textbf{(a) Distributed Mirror Constants}\quad
+Taking limits across exactly the $10\text{ cm}$ block:
+\begin{equation*}
+  \alpha_{m1} = \frac{1}{2(10)} \ln\left(\frac{1}{0.99}\right) \approx 5.02 \times 10^{-4} \text{ cm}^{-1}
+\end{equation*}
+\begin{equation*}
+  \alpha_{m2} = \frac{1}{2(10)} \ln\left(\frac{1}{1.0}\right) = 0 \text{ cm}^{-1}
+\end{equation*}
+Assuming internal scattering loss $\alpha_s = 0$:
+\begin{equation*}
+  \boxed{ \alpha_r = \alpha_{m1} + \alpha_{m2} = 5.02 \times 10^{-4} \text{ cm}^{-1} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Lifetime Boundaries}\quad
+\begin{equation*}
+  \boxed{ \tau_{ph} = \frac{1}{c \alpha_r} = \frac{1}{(3 \times 10^{10}) (5.02 \times 10^{-4})} \approx 66.3 \text{ ns} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Evaluating Transmitted Power Parameters}\quad
+Extracting standard intensity structurally propagating exclusively outward via mirror one ($t_1 = 1 - 0.99 = 0.01$):
+\begin{equation*}
+  \phi_{\text{out}} = \frac{t_1}{2} \phi_s \left( \frac{\gamma_o}{\alpha_r} - 1 \right) = \frac{0.01}{2} (1.43 \times 10^{19}) \left( \frac{0.1}{5.02 \times 10^{-4}} - 1 \right)
+\end{equation*}
+\begin{equation*}
+  \phi_{\text{out}} = (7.15 \times 10^{16}) (199.2 - 1) 
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi_{\text{out}} \approx 1.42 \times 10^{19} \text{ photons/cm}^2\text{-s} }
+\end{equation*}
+Bridging geometric photon limits toward macroscopic energy delivery: 
+\begin{equation*}
+  P_{\text{out}} = h\nu \phi_{\text{out}} A = (6.626 \times 10^{-34}) \left(\frac{3 \times 10^8}{600 \times 10^{-9}}\right) (1.42 \times 10^{23} \text{ photons/m}^2) (10^{-6} \text{ m}^2)
+\end{equation*}
+\begin{equation*}
+  \boxed{ P_{\text{out}} \approx 47 \text{ mW} }
+\end{equation*}
+
+\begin{question}[Question 11]A He-Ne laser operating at 632.8\,nm produces 50\,mW of multimode power
+at its output. It has an inhomogeneously broadened gain profile with a Doppler linewidth
+$\Delta\nu_{D}=1.5$\,GHz. The resonator is 30\,cm long.
+\begin{enumerate}[label=(\alph*)]
+  \item If the maximum small-signal gain coefficient is twice the loss coefficient, determine
+        the number of longitudinal modes of the laser.
+  \item If the mirrors are adjusted to maximise the intensity of the strongest mode, estimate
+        its power.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 11}
+% ============================================================
+
+This requires mapping how a macroscopic multi-mode $50\text{ mW}$ output divides statically across an inhomogeneous Doppler boundary. When the peak gain reaches double the inherent threshold, the total power is shared across explicitly identifiable longitudinal mode holes matching the Gaussian profile.
+
+Under inhomogeneous broadening, different longitudinal modes extract intensity proportionally matching their exact fractional height on the Gaussian curve. The sum equals total system multimode power.
+
+\medskip
+\noindent\textbf{(a) Extrapolation of Broadened Gaussian Lasing Field}\quad
+FSR translates to geometric mode placement exactly:
+\begin{equation*}
+  \nu_F = \frac{c}{2(0.3)} = 500 \text{ MHz}
+\end{equation*}
+Since maximally given:
+\begin{equation*}
+  \gamma_o(\nu_o) = 2 \alpha_r
+\end{equation*}
+The bandwidth where threshold guarantees oscillation algebraically resolves to:
+\begin{equation*}
+  2\alpha_r \exp\left[ -4\ln 2 \left( \frac{\nu - \nu_o}{\Delta\nu_D} \right)^2 \right] = \alpha_r \quad \Longrightarrow \quad \exp\left[ -4\ln 2 \left( \frac{\nu - \nu_o}{\Delta\nu_D} \right)^2 \right] = 0.5
+\end{equation*}
+Applying logarithmic functions isolates cleanly:
+\begin{equation*}
+  -4\ln 2 \left( \frac{\nu - \nu_o}{\Delta\nu_D} \right)^2 = -\ln 2 \quad \Longrightarrow \quad \left( \frac{2(\nu - \nu_o)}{\Delta\nu_D} \right)^2 = 1
+\end{equation*}
+\begin{equation*}
+  B = \Delta\nu_D = 1.5 \text{ GHz}
+\end{equation*}
+Extracting the integer distribution lines securely contained inside bounds:
+\begin{equation*}
+  \boxed{ N_{\text{modes}} = \frac{B}{\nu_F} = \frac{1500}{500} = 3 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Power of the Strongest Mode}\quad
+In an inhomogeneously broadened gas laser, each mode saturates independently. The output power of each mode is proportional to its \emph{excess gain above threshold}, $\gamma(\nu_q) - \alpha_r$. Adjusting the mirrors so that the central mode sits exactly at $\nu_o$:
+
+\smallskip
+\noindent\textit{Centre mode} ($\nu = \nu_o$): $\gamma(\nu_o) = 2\alpha_r$, so the excess gain is $2\alpha_r - \alpha_r = \alpha_r$.
+
+\noindent\textit{Side modes} ($\nu = \nu_o \pm 500\,\text{MHz}$):
+\begin{equation*}
+  \gamma(\nu_o \pm \nu_F) = 2\alpha_r \exp\!\left[-4\ln2\!\left(\frac{500}{1500}\right)^{\!2}\right]
+  = 2\alpha_r\,2^{-4/9} \approx 2\alpha_r \times 0.736 = 1.471\,\alpha_r,
+\end{equation*}
+giving an excess gain of $1.471\alpha_r - \alpha_r = 0.471\,\alpha_r$ per side mode.
+
+The total weight is $\alpha_r + 2\times0.471\,\alpha_r = 1.942\,\alpha_r$. The fraction belonging to the central mode is therefore $1/1.942$:
+\begin{equation*}
+  P_{\text{strongest}} = 50\,\text{mW} \times \frac{1}{1.942}
+\end{equation*}
+\begin{equation*}
+  \boxed{ P_{\text{strongest}} \approx 25.7\,\text{mW} }
+\end{equation*}
+
+\begin{question}[Question 12]Show that the effect of frequency pulling by the atomic medium is to
+reduce the intermodal frequency separation from $c/2L$ to
+$(c/2L)(1-\gamma c/2\pi\Delta\nu)$.
+Calculate the reduction for the case of a laser with $\Delta\nu=10^{9}$\,Hz,
+$\gamma=4\times10^{-2}$\,m$^{-1}$, and $L=100$\,cm.
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 12}
+% ============================================================
+
+We are required to formulate mathematically how anomalous dispersion causes frequency pulling by narrowing the intermodal separation below the simple empty geometric $c/2L$ calculation limits. 
+
+The physics of anomalous dispersion maps the effective refractive index $n(\nu)$ steeply dropping directly across the operational resonance. Since light speed $v=c/n$ fluctuates internally, adjacent mode locations are pulled closer together structurally.
+
+\medskip
+\noindent\textbf{Formal Derivative Analysis}\quad
+The refractive index gradient operates linearly inside typical resonance bands mapping: 
+\begin{equation*}
+  n(\nu) \approx 1 - \frac{\gamma(\nu) c}{2\pi \Delta\nu} \left( \frac{\nu - \nu_o}{\Delta\nu/2} \right)
+\end{equation*}
+Because optical loop distances inherently map $m\lambda = 2Ln(\nu_m)$, adjacent mode gaps theoretically compress precisely:
+\begin{equation*}
+  \nu_{m+1} - \nu_{m} = \frac{c}{2L} \left( 1 - \frac{\gamma c}{2\pi\Delta\nu} \right)
+\end{equation*}
+Calculating the definitive offset scaling specifically isolates geometric shifts conceptually:
+\begin{equation*}
+  \text{Reduction Exact} = \left( \frac{c}{2L} \right) \left( \frac{\gamma c}{2\pi\Delta\nu} \right)
+\end{equation*}
+\begin{equation*}
+  \text{Reduction} = \left( \frac{3 \times 10^8}{2(1.0)} \right) \left( \frac{(4 \times 10^{-2})(3 \times 10^8)}{2\pi (10^9)} \right) = (150 \times 10^6) \times (0.0019)
+\end{equation*}
+\begin{equation*}
+  \boxed{ \text{Reduction} \approx 286 \text{ kHz} }
+\end{equation*}
+\emph{In short:} Anomalous structural dispersion inherently alters light speeds independently inside the macroscopic beam, causing the adjacent geometric modes to "pull" closer by $286\text{ kHz}$ compared to empty bounding space.
+
+\begin{question}[Question 13]A laser cavity of length $L=10$\,cm and mirror reflectances $R_{1}=0.99$
+and $R_{2}=0.85$ is filled with a gain medium of refractive index $n=3$ and scattering loss
+factor $\alpha_{s}=10^{-4}$\,cm$^{-1}$.
+\begin{enumerate}[label=(\alph*)]
+  \item What is the FSR and $F$ of the cavity?
+  \item Calculate its photon lifetime.
+  \item Suppose that the active gain medium has a single-pass small-signal power gain $G_{o}$;
+        how large should $G_{o}$ be to obtain laser oscillations?
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 13}
+% ============================================================
+
+This computes generic limits parameterizing operation mapping structural dielectric constants across heavy $n=3$ glass. We must definitively isolate theoretical single-pass thresholds needed to trigger self-sustaining cascading oscillation across the boundaries.
+
+Steady state stable limit operation demands that single-pass absolute gain $G_0$ balances the distributed structural scattering and mirror radiation losses completely dynamically.
+
+\medskip
+\noindent\textbf{1. FSR and Finesse Mapping}\quad
+\begin{equation*}
+  \nu_F = \frac{c}{2n L} = \frac{3 \times 10^8}{2(3)(0.1)} = \frac{3 \times 10^8}{0.6} = 500 \text{ MHz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \nu_F = 500 \text{ MHz} }
+\end{equation*}
+Establishing identically effective identical macroscopic mirror limits:
+\begin{equation*}
+  R_{\text{eff}} = \sqrt{R_1 R_2} = \sqrt{0.99 \times 0.85} \approx 0.917
+\end{equation*}
+\begin{equation*}
+  \boxed{ F = \frac{\pi\sqrt{R_{\text{eff}}}}{1 - R_{\text{eff}}} = \frac{\pi(0.957)}{0.083} \approx 36.3 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Photon Lifetime}\quad
+The photon lifetime relates to finesse and FSR via $\tau_p = F/(2\pi\nu_F)$:
+\begin{equation*}
+  \tau_p = \frac{F}{2\pi\nu_F} = \frac{36.3}{2\pi\times500\times10^6} = \frac{36.3}{3.142\times10^9} \approx 11.5\,\mathrm{ns}.
+\end{equation*}
+\begin{equation*}
+  \boxed{ \tau_p \approx 11.5\,\mathrm{ns} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Threshold Single-Pass Gain $G_o$}\quad
+For lasing, the round-trip gain must overcome all round-trip losses. The round-trip loss includes the two mirror transmissions and the internal scattering. In one round trip of length $2L$, the intensity factor is $G_o^2 \cdot R_1 R_2 \cdot e^{-2\alpha_s L}$. Setting this $\ge 1$ for threshold:
+\begin{equation*}
+  G_o^2 \cdot R_1 R_2 \cdot e^{-2\alpha_s L} \ge 1 \quad\Longrightarrow\quad G_o \ge \frac{1}{\sqrt{R_1 R_2}}\,e^{\alpha_s L} = \frac{e^{(10^{-4})(10)}}{\sqrt{0.99\times0.85}}.
+\end{equation*}
+\begin{equation*}
+  G_o \ge \frac{1.001}{0.9170} \approx 1.091.
+\end{equation*}
+\begin{equation*}
+  \boxed{ G_o \ge 1.091 }
+\end{equation*}
+
+\begin{question}[Question 14]Show that the gain factor of the amplified spontaneous emission (ASE),
+$G_{o}-1$, has a bandwidth that is smaller than the bandwidth of the small-signal gain
+coefficient $\gamma_{o}$, i.e.\ the amplification of spontaneous emission is accompanied by
+spectral narrowing. You may assume that $\gamma_{o}(\nu)$ has a Lorentzian distribution.
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 14}
+% ============================================================
+
+This requires an algebraic theoretical proof demonstrating how Amplified Spontaneous Emission (ASE) physically narrows its broadband spectrum natively. 
+
+As thermal white noise propagates through active continuous amplifying structures geometrically, peak resonant bounds experience exponentially stronger growth factors than off-peak tail modes natively perfectly mathematically. 
+
+\medskip
+\noindent\textbf{Spectral Squeezing Functional Boundary Analysis}\quad
+We expand the exponential growth profile analytically:
+\begin{equation*}
+  G(\nu) = \exp[ \gamma(\nu) d ] \approx 1 + \gamma(\nu) d + \frac{1}{2}(\gamma(\nu)d)^2
+\end{equation*}
+The initial small-signal gain profile fits exactly to a standard Lorentzian lineshape:
+\begin{equation*}
+  \gamma(\nu) = \frac{\gamma_o}{1 + \left( \frac{2(\nu - \nu_o)}{\Delta\nu} \right)^2}
+\end{equation*}
+By squaring this Lorentzian term linearly within the ASE exponential integration layer, the frequency-dependent denominator physically cascades as a squared polynomial mathematically locking the probability tails. A squared Lorentzian falls off much steeper than its linear counterpart. Consequentially, scaling exponentially uniquely generates physically narrowed ASE boundary limits entirely robustly.
+
+\begin{question}[Formative Question]\begin{enumerate}[label=(\alph*)]
+  \item Write the rate equations for the two-level laser system shown in the figure.
+  \item Show that a steady state population inversion cannot be achieved by using direct
+        optical pumping between levels 1 and 2. Assume that level 1 is the ground state.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Formative Question -- Rate Equation Transients}
+% ============================================================
+
+We evaluate direct pumping from Ground (Level 1) to Level 2. We will mathematically prove it cannot sustain continuous population inversion.
+
+A physical laser mandates positive population inversion mathematically: $N_2 - N_1 > 0$.
+
+\medskip
+\noindent\textbf{(a) Formally Resolving Limits}\quad
+Employing standard rate formulas dynamically on purely ground state boundaries:
+\begin{equation*}
+  \frac{dN_2}{dt} = R(N_1 - N_2) - \frac{N_2}{\tau_{2}} = 0
+\end{equation*}
+Evaluating strictly independent standard parameter limits mathematically:
+\begin{equation*}
+  N_2 = \frac{R\tau_2}{1+2R\tau_2} N_{\text{total}}
+\end{equation*}
+Because the total number of atoms is conserved:
+\begin{equation*}
+  N_1 = N_{\text{total}} - N_2
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) The Theoretical Positivity Threshold Failure}\quad
+Evaluating theoretical limits explicitly:
+\begin{equation*}
+  N_2 - N_1 = 2N_2 - N_{\text{total}} = \left(\frac{2R\tau_2}{1 + 2R\tau_2} - 1\right) N_{\text{total}}
+\end{equation*}
+Simplifying algebraically:
+\begin{equation*}
+  N_2 - N_1 = \left(\frac{2R\tau_2 - (1 + 2R\tau_2)}{1 + 2R\tau_2}\right) N_{\text{total}} = \frac{-1}{1+2R\tau_2} N_{\text{total}}
+\end{equation*}
+The inversion differential collapses universally to a negative value. Because $N_2 - N_1$ strictly evaluates below zero, pure 2-level laser architectures explicitly fail.
+

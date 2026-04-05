@@ -483,12 +483,12 @@ The intensity (power per unit area) is then:
     \boxed{I_\nu = \rho_\nu\,V_g}
 \end{equation}
 
-where $V_g$ is the group velocity of the photons. In most practical cases (and as an approximation that we adopt here), we can set $V_g \approx c$ (the speed of light in vacuum), since the group velocity in most optical media is close to $c$. This gives:
+where $V_g$ is the group velocity of the photons. In a medium of refractive index $n$, the phase velocity (and group velocity for a non-dispersive medium) is $V_g \approx c_0/n$, where $c_0$ is the speed of light in vacuum. Therefore:
 \begin{equation}
-    \rho_\nu \approx \frac{I_\nu}{c}
+    \rho_\nu \approx \frac{I_\nu}{V_g} = \frac{n\,I_\nu}{c_0}
 \end{equation}
 
-So the energy density and the intensity are simply related by a factor of $1/V_g \approx 1/c$. We will work with $\rho_\nu$ in the rate equations and then convert to $I_\nu$ at the end.
+So the energy density and intensity are related by a factor of $n/c_0$. This factor of $n$ in the numerator is critical --- it will cancel one power of $n$ from the Einstein $B$ coefficient later, giving $n^2$ (not $n^3$) in the denominator of the final cross-section. We will work with $\rho_\nu$ in the rate equations and convert to $I_\nu$ at the end.
 
 In short, the energy density $\rho_\nu$ is the energy stored per unit volume in a frequency slice, and it maps directly to the measurable intensity via $I_\nu = \rho_\nu V_g$. This bridge lets us convert Einstein's rate equations — which are naturally written in terms of energy density — into statements about optical intensity.
 
@@ -524,30 +524,27 @@ This is the definition: intensity equals the number of photons per unit area per
 
 And substituting $I_\nu = \rho_\nu\,V_g$:
 \begin{equation}
-    \rho_\nu\,V_g = \Phi\,h\nu \quad \Rightarrow \quad \rho_\nu = \frac{\Phi\,h\nu}{V_g}
+    \rho_\nu\,V_g = \Phi\,h\nu \quad \Rightarrow \quad \rho_\nu = \frac{\Phi\,h\nu}{V_g} = \frac{n\,\Phi\,h\nu}{c_0}
 \end{equation}
 
-Using the approximation $V_g \approx c$ and the Einstein B coefficient $B = \lambda_0^3/(8\pi n^3 h\,\tau_{sp})$, we substitute into the absorption rate equation. Replacing $\mathcal{E}(\nu)\,g_{\nu_0}(\nu)\,d\nu \to \rho_\nu\,g_{\nu_0}(\nu)$ and then $\rho_\nu = \Phi h\nu / V_g$:
+Using $V_g = c_0/n$ and the Einstein $B$ coefficient $B = \lambda_0^3/(8\pi n^3 h\,\tau_{sp})$, we substitute into the absorption rate equation:
 
 \begin{align}
-    \left.\frac{dN_2}{dt}\right|_{abs} &= B\,N_1\,\frac{\Phi\,h\nu}{V_g}\,g_{\nu_0}(\nu) \notag \\
-    &= \frac{\lambda_0^3}{8\pi n^3 h\,\tau_{sp}}\,N_1\,\frac{\Phi\,h\nu}{c}\,g_{\nu_0}(\nu) \notag \\
-    &= \frac{\lambda_0^3\,\nu}{8\pi\,n^3\,c\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu)
+    \left.\frac{dN_2}{dt}\right|_{abs} &= B\,N_1\,\rho_\nu\,g_{\nu_0}(\nu) \notag \\
+    &= \frac{\lambda_0^3}{8\pi n^3 h\,\tau_{sp}}\,N_1\,\frac{n\,\Phi\,h\nu}{c_0}\,g_{\nu_0}(\nu) \notag \\
+    &= \frac{\lambda_0^3\,\nu}{8\pi\,n^2\,c_0\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu)
 \end{align}
 
-To mathematically cancel the parameter $c$, we explicitly factor the speed of light as $c = \lambda_0\nu$. We separate $\lambda_0^3\,\nu$ in the numerator strictly as $\lambda_0^2 (\lambda_0\nu)$:
+Note how the factor of $n$ from $\rho_\nu = n\Phi h\nu/c_0$ cancelled one power of $n^3$ from $B$, leaving $n^2$. Now substitute $c_0 = \lambda_0\nu$ to cancel the remaining $c_0$:
 \begin{align}
-    \left.\frac{dN_2}{dt}\right|_{abs} &= \frac{\lambda_0^2 (\lambda_0\nu)}{8\pi\,n^3\,c\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu)
-\end{align}
-Now substitute $c = \lambda_0\nu$ entirely for the term strictly inside the parenthesis:
-\begin{align}
-    \left.\frac{dN_2}{dt}\right|_{abs} &= \frac{\lambda_0^2 \, c}{8\pi\,n^3\,c\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu) \notag \\
-    &= \frac{\lambda_0^2}{8\pi\,n^3\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu)
+    \left.\frac{dN_2}{dt}\right|_{abs}
+    &= \frac{\lambda_0^3\,\nu}{8\pi\,n^2\,(\lambda_0\nu)\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu) \notag \\
+    &= \frac{\lambda_0^2}{8\pi\,n^2\,\tau_{sp}}\,N_1\,\Phi\,g_{\nu_0}(\nu)
 \end{align}
 
-where we used $\lambda_0\nu = c$ in the last step. We can notice that the factor $\dfrac{\lambda_0^2}{8\pi\,n^3\,\tau_{sp}}\,g_{\nu_0}(\nu)$ is exactly the absorption cross section $\sigma(\nu)$ from the Einstein model:
+Substituting the in-medium wavelength $\lambda = \lambda_0/n$, the factor $\dfrac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)$ is exactly the absorption cross section $\sigma(\nu)$:
 \begin{equation}
-    \sigma(\nu) = \frac{\lambda_0^2}{8\pi\,n^3\,\tau_{sp}}\,g_{\nu_0}(\nu) \qquad \text{(Einstein model)}
+    \boxed{\sigma(\nu) = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)} \qquad \text{(Einstein model)}
 \end{equation}
 
 Therefore, the absorption rate simplifies beautifully to:
@@ -560,17 +557,17 @@ And by identical algebra, the stimulated emission rate becomes:
     \left.\frac{dN_2}{dt}\right|_{stim} = -\sigma(\nu)\,\Phi\,N_2
 \end{equation}
 
-\textbf{Note on the difference between classical and Einstein cross sections:} We have now derived the absorption cross section from the Einstein model:
+\textbf{Note on the difference between classical and Einstein cross sections:} We have now derived the absorption cross section from the Einstein model in terms of the in-medium wavelength $\lambda$:
 \begin{equation}
-    \sigma_{\text{Einstein}}(\nu) = \frac{\lambda_0^2}{8\pi\,n^3\,\tau_{sp}}\,g_{\nu_0}(\nu)
+    \sigma_{\text{Einstein}}(\nu) = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
 \end{equation}
 Recall that from the classical model we had:
 \begin{equation}
     \sigma_{\text{classical}}(\nu) = \frac{3\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)
 \end{equation}
-The two differ by a factor of 3 in the numerator, by using $\tau_{sp}$ vs.\ $\tau_r$, and the Einstein expression includes the medium refractive index $n$ explicitly. The factor of 3 arises because the quantum (Einstein) derivation correctly accounts for the directional degeneracy of the photon polarisation states, which the classical derivation does not handle with the same accuracy. The Einstein expression is the correct one to use in quantum optics.
+Both models naturally use the \emph{in-medium} wavelength $\lambda$. Notice that by phrasing the cross-section directly in terms of $\lambda = \lambda_0/n$, we completely eliminate the explicit appearance of the refractive index $n$ from the rule, preventing confusion. The two expressions differ structurally only by a factor of 3 because the quantum (Einstein) derivation correctly accounts for the directional degeneracy of the photon polarisation states, which the classical derivation does not handle with the same accuracy. The Einstein expression is the correct one to use in quantum optics.
 
-In short, introducing the photon flux density $\Phi = I_\nu/(h\nu)$ and substituting the Einstein B coefficient into the rate equations naturally isolates the absorption cross section $\sigma(\nu) = \lambda_0^2/(8\pi n^3 \tau_{sp})\,g_{\nu_0}(\nu)$, yielding the beautifully compact forms $dN_2/dt|_{abs} = \sigma\Phi N_1$ and $dN_2/dt|_{stim} = -\sigma\Phi N_2$.
+In short, replacing $\lambda_0/n$ with the in-medium wavelength $\lambda$ gives the cross section $\sigma(\nu) = \lambda^2/(8\pi \tau_{sp})\,g_{\nu_0}(\nu)$, yielding the compact rate equations $dN_2/dt|_{abs} = \sigma\Phi N_1$ and $dN_2/dt|_{stim} = -\sigma\Phi N_2$.
 
 \subsection{Summary: Rate Equations in Terms of \texorpdfstring{$\sigma$}{sigma} and \texorpdfstring{$\Phi$}{Phi}}
 
@@ -639,5 +636,5 @@ And the two key relationships between energy density, flux, and intensity:
 
 And the absorption cross section in the Einstein model:
 \begin{equation}
-    \boxed{\sigma(\nu) = \frac{\lambda_0^2}{8\pi\,n^3\,\tau_{sp}}\,g_{\nu_0}(\nu)}
+    \boxed{\sigma(\nu) = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)}
 \end{equation}

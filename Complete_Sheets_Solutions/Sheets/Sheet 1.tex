@@ -1,0 +1,1190 @@
+% ============================================================
+%  ECE 431 -- Sheet 1 Solutions
+%  Style: sheet-answering-style.md
+% ============================================================
+
+% ============================================================
+
+\begin{question}[Question 1]The equation of motion of a one-dimensional electron oscillator due to an
+electric field $e(t)$ is
+\begin{equation*}
+  \frac{\partial^{2}x}{\partial t^{2}}
+  + \sigma\frac{\partial x}{\partial t}
+  + \frac{k}{m}\,x(t)
+  = -\frac{e}{m}\,e(t)
+\end{equation*}
+where $x(t)$ is the excursion from the equilibrium position, $\sigma$, $k$, and $m$ are,
+respectively, the damping constant, the restoring (``spring constant'') coefficient, and electron
+mass. The charge is $-e$.
+
+\begin{enumerate}[label=(\Alph*)]
+
+  \item If $e(t)=\mathrm{Re}[E\,\exp(j2\pi\nu t)]$ and
+        $x(t)=\mathrm{Re}[x(\nu)\,\exp(j2\pi\nu t)]$, then
+        \begin{enumerate}[label=(\arabic*)]
+          \item Solve for the complex medium polarization
+                $P(\nu)=-Nex(\nu)$, where $N$ is the density (m$^{-3}$) of electrons.
+          \item Obtain an expression for the complex susceptibility $\chi(\nu)$ defined by
+                $\epsilon_{o}\chi(\nu)=P(\nu)/E(\nu)$. The result should be
+                \begin{equation*}
+                  \chi(\nu)=\chi_{o}
+                  \frac{\nu_{o}^{2}}{(\nu_{o}^{2}-\nu^{2})+j\nu\sigma/2\pi}
+                \end{equation*}
+                where $\chi_{o}=Ne^{2}/4\pi^{2}\nu_{o}^{2}m\epsilon_{o}$ and
+                $\nu_{o}=\tfrac{1}{2\pi}\sqrt{k/m}$.
+        \end{enumerate}
+
+  \item Find expressions of the real and imaginary parts $\chi'(\nu)$ and $\chi''(\nu)$ of the
+        susceptibility using the approximation
+        $(\nu_{o}^{2}-\nu^{2})\approx 2\nu_{o}(\nu_{o}-\nu)$.
+        What does this approximation mean?
+
+  \item Show that the FWHM width of $|\chi''(\nu)|$ is $\Delta\nu=\sigma/2\pi$.
+        What is the physical significance of $\Delta\nu$? How does it change with $\sigma$?
+        Explain.
+
+  \item Derive expressions of the extreme points (maxima or minima) of $\chi''(\nu)$ and
+        $\chi'(\nu)$. Sketch both of them showing these points.
+
+  \item Use the results in (D) to derive expressions of maximum and minimum real and imaginary
+        parts of relative permittivity $\epsilon_{r}$. Find their limits as $\nu\to\infty$ and
+        $\nu\to 0$.
+
+  \item Explain how to find the real and imaginary parts of the refractive index from
+        $\epsilon_{r}$.
+
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 1}
+% ============================================================
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (A) -- Solving for the Polarisation and Susceptibility}
+% ----------------------------------------------------------------
+
+We have the classical equation of motion for a bound electron driven by a
+monochromatic electric field. The electron (charge $-e$, mass $m$) is held to
+its parent nucleus by an effective spring of stiffness $k$, and its oscillation
+is damped by a coefficient $\sigma$ that accounts for collisions, radiation
+reaction, and any other loss mechanism. We want to find the \emph{steady-state
+displacement} $x(\nu)$ in response to a sinusoidal field, and from that extract
+the bulk polarisation $P(\nu)$ and the susceptibility $\chi(\nu)$.
+
+In the Classical Electron Oscillator (CEO) model, every atom is replaced by a
+damped harmonic oscillator. Because the assumed driving field and the assumed
+response are both single-frequency (phasors), we can replace every time
+derivative $\partial/\partial t$ with a factor $j2\pi\nu$. This turns the
+differential equation into a simple algebraic equation.
+
+
+\medskip
+\noindent\textbf{(1) Finding $P(\nu)$.}\quad
+Since $x(t) = \mathrm{Re}[x(\nu)\,e^{j2\pi\nu t}]$, taking time derivatives
+brings down powers of $j2\pi\nu$:
+\begin{equation*}
+  \frac{\partial x}{\partial t} \;\longrightarrow\; j2\pi\nu\,x(\nu),
+  \qquad
+  \frac{\partial^{2} x}{\partial t^{2}} \;\longrightarrow\;
+  (j2\pi\nu)^{2}\,x(\nu) = -4\pi^{2}\nu^{2}\,x(\nu).
+\end{equation*}
+Substituting into the equation of motion and cancelling the common factor
+$e^{j2\pi\nu t}$:
+\begin{equation*}
+  -4\pi^{2}\nu^{2}\,x(\nu)
+  + j2\pi\nu\sigma\,x(\nu)
+  + \frac{k}{m}\,x(\nu)
+  = -\frac{e}{m}\,E(\nu).
+\end{equation*}
+We now factor the left-hand side:
+\begin{equation*}
+  x(\nu)\!\left[\frac{k}{m} - 4\pi^{2}\nu^{2} + j2\pi\nu\sigma\right]
+  = -\frac{e}{m}\,E(\nu).
+\end{equation*}
+Recall that $\nu_o = \tfrac{1}{2\pi}\sqrt{k/m}$, so $k/m = 4\pi^{2}\nu_o^{2}$.
+Substituting:
+\begin{equation*}
+  x(\nu)\!\left[4\pi^{2}\!\left(\nu_o^{2}-\nu^{2}\right)+j2\pi\nu\sigma\right]
+  = -\frac{e}{m}\,E(\nu).
+\end{equation*}
+Solving for $x(\nu)$:
+\begin{equation*}
+  x(\nu) = \frac{-e/m}{4\pi^{2}(\nu_o^{2}-\nu^{2})+j2\pi\nu\sigma}\,E(\nu).
+\end{equation*}
+The complex medium polarisation is $P(\nu) = -Ne\,x(\nu)$, so:
+\begin{equation*}
+  P(\nu) = \frac{Ne^{2}/m}{4\pi^{2}(\nu_o^{2}-\nu^{2})+j2\pi\nu\sigma}\,E(\nu)
+  = \frac{Ne^{2}}{4\pi^{2}m}\,
+    \frac{E(\nu)}{(\nu_o^{2}-\nu^{2})+j\nu\sigma/2\pi}.
+\end{equation*}
+
+\medskip
+\noindent\textbf{(2) Finding $\chi(\nu)$.}\quad
+By definition $\epsilon_o\chi(\nu) = P(\nu)/E(\nu)$, so:
+\begin{equation*}
+  \chi(\nu) = \frac{Ne^{2}}{4\pi^{2}m\epsilon_o}
+              \cdot\frac{1}{(\nu_o^{2}-\nu^{2})+j\nu\sigma/2\pi}.
+\end{equation*}
+We multiply and divide by $\nu_o^{2}$:
+\begin{equation*}
+  \chi(\nu) = \frac{Ne^{2}}{4\pi^{2}\nu_o^{2}m\epsilon_o}
+              \cdot\frac{\nu_o^{2}}{(\nu_o^{2}-\nu^{2})+j\nu\sigma/2\pi}.
+\end{equation*}
+Identifying $\chi_o = Ne^{2}/4\pi^{2}\nu_o^{2}m\epsilon_o$:
+\begin{equation*}
+  \boxed{\chi(\nu) = \chi_o\,
+    \frac{\nu_o^{2}}{(\nu_o^{2}-\nu^{2})+j\nu\sigma/2\pi}}
+\end{equation*}
+exactly as required.
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (B) -- Near-Resonance Approximation}
+% ----------------------------------------------------------------
+
+We want to separate $\chi$ into its dispersive (real) part $\chi'$ and
+absorptive (imaginary) part $\chi''$. The exact denominator
+$(\nu_o^{2}-\nu^{2})$ makes the algebra messy, so we exploit the fact that
+the response of a narrow resonance is dominated by frequencies \emph{near}
+$\nu_o$.
+
+We factor the difference of squares:
+\begin{equation*}
+  \nu_o^{2}-\nu^{2} = (\nu_o+\nu)(\nu_o-\nu).
+\end{equation*}
+Close to resonance, $\nu\approx\nu_o$, so $(\nu_o+\nu)\approx 2\nu_o$.
+Therefore:
+\begin{equation*}
+  \nu_o^{2}-\nu^{2} \approx 2\nu_o(\nu_o-\nu).
+\end{equation*}
+At the same time $\nu\approx\nu_o$ in the damping term, so $j\nu\sigma/2\pi
+\approx j\nu_o\sigma/2\pi = j\nu_o\Delta\nu$ where we define the linewidth
+\begin{equation*}
+  \Delta\nu \equiv \frac{\sigma}{2\pi}.
+\end{equation*}
+Substituting the approximation into $\chi(\nu)$:
+\begin{equation*}
+  \chi(\nu) \approx \chi_o\,
+  \frac{\nu_o^{2}}{2\nu_o(\nu_o-\nu)+j\nu_o\Delta\nu}
+  = \frac{\chi_o\nu_o}{2}\cdot
+    \frac{1}{(\nu_o-\nu)+j\,\Delta\nu/2}.
+\end{equation*}
+Multiplying numerator and denominator by the complex conjugate
+$[(\nu_o-\nu)-j\,\Delta\nu/2]$:
+\begin{equation*}
+  \chi(\nu) = \frac{\chi_o\nu_o}{2}\cdot
+  \frac{(\nu_o-\nu)-j\,\Delta\nu/2}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}.
+\end{equation*}
+Reading off real and imaginary parts:
+\begin{equation*}
+  \boxed{
+  \chi'(\nu) = \frac{\chi_o\nu_o}{2}\,
+  \frac{(\nu_o-\nu)}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}}
+\end{equation*}
+\begin{equation*}
+  \boxed{
+  \chi''(\nu) = -\frac{\chi_o\nu_o\,\Delta\nu}{4}\,
+  \frac{1}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}}
+\end{equation*}
+
+Physically, it means we zoom in to a frequency window of width
+$\sim\Delta\nu$ centred on the resonance and treat the resonance as
+a Lorentzian line shape. The condition is $|\nu-\nu_o|\ll\nu_o$,
+i.e.\ the linewidth must be much narrower than the resonance
+frequency itself --- a condition well satisfied in atoms and
+molecules.
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (C) -- FWHM of $|\chi''(\nu)|$}
+% ----------------------------------------------------------------
+
+$|\chi''(\nu)|$ is a Lorentzian peaked at $\nu=\nu_o$. We want to find
+the half-power (FWHM) frequencies and show the width equals $\Delta\nu=\sigma/2\pi$.
+
+Since the denominator $(\nu_o-\nu)^2+(\Delta\nu/2)^2$ is minimised at
+$\nu=\nu_o$, $|\chi''|$ is maximised there:
+\begin{equation*}
+  |\chi''(\nu_o)| = \frac{\chi_o\nu_o\,\Delta\nu/4}{(\Delta\nu/2)^{2}}
+  = \frac{\chi_o\nu_o\,\Delta\nu/4}{\Delta\nu^{2}/4}
+  = \frac{\chi_o\nu_o}{\Delta\nu}.
+\end{equation*}
+
+We set $|\chi''(\nu)|=|\chi''(\nu_o)|/2$:
+\begin{equation*}
+  \frac{\chi_o\nu_o\,\Delta\nu/4}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}
+  = \frac{1}{2}\cdot\frac{\chi_o\nu_o}{\Delta\nu}.
+\end{equation*}
+Cancelling $\chi_o\nu_o$ and cross-multiplying:
+\begin{equation*}
+  \frac{\Delta\nu/4}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}
+  = \frac{1}{2\Delta\nu}.
+\end{equation*}
+\begin{equation*}
+  \frac{\Delta\nu^{2}}{2} = (\nu_o-\nu)^{2}+\frac{\Delta\nu^{2}}{4}.
+\end{equation*}
+\begin{equation*}
+  (\nu_o-\nu)^{2} = \frac{\Delta\nu^{2}}{2}-\frac{\Delta\nu^{2}}{4}
+  = \frac{\Delta\nu^{2}}{4}.
+\end{equation*}
+\begin{equation*}
+  |\nu-\nu_o| = \frac{\Delta\nu}{2}
+  \quad\Longrightarrow\quad
+  \nu_{1,2} = \nu_o \pm \frac{\Delta\nu}{2}.
+\end{equation*}
+The separation between the two half-power points is:
+\begin{equation*}
+  \boxed{\mathrm{FWHM} = \nu_2-\nu_1 = \Delta\nu = \frac{\sigma}{2\pi}.}
+\end{equation*}
+
+$\Delta\nu$ is the \emph{homogeneous linewidth} of the atomic transition. It
+sets the spectral bandwidth over which the medium strongly interacts with
+radiation. A larger damping constant $\sigma$ (more collisions, stronger
+radiation reaction, etc.) gives a wider linewidth: the energy leaks out of the
+oscillator faster, so the resonance is less sharply defined in frequency. In
+the language of signal processing, $1/\Delta\nu$ is the coherence time of the
+oscillator.
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (D) -- Extreme Points of $\chi'(\nu)$ and $\chi''(\nu)$}
+% ----------------------------------------------------------------
+
+$\chi''(\nu)$ is always non-positive. Its denominator
+$D(\nu)=(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}$ is a positive definite
+function with a unique minimum at $\nu=\nu_o$. Since $\chi''\propto -1/D$,
+$\chi''$ has a single (global) minimum at $\nu=\nu_o$:
+\begin{equation*}
+  \boxed{\chi''_{\min} = \chi''(\nu_o) = -\frac{\chi_o\nu_o}{\Delta\nu}.}
+\end{equation*}
+As $\nu\to\pm\infty$, $D\to\infty$ and $\chi''\to 0$. The curve is a downward
+Lorentzian centred on $\nu_o$.
+
+Let $u=\nu_o-\nu$. Then:
+\begin{equation*}
+  \chi'(u) = \frac{\chi_o\nu_o}{2}\,\frac{u}{u^{2}+(\Delta\nu/2)^{2}}.
+\end{equation*}
+Differentiating with respect to $u$ (and therefore with respect to $\nu$ up
+to a sign):
+\begin{equation*}
+  \frac{d\chi'}{du}
+  = \frac{\chi_o\nu_o}{2}\,
+  \frac{[u^{2}+(\Delta\nu/2)^{2}] - u\cdot 2u}{[u^{2}+(\Delta\nu/2)^{2}]^{2}}
+  = \frac{\chi_o\nu_o}{2}\,
+  \frac{(\Delta\nu/2)^{2}-u^{2}}{[u^{2}+(\Delta\nu/2)^{2}]^{2}}.
+\end{equation*}
+Setting the numerator to zero: $u^{2}=(\Delta\nu/2)^{2}$, giving
+$u=\pm\Delta\nu/2$, i.e.\ $\nu=\nu_o\mp\Delta\nu/2$.
+
+\medskip
+At $\nu = \nu_o - \Delta\nu/2$ (so $u=+\Delta\nu/2$):
+\begin{align*}
+  \chi'_{\max} &= \frac{\chi_o\nu_o}{2}\,
+  \frac{\Delta\nu/2}{(\Delta\nu/2)^{2}+(\Delta\nu/2)^{2}}
+  = \frac{\chi_o\nu_o}{2}\,
+  \frac{\Delta\nu/2}{2(\Delta\nu/2)^{2}}
+  = \frac{\chi_o\nu_o}{2}\,\frac{1}{\Delta\nu}
+  = \frac{\chi_o\nu_o}{2\Delta\nu}.
+\end{align*}
+
+At $\nu = \nu_o + \Delta\nu/2$ (so $u=-\Delta\nu/2$):
+\begin{equation*}
+  \chi'_{\min} = -\frac{\chi_o\nu_o}{2\Delta\nu}.
+\end{equation*}
+Therefore:
+\begin{equation*}
+  \boxed{\chi'_{\max} = +\frac{\chi_o\nu_o}{2\Delta\nu}
+  \text{ at }\nu=\nu_o-\tfrac{\Delta\nu}{2},
+  \qquad
+  \chi'_{\min} = -\frac{\chi_o\nu_o}{2\Delta\nu}
+  \text{ at }\nu=\nu_o+\tfrac{\Delta\nu}{2}.}
+\end{equation*}
+
+$\chi''(\nu)$ is a downward Lorentzian with a single trough of depth
+$-\chi_o\nu_o/\Delta\nu$ at $\nu_o$. $\chi'(\nu)$ is the dispersion
+(derivative-of-Lorentzian) shape: positive maximum just below $\nu_o$,
+crossing zero at $\nu_o$, negative minimum just above $\nu_o$. The
+separation between extrema of $\chi'$ equals $\Delta\nu$.
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (E) -- Relative Permittivity Extrema and Limits}
+% ----------------------------------------------------------------
+
+The relative permittivity is $\epsilon_r = 1+\chi = (1+\chi')+j\chi''$.
+
+Using the results from Part~(D) directly:
+\begin{equation*}
+  \mathrm{Re}(\epsilon_r)_{\max} = 1+\chi'_{\max}
+  = \boxed{1+\frac{\chi_o\nu_o}{2\Delta\nu}}
+  \quad\text{at }\nu=\nu_o-\tfrac{\Delta\nu}{2},
+\end{equation*}
+\begin{equation*}
+  \mathrm{Re}(\epsilon_r)_{\min} = 1+\chi'_{\min}
+  = \boxed{1-\frac{\chi_o\nu_o}{2\Delta\nu}}
+  \quad\text{at }\nu=\nu_o+\tfrac{\Delta\nu}{2},
+\end{equation*}
+\begin{equation*}
+  \mathrm{Im}(\epsilon_r)_{\min} = \chi''_{\min}
+  = \boxed{-\frac{\chi_o\nu_o}{\Delta\nu}}
+  \quad\text{at }\nu=\nu_o.
+\end{equation*}
+
+Far from resonance the near-resonance approximation breaks down, so we
+return to the exact expression to evaluate limits. From the full formula:
+\begin{equation*}
+  \chi(\nu) = \chi_o\,
+  \frac{\nu_o^{2}}{(\nu_o^{2}-\nu^{2})+j\nu\sigma/2\pi}.
+\end{equation*}
+
+\noindent\emph{As $\nu\to 0$:}
+\begin{equation*}
+  \chi(0) = \chi_o\,\frac{\nu_o^{2}}{\nu_o^{2}} = \chi_o,
+  \quad\Longrightarrow\quad
+  \epsilon_r\to 1+\chi_o \;(\text{real}),\quad \mathrm{Im}(\epsilon_r)\to 0.
+\end{equation*}
+This is the static (DC) permittivity, which is real and greater than unity.
+
+\noindent\emph{As $\nu\to\infty$:}
+\begin{equation*}
+  \chi(\nu)\approx \chi_o\,\frac{\nu_o^{2}}{-\nu^{2}}\to 0,
+  \quad\Longrightarrow\quad \epsilon_r\to 1.
+\end{equation*}
+At very high frequencies the electrons cannot follow the field, and the
+medium looks like free space.
+
+% ----------------------------------------------------------------
+\subsubsection*{Part (F) -- Extracting $n$ and $\kappa$ from $\epsilon_r$}
+% ----------------------------------------------------------------
+
+In a source-free medium, Maxwell's equations give the plane-wave dispersion
+relation $\tilde{k}^{2} = \epsilon_r\,k_o^{2}$ where $k_o=\omega/c$.
+Writing the complex refractive index $\tilde{n}=n-j\kappa$ (the sign
+convention is chosen so that $\kappa>0$ corresponds to absorption), we have
+$\tilde{n}^{2}=\epsilon_r$.
+
+Let $\epsilon_r = \epsilon_r' + j\epsilon_r''$ with $\epsilon_r'=1+\chi'$
+and $\epsilon_r''=\chi''$. Expanding $\tilde{n}^{2}=(n-j\kappa)^{2}$:
+\begin{equation*}
+  n^{2}-\kappa^{2} = \epsilon_r', \qquad 2n\kappa = -\epsilon_r''.
+\end{equation*}
+(Note: $\epsilon_r''=\chi''<0$, so $-\epsilon_r''>0$, consistent with
+$\kappa>0$.) Adding the square of the second equation to the square of the
+first:
+\begin{equation*}
+  (n^{2}-\kappa^{2})^{2}+(2n\kappa)^{2}
+  = \epsilon_r'^{2}+\epsilon_r''^{2}
+  = |\epsilon_r|^{2}.
+\end{equation*}
+\begin{equation*}
+  (n^{2}+\kappa^{2})^{2} = |\epsilon_r|^{2}
+  \quad\Longrightarrow\quad
+  n^{2}+\kappa^{2} = |\epsilon_r|.
+\end{equation*}
+Adding this to the first equation:
+\begin{equation*}
+  2n^{2} = \epsilon_r' + |\epsilon_r|
+  \quad\Longrightarrow\quad
+  \boxed{n = \sqrt{\frac{\epsilon_r'+|\epsilon_r|}{2}}},
+\end{equation*}
+and subtracting:
+\begin{equation*}
+  \boxed{\kappa = \sqrt{\frac{-\epsilon_r'+|\epsilon_r|}{2}}},
+\end{equation*}
+where $|\epsilon_r|=\sqrt{\epsilon_r'^{2}+\epsilon_r''^{2}}$.
+
+The power absorption coefficient is $\alpha = 2\kappa\,k_o = 2\kappa\,\omega/c$.
+
+\noindent\emph{In short:} measure or compute $\epsilon_r'$ and $\epsilon_r''$
+at each frequency, form $|\epsilon_r|$, and substitute into the two boxed
+formulae to obtain the real refractive index $n$ (governing phase velocity)
+and the extinction coefficient $\kappa$ (governing absorption).
+
+% ============================================================
+
+\begin{question}[Question 2]A non-absorptive medium of refractive index $n_{o}$ is host to impurities
+with susceptibility $\chi=\chi'+j\chi''$. Show that the refractive index and power absorption
+coefficient are given by
+\begin{equation*}
+  n = \sqrt{\frac{n_{o}^{2}+\chi'}{2}
+      + \sqrt{\left(\frac{n_{o}^{2}+\chi'}{2}\right)^{2}+\left(\frac{\chi''}{2}\right)^{2}}}
+  \qquad\text{and}\qquad
+  \alpha = -\frac{k_{o}}{n}\,\chi''.
+\end{equation*}
+Show that when $\chi'\ll 1$ and $\chi''\ll 1$, they reduce to
+\begin{equation*}
+  n\cong n_{o}+\frac{\chi'}{2n_{o}}
+  \qquad\text{and}\qquad
+  \alpha\cong -\frac{k_{o}}{n_{o}}\,\chi''.
+\end{equation*}
+Find an expression for the range of frequencies at which $\partial n/\partial\omega<0$, i.e.\ the
+medium is said to have an \emph{anomalous dispersion} as opposed to \emph{normal dispersion} at
+which $\partial n/\partial\omega$ is positive.
+\end{question}
+
+\subsection*{Solution to Question 2}
+% ============================================================
+
+An otherwise transparent host medium of real refractive index $n_o$ contains
+a small density of resonant impurities described by the complex susceptibility
+$\chi=\chi'+j\chi''$. We need to find the effective refractive index $n$ and
+absorption coefficient $\alpha$ of the doped medium, then simplify for small
+$\chi$, and finally locate the frequency range of anomalous dispersion.
+
+The dielectric constant of the composite medium is:
+\begin{equation*}
+  \epsilon_r = n_o^{2}+\chi = (n_o^{2}+\chi')+j\chi''.
+\end{equation*}
+We write $\epsilon_r = \epsilon_r'+j\epsilon_r''$ with
+$\epsilon_r'=n_o^{2}+\chi'$ and $\epsilon_r''=\chi''$.
+
+The complex refractive index satisfies $\tilde{n}^{2}=\epsilon_r$. Consistent with Q1(F), we write
+$\tilde{n}=n-j\kappa$ (so that $\kappa>0$ corresponds to absorption), which gives
+$n^{2}-\kappa^{2}=\epsilon_r'$ and $-2n\kappa=\epsilon_r''$, i.e.\ $2n\kappa=-\epsilon_r''$. We form $n^{2}+\kappa^{2}=|\epsilon_r|$ and add:
+\begin{equation*}
+  n^{2} = \frac{\epsilon_r'+|\epsilon_r|}{2}
+  = \frac{(n_o^{2}+\chi')}{2}
+    +\frac{1}{2}\sqrt{(n_o^{2}+\chi')^{2}+\chi''^{2}}.
+\end{equation*}
+Taking the positive square root:
+\begin{equation*}
+  \boxed{n = \sqrt{\frac{n_o^{2}+\chi'}{2}
+    + \sqrt{\!\left(\frac{n_o^{2}+\chi'}{2}\right)^{\!2}
+           +\left(\frac{\chi''}{2}\right)^{\!2}}}}
+\end{equation*}
+
+With $\tilde{n}=n-j\kappa$, the plane wave has the form $e^{j(nk_o z - \omega t)}\cdot e^{-\kappa k_o z}$, so the field amplitude decays as $e^{-\kappa k_o z}$ and the intensity decays as $e^{-2\kappa k_o z}$. The power absorption coefficient is therefore $\alpha=2\kappa k_o$.
+
+From $2n\kappa=-\epsilon_r''=-\chi''$ (since $\chi''<0$ for absorption, $-\chi''>0$, consistent with $\kappa>0$):
+$\kappa = -\chi''/(2n)$, giving:
+\begin{equation*}
+  \alpha = 2k_o\cdot\frac{-\chi''}{2n} = -\frac{k_o\chi''}{n}.
+\end{equation*}
+\begin{equation*}
+  \boxed{\alpha = -\frac{k_o}{n}\,\chi''.}
+\end{equation*}
+
+Applying the assumption $\chi'\ll 1$ and $\chi''\ll 1$ (both magnitudes much
+less than $n_o^{2}$), let us expand the formula for $n$.
+
+The inner square root first:
+\begin{equation*}
+  \sqrt{\!\left(\frac{n_o^{2}+\chi'}{2}\right)^{\!2}
+       +\left(\frac{\chi''}{2}\right)^{\!2}}
+  = \frac{n_o^{2}+\chi'}{2}
+    \sqrt{1+\left(\frac{\chi''}{n_o^{2}+\chi'}\right)^{\!2}}.
+\end{equation*}
+Since $\chi''\ll n_o^{2}$, the term $(\chi''/(n_o^{2}+\chi'))^{2}\ll 1$, so
+to leading order:
+\begin{equation*}
+  \sqrt{\!\left(\frac{n_o^{2}+\chi'}{2}\right)^{\!2}
+       +\left(\frac{\chi''}{2}\right)^{\!2}}
+  \approx \frac{n_o^{2}+\chi'}{2}.
+\end{equation*}
+Substituting back:
+\begin{equation*}
+  n^{2} \approx \frac{n_o^{2}+\chi'}{2} + \frac{n_o^{2}+\chi'}{2}
+  = n_o^{2}+\chi'.
+\end{equation*}
+Now we apply the binomial approximation, since $\chi'\ll n_o^{2}$:
+\begin{equation*}
+  n = \sqrt{n_o^{2}+\chi'} = n_o\sqrt{1+\frac{\chi'}{n_o^{2}}}
+  \approx n_o\!\left(1+\frac{\chi'}{2n_o^{2}}\right)
+  = n_o + \frac{\chi'}{2n_o}.
+\end{equation*}
+\begin{equation*}
+  \boxed{n \cong n_o + \frac{\chi'}{2n_o}.}
+\end{equation*}
+For $\alpha$, since $n\approx n_o$:
+\begin{equation*}
+  \boxed{\alpha \cong -\frac{k_o}{n_o}\,\chi''.}
+\end{equation*}
+
+Using the approximate formula $n\approx n_o+\chi'/(2n_o)$, we have:
+\begin{equation*}
+  \frac{\partial n}{\partial\omega}
+  = \frac{1}{2n_o}\,\frac{\partial\chi'}{\partial\omega}
+  = \frac{1}{2n_o}\cdot\frac{1}{2\pi}\,\frac{\partial\chi'}{\partial\nu}.
+\end{equation*}
+Anomalous dispersion requires $\partial n/\partial\omega < 0$, i.e.\
+$\partial\chi'/\partial\nu < 0$.
+
+From Part~(B):
+\begin{equation*}
+  \chi'(\nu) = \frac{\chi_o\nu_o}{2}\,
+  \frac{(\nu_o-\nu)}{(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}}.
+\end{equation*}
+Let $u=\nu_o-\nu$ so that $du/d\nu=-1$:
+\begin{align*}
+  \frac{\partial\chi'}{\partial\nu}
+  &= \frac{\chi_o\nu_o}{2}\,
+     \frac{d}{d\nu}\!\left[\frac{u}{u^{2}+(\Delta\nu/2)^{2}}\right] \\
+  &= \frac{\chi_o\nu_o}{2}\cdot(-1)\cdot
+     \frac{[u^{2}+(\Delta\nu/2)^{2}]-2u^{2}}{[u^{2}+(\Delta\nu/2)^{2}]^{2}} \\
+  &= -\frac{\chi_o\nu_o}{2}\,
+     \frac{(\Delta\nu/2)^{2}-(\nu_o-\nu)^{2}}{[(\nu_o-\nu)^{2}+(\Delta\nu/2)^{2}]^{2}}.
+\end{align*}
+For $\partial\chi'/\partial\nu < 0$ we need the numerator to be positive:
+\begin{equation*}
+  \left(\frac{\Delta\nu}{2}\right)^{\!2} - (\nu_o-\nu)^{2} > 0
+  \quad\Longrightarrow\quad
+  |\nu-\nu_o| < \frac{\Delta\nu}{2}.
+\end{equation*}
+Therefore anomalous dispersion ($\partial n/\partial\omega<0$) occurs in the
+frequency band:
+\begin{equation*}
+  \boxed{\nu_o - \frac{\Delta\nu}{2} < \nu < \nu_o + \frac{\Delta\nu}{2}.}
+\end{equation*}
+Outside this window the dispersion is normal ($\partial n/\partial\omega>0$).
+Physically, within the absorption line the refractive index \emph{decreases}
+with frequency, causing the group velocity to exceed the phase velocity --- a
+hallmark of anomalous dispersion.
+
+% ============================================================
+
+\begin{question}[Question 3]The real and imaginary parts $\chi'$ and $\chi''$ of the susceptibility
+$\chi$ are not independent. One cannot change without changing the other. For the CEO they are
+related by $\chi'=2(\nu-\nu_{o})\chi''/\Delta\nu$. Propose a setup for measuring the refractive
+index dispersion that utilises this relation.
+\end{question}
+
+\subsection*{Solution to Question 3}
+% ============================================================
+
+The Kramers--Kronig relation specific to the CEO model, $\chi' =
+2(\nu-\nu_o)\chi''/\Delta\nu$, links the dispersive part of the susceptibility
+(related to $n$) directly to its absorptive part (related to $\alpha$). We want
+to exploit this so that a \emph{single} type of measurement gives us both.
+
+\begin{enumerate}
+  \item Use a tunable narrow-linewidth laser to sweep the frequency $\nu$ across
+        the resonance.
+  \item Record the \emph{transmitted intensity} through a sample of known length
+        $\ell$. By Beer's law, $I(\nu)=I_0\,e^{-\alpha(\nu)\ell}$, so
+        $\alpha(\nu) = -\ell^{-1}\ln[I/I_0]$. Since
+        $\alpha\cong -(k_o/n_o)\chi''$, this gives $\chi''(\nu)$ at each
+        frequency.
+  \item Compute $\chi'(\nu)$ from the measured $\chi''(\nu)$ via:
+        \begin{equation*}
+          \chi'(\nu) = \frac{2(\nu-\nu_o)}{\Delta\nu}\,\chi''(\nu).
+        \end{equation*}
+  \item Finally, the refractive index dispersion follows from the approximate
+        relation $n(\nu) = n_o + \chi'(\nu)/(2n_o)$.
+\end{enumerate}
+In short, \textbf{measuring absorption alone} (a straightforward intensity
+measurement) gives you the entire refractive index profile without any
+interferometric reference path. The key advantage is robustness: a simple
+photodetector replaces an interferometer.
+
+% ============================================================
+
+\begin{question}[Question 4]Solid materials that could be used for making optical fibres typically
+exhibit strong absorption in the blue or ultraviolet region and strong absorption in the middle
+infrared region. Modelling the material as having two narrow resonant absorptions at wavelengths
+$\lambda_{01}$ and $\lambda_{02}$, sketch the wavelength dependence of the refractive index.
+Assume that the parameter $\chi_{o}$ is the same for both resonances.
+\end{question}
+
+\subsection*{Solution to Question 4}
+% ============================================================
+
+We model the material as having two Lorentzian resonances: one at a short
+UV/blue wavelength $\lambda_{01}$ (a high-frequency resonance,
+$\nu_{01}=c/\lambda_{01}$) and one at a long mid-IR wavelength $\lambda_{02}$
+(a low-frequency resonance, $\nu_{02}=c/\lambda_{02}$). With identical
+$\chi_o$, both contribute equally to the index.
+
+From Part~(B), each resonance contributes a dispersive term $\propto\chi'(\nu)$
+to the total refractive index:
+\begin{equation*}
+  n(\lambda) \approx n_o
+  + \frac{1}{2n_o}\left[\chi'_{(\nu_{01})}(\lambda)
+    + \chi'_{(\nu_{02})}(\lambda)\right].
+\end{equation*}
+
+\begin{itemize}
+  \item Well below both resonances (long-$\lambda$ IR, $\lambda\gg\lambda_{02}$):
+        both contributions are negative (falling tail of upper resonance at
+        $\lambda_{02}$, and vanishing contribution from UV resonance), so $n$
+        is slightly above $n_o$, slowly increasing as $\lambda$ decreases.
+  \item Approaching $\lambda_{02}$ from the red: the IR resonance causes $n$ to
+        rise steeply (normal dispersion), then drop sharply through the
+        absorption band (anomalous dispersion), then rise again on the blue side.
+  \item In the transparency window between $\lambda_{02}$ and $\lambda_{01}$
+        (the visible/near-IR, the useful fibre window): $n$ decreases
+        monotonically with increasing $\lambda$ (normal dispersion), a smooth
+        curve shaped by the tails of both resonances --- this is precisely the
+        Sellmeier behaviour seen in silica fibre.
+  \item Approaching $\lambda_{01}$ from the red: similarly anomalous dispersion
+        in the UV absorption band, then $n$ falls toward unity for
+        $\lambda\ll\lambda_{01}$.
+\end{itemize}
+
+\noindent\emph{In short:} the refractive index shows two anomalous-dispersion
+``notches'' (one at each absorption wavelength) separated by a broad
+normal-dispersion window that is exploited for low-loss optical fibre
+transmission.
+
+% ============================================================
+
+\begin{question}[Question 5]Consider the CEO model for the case in which there is no field acting on
+the atom. Suppose that at $t=0$ an electron is given the displacement $x_{o}$ from equilibrium
+and the velocity $v_{o}$.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Show that in the lossless case the electron coordinate $x(t)$ is given by
+        \begin{equation*}
+          x(t)=x_{o}\cos\omega_{o}t+\frac{v_{o}}{\omega_{o}}\sin\omega_{o}t.
+        \end{equation*}
+  \item What is the total (kinetic plus potential) energy of the electron in this case?
+
+  \item If the radiated power corresponds to a radiation force
+        $F_{\mathrm{rad}}/m=\dfrac{\gamma_{r}}{m\omega_{o}^{2}}\,\dfrac{\partial^{3}x}{\partial t^{3}}$,
+        where $\gamma_{r}=q^{2}\omega_{o}^{2}/6\pi\epsilon_{o}c^{3}$, then show that the
+        electron is expected to radiate away most of its energy in a time
+        \begin{equation*}
+          \tau_{r}=4\pi\epsilon_{o}\!\left(\frac{3mc^{3}}{2e^{2}\omega_{o}^{2}}\right).
+        \end{equation*}
+        This is the classical picture of ``spontaneous emission'' which we will later consider
+        during our study in the course.
+
+        \emph{Hint:} Use a trial solution $x(t)=e^{st}$, with $s=j\omega_{o}+\eta$ and show
+        that $\eta\approx\gamma_{r}/2$.
+
+  \item Estimate numerically the ``radiative lifetime'' $\tau_{r}$ found in part (c) for the
+        case of an electron oscillating at an optical frequency $\nu_{o}(=\omega_{o}/2\pi)$.
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 5}
+% ============================================================
+
+\subsubsection*{Part (a) -- Free Lossless Oscillation}
+
+With no applied field and no damping ($\sigma=0$), the electron equation
+reduces to a simple harmonic oscillator. We need to find $x(t)$ given the
+initial displacement $x_o$ and velocity $v_o$.
+
+Setting $e(t)=0$ and $\sigma=0$, the equation of motion becomes:
+\begin{equation*}
+  \ddot{x} + \omega_o^{2}\,x = 0, \qquad \omega_o = 2\pi\nu_o = \sqrt{k/m}.
+\end{equation*}
+The general solution is:
+\begin{equation*}
+  x(t) = A\cos\omega_o t + B\sin\omega_o t.
+\end{equation*}
+Applying the initial conditions: at $t=0$, $x(0)=x_o$ gives $A=x_o$.
+Differentiating, $\dot{x}(t)=-A\omega_o\sin\omega_o t + B\omega_o\cos\omega_o t$,
+so $\dot{x}(0)=B\omega_o=v_o$, giving $B=v_o/\omega_o$. Therefore:
+\begin{equation*}
+  \boxed{x(t) = x_o\cos\omega_o t + \frac{v_o}{\omega_o}\sin\omega_o t.}
+\end{equation*}
+
+\subsubsection*{Part (b) -- Total Energy}
+
+The total mechanical energy is kinetic plus potential. Because there is no
+dissipation it must be constant in time.
+
+The velocity is:
+\begin{equation*}
+  \dot{x}(t) = -x_o\omega_o\sin\omega_o t + v_o\cos\omega_o t.
+\end{equation*}
+The kinetic energy is:
+\begin{equation*}
+  \mathrm{KE}(t) = \frac{1}{2}m\dot{x}^{2}
+  = \frac{m}{2}\!\left(x_o^{2}\omega_o^{2}\sin^{2}\omega_o t
+    - 2x_o\omega_o v_o\sin\omega_o t\cos\omega_o t
+    + v_o^{2}\cos^{2}\omega_o t\right).
+\end{equation*}
+The potential energy (spring with $k=m\omega_o^{2}$) is:
+\begin{equation*}
+  \mathrm{PE}(t) = \frac{1}{2}kx^{2}
+  = \frac{m\omega_o^{2}}{2}\!\left(x_o^{2}\cos^{2}\omega_o t
+    + 2\frac{x_o v_o}{\omega_o}\cos\omega_o t\sin\omega_o t
+    + \frac{v_o^{2}}{\omega_o^{2}}\sin^{2}\omega_o t\right).
+\end{equation*}
+Adding KE and PE, the cross terms cancel and $\sin^{2}+\cos^{2}=1$:
+\begin{equation*}
+  E_{\mathrm{tot}} = \mathrm{KE}+\mathrm{PE}
+  = \frac{m}{2}\!\left(\omega_o^{2}x_o^{2}+v_o^{2}\right).
+\end{equation*}
+\begin{equation*}
+  \boxed{E_{\mathrm{tot}} = \frac{1}{2}m\!\left(\omega_o^{2}x_o^{2}+v_o^{2}\right).}
+\end{equation*}
+As expected, this is independent of time: the lossless oscillator simply
+converts between kinetic and potential energy at twice the oscillation frequency.
+
+\subsubsection*{Part (c) -- Radiative Decay Time $\tau_r$}
+
+In classical electrodynamics, an accelerating charge radiates power. The
+back-reaction of this radiation on the electron is captured by the
+Abraham--Lorentz force:
+\begin{equation*}
+  \frac{F_{\mathrm{rad}}}{m} = \tau_0\,\dddot{x},
+  \qquad \tau_0 = \frac{e^{2}}{6\pi m\epsilon_o c^{3}}.
+\end{equation*}
+The full equation of motion (no applied field, with radiation reaction) is:
+\begin{equation*}
+  \ddot{x} + \omega_o^{2}\,x = \tau_0\,\dddot{x}. \tag{I}
+\end{equation*}
+We want to show that the solution decays in a time $\tau_r \propto 1/(\tau_0\omega_o^{2})$.
+
+We substitute $x(t)=e^{st}$ with $s=j\omega_o+\eta$, where $|\eta|\ll\omega_o$.
+
+The second derivative gives:
+\begin{equation*}
+  s^{2} = (j\omega_o+\eta)^{2} = -\omega_o^{2}+2j\omega_o\eta+\eta^{2}
+  \approx -\omega_o^{2}+2j\omega_o\eta
+\end{equation*}
+(dropping $\eta^{2}$ since $\eta\ll\omega_o$). The third derivative:
+\begin{align*}
+  s^{3} &= s\cdot s^{2}
+  \approx (j\omega_o+\eta)(-\omega_o^{2}+2j\omega_o\eta) \\
+  &= -j\omega_o^{3}+2j^{2}\omega_o^{2}\eta - \omega_o^{2}\eta + 2j\omega_o\eta^{2} \\
+  &\approx -j\omega_o^{3} - \omega_o^{2}\eta
+\end{align*}
+(dropping the second-order term $2j\omega_o\eta^{2}$). Substituting into (I):
+\begin{equation*}
+  \underbrace{(-\omega_o^{2}+2j\omega_o\eta)}_{s^{2}}
+  + \omega_o^{2}
+  = \tau_0\underbrace{(-j\omega_o^{3}-\omega_o^{2}\eta)}_{s^{3}}.
+\end{equation*}
+The $\omega_o^{2}$ terms cancel on the left:
+\begin{equation*}
+  2j\omega_o\eta = \tau_0(-j\omega_o^{3}-\omega_o^{2}\eta).
+\end{equation*}
+The second term on the right, $\tau_0\omega_o^{2}\eta$, is second-order small
+(both $\tau_0\omega_o$ and $\eta/\omega_o$ are small), so we drop it:
+\begin{equation*}
+  2j\omega_o\eta \approx -j\tau_0\omega_o^{3}.
+\end{equation*}
+Dividing both sides by $2j\omega_o$:
+\begin{equation*}
+  \eta \approx -\frac{\tau_0\omega_o^{2}}{2}.
+\end{equation*}
+Therefore:
+\begin{equation*}
+  x(t) = e^{st} = e^{(j\omega_o+\eta)t}
+  = e^{j\omega_o t}\cdot e^{-\tau_0\omega_o^{2}t/2}.
+\end{equation*}
+The amplitude decays as $e^{-\tau_0\omega_o^{2}t/2}$, so the energy
+(proportional to amplitude squared) decays as $e^{-\tau_0\omega_o^{2}t}$.
+The energy $e$-folding time is:
+\begin{equation*}
+  \tau_r = \frac{1}{\tau_0\omega_o^{2}}
+  = \frac{6\pi m\epsilon_o c^{3}}{e^{2}\omega_o^{2}}
+  = 4\pi\epsilon_o\!\left(\frac{3mc^{3}}{2e^{2}\omega_o^{2}}\right).
+\end{equation*}
+\begin{equation*}
+  \boxed{\tau_r = 4\pi\epsilon_o\!\left(\frac{3mc^{3}}{2e^{2}\omega_o^{2}}\right).}
+\end{equation*}
+(Verification: $6\pi\epsilon_o mc^{3}/(e^{2}\omega_o^{2}) =
+4\pi\epsilon_o\cdot 3mc^{3}/(2e^{2}\omega_o^{2})$. \checkmark)
+
+\subsubsection*{Part (d) -- Numerical Estimate of $\tau_r$}
+
+We evaluate $\tau_r$ at a representative optical frequency,
+$\nu_o = 5\times10^{14}$\,Hz (green light, $\lambda\approx600$\,nm).
+
+First, the Abraham--Lorentz time:
+\begin{equation*}
+  \tau_0 = \frac{e^{2}}{6\pi m\epsilon_o c^{3}}
+  = \frac{(1.6\times10^{-19})^{2}}
+         {6\pi\times(9.11\times10^{-31})\times(8.85\times10^{-12})
+          \times(3\times10^{8})^{3}}.
+\end{equation*}
+Computing the denominator step by step.
+The factor $m\epsilon_o c^{3}$:
+\begin{equation*}
+  9.11\times10^{-31}\times8.85\times10^{-12}\times2.7\times10^{25}
+  = 9.11\times8.85\times2.7\times10^{-18}
+  \approx 217.8\times10^{-18}
+  \approx 2.178\times10^{-16}.
+\end{equation*}
+Multiply by $6\pi\approx18.85$:
+\begin{equation*}
+  6\pi\times2.178\times10^{-16} \approx 4.105\times10^{-15}.
+\end{equation*}
+The numerator: $e^{2}=(1.6\times10^{-19})^{2}=2.56\times10^{-38}$.
+Therefore:
+\begin{equation*}
+  \tau_0 \approx \frac{2.56\times10^{-38}}{4.105\times10^{-15}}
+  \approx 6.23\times10^{-24}\,\mathrm{s}.
+\end{equation*}
+Now $\omega_o = 2\pi\nu_o = 2\pi\times5\times10^{14}\approx3.14\times10^{15}$\,rad/s,
+so:
+\begin{equation*}
+  \omega_o^{2} \approx (3.14\times10^{15})^{2} \approx 9.87\times10^{30}\,\mathrm{rad}^{2}/\mathrm{s}^{2}.
+\end{equation*}
+The radiative lifetime:
+\begin{equation*}
+  \tau_r = \frac{1}{\tau_0\omega_o^{2}}
+  = \frac{1}{6.23\times10^{-24}\times9.87\times10^{30}}
+  = \frac{1}{6.15\times10^{7}}
+  \approx 1.6\times10^{-8}\,\mathrm{s}.
+\end{equation*}
+\begin{equation*}
+  \boxed{\tau_r \approx 16\,\mathrm{ns}.}
+\end{equation*}
+\noindent\emph{In short:} the classical radiative lifetime at optical
+frequencies is of order tens of nanoseconds, in good agreement with the
+measured spontaneous emission lifetimes of many allowed atomic transitions.
+This is a remarkable success of the CEO model.
+
+% ============================================================
+
+\begin{question}[Question 6]Consider the case of a single loop RLC circuit with no voltage or current
+source. Find the transient solution of the charge of the capacitance. Then assume that a
+sinusoidal voltage source is connected in series with the loop elements. Write down the equation
+of the charge of the capacitance and find its solution. What is the analogy of the inductance,
+capacitance, and resistance of the CEO model of an atom subjected to external radiation?
+\end{question}
+
+\subsection*{Solution to Question 6}
+% ============================================================
+
+We want to draw the mathematical analogy between the RLC circuit and the
+CEO model. Both are damped harmonic oscillators driven by an external source.
+
+For the series RLC loop with charge $q$ on the capacitor (no source):
+\begin{equation*}
+  L\ddot{q} + R\dot{q} + \frac{q}{C} = 0.
+\end{equation*}
+Dividing by $L$:
+\begin{equation*}
+  \ddot{q} + \frac{R}{L}\dot{q} + \frac{1}{LC}\,q = 0. \tag{II}
+\end{equation*}
+The characteristic equation is $s^{2}+(R/L)s+1/(LC)=0$, giving:
+\begin{equation*}
+  s_{1,2} = -\frac{R}{2L} \pm \sqrt{\left(\frac{R}{2L}\right)^{\!2}-\frac{1}{LC}}.
+\end{equation*}
+In the under-damped regime $(R/2L)^{2}<1/(LC)$:
+\begin{equation*}
+  q(t) = e^{-(R/2L)t}\!\left[A\cos\omega_d t + B\sin\omega_d t\right],
+  \quad \omega_d = \sqrt{\frac{1}{LC}-\left(\frac{R}{2L}\right)^{\!2}}.
+\end{equation*}
+The charge oscillates at the damped frequency $\omega_d$ while decaying
+exponentially with time constant $2L/R$.
+
+When a sinusoidal source $V(t)=\mathrm{Re}[V_o\,e^{j\omega t}]$ is connected, KVL gives:
+\begin{equation*}
+  L\ddot{q} + R\dot{q} + \frac{q}{C} = V(t). \tag{III}
+\end{equation*}
+In phasor form (steady state):
+\begin{equation*}
+  \left[-\omega^{2}L + j\omega R + \frac{1}{C}\right]q(\omega) = V(\omega),
+\end{equation*}
+\begin{equation*}
+  q(\omega) = \frac{V(\omega)}{(1/C - \omega^{2}L)+j\omega R}
+  = \frac{CV(\omega)}{(1-\omega^{2}LC)+j\omega RC}.
+\end{equation*}
+
+Comparing (III) with the CEO equation:
+\begin{equation*}
+  m\ddot{x} + m\sigma\dot{x} + kx = -eE(t),
+\end{equation*}
+we identify the following one-to-one correspondences:
+
+\begin{center}
+\begin{tabular}{lll}
+  \textbf{CEO quantity} & \textbf{RLC quantity} & \textbf{Relation} \\
+  displacement $x$       & charge $q$             & $x\leftrightarrow q$ \\
+  mass $m$               & inductance $L$         & $m\leftrightarrow L$ \\
+  damping coeff.\ $m\sigma$ & resistance $R$      & $R=L\sigma=m\sigma$ \\
+  spring const.\ $k$    & $1/C$                  & $k\leftrightarrow 1/C$, so $C=m/k$ \\
+  driving force $-eE$   & voltage $V$            & $V\leftrightarrow -eE$ \\
+\end{tabular}
+\end{center}
+
+\noindent\emph{In short:} the inductance $L$ plays the role of \emph{inertia}
+(mass), the capacitance $C$ plays the role of the \emph{restoring compliance}
+($1/k$), and the resistance $R$ accounts for \emph{damping}. The resonance
+frequency $\omega_o=1/\sqrt{LC}$ in the circuit maps directly to
+$\omega_o=\sqrt{k/m}$ in the atom.
+
+% ============================================================
+
+\begin{question}[Question 7]Suppose that the electron in the Lorentz model rotates in a stationary
+orbit of radius $R_{o}$ with a uniform speed $V$ subject to an internal electric field $E_{o}$
+due to the nucleus. The electric field $E$ due to external radiation displaces the electron in
+the radial direction (i.e.\ changes its orbit radius) by a displacement $x$.
+
+\begin{enumerate}[label=(\arabic*)]
+  \item Show that
+        $x/R_{o}=E/E_{o}+(E/E_{o})^{2}+(E/E_{o})^{3}+\cdots$
+  \item If $R_{o}=1.0\,\text{\AA}$, then estimate the value of $E_{o}$ and the coefficients of
+        the quadratic and cubic terms in the relation between $x$ and $E$. Hence find the
+        condition under which this relation is linear as assumed in the Lorentz model. Show that
+        in the case of a linear relation the force acting on the electron due to the external
+        field follows Hooke's law. Then find an expression of the spring constant and estimate
+        its value and the value of the resonance frequency.
+\end{enumerate}
+
+Answer the following two questions:
+\begin{enumerate}[label=Q(\arabic*)]
+  \item In which range of the electromagnetic spectrum does the resonance frequency lie?
+  \item When do you expect linearity to apply or not apply?
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 7}
+% ============================================================
+
+We consider a Bohr-like orbit of radius $R_o$ in equilibrium under the Coulomb
+attraction of the nucleus. An external optical field $E$ shifts the orbit
+radius by $x$. We want to express $x$ as a power series in $E/E_o$, identify
+the linear (Hooke's law) limit, and estimate the spring constant and resonance
+frequency.
+
+The nucleus exerts a Coulomb field at radius $R_o$:
+\begin{equation*}
+  E_o = \frac{e}{4\pi\epsilon_o R_o^{2}}.
+\end{equation*}
+This provides the centripetal force for the circular orbit:
+$eE_o = mV^{2}/R_o$, i.e.\ $mV^{2}=eE_oR_o$.
+
+When the external field pushes the electron outward by $x$, we seek a new
+quasi-static circular orbit. With angular momentum conserved,
+$V'=VR_o/(R_o+x)$, the centripetal force needed is:
+\begin{equation*}
+  \frac{mV'^{2}}{R_o+x}
+  = \frac{mV^{2}R_o^{2}}{(R_o+x)^{3}}
+  = \frac{eE_oR_o^{3}}{(R_o+x)^{3}}.
+\end{equation*}
+The inward Coulomb force at the new radius:
+\begin{equation*}
+  F_C = eE_o\frac{R_o^{2}}{(R_o+x)^{2}}.
+\end{equation*}
+For the orbit to be sustained at $R_o+x$, the external force (outward on the
+electron) must make up the deficit:
+\begin{equation*}
+  eE = F_C - \frac{mV'^{2}}{R_o+x}
+  = eE_o\frac{R_o^{2}}{(R_o+x)^{2}}
+    - \frac{eE_oR_o^{3}}{(R_o+x)^{3}}
+  = eE_o\frac{R_o^{2}}{(R_o+x)^{2}}
+    \left[1 - \frac{R_o}{R_o+x}\right]
+  = \frac{eE_o R_o^{2}\,x}{(R_o+x)^{3}}.
+\end{equation*}
+Dividing both sides by $eE_o$:
+\begin{equation*}
+  \frac{E}{E_o} = \frac{R_o^{2}\,x}{(R_o+x)^{3}}
+  = \frac{(x/R_o)}{(1+x/R_o)^{3}}. \tag{IV}
+\end{equation*}
+For $x/R_o \ll 1$, we expand $(1+x/R_o)^{-3} \approx 1 - 3(x/R_o) + 6(x/R_o)^2 - \ldots$ to get:
+\begin{equation*}
+  \frac{E}{E_o} \approx \frac{x}{R_o}\!\left[1 - \frac{3x}{R_o} + \cdots\right]
+  \approx \frac{x}{R_o} - 3\!\left(\frac{x}{R_o}\right)^{\!2} + \cdots
+\end{equation*}
+Inverting iteratively to find $x/R_o$ as a function of $E/E_o$: to zeroth order $x/R_o \approx E/E_o$. Substituting
+back into the quadratic correction term:
+\begin{equation*}
+  \frac{x}{R_o} \approx \frac{E}{E_o} + 3\!\left(\frac{E}{E_o}\right)^{\!2}
+  + \cdots
+\end{equation*}
+This confirms that $x/R_o$ is indeed a power series in $E/E_o$, as required by the question.
+Note that the question's schematic notation $x/R_o = E/E_o + (E/E_o)^2 + (E/E_o)^3 + \cdots$
+indicates the \emph{form} of the series (successively higher powers of $E/E_o$);
+the actual coefficient of the quadratic term from this orbital model is $3$, not $1$.
+This coefficient is model-dependent (it comes from the specific exponent $-3$ in the
+centripetal balance), but every coefficient is of order unity, confirming that the
+\emph{linear term dominates} whenever $E \ll E_o$.
+
+
+\noindent\textbf{(2) Numerical estimates for $R_o = 1.0\,\text{\AA}$.}
+\noindent\textit{Internal field:}
+\begin{equation*}
+  E_o = \frac{e}{4\pi\epsilon_o R_o^{2}}
+  = \frac{1.6\times10^{-19}}{4\pi\times8.85\times10^{-12}\times(10^{-10})^{2}}
+  = \frac{1.6\times10^{-19}}{1.113\times10^{-30}}
+  \approx \boxed{1.44\times10^{11}\,\mathrm{V/m}.}
+\end{equation*}
+This is an enormous field ($\sim144\,\mathrm{GV/m}$), typical of intra-atomic
+Coulomb fields.
+
+\noindent\textit{Spring constant in the linear limit.}
+For $E\ll E_o$, the first term dominates: $x/R_o \approx E/E_o$, so
+$x \approx ER_o/E_o$. The restoring force on the electron is:
+\begin{equation*}
+  F = eE \approx \frac{eE_o}{R_o}\,x = k\,x,
+  \quad k = \frac{eE_o}{R_o}.
+\end{equation*}
+Substituting:
+\begin{equation*}
+  k = \frac{e\cdot e/(4\pi\epsilon_o R_o^{2})}{R_o}
+  = \frac{e^{2}}{4\pi\epsilon_o R_o^{3}}
+  = \frac{(1.6\times10^{-19})^{2}}{4\pi\times8.85\times10^{-12}\times(10^{-10})^{3}}
+  = \frac{2.56\times10^{-38}}{1.113\times10^{-40}}
+  \approx \boxed{230\,\mathrm{N/m}.}
+\end{equation*}
+Note that $F = kx$ is precisely Hooke's law, confirming the CEO model's
+spring assumption. Physically, this linear restoring force arises because
+for small displacements the Coulomb potential looks parabolic.
+
+\noindent\textit{Resonance frequency:}
+\begin{equation*}
+  \nu_o = \frac{1}{2\pi}\sqrt{\frac{k}{m}}
+  = \frac{1}{2\pi}\sqrt{\frac{230}{9.11\times10^{-31}}}
+  = \frac{1}{2\pi}\sqrt{2.52\times10^{32}}
+  = \frac{1.59\times10^{16}}{2\pi}
+  \approx \boxed{2.5\times10^{15}\,\mathrm{Hz}.}
+\end{equation*}
+The corresponding wavelength is $\lambda_o = c/\nu_o = 3\times10^{8}/2.5\times10^{15}
+\approx 120\,\mathrm{nm}$, which lies in the \textbf{vacuum ultraviolet (VUV)}.
+
+$\nu_o\approx2.5\times10^{15}$\,Hz corresponds to $\lambda_o\approx120$\,nm,
+placing the natural resonance firmly in the \textbf{ultraviolet region}
+($10$--$400$\,nm). This is consistent with real atomic transitions: Lyman-$\alpha$
+of hydrogen lies at $121.6$\,nm.
+
+Linearity holds when $E\ll E_o\approx1.4\times10^{11}$\,V/m. Ordinary light
+sources (including CW lasers) produce fields well below $10^{9}$\,V/m, so the
+linear Lorentz model is valid for virtually all conventional optics. Linearity
+\emph{breaks down} only for focused pulses from ultrafast high-power lasers that
+reach intensities of $\sim10^{14}$--$10^{15}$\,W/cm$^{2}$, corresponding to
+fields approaching $E_o$. In that regime, the quadratic and cubic terms in the
+$x$--$E$ relation become significant: this is the domain of \emph{nonlinear
+optics} (second-harmonic generation, third-harmonic generation, multiphoton
+ionisation, etc.).
+
+% ============================================================
+
+\begin{question}[Bonus Question]In the CEO model introduced in lectures the nucleus is assumed to be so
+massive compared to an electron that its acceleration is generally negligible (compare between the
+mass of a proton and an electron). Suppose that this assumption is not applied. Show that the CEO
+model still applies provided that the electron mass is replaced with the \emph{reduced mass} and
+that no change takes place in the momentum of the atom.
+\end{question}
+
+\subsection*{Bonus Question -- CEO with Finite Nuclear Mass}
+% ============================================================
+
+The standard CEO model treats the nucleus as a fixed centre because its mass
+$M\gg m$ (a proton is about $1836$ times heavier than an electron). We now
+relax this assumption and show that the two-body problem reduces to a
+one-body problem with the \emph{reduced mass}.
+
+Let $\mathbf{r}_e$ and $\mathbf{r}_N$ be the positions of electron and nucleus.
+The equations of motion are:
+\begin{equation*}
+  m\ddot{\mathbf{r}}_e = -k\,(\mathbf{r}_e-\mathbf{r}_N) - e\,\mathbf{E}(t),
+\end{equation*}
+\begin{equation*}
+  M\ddot{\mathbf{r}}_N = +k\,(\mathbf{r}_e-\mathbf{r}_N).
+\end{equation*}
+(The spring represents the net Coulomb restoring force; the field acts only
+on the electron since the nucleus is positively charged, but the CEO model
+focuses on the relative coordinate.)
+
+Define the relative displacement $\mathbf{x}=\mathbf{r}_e-\mathbf{r}_N$.
+Subtracting the second equation (divided by $M$) from the first (divided by $m$):
+\begin{equation*}
+  \ddot{\mathbf{x}}
+  = \ddot{\mathbf{r}}_e - \ddot{\mathbf{r}}_N
+  = \frac{1}{m}\!\left[-k\mathbf{x}-e\mathbf{E}\right]
+    - \frac{1}{M}(+k\mathbf{x}).
+\end{equation*}
+\begin{equation*}
+  \ddot{\mathbf{x}}
+  = -k\mathbf{x}\!\left(\frac{1}{m}+\frac{1}{M}\right) - \frac{e\mathbf{E}}{m}.
+\end{equation*}
+Defining the \emph{reduced mass} $\mu=mM/(m+M)$, note that
+$1/m+1/M = (M+m)/(mM)=1/\mu$:
+\begin{equation*}
+  \ddot{\mathbf{x}} = -\frac{k}{\mu}\,\mathbf{x} - \frac{e}{m}\,\mathbf{E}.
+\end{equation*}
+Multiplying through by $\mu$:
+\begin{equation*}
+  \mu\ddot{\mathbf{x}} + k\mathbf{x} = -\frac{\mu}{m}\,e\mathbf{E}.
+\end{equation*}
+This has the same form as the CEO equation with $m\to\mu$, confirming that the
+CEO model still applies with the electron mass replaced by $\mu$.
+
+The total momentum is:
+\begin{equation*}
+  \mathbf{p} = m\dot{\mathbf{r}}_e + M\dot{\mathbf{r}}_N.
+\end{equation*}
+Adding the two equations of motion:
+\begin{equation*}
+  m\ddot{\mathbf{r}}_e + M\ddot{\mathbf{r}}_N
+  = -e\mathbf{E}(t) + 0 = -e\mathbf{E}(t).
+\end{equation*}
+This is just Newton's second law for the centre of mass driven by the
+external field; the internal spring forces cancel. The atom's centre-of-mass
+momentum changes only due to the external field, exactly as expected ---
+the \emph{internal} dynamics decouple completely into the reduced-mass
+equation for $\mathbf{x}$. \checkmark
+
+Since $M\gg m$, $\mu = mM/(m+M)\approx m$, so the correction is negligible
+for atoms.
+
+% ============================================================
+
+\begin{question}[Formative Question]What changes should be made to the CEO model in the case
+of conductors where at room temperature valence electrons are free to move away from their mother
+atoms? Derive an expression of the electron susceptibility and dielectric constant in this case.
+\end{question}
+
+\subsection*{Formative Question -- CEO Model for Conductors (Drude Model)}
+% ============================================================
+
+In a conductor (e.g.\ a metal at room temperature), valence electrons are not
+bound to any particular nucleus: they are \emph{free}. The restoring force
+(spring) is therefore absent. We set $k=0$ ($\omega_o=0$) in the CEO equation
+and re-derive $\chi$ and $\epsilon_r$.
+
+Setting $k=0$:
+\begin{equation*}
+  \ddot{x} + \sigma\dot{x} = -\frac{e}{m}\,E(t).
+\end{equation*}
+In phasor form with $E(t)=\mathrm{Re}[E\,e^{j\omega t}]$:
+\begin{equation*}
+  (j\omega)^{2}x(\omega) + \sigma(j\omega)x(\omega) = -\frac{e}{m}E(\omega).
+\end{equation*}
+\begin{equation*}
+  x(\omega)\!\left[-\omega^{2}+j\omega\sigma\right] = -\frac{e}{m}E(\omega).
+\end{equation*}
+Solving:
+\begin{equation*}
+  x(\omega) = \frac{e/m}{\omega^{2}-j\omega\sigma}\,E(\omega)
+  = \frac{e/m}{\omega(\omega-j\sigma)}\,E(\omega).
+\end{equation*}
+
+$P=-Nex$:
+\begin{equation*}
+  P(\omega) = \frac{-Ne^{2}/m}{\omega^{2}-j\omega\sigma}\,E(\omega).
+\end{equation*}
+\begin{equation*}
+  \chi(\omega) = \frac{P}{\epsilon_o E}
+  = \frac{-Ne^{2}/m\epsilon_o}{\omega^{2}-j\omega\sigma}
+  = \frac{-\omega_p^{2}}{\omega^{2}-j\omega\sigma},
+\end{equation*}
+where we define the \emph{plasma frequency}
+$\omega_p = \sqrt{Ne^{2}/m\epsilon_o}$:
+\begin{equation*}
+  \boxed{\chi(\omega) = \frac{-\omega_p^{2}}{\omega(\omega - j\sigma)}.}
+\end{equation*}
+
+\begin{equation*}
+  \epsilon_r(\omega) = 1 + \chi(\omega)
+  = 1 - \frac{\omega_p^{2}}{\omega^{2}-j\omega\sigma}.
+\end{equation*}
+\begin{equation*}
+  \boxed{\epsilon_r(\omega) = 1 - \frac{\omega_p^{2}}{\omega(\omega-j\sigma)}.}
+\end{equation*}
+This is the celebrated \textbf{Drude model} of a free-electron metal.
+
+\begin{itemize}
+  \item \emph{Lossless limit ($\sigma\to 0$):}
+        $\epsilon_r = 1-\omega_p^{2}/\omega^{2}$.
+        For $\omega<\omega_p$: $\epsilon_r<0$ and $n$ is purely imaginary, so
+        the medium is opaque (all radiation is reflected) --- this is why
+        metals are shiny below their plasma frequency.
+        For $\omega>\omega_p$: $\epsilon_r>0$, $n$ is real, and the medium
+        becomes transparent. Many metals become transparent in the UV.
+  \item \emph{Low frequencies ($\omega\to 0$):}
+        $\chi\approx j\omega_p^{2}/(\omega\sigma)$, which is large and
+        imaginary, corresponding to high conductivity and strong ohmic
+        absorption.
+  \item The free-electron ($k=0$) result is obtained from the bound-electron
+        CEO model simply by setting $\omega_o=0$. The ``resonance'' collapses
+        to DC, and instead of a resonant peak in absorption, we get the
+        Drude absorption spectrum that falls as $1/\omega^{2}$ at high
+        frequencies.
+\end{itemize}
+

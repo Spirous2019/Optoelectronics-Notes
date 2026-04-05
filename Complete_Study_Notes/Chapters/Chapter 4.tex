@@ -204,52 +204,48 @@ Solving for the \textbf{threshold population inversion}:
     \label{eq:N_th}
 \end{equation}
 
-This is the general expression. To get the actual numerical value, we should evaluate it at the frequency where gain is highest --- the line centre $\nu = \nu_0$ --- because that is where lasing first begins. Recall from Chapter~2 that the stimulated emission cross section at an arbitrary frequency is:
+This is the general expression. To get the actual numerical value, we should evaluate it at the frequency where gain is highest --- the line centre $\nu = \nu_0$ --- because that is where lasing first begins. The stimulated emission cross section at an arbitrary frequency is:
 \begin{equation}
     \sigma(\nu) = \frac{\lambda^2}{8\pi \tau_{\text{sp}}} \cdot g(\nu),
 \end{equation}
 where:
 \begin{itemize}
-    \item $\lambda$: the free-space wavelength at the transition frequency $\nu_0$
+    \item $\lambda$: the in-medium wavelength at the transition frequency $\nu_0$ (where $\lambda = \lambda_0/n$)
     \item $\tau_{\text{sp}}$: the spontaneous emission lifetime of the upper laser level
     \item $g(\nu)$: the normalised lineshape function, satisfying $\int_{-\infty}^{\infty} g(\nu)\,d\nu = 1$
 \end{itemize}
 
 For a Lorentzian lineshape (which is the natural lineshape for homogeneously broadened transitions), the normalised form is:
-\[
+\begin{equation*}
     g(\nu) = \frac{\Delta\nu / (2\pi)}{(\nu - \nu_0)^2 + (\Delta\nu/2)^2},
-\]
+\end{equation*}
 where $\Delta\nu$ is the FWHM linewidth of the transition. Evaluating this at the line centre $\nu = \nu_0$, where the detuning $(\nu - \nu_0)^2 = 0$:
-\[
-    g(\nu_0) = \frac{\Delta\nu/(2\pi)}{(\Delta\nu/2)^2} = \frac{\Delta\nu/(2\pi)}{\Delta\nu^2/4}.
-\]
-Simplifying step by step: multiply numerator and denominator --- the $\Delta\nu$ in the numerator and one $\Delta\nu$ in the denominator cancel, leaving:
-\[
-    g(\nu_0) = \frac{1/(2\pi)}{\Delta\nu/4} = \frac{4}{2\pi\,\Delta\nu} = \frac{2}{\pi\,\Delta\nu}.
-\]
+\begin{equation*}
+    g(\nu_0) = \frac{\Delta\nu/(2\pi)}{(\Delta\nu/2)^2} = \frac{\Delta\nu/(2\pi)}{\Delta\nu^2/4} = \frac{2}{\pi\,\Delta\nu}.
+\end{equation*}
 
 Now substituting back into $\sigma(\nu_0)$:
-\[
-    \sigma(\nu_0) = \frac{\lambda^2}{8\pi \tau_{\text{sp}}} \cdot \frac{2}{\pi\,\Delta\nu} = \frac{2\lambda^2}{8\pi^2\,\Delta\nu\,\tau_{\text{sp}}} = \frac{\lambda^2}{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}.
-\]
+\begin{equation*}
+    \sigma(\nu_0) = \frac{\lambda^2}{8\pi \tau_{\text{sp}}} \cdot \frac{2}{\pi\,\Delta\nu} = \frac{\lambda^2}{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}.
+\end{equation*}
 
 Now substituting $\sigma(\nu_0)$ into equation~\eqref{eq:N_th}:
-\[
+\begin{equation*}
     N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu_0)} = \alpha_r \cdot \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2}.
-\]
+\end{equation*}
 
 Using the photon lifetime relation $\alpha_r = 1/(c\,\tau_{\text{ph}})$ (which we establish just below in Section~\ref{sec:photon_lifetime}), we substitute:
-\[
+\begin{equation*}
     N_{0,\text{th}} = \frac{1}{c\,\tau_{\text{ph}}} \cdot \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2\,c\,\tau_{\text{ph}}}.
-\]
+\end{equation*}
 
-Recognising that $\lambda = c/\nu_0$ (so $\lambda\,c = c^2/\nu_0$), or more usefully just writing $\pi c/\lambda$ as a separate grouped constant, this is commonly written in the compact form:
+This is the explicit, fully expanded threshold inversion:
 \begin{equation}
-    \boxed{N_{0,\text{th}} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2} \cdot \frac{1}{\pi\,\tau_{\text{ph}}}}
+    \boxed{N_{0,\text{th}} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2\,c\,\tau_{\text{ph}}}}
     \label{eq:N_th_explicit}
 \end{equation}
 
-where the $\pi$ in the denominator of the second factor comes from grouping $c$ into the definition of $\tau_{\text{ph}}$ used in the notes ($\tau_{\text{ph}} = \pi/(c\,\alpha_r)$ in some conventions, or equivalently $\alpha_r = \pi/(c\,\tau_{\text{ph}})$). The key physical message of equation~\eqref{eq:N_th_explicit} is transparent: a shorter photon lifetime (lossier cavity), a larger linewidth, or a shorter wavelength all require a \emph{higher} threshold inversion to achieve lasing.
+The physical message is transparent: a shorter photon lifetime (lossier cavity), a larger linewidth, or a shorter wavelength all require a \emph{higher} threshold inversion to achieve lasing.
 
 \subsection{The Photon Lifetime}
 \label{sec:photon_lifetime}

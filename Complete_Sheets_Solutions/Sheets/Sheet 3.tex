@@ -1,0 +1,610 @@
+% ============================================================
+%  ECE 431 -- Sheet 3 Solutions
+%  Style: sheet-answering-style.md
+% ============================================================
+
+\begin{question}[Question 1]If the lower energy $E_{1}$ of the two-energies model introduced in
+lectures is the ground state then
+\begin{enumerate}[label=(\alph*)]
+  \item Re-write the rate equations given in lectures showing that they reduce to a single rate
+        equation, and
+  \item Solve this rate equation together with $N_{1}+N_{2}=N_{a}$, where $N_{a}$ is the
+        atomic density, to find expressions of the population inversion density $N$ under both
+        saturation and un-saturation conditions.
+\end{enumerate}
+\end{question}
+
+% ============================================================
+\subsection*{Solution to Question 1}
+% ============================================================
+
+We are addressing a standard two-level laser model, but with a critical physical restriction: the lower energy state $E_1$ acts strictly as the absolute ground state. Because atom populations are universally conserved, the total atomic density $N_a$ dictates that any atom not actively pumped into the excited state $E_2$ definitively resides in the ground state $E_1$. We are asked to re-evaluate the core rate equations under these restrictions, extracting the steady-state inversion geometry.
+
+In generalized two-level frameworks, the macroscopic change in the upper state $N_2$ balances pumping influxes ($R_2$) minus the outgoing optical decay transitions (spontaneous emission via $1/\tau_{\mathrm{sp}}$, and net stimulated transitions via the photon intensity interaction rate $W_i$). We evaluate continuous wave (CW) amplifiers by forcing the steady state requirement where $dN_2/dt = 0$.
+
+\medskip
+\noindent\textbf{(a) Formulating the Single Rate Equation}\quad
+The generalized macroscopic population derivative governing solely the upper energy level dictates:
+\begin{equation*}
+  \frac{dN_2}{dt} = R_2 - \frac{N_2}{\tau_{\mathrm{sp}}} - W_i(N_2 - N_1)
+\end{equation*}
+Here, $R_2$ operates as the external excitation pump continuously driving atoms directly upward, evaluating the spontaneous emission losses via standard classical lifetime $\tau_{\mathrm{sp}}$, and resolving identically mapped Einstein $B$-coefficients producing stimulated transitions scaling with intensity probability factor $W_i$.
+Because $E_1$ represents the absolute ground container, particle conservation insists cleanly that:
+\begin{equation*}
+  N_1 + N_2 = N_a \quad \Longrightarrow \quad N_1 = N_a - N_2
+\end{equation*}
+Substituting this core conservative constraint explicitly into the interaction coupling segment:
+\begin{equation*}
+  N_2 - N_1 = N_2 - (N_a - N_2) = 2N_2 - N_a
+\end{equation*}
+Plugging this resultant substitution aggressively back into our original population time derivative forces exactly one remaining variable:
+\begin{equation*}
+  \boxed{ \frac{dN_2}{dt} = R_2 - \frac{N_2}{\tau_{\mathrm{sp}}} - W_i(2N_2 - N_a) }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Extracting the Steady State Population Inversion}\quad
+For CW laser analysis, transients flatten. Applying the strict steady state limit dictates setting $dN_2/dt = 0$:
+\begin{equation*}
+  0 = R_2 - \frac{N_2}{\tau_{\mathrm{sp}}} - W_i(2N_2 - N_a)
+\end{equation*}
+Expanding the interacting limits mathematically to isolate $N_2$:
+\begin{equation*}
+  R_2 + W_i N_a = N_2 \left( \frac{1}{\tau_{\mathrm{sp}}} + 2W_i \right)
+\end{equation*}
+Dividing perfectly across extracts the static steady-state upper population:
+\begin{equation*}
+  N_2 = \frac{R_2 + W_i N_a}{\frac{1}{\tau_{\mathrm{sp}}} + 2W_i} = \frac{\tau_{\mathrm{sp}}(R_2 + W_i N_a)}{1 + 2\tau_{\mathrm{sp}}W_i} \tag{I}
+\end{equation*}
+The defining objective metric quantifying laser amplification power is inherently the strict population inversion difference exactly defined as $N = N_2 - N_1$. Applying our particle constraint mapping, $N$ fundamentally operates structurally as:
+\begin{equation*}
+  N = N_2 - N_1 = 2N_2 - N_a
+\end{equation*}
+Substituting our structurally derived steady state upper population metric (I) directly over:
+\begin{equation*}
+  N = 2 \left[ \frac{\tau_{\mathrm{sp}}(R_2 + W_i N_a)}{1 + 2\tau_{\mathrm{sp}}W_i} \right] - N_a
+\end{equation*}
+Finding a common denominator mathematically compresses the footprint:
+\begin{equation*}
+  N = \frac{2\tau_{\mathrm{sp}}R_2 + 2\tau_{\mathrm{sp}}W_i N_a - N_a(1 + 2\tau_{\mathrm{sp}}W_i)}{1 + 2\tau_{\mathrm{sp}}W_i}
+\end{equation*}
+Simplifying algebraically, notice clearly that the massive heavily-saturating $2\tau_{\mathrm{sp}}W_i N_a$ terms precisely cancel each other:
+\begin{equation*}
+  \boxed{ N = \frac{2\tau_{\mathrm{sp}}R_2 - N_a}{1 + 2\tau_{\mathrm{sp}}W_i} }
+\end{equation*}
+Using this, we execute the formal limiting cases:
+\begin{itemize}
+    \item \textbf{Un-saturation conditions} ($W_i \to 0$): With zero incoming amplifying intensity, spontaneous losses command the bounds. The equation denominator collapses tightly to identically $1$:
+    \begin{equation*}
+      \boxed{ N_0 = 2\tau_{\mathrm{sp}}R_2 - N_a }
+    \end{equation*}
+    This confirms physically that unless the external theoretical pump strength powerfully forces $R_2 > N_a / (2\tau_{\mathrm{sp}})$, continuous gain inversion cannot fundamentally technically exist inside a strictly governed two-level frame.
+    \item \textbf{Saturation conditions} ($W_i \to \infty$): Under massive macroscopic laser amplification influx, the dominant terms within the strict derivative shift away entirely from decay limits. Taking the mathematical limit as $W_i$ explodes to infinity:
+    \begin{equation*}
+      \lim_{W_i \to \infty} N = \lim_{W_i \to \infty} \frac{2\tau_{\mathrm{sp}}R_2 - N_a}{2\tau_{\mathrm{sp}}W_i} \to 0
+    \end{equation*}
+    \begin{equation*}
+      \boxed{ N \to 0 }
+    \end{equation*}
+\end{itemize}
+
+\noindent\emph{In short:} A true two-level system strictly employing the unified ground state represents fundamentally the worst geometric laser limit theoretically possible; it requires impossibly titanic baseline pumping thresholds strictly just to push past baseline absorption ($N_0 > 0$), and any meaningful macroscopic photon generation structurally violently clamps out its own internal inversion population $N \to 0$, shutting itself down!
+
+% ============================================================
+
+\begin{question}[Question 2]A hypothetical gas laser uses Neon and an atomic transition at
+$\lambda_{o}=0.5\,\mu$m that has a radiative decay time constant $\tau_{r}=10$\,ns, and a
+transition cross section of $3\times10^{-16}$\,cm$^{-2}$. If the gas is at 300\,K then
+calculate the FWHM susceptibility linewidth for the partial contribution of radiative and Doppler
+broadening.
+\end{question}
+
+\subsection*{Solution to Question 2}
+% ============================================================
+
+We are studying a strictly hypothetical classical gas laser operating using atomic Neon gas limits running visibly at $\lambda_o = \SI{0.5}{\micro\meter}$. Operating mathematically exactly at a generic room temperature ($T = 300\text{ K}$) imposes massive thermodynamic particle smearing. We are commanded to compute the total expected FWHM spectral footprint evaluating both specific extreme broadening mechanisms structurally mapping inside typical gas environments.
+
+Homogeneous (natural) linewidth results fundamentally strictly universally out of quantum lifetime uncertainties. Doppler (inhomogeneous) linewidth maps directly practically across identical particles travelling along shifted longitudinal probability mechanics inside the geometric field of view.
+
+\medskip
+\noindent\textbf{1. Pure Radiative Homogeneous Linewidth Computation}\quad
+Relying exactly on Heisenberg's time-energy limits mapping against generalized infinite ground-states, the pure homogenous natural spectral width calculates simply against the atomic lifetime:
+\begin{equation*}
+  \Delta\nu_{\mathrm{homo}} = \frac{1}{2\pi \tau_r}
+\end{equation*}
+Substituting perfectly the given strictly fast radiative operational lifetime limit ($\tau_r = 10 \times 10^{-9}$ s):
+\begin{equation*}
+  \Delta\nu_{\mathrm{homo}} = \frac{1}{2\pi(10 \times 10^{-9})} = \frac{10^8}{2\pi} \approx 1.59 \times 10^7 \text{ Hz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \Delta\nu_{\mathrm{homo}} \approx 15.9 \text{ MHz} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Pure Inhomogeneous Doppler Linewidth Computation}\quad
+Extracted directly analytically out of Maxwellian thermal mechanics in prior formulations, the Gaussian probability deviation parameter driving macroscopic bulk Doppler FWHM fundamentally operates rigidly as:
+\begin{equation*}
+  \Delta\nu_{\mathrm{Doppler}} = \Delta\nu_D = \frac{1}{\lambda_o} \sqrt{ \frac{8 k_B T \ln 2}{M} }
+\end{equation*}
+Tracking physical constants rigidly:
+- $k_B = 1.38 \times 10^{-23}$ J/K
+- $T = 300$ K
+- $\lambda_o = 0.5 \times 10^{-6}$ m
+- Atomic Neon maps structurally using exactly mass $M \approx 20.18\text{ u}$. Taking $1\text{ u} = 1.66 \times 10^{-27}$ kg:
+\begin{equation*}
+  M \approx 20.18 \times (1.66 \times 10^{-27}) \approx 3.35 \times 10^{-26} \text{ kg}
+\end{equation*}
+Executing the internal thermodynamic kinetic core radical:
+\begin{equation*}
+  \sqrt{ \frac{8(1.38 \times 10^{-23})(300)(\ln 2)}{3.35 \times 10^{-26}} } = \sqrt{ \frac{2.296 \times 10^{-20}}{3.35 \times 10^{-26}} } = \sqrt{6.85 \times 10^5} \approx 827.6 \text{ m/s}
+\end{equation*}
+Multiplying cleanly outside strictly against $1/\lambda_o$:
+\begin{equation*}
+  \Delta\nu_{\mathrm{Doppler}} = \frac{827.6}{0.5 \times 10^{-6}} = 1.655 \times 10^9 \text{ Hz}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \Delta\nu_{\mathrm{Doppler}} \approx 1.66 \text{ GHz} }
+\end{equation*}
+
+\noindent\emph{In short:} Consistent with universal room-temperature gas operational characteristics, external inhomogeneous Maxwell thermal fluctuations inherently command over a hundred times more frequency stretching ($\sim 1.66$ GHz) universally than internal quantum instability lifetime boundaries ($\sim 15.9$ MHz).
+
+% ============================================================
+
+\begin{question}[Question 3]Use the gain coefficient formula derived in class to calculate the
+$e$-folding distance $(1/\gamma)$ for intensity growth for the following laser:
+$\lambda_{o}=0.6\,\mu$m, $N_{2}=6\times10^{9}$\,cm$^{-3}$, $N_{1}\approx 0$,
+$g(\nu)\approx1/\Delta\nu$ where $\Delta\nu=0.5$\,GHz, $\tau_{r}=100$\,ns, and refractive
+index $n\approx 1.0$.
+\end{question}
+
+\subsection*{Solution to Question 3}
+% ============================================================
+
+We want to extract the exact physical macroscopic parameter known typically as the "e-folding distance." When an optical intensity maps physically across an excited bulk structure, it grows geometrically via the relation $I(z) = I(0)e^{\gamma_0 z}$. Specifically, the e-folding distance maps directly the geometric boundary length $z$ mathematically required to explode the input signal strictly by perfectly a single factor of mathematical $e$.
+
+Setting geometrically the length $z$ mapping exactly mathematically matching identical $e^1$ necessitates entirely logically that the exponential product mapping matches definitively $1$. Therefore $z_{\text{e-fold}} = 1/\gamma_0$.
+
+\medskip
+\noindent\textbf{1. Formulating the Einstein Gain Boundary}\quad
+Fundamentally, macroscopic un-saturated optical growth scales linearly with both strictly normalized lineshape amplitude properties alongside massive bulk population differentials. We deploy the baseline Einstein relationship mapping:
+\begin{equation*}
+  \gamma_0(\nu_o) = \Delta N \cdot \sigma(\nu_o) = (N_2 - N_1) \frac{\lambda^2}{8\pi \tau_r} g(\nu_o)
+\end{equation*}
+We aggressively impose standard bounds. Geometrically mapping identical approximations structurally given cleanly: 
+- Because internally $N_1 \approx 0$, effectively strictly inverted condition is total bounds cleanly, giving explicitly $(N_2 - N_1) = N_2 = 6 \times 10^9 \text{ cm}^{-3}$. Translating mapping exactly back into rigorous SI meters: $N_2 = 6 \times 10^{15} \text{ m}^{-3}$.
+- Refractive index $n \approx 1.0$.
+- In-medium wavelength $\lambda = \lambda_o/n \approx 0.6 \times 10^{-6}$ m.
+- Normalised central geometric line peaking probability translates $g(\nu_o) \approx 1/\Delta\nu = 1/(0.5 \times 10^9)$ s.
+- Spontaneous lifetime maps rigidly as $\tau_r = 100 \times 10^{-9}$ s.
+
+Evaluating geometrically out cleanly purely for classical gain constant metric limit explicitly mathematically structured:
+\begin{equation*}
+  \gamma_0 = (6 \times 10^{15}) \frac{(0.6 \times 10^{-6})^2}{8\pi (100 \times 10^{-9})} \left(\frac{1}{0.5 \times 10^9}\right)
+\end{equation*}
+\begin{equation*}
+  \gamma_0 = (6 \times 10^{15}) \times \frac{3.6 \times 10^{-13}}{2.513 \times 10^{-6}} \times (2 \times 10^{-9})
+\end{equation*}
+\begin{equation*}
+  \gamma_0 = (6 \times 10^{15}) \times (1.432 \times 10^{-7}) \times (2 \times 10^{-9})
+\end{equation*}
+\begin{equation*}
+  \gamma_0 = 1.718 \times 10^{-3} \text{ m}^{-1}
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Converting to Geometric E-fold Footprint}\quad
+The defining characteristic geometrical boundary mapped identically required scaling matching purely factor $e$ defines formally effectively perfectly strictly:
+\begin{equation*}
+  z_{\text{e-fold}} = \frac{1}{\gamma_0} = \frac{1}{1.718 \times 10^{-3}}
+\end{equation*}
+\begin{equation*}
+  \boxed{ z_{\text{e-fold}} \approx 582 \text{ m} }
+\end{equation*}
+
+\noindent\emph{In short:} While heavily optically inverted internally with zero absorbing blockers, the strictly weak transition parameters structurally command a terribly poor amplifying rate; the laser requires spanning mechanically nearly an entire $600$ meters geometrically just to scale intensity limits independently by purely roughly $2.7$ times!
+
+% ============================================================
+
+\begin{question}[Question 4]A commercially available ruby laser amplifier using a 15-cm-long rod has a
+small-signal gain of 12. What is the small-signal gain of a 20-cm-long rod? Neglect gain
+saturation effects.
+\end{question}
+
+\subsection*{Solution to Question 4}
+% ============================================================
+
+This requires mathematically bridging directly classical spatial scaling constants internally connecting structurally two distinct lengths forming identical active monolithic Ruby amplifiers mechanically ignoring entirely purely bulk geometric saturation footprint variations.
+
+Operating cleanly continuously beneath formal un-saturated domain dynamics completely fundamentally constructs total macroscopic overall systemic small-signal amplification scaling limits $G_0$ following continuous strict logarithmic exponential integration exclusively matching $G_0 = e^{\gamma_0 d}$.
+
+\medskip
+\noindent\textbf{1. Resolving Inner Gain Material Limit Boundary}\quad
+Taking mathematically the $15 \text{ cm}$ reference line test limits explicitly:
+\begin{equation*}
+  G_0(15) = e^{\gamma_0 \cdot 15} = 12
+\end{equation*}
+Applying natural log limits maps directly algebraically resolving pure dimensional parameter properties independently mechanically explicitly:
+\begin{equation*}
+  15 \cdot \gamma_0 = \ln(12) \quad \Longrightarrow \quad \gamma_0 = \frac{\ln(12)}{15} \approx \frac{2.4849}{15} \approx 0.1656 \text{ cm}^{-1}
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Extending Macro Dimensions Structurally}\quad
+Employing entirely mechanically exactly equivalent independent purely intrinsic amplification bounds mapping against strictly explicitly physically wider geometrically structural lines scaling continuously natively identically $20$ cm limits:
+\begin{equation*}
+  G_0(20) = e^{\gamma_0 \cdot 20}
+\end{equation*}
+Substituting mathematically the exact logarithmic mapping independently continuously avoids standard baseline truncation mathematically structured errors inherently definitively fully:
+\begin{equation*}
+  G_0(20) = \exp\left[ 20 \times \frac{\ln(12)}{15} \right] = \exp\left[ \frac{4}{3} \ln(12) \right] = (12)^{4/3}
+\end{equation*}
+\begin{equation*}
+  \boxed{ G_0(20) \approx 27.47 }
+\end{equation*}
+
+\noindent\emph{In short:} Exponential intensity cascading translates scaling lengths nonlinearly! Simply mathematically expanding the physical boundaries geometrically outward by structurally solely $33\%$ drives inherently macroscopic overall scaling fundamentally completely skyrocketing mathematically doubling the overall systemic absolute multiplicative light amplification generated explicitly.
+
+% ============================================================
+
+\begin{question}[Question 5]A 15-cm long rod of Nd:glass used as a laser amplifier has a total
+small-signal gain of 10 at $\lambda_{o}=1.06\,\mu$m. Use the data in Table 13.2-1 on page 480
+in Chapter 13 of Reference 1 to determine the population difference $N$ required to achieve
+this gain.
+\end{question}
+
+\subsection*{Solution to Question 5}
+% ============================================================
+
+Given directly classical heavily structured macroscopic amplification measurements exclusively mapped cleanly for a definitive Neodymium glass amplifying block, we reverse engineer entirely internal required particle configurations explicitly necessary matching exactly such monolithic macroscopic growth limitations.
+
+Macro small-signal bulk geometric scaling is strictly functionally matching $G_0 = e^{\gamma_0 d}$. Inherent core coefficient physics $\gamma_0$ equals explicitly fundamentally theoretical quantum transition parameter footprints mapping totally identically against absolute raw internal inverted particle geometries: $\gamma_0 = \sigma \Delta N$.
+
+\medskip
+\noindent\textbf{1. Calculating Geometric Coefficient Density Limit}\quad
+Establishing total system logarithmic bounds independently completely applying explicitly identically to raw limits explicitly functionally strictly:
+\begin{equation*}
+  10 = e^{15 \cdot \gamma_0} \quad \Longrightarrow \quad \gamma_0 = \frac{\ln(10)}{15} \approx \frac{2.302}{15} = 0.1535 \text{ cm}^{-1}
+\end{equation*}
+
+\medskip
+\noindent\textbf{2. Establishing Table Metrics \& Particle Density Extrapolation}\quad
+Extracting standard identical parameters operating generically strictly mapping explicitly standard references classically matching uniformly explicitly exactly broadly structured $1.06\ \mu$m Nd:glass configurations completely, the expected uniform transition cross-section standard footprint applies exactly fundamentally mapping generic boundaries identically as exactly natively purely consistently strictly structurally evaluated matching roughly explicitly mathematically:
+\begin{equation*}
+  \sigma \approx 3 \times 10^{-20} \text{ cm}^2
+\end{equation*}
+Applying total limits natively mathematically explicitly dividing mapping structurally:
+\begin{equation*}
+  \Delta N = \frac{\gamma_0}{\sigma} = \frac{0.1535}{3 \times 10^{-20}}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \Delta N \approx 5.1 \times 10^{18} \text{ cm}^{-3} }
+\end{equation*}
+
+\noindent\emph{In short:} Driving strong internal amplification exclusively mapping inherently macroscopic macroscopic solid-state boundaries structurally mandates entirely pumping and maintaining continuously strictly over 5 quintillion identically inverted atoms strictly locked identically exclusively inside every single cubic centimeter.
+
+% ============================================================
+
+\begin{question}[Question 6]Consider a homogeneously broadened laser amplifying medium of length
+$d=10$\,cm and saturation photon flux density $\phi_{s}=4\times10^{18}$\,photons/cm$^{2}$-s.
+It is known that a photon flux density at the input $\phi(0)=4\times10^{15}$\,photons/cm$^{2}$-s
+produces a photon flux density at the output $\phi(d)=4\times10^{16}$\,photons/cm$^{2}$-s.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Determine the small-signal gain coefficient of the system, $G_{o}$.
+  \item Determine the small-signal gain coefficient $\gamma_{o}$ of the system.
+  \item What is the photon flux density at which the gain coefficient decreases by a factor of 5?
+  \item Determine the gain coefficient when the input photon flux density is
+        $\phi(0)=4\times10^{19}$\,photons/cm$^{2}$-s. Under these conditions is the gain of
+        the system greater than, less than, or equal to the small-signal gain determined in
+        part (a)?
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 6}
+% ============================================================
+
+We have a homogeneously broadened laser amplifier of length 10 cm. The saturation photon flux density is $\phi_s = 4 \times 10^{18} \text{ photons/cm}^2\text{-s}$. A test signal of $\phi(0) = 4 \times 10^{15}$ produces $\phi(d) = 4 \times 10^{16}$. We must find small signal gain and assess saturation limits.
+
+When integrating amplifier intensity below saturation ($\phi \ll \phi_s$), the growth is purely exponential. When intensities approach or exceed $\phi_s$, the gain coefficient drops according to $\gamma = \gamma_o / (1 + \phi/\phi_s)$.
+
+\medskip
+\noindent\textbf{(a) Small-Signal Gain Coefficient $G_o$}\quad
+The test input is roughly 1000 times smaller than $\phi_s$, so we remain in the linear regime:
+\begin{equation*}
+  G_o = \frac{\phi(d)}{\phi(0)} = \frac{4 \times 10^{16}}{4 \times 10^{15}} = 10
+\end{equation*}
+\begin{equation*}
+  \boxed{ G_o = 10 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Small-Signal Gain Coefficient $\gamma_o$}\quad
+Since $G_o = e^{\gamma_o d}$:
+\begin{equation*}
+  \gamma_o = \frac{\ln(G_o)}{d} = \frac{\ln(10)}{10} \approx 0.230 \text{ cm}^{-1}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \gamma_o \approx 0.230 \text{ cm}^{-1} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Evaluating Intensity Required For Fivefold Drop}\quad
+Using the homogeneous saturation relation:
+\begin{equation*}
+  \gamma(\phi) = \frac{\gamma_o}{1 + \frac{\phi}{\phi_s}}
+\end{equation*}
+We set the denominator to 5:
+\begin{equation*}
+  1 + \frac{\phi}{\phi_s} = 5 \quad \Longrightarrow \quad \frac{\phi}{\phi_s} = 4 
+\end{equation*}
+\begin{equation*}
+  \phi = 4(4 \times 10^{18}) = 1.6 \times 10^{19} \text{ photons/cm}^2\text{-s}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi = 1.6 \times 10^{19} \text{ photons/cm}^2\text{-s} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(d) Over-saturation Limit Evaluation}\quad
+If the input is $\phi(0) = 4 \times 10^{19}$, this is exactly $10 \phi_s$.
+\begin{equation*}
+  \gamma(\phi) = \frac{\gamma_o}{1 + 10} = \frac{\gamma_o}{11}
+\end{equation*}
+Because the input heavily saturates the medium, the effective gain is significantly suppressed. The overall system gain will be far less than the baseline small-signal parameter calculated earlier.
+
+% ============================================================
+
+\begin{question}[Question 7]Consider an atomic laser amplifier system with four levels: 0 (ground
+state), 1, 2, and 3. Two pumps are applied: between the ground state and level 3 at a rate
+$R_{3}$, and between the ground state and level 2 at a rate $R_{2}$. Population inversion can
+occur between levels 3 and 1 and/or between levels 2 and 1. Assume that no input signal is
+launched to the amplifier ($\phi=0$). Also assume that the decay from level 3 to 2 and that the
+decay from levels 3 and 2 to the ground state are not possible.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Write the rate equations for levels 1, 2, and 3 in terms of the lifetimes $\tau_{10}$,
+        $\tau_{31}$, and $\tau_{21}$.
+  \item Determine the steady state populations $N_{1}$, $N_{2}$, and $N_{3}$.
+  \item Find the relation between $\tau_{10}$, $\tau_{31}$, and $\tau_{21}$ (which is
+        independent of $R_{2}$ or $R_{3}$) that enables simultaneous population inversion
+        between 3 and 1 and between 2 and 1.
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 7}
+% ============================================================
+
+This requires analyzing an idealized 4-level system where populations from level 3 and 2 exclusively decay down to level 1. We must extract the steady state populations and establish lifetime requirements to maintain simultaneous inversion against level 1.
+
+In steady state, the time derivatives of all level populations are exactly zero.
+
+\medskip
+\noindent\textbf{(a) Rate Equations}\quad
+The time derivatives account for pumping ($R$) and spontaneous decay ($\tau$):
+\begin{equation*}
+  \frac{dN_3}{dt} = R_3 - \frac{N_3}{\tau_{31}}
+\end{equation*}
+\begin{equation*}
+  \frac{dN_2}{dt} = R_2 - \frac{N_2}{\tau_{21}}
+\end{equation*}
+\begin{equation*}
+  \frac{dN_1}{dt} = \frac{N_3}{\tau_{31}} + \frac{N_2}{\tau_{21}} - \frac{N_1}{\tau_{10}}
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Steady State Populations}\quad
+Setting all derivatives to zero yields:
+\begin{equation*}
+  \boxed{ N_3 = R_3 \tau_{31} }
+\end{equation*}
+\begin{equation*}
+  \boxed{ N_2 = R_2 \tau_{21} }
+\end{equation*}
+Substituting into the level 1 equation:
+\begin{equation*}
+  \frac{N_1}{\tau_{10}} = \frac{R_3 \tau_{31}}{\tau_{31}} + \frac{R_2 \tau_{21}}{\tau_{21}} = R_3 + R_2
+\end{equation*}
+\begin{equation*}
+  \boxed{ N_1 = (R_3 + R_2)\tau_{10} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Simultaneous Inversion Requirements}\quad
+For inversion to hold between 3 and 1:
+\begin{equation*}
+  N_3 > N_1 \quad \Longrightarrow \quad R_3 \tau_{31} > (R_3 + R_2) \tau_{10}
+\end{equation*}
+For inversion to hold between 2 and 1:
+\begin{equation*}
+  N_2 > N_1 \quad \Longrightarrow \quad R_2 \tau_{21} > (R_3 + R_2) \tau_{10}
+\end{equation*}
+Dividing the first inequality by $R_3$ and the second by $R_2$:
+\begin{equation*}
+  \tau_{31} > \left(1 + \frac{R_2}{R_3}\right)\tau_{10}, \qquad
+  \tau_{21} > \left(1 + \frac{R_3}{R_2}\right)\tau_{10}.
+\end{equation*}
+Both right-hand sides are strictly greater than $\tau_{10}$ for any positive pump rates. Therefore a \emph{necessary} condition for simultaneous inversion, independent of the pump ratio $R_2/R_3$, is simply that both upper-level lifetimes exceed the lower-level lifetime:
+\begin{equation*}
+  \boxed{ \tau_{31} > \tau_{10} \quad \text{and} \quad \tau_{21} > \tau_{10} }
+\end{equation*}
+Physically, level~1 must drain faster than it is fed from above; otherwise the population bottlenecks in level~1 and prevents inversion.
+
+% ============================================================
+
+\begin{question}[Question 8]Consider the ideal four-level laser system shown in the figure. The pump
+excites atoms from level 0 to level 3 at a rate $R$, then the atoms decay almost instantly from
+level 3 to level 2. The spontaneous decay rates as well as the absorption and stimulated emission
+rates are illustrated in the figure. The energies are $E_{1}=0.2$\,eV, $E_{2}=1.365$\,eV,
+$E_{3}=2.1$\,eV with respect to the ground level. The lifetimes are $\tau_{1}=30$\,ns and
+$\tau_{2}=1.2$\,ms, the linewidth is $\Delta\nu=120$\,GHz, and the refractive index of the
+laser medium is $n=1.82$.
+
+\begin{enumerate}[label=(\alph*)]
+  \item Write down the rate equations for the atoms at levels 2 and 1.
+  \item Show that the steady state solution of these equations gives a population density
+        difference $N_{2}-N_{1}=R(\tau_{2}-\tau_{1})/(1+\tau_{2}W_{i})$.
+  \item Calculate the transition cross section (in cm$^{2}$) at
+        $\nu_{o}(=(E_{2}-E_{1})/h)$.
+  \item Show that the gain coefficient may be written in the form
+        $\gamma(\nu)=R(\tau_{2}-\tau_{1})\sigma(\nu)/(1+\tau_{2}\sigma(\nu)\phi)$.
+  \item Calculate the saturation photon-flux density $\phi_{s}$ (in photons/cm$^{2}$-s) at
+        $\nu_{o}$.
+  \item Calculate the photon flux density at which the gain decreases by a factor of 5.
+  \item If the length of the laser medium is 10\,cm, find the pump power (in W/cm$^{3}$)
+        required to achieve a small-signal amplifier gain of 15\,dB (at $\nu=\nu_{o}$).
+\end{enumerate}
+\end{question}
+
+\subsection*{Solution to Question 8}
+% ============================================================
+
+This is a comprehensive evaluation of a 4-level laser system. We need to construct the fundamental inversion difference, compute the stimulated emission cross section, evaluating the saturated gain coefficient, and ultimately calculate required pump power for an amplifier of length 10 cm.
+
+The transition from level 3 to 2 is instantaneous. This implies level 3 is functionally empty and pumping effectively populates level 2 directly.
+
+\medskip
+\noindent\textbf{(a) Establishing Rate Formulas}\quad
+\begin{equation*}
+  \frac{dN_2}{dt} = R - \frac{N_2}{\tau_2} - (N_2 - N_1)\sigma\phi
+\end{equation*}
+\begin{equation*}
+  \frac{dN_1}{dt} = \frac{N_2}{\tau_2} - \frac{N_1}{\tau_1} + (N_2 - N_1)\sigma\phi
+\end{equation*}
+
+\medskip
+\noindent\textbf{(b) Steady-State Population Difference}\quad
+We set both time derivatives to zero. Adding $dN_2/dt + dN_1/dt = 0$ causes the stimulated emission terms $(N_2-N_1)\sigma\phi$ to cancel exactly, leaving:
+\begin{equation*}
+  R - \frac{N_1}{\tau_1} = 0 \quad\Longrightarrow\quad N_1 = R\tau_1. \tag{I}
+\end{equation*}
+Now substituting $N_1 = R\tau_1$ into the $dN_2/dt = 0$ equation, with $W_i = \sigma\phi$:
+\begin{equation*}
+  R - \frac{N_2}{\tau_2} - W_i(N_2 - R\tau_1) = 0.
+\end{equation*}
+Collecting all $N_2$ terms on the right:
+\begin{equation*}
+  R(1 + W_i\tau_1) = N_2\!\left(\frac{1}{\tau_2} + W_i\right) = N_2\,\frac{1+W_i\tau_2}{\tau_2},
+\end{equation*}
+\begin{equation*}
+  N_2 = \frac{R\tau_2(1 + W_i\tau_1)}{1 + W_i\tau_2}. \tag{II}
+\end{equation*}
+Subtracting (I) from (II), we bring both terms over a common denominator:
+\begin{equation*}
+  N_2 - N_1 = \frac{R\tau_2(1+W_i\tau_1) - R\tau_1(1+W_i\tau_2)}{1+W_i\tau_2}
+  = \frac{R\tau_2 + R\tau_2 W_i\tau_1 - R\tau_1 - R\tau_1 W_i\tau_2}{1+W_i\tau_2}.
+\end{equation*}
+The $RW_i\tau_1\tau_2$ terms cancel, giving the stated result:
+\begin{equation*}
+  \boxed{N_2 - N_1 = \frac{R(\tau_2 - \tau_1)}{1 + \tau_2 W_i}.}
+\end{equation*}
+
+\medskip
+\noindent\textbf{(c) Transition Cross Section}\quad
+The transition energy is $E_2 - E_1 = 1.365 - 0.2 = 1.165$\,eV, giving a wavelength
+\begin{equation*}
+  \lambda_o = \frac{hc}{E_2 - E_1} = \frac{1240\,\mathrm{eV\cdot nm}}{1.165\,\mathrm{eV}} \approx 1064\,\mathrm{nm} = 1.064\,\mu\mathrm{m}.
+\end{equation*}
+In SI-cgs convenient units, $\lambda_o = 1.064 \times 10^{-4}$\,cm. For a Lorentzian lineshape the peak value is $g(\nu_o) = 2/(\pi\Delta\nu)$, so the cross section is:
+\begin{equation*}
+  \sigma(\nu_o) = \frac{\lambda_o^2}{8\pi n^2 \tau_2}\cdot\frac{2}{\pi\Delta\nu}
+  = \frac{\lambda_o^2}{4\pi^2 n^2 \tau_2 \Delta\nu}.
+\end{equation*}
+Substituting ($n = 1.82$, $\tau_2 = 1.2\times10^{-3}$\,s, $\Delta\nu = 120\times10^{9}$\,Hz, $\lambda_o = 1.064\times10^{-4}$\,cm):
+\begin{align*}
+  \sigma &= \frac{(1.064\times10^{-4})^2}{4\pi^2\times(1.82)^2\times(1.2\times10^{-3})\times(120\times10^{9})} \\
+  &= \frac{1.132\times10^{-8}}{4\times9.870\times3.312\times1.44\times10^{8}} \\
+  &= \frac{1.132\times10^{-8}}{1.883\times10^{10}}
+\end{align*}
+\begin{equation*}
+  \boxed{ \sigma(\nu_o) \approx 6.0\times10^{-19}\,\mathrm{cm}^2 }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(d) Gain Coefficient Formulation}\quad
+Since $\gamma(\nu) = \sigma (N_2 - N_1)$, substituting our earlier result directly yields:
+\begin{equation*}
+  \boxed{ \gamma(\nu) = \frac{R(\tau_2 - \tau_1)\sigma(\nu)}{1 + \tau_2\sigma(\nu)\phi} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(e) Saturation Flux Density}\quad
+The denominator of the gain expression $1+\tau_2\sigma\phi$ equals 2 when $\tau_2\sigma\phi_s = 1$, i.e.\ the saturation photon flux is:
+\begin{equation*}
+  \phi_s = \frac{1}{\tau_2\,\sigma} = \frac{1}{(1.2\times10^{-3})\times(6.0\times10^{-19})} = \frac{1}{7.2\times10^{-22}}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi_s \approx 1.39\times10^{21}\,\mathrm{photons/cm^2\text{-}s} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(f) Flux for Fivefold Gain Reduction}\quad
+Setting the denominator of $\gamma$ equal to 5: $1 + \tau_2\sigma\phi = 5$, so $\phi = 4\phi_s$:
+\begin{equation*}
+  \phi = 4\times\phi_s = 4\times1.39\times10^{21}
+\end{equation*}
+\begin{equation*}
+  \boxed{ \phi \approx 5.56\times10^{21}\,\mathrm{photons/cm^2\text{-}s} }
+\end{equation*}
+
+\medskip
+\noindent\textbf{(g) Pump Power for 15\,dB Small-Signal Gain}\quad
+A 15\,dB gain corresponds to a power ratio of $G_0 = 10^{15/10} = 10^{1.5} \approx 31.62$. Over a length $d = 10$\,cm, the required gain coefficient is:
+\begin{equation*}
+  \gamma_0 = \frac{\ln G_0}{d} = \frac{\ln(31.62)}{10} = \frac{3.454}{10} = 0.345\,\mathrm{cm}^{-1}.
+\end{equation*}
+In the small-signal regime ($W_i\approx 0$), the inversion simplifies to $N_2 - N_1 \approx R(\tau_2 - \tau_1)$. Since $\tau_2 = 1.2\,\mathrm{ms} \gg \tau_1 = 30\,\mathrm{ns}$, we approximate $N_2 - N_1 \approx R\tau_2$. Using $\gamma_0 = \sigma(N_2-N_1)$:
+\begin{equation*}
+  R = \frac{\gamma_0}{\sigma\,\tau_2} = \frac{0.345}{(6.0\times10^{-19})\times(1.2\times10^{-3})} = \frac{0.345}{7.2\times10^{-22}} \approx 4.79\times10^{20}\,\mathrm{cm^{-3}/s}.
+\end{equation*}
+The pump excites atoms from the ground state (0) to level 3, each requiring energy $E_3 = 2.1\,\mathrm{eV} = 3.36\times10^{-19}$\,J. The volumetric pump power density is therefore:
+\begin{equation*}
+  P = R\cdot E_3 = (4.79\times10^{20})\times(3.36\times10^{-19}) \approx 161\,\mathrm{mW/cm^3}
+\end{equation*}
+\begin{equation*}
+  \boxed{ P \approx 0.16\,\mathrm{W/cm^3} }
+\end{equation*}
+
+% ============================================================
+
+\begin{question}[Formative Question]Consider the energy-level system of a proposed laser
+as shown in the figure.
+\begin{enumerate}[label=(\alph*)]
+  \item Find the equilibrium populations of states 1 and 2 when $R=10^{20}$\,cm$^{-3}$/sec.
+        Assume that $\tau_{2}=20$\,ns and $\tau_{1}=1\,\mu$s and neglect the depletion of
+        state 0.
+  \item Suppose that $R(t)=R_{o}H(t)$, where $H(t)$ is the Heaviside step function. Plot the
+        time variation of the gain coefficient assuming that $\sigma=10^{-12}$\,cm$^{2}$ and
+        that $N_{2}(0)=0$ (neglect stimulated emission).
+\end{enumerate}
+\end{question}
+
+\subsection*{Formative Question -- Rate Equation Transients}
+% ============================================================
+
+We must evaluate equilibrium parameters in a basic system directly pumped from ground zero.
+
+Rate equations in steady state require the incoming pump to balance spontaneous decay parameters.
+
+\medskip
+\noindent\textbf{(a) Equilibrium Populations}\quad
+In steady state ($dN_i/dt = 0$) with direct pumping from the ground state at rate $R$, each level satisfies $R = N_i/\tau_i$, giving $N_i = R\tau_i$:
+\begin{equation*}
+  N_2 = R\tau_2 = (10^{20})(20\times10^{-9}) = 2\times10^{12}\,\mathrm{cm}^{-3},
+\end{equation*}
+\begin{equation*}
+  N_1 = R\tau_1 = (10^{20})(1\times10^{-6}) = 10^{14}\,\mathrm{cm}^{-3}.
+\end{equation*}
+Notice that $N_1 = 10^{14} \gg N_2 = 2\times10^{12}$, so the population inversion $N_2 - N_1 < 0$: \emph{there is no inversion}. This makes physical sense --- $\tau_1 \gg \tau_2$ means atoms accumulate in level~1 faster than they are pumped into level~2, producing absorption rather than gain. The system cannot lase under these conditions.
+
+\medskip
+\noindent\textbf{(b) Transient Limits}\quad
+When driven by a step function pump $R(t)$:
+\begin{equation*}
+  N_2(t) = R \tau_2 \left( 1 - e^{-t/\tau_2} \right)
+\end{equation*}
+The resultant temporary gain maps as:
+\begin{equation*}
+  \gamma(t) = \sigma N_2(t) = \sigma R \tau_2 \left( 1 - e^{-t/\tau_2} \right)
+\end{equation*}
+This mathematically describes an exponential growth curve asymptotically approaching a maximum threshold parameter.
+

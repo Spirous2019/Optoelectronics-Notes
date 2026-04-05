@@ -1,0 +1,205 @@
+% ============================================================================
+% PREAMBLE.TEX (Sheets and Solutions Edition)
+% ============================================================================
+
+% --- Core Fonts and Typography ---
+\usepackage{fontspec}
+\setmainfont{Source Serif 4}
+\setmonofont{JetBrains Mono}[Scale=0.88]
+\usepackage{microtype}
+
+% --- Language ---
+\usepackage[english]{babel}
+
+% --- Page Layout (Fixing headheight for fancyhdr warning) ---
+\usepackage[margin=0.75in, top=0.9in, bottom=0.9in, headheight=24pt]{geometry}
+
+% --- Line Spacing & Paragraphs ---
+\usepackage{setspace}
+\usepackage{parskip}
+\raggedbottom
+
+% --- Graphics & Colors ---
+\usepackage{graphicx}
+\graphicspath{{Figures/}{./}}
+\usepackage{xcolor}
+\usepackage{float}
+
+% ============================================================================
+% COLOR PALETTE
+% ============================================================================
+% Dark Navy for chapters and headings
+\definecolor{navyDark}{HTML}{0A192F}
+\definecolor{navyMedium}{HTML}{112240}
+
+\definecolor{chaptergray}{gray}{0.35}
+\definecolor{rulegray}{gray}{0.55}
+
+% Question block colors (Teal based from original keyinsight)
+\definecolor{insightColor}{HTML}{0D9488}         % Teal
+\definecolor{insightBg}{HTML}{F0FDFA}
+
+% --- Headers, Titles, Lists ---
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+
+% --- Captions ---
+\usepackage{caption}
+\usepackage{subcaption}
+
+% --- Floats & Tables ---
+\usepackage{booktabs}
+\usepackage{longtable}
+
+% --- SI Units ---
+\usepackage{siunitx}
+
+% --- Math ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{mathtools}
+
+% --- Tables (extended) ---
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{placeins}
+
+% --- Custom Boxes ---
+\usepackage[most]{tcolorbox}
+
+% --- Quotations ---
+\usepackage[autostyle=true]{csquotes}
+
+% --- Hyperlinks & Bookmarks ---
+\usepackage{hyperref}
+\hypersetup{
+    pdfpagemode        = {UseOutlines},
+    bookmarksopen      = true,
+    bookmarksopenlevel = 0,
+    hypertexnames      = false,
+    colorlinks         = true,
+    linkcolor          = blue,
+    citecolor          = navyDark,
+    urlcolor           = navyDark,
+    filecolor          = black,
+    pdfstartview       = {FitV},
+    unicode,
+    breaklinks         = true,
+    pdftitle           = {Optoelectronics Sheets and Solutions},
+    pdfauthor          = {Spirous}
+}
+\usepackage{bookmark}
+
+% ============================================================================
+% DOCUMENT SETTINGS
+% ============================================================================
+\raggedbottom
+
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.9}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.85}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+\setstretch{1.35}
+\setlength{\parskip}{0.42em plus 0.1em minus 0.03em}
+\setlength{\emergencystretch}{5em}
+\setlength{\parindent}{0pt}
+
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\doublehyphendemerits=10000
+\brokenpenalty=10000
+\interfootnotelinepenalty=9999
+
+\setlist{itemsep=0.35em, topsep=0.45em, parsep=0pt, partopsep=0pt}
+
+% ============================================================================
+% CAPTION STYLING
+% ============================================================================
+\captionsetup{
+    justification = centerlast,
+    font          = small,
+    labelfont     = {sc, color=navyDark},
+    margin        = 30pt
+}
+
+% ============================================================================
+% TYPOGRAPHY --- CHAPTER & SECTION STYLING (All Serif)
+% ============================================================================
+\newcommand{\chapterrule}{\vspace*{0.5ex}\noindent\textcolor{navyDark}{\rule{\textwidth}{1.5pt}}}
+
+\titleformat{\chapter}[display]
+    {\normalfont\Large\bfseries}
+    {\textcolor{navyDark}{\MakeUppercase{\chaptertitlename}\ \thechapter}}
+    {0.5ex}
+    {\huge\raggedright\bfseries\color{navyDark}}[\chapterrule]
+\titlespacing*{\chapter}{0pt}{-25pt}{12pt}
+
+\titleformat{\section}
+    {\normalfont\Large\bfseries\color{navyDark}}
+    {\thesection}
+    {1em}
+    {}
+\titlespacing*{\section}{0pt}{1.5ex plus 0.5ex minus 0.2ex}{1ex plus 0.2ex}
+
+\titleformat{\subsection}
+    {\normalfont\large\bfseries\color{navyMedium}}
+    {\thesubsection}
+    {1em}
+    {}
+\titlespacing*{\subsection}{0pt}{1.5ex plus 0.5ex minus 0.2ex}{0.8ex plus 0.2ex}
+
+% ============================================================================
+% HEADERS & FOOTERS (All Serif)
+% ============================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\thepage}
+\fancyhead[L]{\textit{\nouppercase{\leftmark}}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{navyDark}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+
+% ============================================================================
+% CUSTOM BLOCKS --- vertical-bar boxes via tcolorbox
+% ============================================================================
+\tcbset{
+    blockbase/.style={
+        enhanced,
+        breakable,
+        sharp corners,
+        boxrule       = 0pt,
+        frame hidden,
+        borderline west = {3.5pt}{0pt}{#1},
+        left          = 10pt,
+        right         = 10pt,
+        top           = 6pt,
+        bottom        = 6pt,
+        before skip   = 6pt,
+        after skip    = 8pt,
+        fonttitle     = \bfseries\large, % Back to Serif
+        coltitle      = #1,
+        attach title to upper = {\par\vspace{0.2em}},
+    }
+}
+
+% --- Question Block ---
+\newtcolorbox{question}[1][Problem]{%
+    blockbase = insightColor,
+    colback   = insightBg,
+    title     = {#1}
+}
