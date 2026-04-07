@@ -26,7 +26,7 @@ A laser is, at its core, an oscillator in the engineering sense of the word. Rec
     where $\gamma_0$ is the small-signal (unsaturated) gain coefficient, $\Phi$ is the photon flux density inside the cavity, and $\Phi_s$ is the saturation photon flux density. As $\Phi$ grows, $\gamma$ decreases, until at steady state $\gamma = \alpha_r$, the threshold gain.
 \end{enumerate}
 
-In short, a laser needs spontaneous emission to start, mirrors to sustain, and gain saturation to stabilise.
+Distilling this down, a laser fundamentally needs spontaneous emission to spark it, geometric mirrors to sustain it, and gain saturation to forcibly stabilize it.
 
 % ============================================================================
 \section{The Fabry-P\'erot Cavity: Round-Trip Analysis}
@@ -102,7 +102,7 @@ where:
     \item $L$: the cavity length
 \end{itemize}
 
-This is a remarkable result. The phase condition tells us that only certain \emph{discrete} frequencies are allowed to oscillate inside the cavity --- those for which the round-trip optical path length is exactly an integer number of wavelengths. These discrete frequencies are the \textbf{longitudinal modes} of the cavity. Note that these mode frequencies depend \emph{only on the cavity length $L$}, not on the gain medium; we therefore sometimes call them the \textbf{cold-resonator modes} (i.e., the mode frequencies of the cavity with the gain turned off). In short, the phase condition is a geometric constraint: it forces the optical field to form a standing wave pattern inside the cavity.
+This is a remarkable result. The phase condition tells us that only certain \emph{discrete} frequencies are allowed to oscillate inside the cavity --- those for which the round-trip optical path length is exactly an integer number of wavelengths. These discrete frequencies are the \textbf{longitudinal modes} of the cavity. Note that these mode frequencies depend \emph{only on the cavity length $L$}, not on the gain medium; we therefore sometimes call them the \textbf{cold-resonator modes} (i.e., the mode frequencies of the cavity with the gain turned off). Functionally, the phase condition acts as a strict geometric constraint: it physically forces the optical field to form a perfect standing wave pattern locked inside the cavity.
 
 \subsection{The Free Spectral Range and Finesse}
 
@@ -154,7 +154,7 @@ This is the \textbf{threshold gain condition}. The quantity $\alpha_r$ is called
 
 The amplitude condition therefore says: the gain coefficient must be at least as large as $\alpha_r$ to sustain oscillation. If $\gamma < \alpha_r$, the field decays on each round trip; if $\gamma > \alpha_r$, the field grows; and at steady state, gain saturation drives $\gamma$ down until $\gamma = \alpha_r$ exactly.
 
-In short, the amplitude condition $\gamma \geq \alpha_r$ is the condition for lasing to occur, and it will eventually be satisfied with equality at steady state due to gain saturation.
+The physical reality is that the amplitude condition $\gamma \geq \alpha_r$ serves as the hard prerequisite for lasing to spark; once running, gain saturation will inevitably crush $\gamma$ down until it perfectly equals the loss at steady state.
 
 % ============================================================================
 \section{Types of Mirrors}
@@ -261,7 +261,7 @@ where $c$ is the speed of light and $\alpha_r$ is the total loss coefficient fro
     \delta\nu = \frac{1}{2\pi \tau_{\text{ph}}}.
 \end{equation}
 
-In short, a high-$Q$ (high-finesse) cavity has a long photon lifetime and narrow mode linewidths, while a lossy cavity has a short photon lifetime and broad modes.
+Consequently, a tightly confining high-$Q$ (high-finesse) cavity enjoys a long photon lifetime and heavily sharpened mode linewidths, whereas a highly lossy cavity suffers a short photon lifetime and bleeds into broad modes.
 
 \subsection{Threshold Pump Rate}
 
@@ -516,7 +516,7 @@ For the multi-mode case, where the $m$-th mode oscillates at $\nu_m$ with photon
 \end{equation}
 and since in the IHB case different modes interact with different sub-groups, their saturations are independent of each other: the hole burned by mode $m$ at $\nu_m$ does not affect the gain available to mode $m+1$ at $\nu_{m+1}$.
 
-In short, HB lasers tend toward single-mode output --- global saturation means only one mode survives the competition. IHB lasers tend toward multi-mode output --- spectral hole burning means each mode saturates its own local group of atoms independently, and many modes can coexist. The number of modes in the IHB case is $B/\nu_F$, where $B$ is the width of the gain profile above the loss line. And the $\sqrt{\cdot}$ law $\bar{\gamma} = \gamma_0/\sqrt{1+\Phi/\Phi_s}$ is not just a curiosity --- it is a direct consequence of the Gaussian velocity distribution being sifted by the saturation-broadened Lorentzian hole.
+The operational takeaway here is profound: HB lasers heavily bias toward single-mode output because global saturation guarantees only the strongest mode survives the deathmatch. In contrast, IHB lasers natively support multi-mode output—spectral hole burning lets each mode gorge on its own private subset of atoms independently, allowing many to safely coexist. In the IHB case, the sheer number of allowed modes is roughly $B/\nu_F$ (where $B$ spans the gain profile above the loss line). Moreover, the square-root saturation law $\bar{\gamma} = \gamma_0/\sqrt{1+\Phi/\Phi_s}$ is no mere mathematical nuance—it is the inescapable physical consequence of forcing a Gaussian thermal velocity distribution through the sifter of a power-broadened Lorentzian hole.
 
 % ============================================================================
 \section{Laser Output Power}
@@ -634,7 +634,7 @@ The maximum output power of a laser is $P_{\text{max}} = \frac{P_s}{2}(\sqrt{g} 
 One might think that using perfect mirrors ($R_1 = R_2 = 1$, so $T = 0$) would give the maximum power, since all the intracavity energy is kept inside. In fact, $T = 0$ means \emph{no light exits at all} --- $P_{\text{out}} = 0$! The optimal transmissivity is $T_{\text{opt}} = \sqrt{g\ell} - \ell > 0$, which is always greater than zero for a laser operating above threshold.
 \end{misconception}
 
-In short, the laser output power is zero below threshold ($\gamma_0 \leq \alpha_r$), grows linearly with the pump rate above threshold, and is maximised at an optimal mirror transmissivity given by equation~\eqref{eq:T_opt}.
+Ultimately, the laser physically outputs dead zero power below threshold ($\gamma_0 \leq \alpha_r$), ramps up linearly with the pump rate once ignited, and crests exactly at the engineered optimal mirror transmissivity derived in equation~\eqref{eq:T_opt}.
 
 % ============================================================================
 \section{Effect of Gain on Resonance Frequency: The Hot Resonator}
@@ -706,7 +706,7 @@ To summarise the modified phase condition result compactly: from equation~\eqref
 \end{equation}
 where $\nu_F = c/(2L)$. This shows that the oscillation frequency $\nu'_q$ is always between $\nu_q$ (cold mode) and $\nu_0$ (atomic resonance) --- it is pulled from $\nu_q$ toward $\nu_0$ by the dispersive phase shift of the gain medium.
 
-In short, a laser oscillates at frequencies close to --- but not exactly equal to --- the cold-resonator mode frequencies. The gain medium introduces a dispersive phase shift (via Kramers-Kronig) that pulls the oscillation frequencies toward the atomic line centre $\nu_0$. This is the ``hot resonator'' effect, and it has practical implications for the spectral purity and frequency stability of laser sources.
+As a result, an active laser actually oscillates at frequencies that are close to—but measurably offset from—the geometric cold-resonator mode frequencies. The excited gain medium inevitably injects a dispersive phase shift (governed rigidly by Kramers-Kronig) that physically drags the oscillation frequencies toward the atomic line centre $\nu_0$. This undeniable ``hot resonator'' effect introduces serious engineering implications regarding the true spectral purity and absolute frequency stability of any laser source.
 
 % ============================================================================
 \section{Summary and Looking Ahead}

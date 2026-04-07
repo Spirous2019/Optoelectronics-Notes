@@ -135,7 +135,7 @@ where:
 
 This is the probability that a single atom transitions from $E_2$ to $E_1$ per unit time via spontaneous emission. The total rate at which the $E_2$ population decreases due to spontaneous emission is $A\,N_2$.
 
-In short, spontaneous emission drains the upper-level population at a rate proportional to $N_2$, with a proportionality constant $A = 1/\tau_{sp}$ that tells us how quickly the atom typically decays on its own.
+Ultimately, spontaneous emission drains the upper-level population at a rate proportional to $N_2$, where the proportionality constant $A = 1/\tau_{sp}$ tells us exactly how quickly the atom typically decays on its own.
 
 % ----------------------------------------------------------
 \subsection{Process 2: Absorption}
@@ -176,7 +176,7 @@ where:
 
 The subscript on $B_{12}$ encodes the direction: the ``1'' means we start at level 1, the ``2'' means we end at level 2. We will see shortly that there is also a $B_{21}$ for the reverse process.
 
-In short, absorption promotes atoms from $E_1$ to $E_2$ at a rate $B_{12}\,\mathcal{E}(\nu)\,N_1$, driven by the incident photon field.
+This means absorption promotes atoms from $E_1$ to $E_2$ at a rate $B_{12}\,\mathcal{E}(\nu)\,N_1$, entirely driven by the incident photon field.
 
 % ----------------------------------------------------------
 \subsection{Process 3: Stimulated Emission}
@@ -256,7 +256,7 @@ Solving for $\mathcal{E}(\nu)$:
     \tag{I}
 \end{equation}
 
-In short, thermal equilibrium requires the spontaneous and stimulated downward flows to perfectly balance the upward absorption flow, yielding an exact expression (I) for the necessary equilibrium photon field $\mathcal{E}(\nu)$.
+The physical takeaway is that thermal equilibrium requires the spontaneous and stimulated downward flows to perfectly balance the upward absorption flow. Setting this balance yields our exact expression (I) for the necessary equilibrium photon field $\mathcal{E}(\nu)$.
 
 This gives us $\mathcal{E}(\nu)$ as a function of the populations and the Einstein coefficients. But we don't know the values of $B_{12}$ and $B_{21}$ yet, and we don't know the ratio $N_1/N_2$ in equilibrium without additional physics. We now bring in two separate pieces of known physics to evaluate both.
 
@@ -286,7 +286,7 @@ This confirms what we expect: since $E_2 > E_1$, we have $h\nu > 0$, so $N_1/N_2
 
 Note that at room temperature, $k_B T \approx 26\,\text{meV}$, which is a useful value to remember for quick estimates.
 
-In short, the Boltzmann statistical reality proves that without external interference, populations exponentially favour the lower energy state; establishing an absolute ceiling $N_1 \gg N_2$ at room temperature.
+The Boltzmann statistical reality proves a difficult truth: without external interference, populations exponentially favour the lower energy state, establishing an absolute ceiling $N_1 \gg N_2$ at room temperature.
 
 \begin{figure}[H]
     \centering
@@ -398,7 +398,7 @@ And the spontaneous emission rate is determined by the same chain:
 
 \textbf{Commentary:} These are the Einstein coefficients. The A coefficient governs how quickly atoms spontaneously release energy from $E_2$; the B coefficient (which is the same for absorption and stimulated emission) governs how strongly the atom responds to an external photon field. Notably, $B_{12} = B_{21}$ means that at a fundamental level, an atom is equally likely to absorb a photon (going up) as it is to emit a stimulated photon (going down), for the same photon density. The asymmetry between absorption-dominated and gain-dominated behaviour comes entirely from the populations $N_1$ and $N_2$, not from any asymmetry in the coefficients themselves.
 
-In short, the thermal equilibrium condition combined with the known black-body radiation spectrum forces us to the conclusion that $B_{12} = B_{21} = B = \lambda^3 / (8\pi h\,\tau_{sp})$, where $\lambda$ is the in-medium wavelength, and gives us the Einstein A coefficient as $A = 1/\tau_{sp}$.
+The mathematics leave no other option: forcing the thermal equilibrium condition to match the known black-body radiation spectrum irrefutably proves that $B_{12} = B_{21} = B = \lambda^3 / (8\pi h\,\tau_{sp})$ (using the in-medium wavelength $\lambda$) and confirms the Einstein A coefficient as $A = 1/\tau_{sp}$.
 
 \subsection{Why the Einstein Model Stops Here — The Missing Broadening}
 
@@ -465,7 +465,7 @@ where the factor $g_{\nu_0}(\nu)\,d\nu$ represents the probability that the atom
 
 \textbf{Limiting case — what if $\Delta\nu \to 0$?} If the linewidth goes to zero, then $g_{\nu_0}(\nu) \to \delta(\nu - \nu_0)/d\nu$, and $g_{\nu_0}(\nu)\,d\nu \to 1$ only at $\nu = \nu_0$ and zero everywhere else. This collapses us back to the original Einstein model with no broadening — the atom interacts only at the exact resonance frequency, and there are no losses beyond the photon energy itself. This is the idealised, unphysical limit. We name the condition: if $\Delta\nu \to 0$, then $\chi \approx \infty$ — the susceptibility blows up, meaning no dissipation and no radiation at all (no losses).
 
-In short, the modification to the Einstein model is to multiply each rate equation by the line shape function $g_{\nu_0}(\nu)\,d\nu$, which distributes the interaction probability across a band of frequencies rather than concentrating it at a single point.
+To fix our theoretical gap, we simply multiply each Einstein rate equation by the line shape function $g_{\nu_0}(\nu)\,d\nu$. This distributes the interaction probability across a physical band of frequencies rather than artificially concentrating it at a single point.
 
 \subsection{Introducing the Energy Density \texorpdfstring{$\rho_\nu$}{rho-nu} and Its Relation to Intensity}
 
@@ -508,7 +508,7 @@ In a medium of refractive index $n$, the phase velocity (and group velocity for 
 
 So the energy density and intensity are related by a factor of $n/c_0$. This factor of $n$ in the numerator is critical --- it will cancel one power of $n$ from the Einstein $B$ coefficient later, giving $n^2$ (not $n^3$) in the denominator of the final cross-section. We will work with $\rho_\nu$ in the rate equations and convert to $I_\nu$ at the end.
 
-In short, the energy density $\rho_\nu$ is the energy stored per unit volume in a frequency slice, and it maps directly to the measurable intensity via $I_\nu = \rho_\nu V_g$. This bridge lets us convert Einstein's rate equations — which are naturally written in terms of energy density — into statements about optical intensity.
+Functionally, the energy density $\rho_\nu$ defines the energy stored per unit volume in a given frequency slice, and it maps directly to our measurable intensity via $I_\nu = \rho_\nu V_g$. This critical bridge allows us to convert Einstein's rate equations—which are naturally written in terms of energy density—directly into statements about optical intensity.
 
 \textbf{Substituting $\rho_\nu = I_\nu/V_g$ into the rate equations:} With this substitution, the three modified rate equations become:
 
@@ -589,7 +589,7 @@ Recall that from the classical model we had:
 \end{equation*}
 Both models naturally use the \emph{in-medium} wavelength $\lambda$. Notice that by phrasing the cross-section directly in terms of $\lambda = \lambda_0/n$, we completely eliminate the explicit appearance of the refractive index $n$ from the rule, preventing confusion. The two expressions differ structurally only by a factor of 3 because the quantum (Einstein) derivation correctly accounts for the directional degeneracy of the photon polarisation states, which the classical derivation does not handle with the same accuracy. The Einstein expression is the correct one to use in quantum optics.
 
-In short, replacing $\lambda_0/n$ with the in-medium wavelength $\lambda$ gives the cross section $\sigma(\nu) = \lambda^2/(8\pi \tau_{sp})\,g_{\nu_0}(\nu)$, yielding the compact rate equations $dN_2/dt|_{abs} = \sigma\Phi N_1$ and $dN_2/dt|_{stim} = -\sigma\Phi N_2$.
+Ultimately, directly using the in-medium wavelength $\\lambda$ cleanly yields the cross section $\\sigma(\\nu) = \\lambda^2/(8\\pi \\tau_{sp})\\,g_{\\nu_0}(\\nu)$, pulling the complicated math down into elegantly compact rate equations: $dN_2/dt|_{abs} = \\sigma\\Phi N_1$ and $dN_2/dt|_{stim} = -\\sigma\\Phi N_2$.
 
 \subsection{Summary: Rate Equations in Terms of \texorpdfstring{$\sigma$}{sigma} and \texorpdfstring{$\Phi$}{Phi}}
 
@@ -616,7 +616,7 @@ This confirms explicitly that absorption and stimulated emission have the same p
 
 \textbf{Note on spontaneous emission:} We can include spontaneous emission inside the same framework by writing its rate coefficient as $-A = -1/\tau_{sp}$, but note that this term describes emission into all directions and does not contribute to the directed beam — it cannot be collected into the mode we care about (without a cavity). The spontaneous emission into the specific optical mode we are amplifying is a much smaller fraction of the total $A\,N_2$ rate.
 
-In short, the three processes are now fully described by the compact set of rate equations above, where the cross section $\sigma(\nu)$ encodes all the frequency-dependent interaction strength, and the photon flux $\Phi$ encodes the intensity of the driving field.
+With all the physical pieces collected, these three simultaneous processes are now fully described by the compact rate equations above. The cross section $\\sigma(\\nu)$ neatly swallows all frequency-dependent interaction strength, while the photon flux $\\Phi$ natively handles the intensity of the driving field.
 
 % ----------------------------------------------------------
 %  Section 6: Looking Ahead

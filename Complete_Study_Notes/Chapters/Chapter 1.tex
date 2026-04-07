@@ -17,17 +17,18 @@ To master optical devices, we must first understand how light interacts with mat
     \label{fig:ch1_transparency_absorption}
 \end{figure}
 
-This chapter develops the first and most foundational of these models — the classical electron oscillator. As we'll see, relying on a single model isn't enough; we need three progressive levels of description:
+This chapter develops the first and most foundational of these frameworks — the classical electron oscillator. Before we begin, it helps to realize that no single model tells the whole story. To truly understand modern optoelectronics—and specifically the mechanisms that make a laser possible—we must move through three progressive levels of description:
+
 \begin{enumerate}
-  \item \textbf{Classical Electron Oscillator (Lorentz model):} This provides our baseline physical intuition. It treats energy levels as continuous.
-  \item \textbf{Einstein transition model:} This introduces discrete energy levels and transition probabilities to explain what the classical model cannot.
-   \item \textbf{Quantum-mechanical interpretation:} This gives us the full mathematical rigor needed for advanced photonics.
+    \item \textbf{Classical Electron Oscillator (Lorentz model):} We start here to build fundamental physical intuition. By treating the electron as a mass on a microscopic spring, we can derive macroscopic phenomena like the refractive index, chromatic dispersion, and optical absorption. However, because this model relies entirely on classical friction, it inherently forbids optical amplification (gain).
+    \item \textbf{Einstein Transition Model:} To solve the gain problem, we replace the classical spring with discrete, quantized energy levels. By defining clear transition probabilities (the $A$ and $B$ coefficients), this model introduces stimulated emission and population inversion—the core engine driving every laser system.
+    \item \textbf{Quantum-Mechanical Interpretation:} While the Einstein model assumes transitions happen, it doesn't explain \emph{why}. A full quantum mechanical approach (solving the Schrödinger equation) finally gives us the mathematical rigor needed to calculate atomic lifetimes and cross-sections directly from first principles.
 \end{enumerate}
 
-Note that the interaction picture differs between \textbf{gases} (where we deal with bound electrons in isolated atoms) and \textbf{semiconductors} (where we deal with free carriers in energy bands), but the underlying Lorentz model captures the essential physics of both.
+Note that the physical picture of this interaction changes drastically depending on the material we are studying. In \textbf{gases} or lightly doped optical fibres, we deal with strongly bound electrons identically trapped in isolated atoms, producing very sharp, discrete spectral lines. In \textbf{semiconductors}, however, the atoms are so tightly packed into a lattice that these energy levels blur into continuous \emph{energy bands}. Instead of isolated events, we deal with large populations of free carriers jumping across a bandgap. Despite these architectural differences, the core physical principles developed here will translate flawlessly to both environments.
 
 \begin{motivation}[Journey Through Light-Matter Interaction]
-Understanding light-matter interaction requires a progressive approach. We will start with the \textbf{Classical Electron Oscillator (CEO)} to build an intuitive picture of dispersion and absorption. However, as we will prove shortly, the classical model cannot explain true optical gain. This necessitates the introduction of the \textbf{Einstein Model} for population inversion, and eventually, a full \textbf{Quantum Mechanical} treatment to capture the probabilistic nature of electrons.
+Understanding light-matter interaction requires establishing the physics step by step. We will start strictly with the \textbf{Classical Electron Oscillator} to build a rock-solid, intuitive picture of how a material bends and absorbs passing light waves. However, as we will prove at the end of this chapter, the classical model hits a mathematical dead end when trying to explain optical amplification. Recognizing this specific failure is what motivates our leap into the \textbf{Einstein Model} in the next chapter, ultimately paving the way to the full \textbf{Quantum Mechanical} treatment required to engineer real, operational devices.
 \end{motivation}
 
 \section{Model Comparison at a Glance}
@@ -94,7 +95,7 @@ x(t)=A\cos(\omega_0 t+\phi)
 \end{equation*}
 where $A$ is the amplitude of the displacement, and $\phi$ is the phase.
 
-In short, the basic structure of an atom naturally acts like a spring mass system, producing a pure, endless oscillation when disturbed at its resonance frequency $\omega_0$.
+Ultimately, the basic structure of an atom naturally acts like a spring mass system, producing a pure, endless oscillation when disturbed at its resonance frequency $\omega_0$.
 
 \begin{keyinsight}[On Thermal Energy]
 One might ask: doesn't thermal energy already displace the electron and cause oscillations? Recall that at temperature $T$, each degree of freedom carries an average thermal energy of $\frac{1}{2}k_B T$. This thermal energy gives the electron a random thermal velocity, but it does \textbf{not} produce coherent oscillations. The random thermal motion averages to zero displacement over time. Only an externally applied coherent field (such as an electromagnetic wave) can drive a sustained, phase-locked oscillation of the electron cloud.
@@ -226,7 +227,7 @@ We fully explore both channels below:
     \label{fig:ch1_relaxation_paths}
 \end{figure}
 
-In short, the friction parameter $\eta$ governs the total lifetime $\tau_t$ of the atom's excited state, combining both radiative light-emitting effects and non-radiative collisional effects.
+The physical takeaway here is that the friction parameter $\eta$ governs the total lifetime $\tau_t$ of the atom's excited state, combining both radiative light-emitting effects and non-radiative collisional effects.
 
 \subsection{Broadening Insight: Why Damping Creates Bandwidth}\label{subsec:broadening_insight}
 To master light-matter interaction, we must understand how damping changes the frequency response. Without damping, the interaction between light and matter happens strictly at an infinitely sharp impulse at $\omega_0$. 
@@ -286,7 +287,7 @@ Because we established the strict condition $v \ll c_0$, we can safely drop the 
 \bm{F}\approx \bm{F}_e = q\bm{E} = -e\bm{E}
 \end{equation*}
 
-In short, for all standard linear optics where electrons aren't moving anywhere near the speed of light, we only need to worry about the electric push of the light wave, ignoring its magnetic tug entirely.
+For all standard linear optics where electrons aren't moving anywhere near the speed of light, we only need to worry about the electric push of the light wave, ignoring its magnetic tug entirely.
 
 \subsection{The Driven Equation: Adding an External Wave}\label{subsec:driven_equation}
 So far, we looked at how the electron naturally behaves under damping without external influence. Now, let's force the system. We will substitute our external force $F \approx -e E(t)$ into the right-hand side of our damped differential equation (replacing the zero):
@@ -402,7 +403,7 @@ The real part $x'$ gives the in-phase displacement component, and the imaginary 
 \end{gather}
 \end{keyresult}
 
-In short, by applying the complex conjugate technique to the displacement phasor, we cleanly separated the electron's response into two strictly real quantities: $x'$, the in-phase component that will scale up to drive the macroscopic refractive index, and $x''$, the out-of-phase component that will dictate optical absorption. With the single-atom picture fully resolved, we are now ready to scale this up to an entire block of material.
+By applying the complex conjugate technique to the displacement phasor, we cleanly separated the electron's response into two strictly real quantities: $x'$, the in-phase component that will scale up to drive the macroscopic refractive index, and $x''$, the out-of-phase component that will dictate optical absorption. With the single-atom picture fully resolved, we are now ready to scale this up to an entire block of material.
 
 \section{Susceptibility and the Complex Refractive Index}
 
@@ -433,7 +434,7 @@ where:
     \label{fig:ch1_macroscopic_polarization}
 \end{figure}
 
-In short, each atom's displaced electron cloud creates a tiny dipole $p_0$, and stacking $N_A$ of these per unit volume gives the macroscopic polarization $P_0 = -N_A e\,x_0$. This is the quantity that links the microscopic atomic world to Maxwell's macroscopic equations.
+Ultimately, each atom's displaced electron cloud creates a tiny dipole $p_0$, and stacking $N_A$ of these per unit volume gives the macroscopic polarization $P_0 = -N_A e\,x_0$. This is the quantity that links the microscopic atomic world to Maxwell's macroscopic equations.
 
 \subsection{Deriving the Susceptibility \texorpdfstring{$\chi(\omega)$}{χ(ω)}}
 
@@ -501,7 +502,7 @@ Finally, we simply substitute our exact algebraic formulas for $x'$ and $x''$ de
 These exact classical equations are universally true. They completely dictate the optical response of the material at \emph{every} possible electromagnetic frequency — from $0$ Hz (a DC field) all the way up to extreme X-rays. While physically flawless, their massive denominator terms make them bulky and slightly unintuitive to manipulate when mathematically modeling modern lasers or narrow-band filters.
 \end{keyinsight}
 
-In short, the full macroscopic susceptibility profiles perfectly inherit the real and imaginary structure of the isolated electron's displacement. Because dealing with these exact, full-spectrum formulas is mathematically cumbersome, we will now zoom in strictly on the ultra-narrow frequency range where lasers actually operate to derive a far more elegant and powerful approximation.
+So, when all the math clears, the full macroscopic susceptibility profiles perfectly inherit the real and imaginary structure of the isolated electron's displacement. Because dealing with these exact, full-spectrum formulas is mathematically cumbersome, we will now zoom in strictly on the ultra-narrow frequency range where lasers actually operate to derive a far more elegant and powerful approximation.
 
 \subsubsection{The Near-Resonance Approximation}\label{subsec:susceptibility_spectral_forms}
 
@@ -568,7 +569,7 @@ Think of $\delta$ as a dimensionless ``score'' of how far off-resonance the driv
     \item \textbf{$|\delta| = 1$:} We are off resonance by exactly $\eta/2$ in frequency (i.e., $|\omega - \omega_0| = \eta/2$). The denominator $(1 + \delta^2) = 2$, meaning the absorption $|\chi''|$ has dropped to exactly half of its peak value. However, something completely different happens for dispersion! Because $\chi' \propto \frac{\delta}{1+\delta^2}$, setting $|\delta|=1$ yields $\frac{1}{2}$, which is the mathematical \emph{maximum} of this function. So exactly at the points where absorption drops to half, dispersion fiercely peaks.
     \item \textbf{$|\delta| \gg 1$:} We are far from resonance — the mismatch $|\omega - \omega_0|$ is much larger than the damping rate $\eta$. The denominator $(1 + \delta^2) \approx \delta^2 \gg 1$, driving both $\chi'$ and $\chi''$ to essentially zero. Recall from our analysis in \textbf{\nameref{subsec:driven_equation}} that far off-resonance, the electron either acts as a pure spring (Case 1, $\omega \ll \omega_0$) or a pure inertial mass (Case 2, $\omega \gg \omega_0$) — and in both cases no net energy is absorbed. The large $\delta^2$ in the denominator is the mathematical signature of that same physics.
 \end{itemize}
-In short, $\delta$ is the single number that encodes where you are sitting on the resonance curve. The closer $|\delta|$ is to zero, the more dramatically the atom responds to the light.
+To strip away the math for a second, $\delta$ is the single number that encodes where you are sitting on the resonance curve. The closer $|\delta|$ is to zero, the more dramatically the atom responds to the light.
 \end{keyinsight}
 
 \begin{figure}[H]
@@ -578,7 +579,7 @@ In short, $\delta$ is the single number that encodes where you are sitting on th
     \label{fig:ch1_susceptibility_lineshapes}
 \end{figure}
 
-Now let's extract the physical implications embedded within the susceptibility profiles shown above. This visualization provides us with a rigorous mathematical map of the atom's overall optical response, simultaneously encoding the exact behaviour of both its internal friction (manifesting as absorption) and its physical inertia (manifesting as dispersion) as it interacts with the light.
+Now let's extract the physical implications embedded within the susceptibility profiles shown above. This visualization provides us with a rigorous mathematical map of the atom's optical response, simultaneously encoding the exact behaviour of both its internal friction (manifesting as absorption) and its physical inertia (manifesting as dispersion) as it interacts with the light.
 
 Starting with the absorption peak: notice the double-headed arrow labelled FWHM. The \textbf{Full Width at Half Maximum (FWHM)} is the total horizontal width of the absorption curve measured between the two points where $|\chi''|$ has dropped to exactly half of its peak value. Recall from our earlier primer in \textbf{\nameref{subsec:broadening_insight}} that we promised friction ($\eta$) physically smears the atom's frequency response into a wider band --- the FWHM is the precise, quantitative measure of that smearing. To prove this, we need to find where the absorption drops to half its peak. Since $|\chi''|$ is normalised to peak at 1, we set:
 \begin{equation*}
@@ -606,16 +607,14 @@ To find the width in terms of physical frequency, we substitute this definition 
 
 Since the terms share a common denominator $\eta$, we can combine the fractions. Notice how the central resonance frequency $\omega_0$ cancels out completely:
 \begin{equation*}
-    2 = \frac{2\omega_2 - 2\omega_0 - 2\omega_1 + 2\omega_0}{\eta}
-\end{equation*}
-\begin{equation*}
-    2 = \frac{2(\omega_2 - \omega_1)}{\eta}
+    2 = \frac{2\omega_2 - 2\omega_0 - 2\omega_1 + 2\omega_0}{\eta} = \frac{2(\omega_2 - \omega_1)}{\eta}
 \end{equation*}
 
 The term $(\omega_2 - \omega_1)$ is precisely the physical frequency span between the two half-maximum points, which is the exact definition of $\Delta\omega_{\text{FWHM}}$. Substituting this in yields the final physical linewidth:
-\begin{equation*}
-    2 = \frac{2(\Delta\omega_{\text{FWHM}})}{\eta} \quad \implies \quad \Delta\omega_{\text{FWHM}} = \eta
-\end{equation*}
+\begin{gather*}
+    2 = \frac{2(\Delta\omega_{\text{FWHM}})}{\eta} \\
+    \Delta\omega_{\text{FWHM}} = \eta
+\end{gather*}
 
 where $\Delta\omega_{\text{FWHM}}$ is the full width at half maximum in angular frequency (rad/s), and $\eta$ is the damping rate of the atom (rad/s). 
 
@@ -635,7 +634,7 @@ We collect both of these extremely important forms into a single definitive summ
 \end{gather}
 \end{keyresult}
 
-In short, a physical system with higher internal friction naturally restricts the electron's ability to sustain a long, ringing oscillation, causing its excited state energy to decay much more rapidly. In the frequency domain, this faster time decay translates directly into a broader, more smeared-out resonance bandwidth. By proving that the Full Width at Half Maximum (FWHM) is mathematically identical to $\eta$, we have accomplished something profound: we have taken an abstract friction coefficient from a microscopic, theoretical differential equation and revealed it to be exactly the macroscopic, easily measurable spectral width of the light that you would see on a laboratory spectrum analyser!
+A physical system with higher internal friction naturally restricts the electron's ability to sustain a long, ringing oscillation, causing its excited state energy to decay much more rapidly. In the frequency domain, this faster time decay translates directly into a broader, more smeared-out resonance bandwidth. By proving that the Full Width at Half Maximum (FWHM) is mathematically identical to $\eta$, we have accomplished something profound: we have taken an abstract friction coefficient from a microscopic, theoretical differential equation and revealed it to be exactly the macroscopic, easily measurable spectral width of the light that you would see on a laboratory spectrum analyser!
 
 \begin{keyinsight}[Why Dispersion Flips but Absorption is Symmetrical]
 Re-examining the susceptibility profiles plotted earlier, notice that the absorption curve ($\chi''$, the dashed line) is perfectly symmetric around $\delta = 0$. Mathematically, its denominator $(1+\delta^2)$ squares the detuning, erasing the sign. Physically, the atom doesn't care if you drive it too fast ($\delta > 0$) or too slow ($\delta < 0$) — either way, you are off-rhythm, and energy transfer drops symmetrically.
@@ -656,7 +655,7 @@ Notice how $\chi'$ and $\chi''$ are intrinsically linked — they share the exac
 One might ask: we applied $\omega \approx \omega_0$ to reach these expressions, so how can we confidently treat them as the universal spectral profiles? The key is that $\chi$ is only appreciable within a narrow bandwidth of order $\eta$ around $\omega_0$. Outside this bandwidth, $|\chi|$ is negligibly small and contributes virtually nothing to the refractive index, absorption, or any measurable optical property. Therefore, the near-resonance Lorentzian form captures the \emph{entire} physically significant behaviour of $\chi$, and the regions where the approximation breaks down are precisely the regions where $\chi$ is too small to matter.
 \end{keyinsight}
 
-In short, scaling $x_0$ to $N_A$ atoms builds the material susceptibility $\chi$. Splitting $\chi$ into real and imaginary parts proves that any medium interacting with light will simultaneously change the light's velocity ($\chi'$, dispersion) and change its power ($\chi''$, absorption or gain). Now we must connect $\chi$ to the refractive index and the wave propagation — and for that, we need the \textbf{relative permittivity}.
+The physical takeaway here is that scaling $x_0$ to $N_A$ atoms builds the material susceptibility $\chi$. Splitting $\chi$ into real and imaginary parts proves that any medium interacting with light will simultaneously change the light's velocity ($\chi'$, dispersion) and change its power ($\chi''$, absorption or gain). Now we must connect $\chi$ to the refractive index and the wave propagation — and for that, we need the \textbf{relative permittivity}.
 
 \subsection{Relative Permittivity and the Complex Refractive Index}\label{subsec:permittivity_and_n}
 
@@ -801,7 +800,7 @@ We can notice that if the transition atoms are switched off entirely ($\chi = 0$
 If the transition atoms were not embedded in a solid host medium but were instead floating freely in a pure vacuum (such as in a low-pressure atomic gas cell), the background refractive index becomes simply that of free space: $n_b = 1$. In this perfectly evacuated environment, the massive host background vanishes entirely, and the macroscopic permittivity reduces to $\varepsilon_r = 1 + \chi$. This direct relationship structurally yields the exact vacuum approximations $n \approx 1 + \chi'/2$ and $\kappa \approx \chi''/2$.
 \end{keyinsight}
 
-In short, by factoring the relative permittivity as $\varepsilon_r = n_b^2 + \chi$ and applying the binomial expansion (justified by the geometric restriction $|\chi| \ll n_b^2$), we dissect the complex refractive index into two fundamentally distinct physical components. The real refractive index $n$ governs the wave's phase velocity and is overwhelmingly dominated by the passive background host. In contrast, the extinction coefficient $\kappa$ exclusively controls the exponential amplitude growth or decay, and is driven entirely by the active quantum transitions of our dopant atoms. Together, these two fundamental numbers dictate the complete macroscopic evolution of an electromagnetic wave traversing a medium. Armed with these parameters, we can now investigate exactly how they manifest in the propagating electric field itself.
+Ultimately, by factoring the relative permittivity as $\varepsilon_r = n_b^2 + \chi$ and applying the binomial expansion (justified by the geometric restriction $|\chi| \ll n_b^2$), we dissect the complex refractive index into two fundamentally distinct physical components. The real refractive index $n$ governs the wave's phase velocity and is overwhelmingly dominated by the passive background host. In contrast, the extinction coefficient $\kappa$ exclusively controls the exponential amplitude growth or decay, and is driven entirely by the active quantum transitions of our dopant atoms. Together, these two fundamental numbers dictate the complete macroscopic evolution of an electromagnetic wave traversing a medium. Armed with these parameters, we can now investigate exactly how they manifest in the propagating electric field itself.
 \newpage
 \section{Wave Propagation: Attenuation and Dispersion}
 \subsection{Power Attenuation and the Absorption Coefficient \texorpdfstring{$\alpha$}{α}}\label{subsec:power_attenuation}
@@ -850,7 +849,7 @@ Because $\chi''$ is inherently negative in our sign convention (absorption corre
     \label{fig:ch1_power_decay}
 \end{figure}
 
-In short, the imaginary part of the susceptibility $\chi''$ directly controls how fast power decays (or grows) through the material, via $\alpha = -k_0\chi''/n_b$. Together, $n$ and $\alpha$ completely describe a wave's journey through any linear optical medium. Now let's understand how $n$ varies across the frequency spectrum.
+The imaginary part of the susceptibility $\chi''$ directly controls how fast power decays (or grows) through the material, via $\alpha = -k_0\chi''/n_b$. Together, $n$ and $\alpha$ completely describe a wave's journey through any linear optical medium. Now let's understand how $n$ varies across the frequency spectrum.
 
 \subsection{Normal vs.\ Anomalous Dispersion}
 
@@ -873,7 +872,7 @@ The issue is that our $\delta$-based formula was derived solely for $\omega \app
 The full susceptibility, $\chi(\omega) = \frac{N_A e^2}{\varepsilon_0 m}\frac{1}{\omega_0^2-\omega^2+j\eta\omega}$, tells the complete story. For visible light, the atomic resonances of glass lie far in the deep UV ($\omega_0 \gg \omega$), so $\omega_0^2$ dominates the denominator. As $\omega$ slowly increases toward that distant resonance, $\omega_0^2 - \omega^2$ shrinks, causing $\chi'$ and therefore $n$ to steadily climb. This is the true mechanism of normal dispersion.
 \end{keyinsight}
 
-In short, the refractive index $n$ increases with frequency everywhere (normal dispersion) \emph{except} in the immediate vicinity of a resonance, where it temporarily decreases (anomalous dispersion). The anomalous region is also exactly where absorption is strongest.
+So, the obvious takeaway is that the refractive index $n$ increases with frequency everywhere (normal dispersion) \emph{except} in the immediate vicinity of a resonance, where it temporarily decreases (anomalous dispersion). The anomalous region is also exactly where absorption is strongest.
 
 \subsection{Multiple Resonances and the Broadband Refractive Index}
 
@@ -888,7 +887,7 @@ As we sweep across the entire electromagnetic spectrum, the refractive index $n$
     \label{fig:ch1_broadband_dispersion}
 \end{figure}
 
-In short, real materials possess multiple atomic and molecular resonances spread widely across the electromagnetic spectrum. The overall broadband refractive index $n(\omega)$ that we measure in the laboratory is the continuous cumulative result of all of them perfectly overlapping, with each distinct resonance contributing its own dedicated absorption band and highly localised anomalous dispersion dip. At this point, we have built a complete, powerful toolkit strictly from the classical model: the susceptibility $\chi$, the complex refractive index $\tilde{n}$, and the macroscopic attenuation coefficient $\alpha$. Now let's confidently use these foundational tools to dissect the exact spectral profile of absorption — the line shape function.
+Real materials possess multiple atomic and molecular resonances spread widely across the electromagnetic spectrum. The overall broadband refractive index $n(\omega)$ that we measure in the laboratory is the continuous cumulative result of all of them perfectly overlapping, with each distinct resonance contributing its own dedicated absorption band and highly localised anomalous dispersion dip. At this point, we have built a complete, powerful toolkit strictly from the classical model: the susceptibility $\chi$, the complex refractive index $\tilde{n}$, and the macroscopic attenuation coefficient $\alpha$. Now let's confidently use these foundational tools to dissect the exact spectral profile of absorption — the line shape function.
 
 \section{The Line Shape Function}
 
@@ -910,7 +909,7 @@ where $h$ is Planck's constant, and $\nu_0$ is the resonance frequency required 
 
 Because these specific photons are destroyed and their energy is locally consumed by the material, that specific frequency of light disappears from the transmitted beam. If you look at the prism's rainbow on the output, you will see a bright, continuous rainbow of transmitted light interrupted by dark, missing narrow shadows (exactly like the famous Fraunhofer dark lines in the solar spectrum). These missing frequencies are what we define as \textbf{absorption lines}.
 
-In short, most frequencies pass through a material essentially unchanged, but photons whose frequency exactly matches an atomic transition energy $h\nu_0$ are destroyed. The result is a transmission spectrum punctuated by dark absorption shadows — each shadow corresponding to a specific quantum jump inside the atom.
+As a result, most frequencies pass through a material essentially unchanged, but photons whose frequency exactly matches an atomic transition energy $h\nu_0$ are destroyed. The transmission spectrum becomes punctuated by dark absorption shadows — each shadow corresponding to a specific quantum jump inside the atom.
 
 \begin{keyinsight}[Multiple Transitions Mean Multiple Lines]
 Real atoms and molecules are complex. They do not have just two energy levels; they have dozens or hundreds, creating a vast ladder of possible states. Consequently, a photon can be absorbed not just from level $1\to2$, but perhaps $1\to3$, $2\to4$, or $3\to5$. Every single unique allowed transition gap ($\Delta E$) produces its own unique resonance frequency ($\nu_0$). Because of this, the output spectrum of a real material will feature a unique ``fingerprint'' of multiple distinct absorption lines, each corresponding to a specific internal quantum jump.
@@ -944,7 +943,7 @@ Consequently, if a photon arrives with a frequency $\nu$ that is not exactly $\n
 
 To model this smeared probability mathematically, we define the \textbf{line shape function} $g_{\nu_0}(\nu)$ — a continuous probability density representing the chance that a photon of frequency $\nu$ will be absorbed by an atomic transition centred at resonance frequency $\nu_0$. Because $g_{\nu_0}(\nu)$ is a true probability density function, the total area under the curve must equal exactly 1.
 
-In short, an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
+This proves that an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
 
 \subsection{Deriving \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)} from the Absorption Coefficient}\label{subsec:deriving_lineshape}
 
@@ -1020,7 +1019,7 @@ where we define the \textbf{line shape function} (also called the \textbf{Lorent
 \end{equation}
 \end{keyresult}
 
-In short, by substituting $\alpha = -k_0\chi''/n_b$ and converting from angular to ordinary frequency, we successfully separated the frequency-dependent part of $\alpha$ into the universal Lorentzian line shape $g_{\nu_0}(\nu)$. What remains as the prefactor is a collection of atomic constants that does not vary with frequency.
+By substituting $\alpha = -k_0\chi''/n_b$ and converting from angular to ordinary frequency, we successfully separated the frequency-dependent part of $\alpha$ into the universal Lorentzian line shape $g_{\nu_0}(\nu)$. What remains as the prefactor is a collection of atomic constants that does not vary with frequency.
 
 \subsection{The Radiative Lifetime \texorpdfstring{$\tau_r$}{τr} and the Clean Final Form}
 
@@ -1069,7 +1068,7 @@ where $\lambda = \lambda_0/n_b$ is the wavelength of the light inside the host m
 
 This is the elegant final form. All the messy atomic constants ($e$, $m$, $\varepsilon_0$) have been absorbed into a single measurable number $\tau_r$, and the wavelength appears squared — a hint that the optical cross section scales as $\lambda^2$.
 
-In short, the absorption coefficient can be expressed in two complementary forms: the explicit atomic form $\alpha = \frac{N_A e^2}{4\varepsilon_0 m n_b c}\,g_{\nu_0}(\nu)$ and the radiative-lifetime form $\alpha = \frac{3N_A\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu)$. Both will be used extensively in the chapters ahead.
+To strip away the math for a second, the absorption coefficient can be elegantly expressed in two complementary forms: the explicit atomic form $\alpha = \frac{N_A e^2}{4\varepsilon_0 m n_b c}\,g_{\nu_0}(\nu)$ and the radiative-lifetime form $\alpha = \frac{3N_A\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu)$. Both will be used extensively in the chapters ahead.
 
 \subsection{Normalisation and the Physical Meaning of \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)}}
 
@@ -1085,7 +1084,7 @@ The term $\frac{1}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}$ gives $g_{\nu_0}(\nu)$ it
 The unit of $g_{\nu_0}(\nu)$ is $1/\text{frequency}$ (i.e., seconds), since it is a probability distribution over frequency. Integrating over all frequencies gives a dimensionless number (one), so $g_{\nu_0}(\nu)$ must carry inverse-frequency units.
 \end{keyinsight}
 
-In short, the line shape function $g_{\nu_0}(\nu)$ is a normalised Lorentzian probability density: it tells us how the absorption strength is distributed across frequency around $\nu_0$, and its total area is exactly one.
+The line shape function $g_{\nu_0}(\nu)$ acts as a normalised Lorentzian probability density: it tells us how the absorption strength is distributed across frequency around $\nu_0$, and its total area is exactly one.
 
 \subsection{The FWHM and the Line Width}
 
@@ -1120,7 +1119,7 @@ $\Delta\nu$ is also called the \textbf{line width} (or bandwidth, BW) of the tra
 
 The relationship $\Delta\nu = 1/(2\pi\tau)$ reveals a deep physical insight: the linewidth and the excited-state lifetime are inversely related. If an atom's excited state decays rapidly (short $\tau$), the emission/absorption event is brief, and the Heisenberg Uncertainty Principle forces the energy — and thus the frequency — to be poorly defined. The result is a broad, smeared spectral profile. Conversely, if the excited state is long-lived (large $\tau$, as in a metastable state), the oscillation persists for many cycles, precisely defining the frequency and producing a very narrow, sharp spectral line. This is quantified by the celebrated \textbf{lifetime-bandwidth product}: $\Delta\nu \cdot \tau = 1/(2\pi)$.
 
-In short, the line shape function $g_{\nu_0}(\nu)$ is a Lorentzian probability distribution that describes the frequency-resolved absorption probability around a resonance, and its width $\Delta\nu$ is set entirely by the lifetime $\tau$ of the upper energy state — short lifetime means broad line, long lifetime means narrow line. Now let's connect it to the absorption cross section — but first, we must address a fundamental limitation of the classical model.
+Ultimately, the line shape function $g_{\nu_0}(\nu)$ represents a Lorentzian probability distribution that describes the frequency-resolved absorption probability around a resonance. Its width $\Delta\nu$ is set entirely by the lifetime $\tau$ of the upper energy state — short lifetime means broad line, long lifetime means narrow line. Now let's connect it to the absorption cross section — but first, we must address a fundamental limitation of the classical model.
 
 \section{Why the Classical Model Cannot Produce Gain}
 
@@ -1146,7 +1145,7 @@ There is absolutely no way for $\alpha$ to ever become negative. A strictly posi
     \label{fig:ch1_loss_vs_gain}
 \end{figure}
 
-In short, the classical electron oscillator gives us a beautiful framework for dispersion and absorption, but it cannot produce gain. To ultimately explain optical amplification — the mechanism that makes lasers possible — we will need a quantum model that separates atoms into distinct energy levels and introduces the concept of population inversion. This is precisely the motivation for everything that follows.
+While the classical electron oscillator gives us a beautiful framework for dispersion and absorption, it inherently cannot produce gain. To ultimately explain optical amplification — the mechanism that makes lasers possible — we will need a quantum model that separates atoms into distinct energy levels and introduces the concept of population inversion. This is precisely the motivation for everything that follows.
 
 Now that we understand the line shape function $g_{\nu_0}(\nu)$ and the fundamental limitation of the classical model, let's connect $g_{\nu_0}(\nu)$ to a physically intuitive quantity: the absorption cross section.
 
@@ -1297,7 +1296,7 @@ And therefore the absorption coefficient relates to the cross section simply as:
 
 \textbf{Physical edge case — if $\tau_r \to \infty$:} If the radiation lifetime were infinite, $\sigma(\nu) \to 0$, meaning the atom does not absorb anything. This is consistent with the interpretation: $\tau_r \to \infty$ means the atom never radiates (never exchanges energy with the field), which is precisely the description of the ground state itself — an electron sitting stably in its ground state with constant energy, completely undisturbed, with no interaction whatsoever. This limiting case is not a contradiction; it is simply a description of absolute stability.
 
-In short, the absorption cross section $\sigma(\nu)$ is the effective photon-capturing area per atom, shaped by the line shape function $g_{\nu_0}(\nu)$ and scaled by the radiation efficiency of the atom. Through $\alpha = N_A\sigma(\nu)$, it directly determines how fast the intensity decays as light passes through the material.
+The physical takeaway here is that the absorption cross section $\sigma(\nu)$ functions as the effective photon-capturing area per atom, shaped by the line shape function $g_{\nu_0}(\nu)$ and scaled by the radiation efficiency of the atom. Through $\alpha = N_A\sigma(\nu)$, it directly determines how fast the intensity decays as light passes through the material.
 
 Now that we fully understand how a \emph{stationary} atom absorbs light and what the resulting line shape looks like, we must address a crucial physical reality: in gases, the atoms are \emph{not} stationary. They are moving. This changes the picture significantly.
 
@@ -1356,7 +1355,7 @@ If $V$ is in the \textbf{opposite direction} to the propagating light: the atom 
     \label{fig:ch1_doppler_effect}
 \end{figure}
 
-In short, a stationary atom absorbs maximally at $\nu_0$. A moving atom absorbs maximally at the Doppler-shifted resonance frequency $\nu_{\text{res}} = \nu_0(1+V/c)$, which depends on its velocity.
+The observation is clear: a stationary atom absorbs maximally at $\nu_0$. A moving atom absorbs maximally at the Doppler-shifted resonance frequency $\nu_{\text{res}} = \nu_0(1+V/c)$, which depends on its velocity.
 
 \subsection{The Line Shape Function for a Moving Atom}
 
@@ -1501,7 +1500,7 @@ This integral is a convolution of a Lorentzian (from the line shape function) an
 \end{enumerate}
 
 This precise mechanism defines \textbf{Doppler broadening}.
-In short, Doppler broadening turns the microscopic Lorentzian line shape into a macroscopic Gaussian line shape when gas atoms have a wide thermal velocity distribution. The average absorption function $\bar{g}(\nu)$ becomes uniquely Gaussian, scaled directly by the standard deviation of velocity ($\sigma_0 = (\nu_0/c)\sigma_V$).
+What this proves is that Doppler broadening turns the microscopic Lorentzian line shape into a macroscopic Gaussian line shape when gas atoms have a wide thermal velocity distribution. The average absorption function $\bar{g}(\nu)$ becomes uniquely Gaussian, scaled directly by the standard deviation of velocity ($\sigma_0 = (\nu_0/c)\sigma_V$).
 
 \subsection{Summary: Updating the Absorption Cross Section}
 
