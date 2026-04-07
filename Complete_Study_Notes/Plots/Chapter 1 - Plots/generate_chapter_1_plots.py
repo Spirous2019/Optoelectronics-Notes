@@ -4,10 +4,10 @@ generate_chapter_1_plots.py
 Generates all matplotlib figures for Chapter 1 of the Optoelectronics notes.
 
 Currently produces:
-  - 9.jpg  :  The Susceptibility Line Shapes (chi', chi'') vs normalised detuning δ,
+  - susceptibility_profiles.jpg  :  The Susceptibility Line Shapes (chi', chi'') vs normalised detuning δ,
                with the three key detuning cases annotated.
-  - 14.jpg :  The Output Transmission Spectrum with two Lorentzian absorption dips,
-               FWHM bandwidth shaded regions replacing the old arrow annotations.
+  - output_transmission_spectrum.jpg :  The Output Transmission Spectrum with two Lorentzian absorption dips.
+               FWHM bandwidth and transparency windows are shaded to avoid visual clutter.
 
 Run this script from any working directory.  The output image is saved
 alongside this script in the same folder.
@@ -55,26 +55,22 @@ plt.rcParams.update({
 })
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  FIGURE 9  —  Susceptibility profiles χ'(δ) and χ''(δ)
+#  FIGURE 1  —  Susceptibility profiles χ'(δ) and χ''(δ)
 # ═══════════════════════════════════════════════════════════════════════════
 
 def plot_susceptibility_lineshapes():
     """
     χ'(δ)  = -δ / (1 + δ²)     [dispersive / real part]
     χ''(δ) = -1 / (1 + δ²)     [absorptive / imaginary part]
-
-    Both are normalised so their extrema sit at ±½ and -1 respectively.
-    The plot annotates the three detuning regimes discussed in the keyinsight:
-      • δ = 0   : χ' = 0 (zero crossing), χ'' peaks at -1
-      • |δ| = 1 : χ'' = -½ (half-max), χ' peaks at ±½
-      • |δ| ≫ 1 : both → 0 (far off-resonance)
     """
 
     δ = np.linspace(-5, 5, 4000)
 
-    chi_prime  = -δ       / (1 + δ**2)   # dispersive   (real part)
-    # Plotting the magnitude of absorption so it peaks upward, as is standard
-    chi_dprime = 1.0      / (1 + δ**2)   # absorptive   (imaginary part magnitude)
+    def calc_chi_prime(d): return -d / (1 + d**2)
+    def calc_chi_dprime(d): return 1.0 / (1 + d**2)
+
+    chi_prime = calc_chi_prime(δ)
+    chi_dprime = calc_chi_dprime(δ)
 
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.set_facecolor(WHITE)
@@ -98,46 +94,31 @@ def plot_susceptibility_lineshapes():
                label=r"$|\delta|\gg 1$ (off-resonance, both $\to 0$)")
 
     # ── Concise Annotations ─────────────────────────────────────────────────
+    # We strictly calculate coordinates dynamically via the math functions.
 
     # Absorption peak
-    ax.plot(0, 1.0, 'o', color=TEAL, markersize=7)
-    ax.annotate(
-        r"$|\chi''|_{\max}$",
-        xy=(0, 1.0),
-        xytext=(-0.5, 1.08),
-        fontsize=12, color=TEAL,
-        ha="center", va="center"
-    )
+    p_abs = calc_chi_dprime(0.0)
+    ax.plot(0, p_abs, 'o', color=TEAL, markersize=7)
+    ax.annotate(r"$|\chi''|_{\max}$", xy=(0, p_abs), xytext=(-0.5, p_abs + 0.08),
+                fontsize=12, color=TEAL, ha="center", va="center")
 
     # Dispersion positive peak
-    ax.plot(-1.0, 0.5, 'o', color=CORAL, markersize=7)
-    ax.annotate(
-        r"$\chi'_{\max}$",
-        xy=(-1.0, 0.5),
-        xytext=(-1.6, 0.6),
-        fontsize=12, color=CORAL,
-        ha="center", va="center"
-    )
+    p_disp_pos = calc_chi_prime(-1.0)
+    ax.plot(-1.0, p_disp_pos, 'o', color=CORAL, markersize=7)
+    ax.annotate(r"$\chi'_{\max}$", xy=(-1.0, p_disp_pos), xytext=(-1.6, p_disp_pos + 0.1),
+                fontsize=12, color=CORAL, ha="center", va="center")
 
     # Dispersion negative peak
-    ax.plot(1.0, -0.5, 'o', color=CORAL, markersize=7)
-    ax.annotate(
-        r"$-\chi'_{\max}$",
-        xy=(1.0, -0.5),
-        xytext=(1.6, -0.6),
-        fontsize=12, color=CORAL,
-        ha="center", va="center"
-    )
+    p_disp_neg = calc_chi_prime(1.0)
+    ax.plot(1.0, p_disp_neg, 'o', color=CORAL, markersize=7)
+    ax.annotate(r"$-\chi'_{\max}$", xy=(1.0, p_disp_neg), xytext=(1.6, p_disp_neg - 0.1),
+                fontsize=12, color=CORAL, ha="center", va="center")
 
     # ── FWHM double-headed arrow on χ'' ─────────────────────────────────────
-    # |χ''| = ½ at δ = ±1  →  FWHM spans δ ∈ [-1, +1]
-    fwhm_y = 0.5
-    ax.annotate(
-        "", xy=(1, fwhm_y), xytext=(-1, fwhm_y),
-        arrowprops=dict(arrowstyle="<->", color=TEAL, lw=1.8),
-    )
-    ax.text(0, fwhm_y + 0.04, r"FWHM",
-            fontsize=9, color=TEAL, ha="center", va="bottom")
+    fwhm_y = calc_chi_dprime(1.0)
+    ax.annotate("", xy=(1.0, fwhm_y), xytext=(-1.0, fwhm_y),
+                arrowprops=dict(arrowstyle="<->", color=TEAL, lw=1.8))
+    ax.text(0, fwhm_y + 0.04, r"FWHM", fontsize=9, color=TEAL, ha="center", va="bottom")
 
     # ── Axes cosmetics ───────────────────────────────────────────────────────
     ax.set_xlim(-5, 5)
@@ -148,36 +129,28 @@ def plot_susceptibility_lineshapes():
     ax.grid(True)
     ax.xaxis.set_major_locator(ticker.MultipleLocator(1))
 
-    # Custom x-tick labels to highlight the key δ values
     ax.set_xticks([-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5])
     ax.set_xticklabels([r"$-5$", r"$-4$", r"$-3$", r"$-2$", r"$-1$",
                          r"$0$",  r"$1$",  r"$2$",  r"$3$",  r"$4$",  r"$5$"])
 
-    legend = ax.legend(loc="upper right", framealpha=1,
-                       facecolor="#f5f5f5", edgecolor="#cccccc",
-                       labelcolor=AXES_CLR)
+    ax.legend(loc="upper right", framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc", labelcolor=AXES_CLR)
 
     fig.tight_layout()
-
-    out_path = os.path.join(OUT_DIR, "9.jpg")
+    out_path = os.path.join(OUT_DIR, "susceptibility_profiles.jpg")
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     print(f"Saved: {out_path}")
     plt.close(fig)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  FIGURE 14  —  Output Transmission Spectrum with shaded absorption bands
+#  FIGURE 2  —  Output Transmission Spectrum
 # ═══════════════════════════════════════════════════════════════════════════
 
 def plot_transmission_spectrum():
     """
     T(ν) = exp(−α₁(ν) − α₂(ν))  where αᵢ(ν) is a Lorentzian.
-
-    Output is saved to the same folder as this script for manual revision
-    before the user moves it to Figures/Chapter 1/.
-
-    Clean presentation: shaded FWHM bands communicate that absorption lines
-    are finite-bandwidth regions. No arrows, no callout labels, no centre lines.
+    Demonstrates "Shading First, Labels Second" rule by conveying the FWHM
+    bands and transparency window entirely with shaded backgrounds.
     """
     nu = np.linspace(0.0, 11.0, 6000)
 
@@ -185,27 +158,34 @@ def plot_transmission_spectrum():
     nu0_1, dnu_1, aL_1 = 3.0, 0.50, 1.50   # ν₀, FWHM, α_peak·L
     nu0_2, dnu_2, aL_2 = 7.5, 0.70, 2.50
 
-    # Lorentzian absorption profiles and total transmission
-    alpha_1 = aL_1 / (1.0 + ((nu - nu0_1) / (dnu_1 / 2.0))**2)
-    alpha_2 = aL_2 / (1.0 + ((nu - nu0_2) / (dnu_2 / 2.0))**2)
+    def calc_alpha(nu_val, nu0, dnu, aL):
+        return aL / (1.0 + ((nu_val - nu0) / (dnu / 2.0))**2)
+
+    alpha_1 = calc_alpha(nu, nu0_1, dnu_1, aL_1)
+    alpha_2 = calc_alpha(nu, nu0_2, dnu_2, aL_2)
     T = np.exp(-(alpha_1 + alpha_2))
 
-    # ── FWHM band boundaries (ν₀ ± Δν/2) ───────────────────────────────────
-    b1_lo, b1_hi = nu0_1 - dnu_1 / 2, nu0_1 + dnu_1 / 2   # 2.75 – 3.25
-    b2_lo, b2_hi = nu0_2 - dnu_2 / 2, nu0_2 + dnu_2 / 2   # 7.15 – 7.85
+    # ── FWHM band boundaries (calculated directly using math) ──────────────
+    b1_lo, b1_hi = nu0_1 - dnu_1 / 2, nu0_1 + dnu_1 / 2
+    b2_lo, b2_hi = nu0_2 - dnu_2 / 2, nu0_2 + dnu_2 / 2
 
     # ── Figure setup ────────────────────────────────────────────────────────
     fig, ax = plt.subplots(figsize=(9, 5.5))
     ax.set_facecolor(WHITE)
     fig.patch.set_facecolor(WHITE)
 
+    # ── FWHM Shading (drawn first so the curve sits on top) ─────────────────
+    ax.axvspan(b1_lo, b1_hi, alpha=0.11, color=CORAL,
+               label=r"Absorption Bandwidth ($\Delta\nu$ FWHM)")
+    ax.axvspan(b2_lo, b2_hi, alpha=0.11, color=CORAL)
+
+    # ── Transparency window shading (subtle definition of the gap region) ────
+    # Boundaries are exactly b1_hi and b2_lo so green starts precisely where red ends.
+    ax.axvspan(b1_hi, b2_lo, alpha=0.06, color=TEAL,
+               label="Transparency Window")
+
     # ── Transmission curve ───────────────────────────────────────────────────
     ax.plot(nu, T, color=TEAL, linewidth=2.5, label="Transmission Spectrum")
-
-    # ── FWHM shading (drawn first so the curve sits on top) ─────────────────
-    ax.axvspan(b1_lo, b1_hi, alpha=0.11, color=CORAL,
-               label=r"Absorption Bandwidth ($\Delta\nu$ FWHM region)")
-    ax.axvspan(b2_lo, b2_hi, alpha=0.11, color=CORAL)
 
     # ── Axes cosmetics ───────────────────────────────────────────────────────
     ax.set_xlim(0.0, 11.0)
@@ -217,14 +197,11 @@ def plot_transmission_spectrum():
     ax.set_title("The Output Transmission Spectrum", fontsize=15, pad=12)
     ax.grid(True)
 
-    legend = ax.legend(loc="upper right", framealpha=1,
-                       facecolor="#f5f5f5", edgecolor="#cccccc",
-                       labelcolor=AXES_CLR)
+    # Place legend clearly inside a white region
+    ax.legend(loc="upper right", framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc", labelcolor=AXES_CLR)
 
     fig.tight_layout()
-
-    # Save to same folder as script for revision before manual move
-    out_path = os.path.join(OUT_DIR, "14.jpg")
+    out_path = os.path.join(OUT_DIR, "output_transmission_spectrum.jpg")
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
     print(f"Saved: {out_path}")
     plt.close(fig)
