@@ -926,13 +926,13 @@ At this point, if we take the mathematical idealisation strictly at face value, 
 
 \subsection{The Absorption Line Is Not a Delta Function}
 
-If we look back at our transmission spectrum, one might naively expect the absorption at a resonance frequency to be a perfect vertical spike. Mathematically, this would be a Dirac delta function $\delta(\nu - \nu_0)$ in the frequency domain, implying the atom absorbs energy at \emph{exactly} $\nu_0$ and absolutely nowhere else. However, the physical reality is fundamentally different.
+If we look back at our transmission spectrum, one might naively expect absorption at resonance to perfectly resemble a vertical spike. Mathematically, this represents a Dirac delta function $\delta(\nu - \nu_0)$, implying the atom absorbs energy \emph{exclusively} at $\nu_0$. However, physical reality differs fundamentally.
 
-In practice, the absorption always spreads over a \textbf{range of frequencies} centred around $\nu_0$. The absorption is maximum precisely at $\nu_0$, but it smoothly tapers off on either side. Why does this happen?
+In practice, absorption always spans a \textbf{range of frequencies} centred around $\nu_0$. It peaks exactly at resonance but smoothly tapers off on either side. Why does this occur?
 
-Recall from \textbf{\nameref{sec:damping_and_lifetime}} that any real oscillating system experiences damping (friction $\eta$), and this damping inherently broadens the resonance response. In the quantum picture, this corresponds to the fact that atomic energy levels are not perfectly sharp single values—they possess an intrinsic energy spread dictated by the finite lifetime of the excited state (a direct consequence of the Heisenberg Uncertainty Principle). 
+Recall from \textbf{\nameref{sec:damping_and_lifetime}} that any real oscillating system experiences damping ($\eta$), which inherently broadens the resonance response. In the quantum picture, atomic energy levels are never perfectly sharp; they possess an intrinsic energy spread dictated by the excited state's finite lifetime via the Heisenberg Uncertainty Principle.
 
-Consequently, if a photon arrives with a frequency $\nu$ that is not exactly $\nu_0$, the atomic transition can still occur as long as $\nu$ falls within this broadened bandwidth. Maximum absorption still occurs exactly at resonance, but there is a non-zero probability of absorption happening in the immediate neighbourhood around it.
+Consequently, if a photon arrives with a frequency $\nu$ slightly off $\nu_0$, the transition can still occur provided $\nu$ falls within this broadened bandwidth. While maximum absorption remains strictly at resonance, a non-zero probability of absorption persists throughout the immediate neighbourhood.
 
 \begin{figure}[H]
     \centering
@@ -947,7 +947,7 @@ This proves that an atomic transition never absorbs at one infinitely sharp freq
 
 \subsection{Deriving \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)} from the Absorption Coefficient}\label{subsec:deriving_lineshape}
 
-We will derive the line shape function directly from the absorption coefficient $\alpha$ that we obtained in the previous section. Recall the result from \textbf{\nameref{subsubsec:host_medium}}:
+We will derive the line shape function directly from the macroscopic absorption coefficient $\alpha$. Recall our exact result from \textbf{\nameref{subsec:power_attenuation}}:
 \begin{equation*}
     \alpha = -\frac{k_0}{n_b}\,\chi''
 \end{equation*}
@@ -957,7 +957,7 @@ We now substitute the explicit expression for $\chi''$ that we derived in \textb
 \begin{equation*}
     \chi'' \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-1}{1 + \delta^2}\right)
 \end{equation*}
-Substituting into $\alpha = -k_0\chi''/n_b$ and noting that $-1 \times -1 = +1$:
+Substituting into $\alpha = -k_0\chi''/n_b$:
 \begin{equation*}
     \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\cdot\frac{1}{1 + \delta^2}
 \end{equation*}
@@ -968,51 +968,46 @@ We start by unpacking $\delta$ back into the denominator. Substitute $\delta = 2
     \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
 \end{equation*}
 
-Now we convert from angular frequency $\omega$ to ordinary frequency $\nu$. We use the following substitution dictionary:
-\begin{equation*}
-    \omega = 2\pi\nu, \qquad \Delta\nu = \frac{\eta}{2\pi} = \frac{1}{2\pi\tau}, \qquad \eta = \frac{1}{\tau} = 2\pi\Delta\nu, \qquad k_0 = \frac{2\pi\nu}{c}
-\end{equation*}
-where $\tau$ is the lifetime of the upper energy level, $\Delta\nu$ is the FWHM linewidth, and we have used the vacuum dispersion relation $k_0 = \omega/c = 2\pi\nu/c$.
+Now we sequentially convert the parameters from angular frequency ($\omega$) to ordinary frequency ($\nu$). First, we substitute $\omega = 2\pi\nu$ and apply the vacuum dispersion relation $k_0 = \omega/c_0 = 2\pi\nu/c_0$. Furthermore, we replace the classical damping rate $\eta$ with its quantum mechanical equivalent, the lifetime $\tau$, via the phenomenological relation $\eta = 1/\tau_t$. 
 
-Substitute $\omega = 2\pi\nu$, $\eta = 1/\tau$, and $k_0 = 2\pi\nu/c$:
+Making these initial substitutions into $\alpha$ yields:
 \begin{equation*}
-    \alpha = \frac{2\pi\nu}{n_b\,c}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\cdot\frac{1}{\tau}\cdot 2\pi\nu}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau^2}
-\end{equation*}
-The factor $2\pi\nu$ from $k_0$ cancels against the $2\pi\nu$ in the denominator of the $\chi''$ term:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau}{\varepsilon_0\,m\,n_b\,c}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau^2}
+    \alpha = \frac{2\pi\nu}{n_b\,c_0}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\cdot\frac{1}{\tau_t}\cdot 2\pi\nu}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2}
 \end{equation*}
 
-Now we must cleanly extract a common factor from the denominator to isolate the Lorentzian. The idea is to rewrite the denominator $1 + 4(2\pi)^2(\nu - \nu_0)^2\tau^2$ so that the $(\nu - \nu_0)^2$ term stands alone. We divide the entire denominator by $4(2\pi)^2\tau^2$, which means we must also divide the numerator by the same factor to keep the fraction unchanged:
+Notice that the factor $2\pi\nu$ from the wavenumber elegantly cancels the $2\pi\nu$ inside the denominator of the $\chi''$ term. After cancelling, we push the $\tau$ up to the numerator:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau}{\varepsilon_0\,m\,n_b\,c}\cdot\frac{\dfrac{1}{4\tau^2(2\pi)^2}}{\dfrac{1}{4\tau^2(2\pi)^2} + (\nu - \nu_0)^2}
+    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2}
 \end{equation*}
 
-We simplify the factor in the numerator. We have $\dfrac{1}{4\tau^2(2\pi)^2} = \left(\dfrac{1}{2\pi\tau}\right)^2\cdot\dfrac{1}{4}$, and since we defined $\Delta\nu = \dfrac{1}{2\pi\tau}$, this exactly equals $\left(\dfrac{\Delta\nu}{2}\right)^2$. Substituting:
+Now we must cleanly extract a common factor from the denominator to isolate the Lorentzian. The idea is to rewrite the denominator $1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2$ so that the $(\nu - \nu_0)^2$ term stands alone. We divide the entire denominator by $4(2\pi)^2\tau_t^2$, which means we must also divide the numerator by the same factor to keep the fraction mathematically unchanged:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau}{\varepsilon_0\,m\,n_b\,c}\cdot\frac{\left(\dfrac{\Delta\nu}{2}\right)^2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\dfrac{1}{4(2\pi)^2\tau_t^2}}{\dfrac{1}{4(2\pi)^2\tau_t^2} + (\nu - \nu_0)^2}
+\end{equation*}
+
+At this exact step, we formally introduce the Full Width at Half Maximum (FWHM) linewidth $\Delta\nu$. The linewidth is intimately coupled to the lifetime via the relation $\Delta\nu = \frac{1}{2\pi\tau_t}$. Examining the complex factor in the newly created numerator, we can rearrange it to directly expose this linewidth:
+\begin{equation*}
+    \frac{1}{4(2\pi)^2\tau_t^2} = \frac{1}{4}\left(\frac{1}{2\pi\tau_t}\right)^2 = \left(\frac{\Delta\nu}{2}\right)^2
+\end{equation*}
+Substituting this elegant form back into both the numerator and denominator:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\left(\dfrac{\Delta\nu}{2}\right)^2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
 
 We now isolate the Lorentzian. Factor $\left(\frac{\Delta\nu}{2}\right)^2$ as $\frac{\Delta\nu}{2}\cdot\frac{\Delta\nu}{2}$, and note that $\tau = \frac{1}{2\pi\Delta\nu}$. Substitute:
 \begin{gather*}
-    \tau\cdot\left(\frac{\Delta\nu}{2}\right)^2 = \frac{1}{2\pi\Delta\nu}\cdot\frac{(\Delta\nu)^2}{4} = \frac{\Delta\nu}{8\pi}
+    \tau_t\cdot\left(\frac{\Delta\nu}{2}\right)^2 = \frac{1}{2\pi\Delta\nu}\cdot\frac{(\Delta\nu)^2}{4} = \frac{\Delta\nu}{8\pi}
 \end{gather*}
 Therefore:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{\varepsilon_0\,m\,n_b\,c}\cdot\frac{\Delta\nu}{8\pi}\cdot\frac{4}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}
+    \alpha = \frac{N_A\,e^2}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\Delta\nu}{8\pi}\cdot\frac{4}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-Collecting terms and rearranging:
+Collecting terms and isolating the frequency-dependent components into a single term yields:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c}\cdot\underbrace{\frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}}_{g_{\nu_0}(\nu)}
+    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot\underbrace{\frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}}_{g_{\nu_0}(\nu)}
 \end{equation*}
 
-\begin{keyresult}
-\begin{equation}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c}\cdot g_{\nu_0}(\nu)
-\end{equation}
-\end{keyresult}
-
-where we define the \textbf{line shape function} (also called the \textbf{Lorentzian function} or \textbf{absorption profile}):
+The underbraced fraction perfectly isolates the entire resonant behavior. We extract this explicitly to officially define the \textbf{line shape function} (also called the \textbf{Lorentzian function} or \textbf{absorption profile}):
 \begin{keyresult}
 \begin{equation}
     g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
@@ -1023,12 +1018,12 @@ By substituting $\alpha = -k_0\chi''/n_b$ and converting from angular to ordinar
 
 \subsection{The Radiative Lifetime \texorpdfstring{$\tau_r$}{τr} and the Clean Final Form}
 
-The formula $\alpha = \dfrac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c}\cdot g_{\nu_0}(\nu)$ contains a rather abstract prefactor built from fundamental constants ($e$, $m$, $\varepsilon_0$). In optics, we prefer to replace this with a single, directly measurable quantity: the \textbf{radiative lifetime} $\tau_r$.
+The formula $\alpha = \dfrac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)$ contains a rather abstract prefactor built from fundamental constants ($e$, $m$, $\varepsilon_0$). In optics, we prefer to replace this with a single, directly measurable quantity: the \textbf{radiative lifetime} $\tau_r$.
 
 The radiative lifetime is the average time an excited atom will spontaneously emit a photon and return to the ground state, \emph{in the absence of any other decay mechanism}. Physically, this timescale is set by how strongly the oscillating dipole couples to the surrounding electromagnetic field: a larger charge-to-mass ratio ($e^2/m$) means a stronger oscillating dipole, which radiates faster and therefore has a shorter $\tau_r$. A higher resonance frequency $\omega_0$ also means faster oscillation and faster radiation. Collecting these dependencies from the classical Larmor radiation formula yields:
 \begin{keyresult}
 \begin{equation}
-    \tau_r = \frac{6\pi\varepsilon_0\,m\,c^3}{e^2\,\omega_0^2\,n_b}
+    \tau_r = \frac{6\pi\varepsilon_0\,m\,c_0^3}{e^2\,\omega_0^2\,n_b}
 \end{equation}
 \end{keyresult}
 where:
@@ -1040,19 +1035,19 @@ where:
 
 Now let us rearrange $\tau_r$ to isolate $e^2/(\varepsilon_0 m)$:
 \begin{equation*}
-    \frac{e^2}{\varepsilon_0\,m} = \frac{6\pi\,c^3}{\tau_r\,\omega_0^2\,n_b}
+    \frac{e^2}{\varepsilon_0\,m} = \frac{6\pi\,c_0^3}{\tau_r\,\omega_0^2\,n_b}
 \end{equation*}
 Substitute into $\alpha$:
 \begin{equation*}
-    \alpha = \frac{N_A}{4n_b\,c}\cdot\frac{6\pi\,c^3}{\tau_r\,\omega_0^2\,n_b}\cdot g_{\nu_0}(\nu) = \frac{6\pi\,N_A\,c^2}{4n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
+    \alpha = \frac{N_A}{4n_b\,c}\cdot\frac{6\pi\,c_0^3}{\tau_r\,\omega_0^2\,n_b}\cdot g_{\nu_0}(\nu) = \frac{6\pi\,N_A\,c_0^2}{4n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
 \end{equation*}
 Simplify $6/4 = 3/2$:
 \begin{equation*}
-    \alpha = \frac{3\pi\,N_A\,c^2}{2n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
+    \alpha = \frac{3\pi\,N_A\,c_0^2}{2n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
 \end{equation*}
-Convert $\omega_0^2 = (2\pi\nu_0)^2 = 4\pi^2\nu_0^2$. Also, recall that $c = \lambda_0 \nu_0$ (the fundamental wave relation in vacuum), so $\lambda_0 = c/\nu_0$ and therefore $c^2/\nu_0^2 = \lambda_0^2$. Substituting both:
+Convert $\omega_0^2 = (2\pi\nu_0)^2 = 4\pi^2\nu_0^2$. Also, recall that $c_0 = \lambda_0 \nu_0$ (the fundamental wave relation in vacuum), so $\lambda_0 = c_0/\nu_0$ and therefore $c_0^2/\nu_0^2 = \lambda_0^2$. Substituting both:
 \begin{equation*}
-    \alpha = \frac{3\pi\,N_A\,c^2}{2n_b^2\,\tau_r\cdot 4\pi^2\nu_0^2}\cdot g_{\nu_0}(\nu) = \frac{3N_A\,\lambda_0^2}{8\pi\,n_b^2\,\tau_r}\cdot g_{\nu_0}(\nu)
+    \alpha = \frac{3\pi\,N_A\,c_0^2}{2n_b^2\,\tau_r\cdot 4\pi^2\nu_0^2}\cdot g_{\nu_0}(\nu) = \frac{3N_A\,\lambda_0^2}{8\pi\,n_b^2\,\tau_r}\cdot g_{\nu_0}(\nu)
 \end{equation*}
 Since the wavelength inside the host medium is $\lambda = \lambda_0/n_b$, we have $\lambda_0^2 = n_b^2\lambda^2$. Substituting:
 \begin{equation*}
@@ -1068,7 +1063,7 @@ where $\lambda = \lambda_0/n_b$ is the wavelength of the light inside the host m
 
 This is the elegant final form. All the messy atomic constants ($e$, $m$, $\varepsilon_0$) have been absorbed into a single measurable number $\tau_r$, and the wavelength appears squared — a hint that the optical cross section scales as $\lambda^2$.
 
-To strip away the math for a second, the absorption coefficient can be elegantly expressed in two complementary forms: the explicit atomic form $\alpha = \frac{N_A e^2}{4\varepsilon_0 m n_b c}\,g_{\nu_0}(\nu)$ and the radiative-lifetime form $\alpha = \frac{3N_A\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu)$. Both will be used extensively in the chapters ahead.
+To strip away the math for a second, the absorption coefficient can be elegantly expressed in two complementary forms: the explicit atomic form $\alpha = \frac{N_A e^2}{4\varepsilon_0 m n_b c_0}\,g_{\nu_0}(\nu)$ and the radiative-lifetime form $\alpha = \frac{3N_A\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu)$. Both will be used extensively in the chapters ahead.
 
 \subsection{Normalisation and the Physical Meaning of \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)}}
 
@@ -1125,7 +1120,7 @@ Ultimately, the line shape function $g_{\nu_0}(\nu)$ represents a Lorentzian pro
 
 Before introducing the absorption cross section, let us make a crucial observation about everything we have derived so far. Recall from \textbf{\nameref{subsec:power_attenuation}} that our final absorption coefficient is:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c}\cdot g_{\nu_0}(\nu)
+    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)
 \end{equation*}
 
 We can inspect every single factor in this expression:
@@ -1322,17 +1317,17 @@ Let:
 
 The relativistic Doppler formula gives the observed frequency as seen by the moving atom:
 \begin{equation*}
-    \nu_{\text{res}} = \nu_0\left(1 - \frac{V}{c}\right)^{-1}\cdot\left(1-\frac{V^2}{c^2}\right)^{1/2}
+    \nu_{\text{res}} = \nu_0\left(1 - \frac{V}{c_0}\right)^{-1}\cdot\left(1-\frac{V^2}{c_0^2}\right)^{1/2}
 \end{equation*}
 
-For non-relativistic atoms ($V \ll c$), this simplifies. The observed frequency from the atom's perspective is:
+For non-relativistic atoms ($V \ll c_0$), this simplifies. The observed frequency from the atom's perspective is:
 \begin{equation*}
-    \nu_{\text{res}} \approx \nu_0\left(1 + \frac{V}{c}\right) \qquad \text{(using Taylor approximation)}
+    \nu_{\text{res}} \approx \nu_0\left(1 + \frac{V}{c_0}\right) \qquad \text{(using Taylor approximation)}
 \end{equation*}
 
 \begin{keyresult}
 \begin{equation}
-    \nu_{\text{res}} = \nu_0\left(1 + \frac{V}{c}\right)
+    \nu_{\text{res}} = \nu_0\left(1 + \frac{V}{c_0}\right)
 \end{equation}
 \end{keyresult}
 
@@ -1371,7 +1366,7 @@ For a moving atom with velocity $V$, the resonance is shifted to $\nu_{\text{res
 
 We can write this more compactly by recognising the argument shift. If we define $g_{\nu_0}(\nu)$ as the base function, then the Doppler-shifted version is simply:
 \begin{equation*}
-    g_{\nu_{\text{res}}}(\nu) = g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c}\right)
+    g_{\nu_{\text{res}}}(\nu) = g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c_0}\right)
 \end{equation*}
 
 This is the line shape function for a \emph{single} atom moving at velocity $V$. The problem is: in a real gas, every atom has a different velocity. We now need to account for all of them together.
@@ -1442,7 +1437,7 @@ This integral is a convolution of a Lorentzian (from the line shape function) an
     \end{equation*}
     Substituting this into integral \textup{(I)}:
     \begin{equation*}
-        \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c}\right) \delta(V)\,dV = g_{\nu_0}(\nu)
+        \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c_0}\right) \delta(V)\,dV = g_{\nu_0}(\nu)
     \end{equation*}
 
     The sifting property of the delta function completely kills everything except exactly the $V=0$ term. The average line shape function therefore simplifies flawlessly to our original Lorentzian:
@@ -1459,12 +1454,12 @@ This integral is a convolution of a Lorentzian (from the line shape function) an
 
     In this high-velocity spread limit, the line width $\Delta\nu$ of each individual atom is \emph{tiny} compared to the vast Doppler shifts sweeping across the full Gaussian. From the Gaussian's sweeping perspective, each tiny Lorentzian is effectively an infinitely sharp vertical impulse function:
     \begin{equation*}
-        \lim_{\Delta\nu \to 0} g_{\nu_{\text{res}}}(\nu) = \delta\!\left(\nu - \nu_0\left[1+\frac{V}{c}\right]\right) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c}\right)
+        \lim_{\Delta\nu \to 0} g_{\nu_{\text{res}}}(\nu) = \delta\!\left(\nu - \nu_0\left[1+\frac{V}{c_0}\right]\right) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
     \end{equation*}
 
     To evaluate an integral containing this delta function over $dV$, we must formally apply the scaling property of the delta function $\delta(Ax-B) = \frac{1}{|A|}\delta(x - B/A)$ to properly extract out $V$. Here, $A = -\nu_0/c$. So we rewrite the delta effectively as:
     \begin{equation*}
-        \delta\!\left(\left(-\frac{\nu_0}{c}\right)V + (\nu-\nu_0) \right) = \frac{1}{\left|-\dfrac{\nu_0}{c}\right|}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right) = \frac{c}{\nu_0}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right)
+        \delta\!\left(\left(-\frac{\nu_0}{c_0}\right)V + (\nu-\nu_0) \right) = \frac{1}{\left|-\dfrac{\nu_0}{c}\right|}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right) = \frac{c}{\nu_0}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right)
     \end{equation*}
 
     Now substitute this perfectly scaled delta function into our average integral \textup{(I)}:
@@ -1479,10 +1474,10 @@ This integral is a convolution of a Lorentzian (from the line shape function) an
 
     Now we fully explicitly substitute the Gaussian velocity PDF $f_V(V)$:
     \begin{equation*}
-        \bar{g}(\nu) = \frac{c}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{\left[\frac{c(\nu-\nu_0)}{\nu_0}\right]^2}{2\sigma_V^2}\right) = \frac{1}{\sqrt{2\pi}\left(\frac{\nu_0}{c}\sigma_V\right)} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\left(\frac{\nu_0}{c}\sigma_V\right)^2}\right)
+        \bar{g}(\nu) = \frac{c}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{\left[\frac{c(\nu-\nu_0)}{\nu_0}\right]^2}{2\sigma_V^2}\right) = \frac{1}{\sqrt{2\pi}\left(\frac{\nu_0}{c_0}\sigma_V\right)} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\left(\frac{\nu_0}{c_0}\sigma_V\right)^2}\right)
     \end{equation*}
 
-    Let's make a beautiful grouping substitution. Define $\sigma_0 = \frac{\nu_0}{c}\sigma_V$. Our enormous equation reduces perfectly:
+    Let's make a beautiful grouping substitution. Define $\sigma_0 = \frac{\nu_0}{c_0}\sigma_V$. Our enormous equation reduces perfectly:
     \begin{keyresult}
 \begin{equation}
         \bar{g}(\nu) = \frac{1}{\sqrt{2\pi}\,\sigma_0}\,\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_0^2}\right) \qquad \text{(Gaussian — inhomogeneous limit)}
