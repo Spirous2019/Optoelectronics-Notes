@@ -4,13 +4,13 @@ generate_chapter_1_plots.py
 Generates all matplotlib figures for Chapter 1 of the Optoelectronics notes.
 
 Currently produces:
-  - susceptibility_profiles.jpg  :  The Susceptibility Line Shapes (chi', chi'') vs normalised detuning δ,
-               with the three key detuning cases annotated.
-  - output_transmission_spectrum.jpg :  The Output Transmission Spectrum with two Lorentzian absorption dips.
-               FWHM bandwidth and transparency windows are shaded to avoid visual clutter.
+  - susceptibility_profiles.jpg         :  The Susceptibility Line Shapes (chi', chi'') vs normalised detuning δ.
+  - output_transmission_spectrum.jpg    :  The Output Transmission Spectrum with two Lorentzian absorption dips.
+  - lineshape_function_lorentzian.jpg   :  The normalised Lorentzian line shape function g(ν), with the peak
+                                           marked by a dot+label, the FWHM indicated by a double-headed arrow,
+                                           and all key x/y axis values labelled.
 
-Run this script from any working directory.  The output image is saved
-alongside this script in the same folder.
+Run this script from any working directory.
 """
 
 import numpy as np
@@ -18,8 +18,14 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import os
 
-# ── Output directory is the same folder as this script ─────────────────────
-OUT_DIR = os.path.dirname(os.path.abspath(__file__))
+# ── Paths ───────────────────────────────────────────────────────────────────
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+OUT_DIR    = SCRIPT_DIR   # plots saved next to the script
+
+# Output directory for the Figures folder (lineshape figure saved there directly)
+FIGURES_DIR = os.path.normpath(
+    os.path.join(SCRIPT_DIR, "..", "..", "Figures", "Chapter 1")
+)
 
 # ── Colour palette (figure-generation-style) ───────────────────────────────
 WHITE    = "#ffffff"
@@ -143,6 +149,130 @@ def plot_susceptibility_lineshapes():
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+#  FIGURE 3  —  Normalised Lorentzian Line Shape Function g_ν₀(ν)
+# ═══════════════════════════════════════════════════════════════════════════
+
+def plot_lineshape_lorentzian():
+    """
+    g(ν) = (Δν/2π) / [ (Δν/2)² + (ν − ν₀)²  ]
+
+    Normalised Lorentzian line shape function.  The figure shows:
+      • The Lorentzian curve in TEAL.
+      • FWHM region shaded in TEAL down to the x-axis.
+      • A filled dot at the peak (ν₀, g_max) in TEAL with a matching text label.
+      • A ←→ double-headed arrow spanning the FWHM at height g_max/2.
+      • Dots at the two FWHM boundary points in CORAL.
+      • x-axis ticks: ν₀−Δν/2, ν₀, ν₀+Δν/2.
+      • y-axis ticks: 0, g_max/2, g_max.
+      • A legend.
+    """
+
+    # ── Physical parameters (arbitrary normalised units) ─────────────────────
+    nu0  = 0.0    # resonance centre
+    dnu  = 1.0    # FWHM  (sets the scale; labels are written symbolically)
+
+    # ── Derived quantities ───────────────────────────────────────────────────
+    g_max  = 2.0 / (np.pi * dnu)   # peak amplitude  =  2/(π Δν)
+    g_half = g_max / 2.0           # half-maximum height
+
+    # ── Frequency axis ───────────────────────────────────────────────────────
+    nu = np.linspace(nu0 - 2.5 * dnu, nu0 + 2.5 * dnu, 6000)
+
+    def lorentzian(f):
+        return (dnu / (2 * np.pi)) / ((dnu / 2)**2 + (f - nu0)**2)
+
+    g = lorentzian(nu)
+
+    # ── FWHM boundary frequencies ────────────────────────────────────────────
+    nu_left  = nu0 - dnu / 2
+    nu_right = nu0 + dnu / 2
+
+    # Mask for the FWHM region only
+    fwhm_mask = (nu >= nu_left) & (nu <= nu_right)
+
+    # ── Figure / axes ────────────────────────────────────────────────────────
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.set_facecolor(WHITE)
+    fig.patch.set_facecolor(WHITE)
+
+    # ── FWHM shading (down to x-axis, drawn first so curve sits on top) ──────
+    ax.fill_between(nu, g, where=fwhm_mask, alpha=0.18, color=TEAL,
+                    label=r"FWHM region")
+
+    # ── Main Lorentzian curve ────────────────────────────────────────────────
+    ax.plot(nu, g, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$")
+
+    # ── Peak dot + label (both in TEAL) ──────────────────────────────────────
+    ax.plot(nu0, g_max, 'o', color=TEAL, markersize=8, zorder=5,
+            label=r"$g_{\max} = \dfrac{2}{\pi\,\Delta\nu}$")
+    ax.text(nu0 + 0.09 * dnu, g_max * 1.025,
+            r"$g_{\max} = \dfrac{2}{\pi\,\Delta\nu}$",
+            fontsize=11, color=TEAL, ha="left", va="bottom")
+
+    # ── FWHM double-headed arrow ──────────────────────────────────────────────
+    ax.annotate("",
+                xy=(nu_right, g_half), xytext=(nu_left, g_half),
+                arrowprops=dict(arrowstyle="<->", color=CORAL, lw=1.8))
+    ax.text(nu0, g_half + 0.022 * g_max,
+            r"$\Delta\nu$  (FWHM)",
+            fontsize=10, color=CORAL, ha="center", va="bottom",
+            label=r"$\Delta\nu$ (FWHM)")
+
+    # ── Dots at FWHM boundary points ─────────────────────────────────────────
+    ax.plot([nu_left, nu_right], [g_half, g_half],
+            'o', color=CORAL, markersize=6, zorder=5,
+            label=r"Half-maximum points  $\left(\nu_0 \pm \tfrac{\Delta\nu}{2},\;\dfrac{g_{\max}}{2}\right)$")
+
+    # ── x-axis ticks: ν₀−Δν/2, ν₀, ν₀+Δν/2 ─────────────────────────────────
+    x_ticks = [nu_left, nu0, nu_right]
+    x_labels = [
+        r"$\nu_0 - \frac{\Delta\nu}{2}$",
+        r"$\nu_0$",
+        r"$\nu_0 + \frac{\Delta\nu}{2}$",
+    ]
+    ax.set_xticks(x_ticks)
+    ax.set_xticklabels(x_labels, fontsize=11)
+
+    # ── y-axis ticks: 0, g_max/2, g_max ──────────────────────────────────────
+    y_ticks  = [0, g_half, g_max]
+    y_labels = [
+        r"$0$",
+        r"$\dfrac{g_{\max}}{2} = \dfrac{1}{\pi\,\Delta\nu}$",
+        r"$g_{\max} = \dfrac{2}{\pi\,\Delta\nu}$",
+    ]
+    ax.set_yticks(y_ticks)
+    ax.set_yticklabels(y_labels, fontsize=11)
+
+    # ── Axis limits, labels, title ────────────────────────────────────────────
+    ax.set_xlim(nu[0], nu[-1])
+    ax.set_ylim(0, g_max * 1.28)          # starts exactly at 0 so shading touches x-axis
+    ax.set_xlabel(r"Frequency $\nu$", fontsize=13)
+    ax.set_ylabel(r"$g_{\nu_0}(\nu)$  [Hz$^{-1}$]", fontsize=13)
+    ax.set_title(r"The Normalised Lorentzian Line Shape Function", fontsize=15, pad=12)
+    ax.grid(True)
+
+    # ── Legend (curve + FWHM region + FWHM span only) ────────────────────────
+    handles = [
+        plt.Line2D([0], [0], color=TEAL, linewidth=2.5,
+                   label=r"$g_{\nu_0}(\nu)$ — Lorentzian line shape"),
+        plt.matplotlib.patches.Patch(facecolor=TEAL, alpha=0.35,
+                   label=r"FWHM region  ($\nu_0 \pm \Delta\nu/2$)"),
+        plt.Line2D([0], [0], color=CORAL, linewidth=1.8,
+                   label=r"$\Delta\nu$ (FWHM)"),
+    ]
+    ax.legend(handles=handles, loc="upper right",
+              framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc",
+              labelcolor=AXES_CLR, fontsize=10)
+
+    fig.tight_layout()
+
+    out_path = os.path.join(OUT_DIR, "lineshape_function_lorentzian.jpg")
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 #  FIGURE 2  —  Output Transmission Spectrum
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -211,3 +341,4 @@ def plot_transmission_spectrum():
 if __name__ == "__main__":
     plot_susceptibility_lineshapes()
     plot_transmission_spectrum()
+    plot_lineshape_lorentzian()

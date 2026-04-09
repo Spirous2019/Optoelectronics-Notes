@@ -175,7 +175,7 @@ where $\omega_d$ is the damped natural frequency, defined as:
 Is the underdamped assumption ($\eta/2 < \omega_0$) valid for optical materials? Yes. The displacement solution $x(t) = A e^{-\eta t/2}\cos(\omega_d t+\phi)$ explicitly shows that the coefficient $\eta$ acts purely as a decay rate for the amplitude envelope, while $\omega_0$ (via the damped frequency $\omega_d=\sqrt{\omega_0^2-(\eta/2)^2}$) sets the rapid oscillation. For visible light, the natural oscillation frequency of an electron is immense: $\omega_0 \approx 10^{15}$ rad/s. In contrast, the atomic ``friction'' causing the oscillation to decay acts much more slowly. The amplitude typically takes a few nanoseconds to visibly shrink, making the decay rate roughly $\eta \approx 10^9$ s$^{-1}$. Because $10^9 \ll 10^{15}$ (meaning $\eta \ll \omega_0$), the electron will ring for millions of cycles before the envelope dies out. Therefore, atomic electron oscillators are strictly underdamped!
 \end{keyinsight}
 
-\subsection{Energy Decay and the Concept of "Lifetime"}
+\subsection{Energy Decay and the Concept of "Lifetime"}\label{subsec:energy_decay_lifetime}
 Now let's talk about the energy of this system. The total energy $U$ of our Classical Electron Oscillator (CEO) is the sum of its potential and kinetic energy. 
 
 First, let's derive the potential energy stored in our ideal spring model. The restoring force of the spring is $F_s = -k_s x$. The potential energy (P.E) is the work done against this force to stretch the spring from equilibrium ($x=0$) to a displacement $x$:
@@ -629,7 +629,7 @@ We collect both of these extremely important forms into a single definitive summ
 
 \begin{keyresult}
 \begin{gather}
-    \Delta\omega_{\text{FWHM}} = \eta \nonumber \\
+    \Delta\omega_{\text{FWHM}} = \eta \nonumber \\[1ex]
     \Delta\nu_{\text{FWHM}} = \frac{\eta}{2\pi}
 \end{gather}
 \end{keyresult}
@@ -788,10 +788,10 @@ Finally, substituting the complex formulation $\chi = \chi' + j\chi''$ explicitl
 Matching this directly against our definition $\tilde{n} = n + j\kappa$, we can read off the equations for the real refractive index and the extinction coefficient:
 
 \begin{keyresult}
-\begin{align}
-    n      &\approx n_b + \frac{\chi'}{2n_b} \nonumber \\[1ex]
-    \kappa &\approx \frac{\chi''}{2n_b}
-\end{align}
+\begin{gather}
+    n      \approx n_b + \frac{\chi'}{2n_b} \\[1ex]
+    \kappa \approx \frac{\chi''}{2n_b}
+\end{gather}
 \end{keyresult}
 
 We can notice that if the transition atoms are switched off entirely ($\chi = 0$), then $n \to n_b$ and $\kappa \to 0$: the wave propagates through the host with no attenuation, exactly as expected.
@@ -945,204 +945,221 @@ To model this smeared probability mathematically, we define the \textbf{line sha
 
 This proves that an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
 
-\subsection{Deriving \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)} from the Absorption Coefficient}\label{subsec:deriving_lineshape}
+\subsection{Deriving the Line Shape Function and the Final Form of \texorpdfstring{$\alpha$}{α}}\label{subsec:deriving_lineshape}
 
-We will derive the line shape function directly from the macroscopic absorption coefficient $\alpha$. Recall our exact result from \textbf{\nameref{subsec:power_attenuation}}:
+Our overarching goal here is to transform the absorption coefficient $\alpha$ from a messy theoretical expression into a clean, empirical formula that we can actually use in the lab. The central idea is that $\alpha$ must be separable into two completely independent physical concepts: its overall ``strength'' and its statistical ``shape''.
 \begin{equation*}
-    \alpha = -\frac{k_0}{n_b}\,\chi''
-\end{equation*}
-where $k_0 = 2\pi/\lambda_0$ is the free-space wavenumber and $n_b$ is the background host refractive index.
-
-We now substitute the explicit expression for $\chi''$ that we derived in \textbf{\nameref{subsec:susceptibility_spectral_forms}}:
-\begin{equation*}
-    \chi'' \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-1}{1 + \delta^2}\right)
-\end{equation*}
-Substituting into $\alpha = -k_0\chi''/n_b$:
-\begin{equation*}
-    \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\cdot\frac{1}{1 + \delta^2}
-\end{equation*}
-where $\delta = 2(\omega - \omega_0)/\eta$ is the normalised frequency detuning.
-
-We start by unpacking $\delta$ back into the denominator. Substitute $\delta = 2(\omega - \omega_0)/\eta$:
-\begin{equation*}
-    \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
+    \alpha = \underbrace{(\text{constant prefactor})}_{\text{Total Absorbing Strength}} \times \underbrace{(\text{pure frequency profile})}_{\text{Probability Shape}}
 \end{equation*}
 
-Now we sequentially convert the parameters from angular frequency ($\omega$) to ordinary frequency ($\nu$). First, we substitute $\omega = 2\pi\nu$ and apply the vacuum dispersion relation $k_0 = \omega/c_0 = 2\pi\nu/c_0$. Furthermore, we replace the classical damping rate $\eta$ with its quantum mechanical equivalent, the lifetime $\tau$, via the phenomenological relation $\eta = 1/\tau_t$. 
+We will achieve this separation, and mathematically clean up both parts, in a single continuous algebraic pass:
+\begin{enumerate}
+    \item \textbf{Isolating the Shape as a Probability Density:} We will extract the pure frequency profile and convert it into lab-measurable variables (ordinary frequency $\nu$ and linewidth $\Delta\nu$). Crucially, we will rigorously force this profile to mathematically integrate to exactly 1. This guarantees it carries absolutely zero information about the material's total absorption strength. Instead, it becomes a pure probability density function — the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$ — which tells us solely \emph{how} the atom's capability to absorb a photon is distributed across the spectrum. By decoupling the shape from the magnitude, we ensure $g_{\nu_0}(\nu)$ acts as a completely universal statistical tool that functions identically for \emph{any} atomic transition, regardless of how aggressively or weakly it absorbs.
+    \item \textbf{Cleaning the Prefactor (The Strength):} By forcing the shape function's area to unity, we essentially vacuum all of the actual absorbing power into the constant prefactor. However, this prefactor will initially be a messy cluster of unobservable microscopic constants ($e$, $m$, $\varepsilon_0$). We will use classical Larmor radiation theory to bundle all of them into a single macroscopic, measurable parameter: the \textbf{radiative lifetime} $\tau_r$. This elegantly collapses the hidden mechanics of a single oscillating electron into a simple, empirical time constant that fundamentally dictates the raw optical power of the entire transition.
+\end{enumerate}
 
-Making these initial substitutions into $\alpha$ yields:
+\begin{keyinsight}[The Mathematical Target: The Lorentzian Profile]
+To understand the logic behind the algebraic steps that follow, we must define what a ``Lorentzian profile'' actually looks like mathematically. Any Lorentzian bell curve (like our atomic absorption peak) is built around one signature structural fraction:
 \begin{equation*}
-    \alpha = \frac{2\pi\nu}{n_b\,c_0}\cdot\frac{N_A\,e^2}{\varepsilon_0\,m\cdot\frac{1}{\tau_t}\cdot 2\pi\nu}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2}
+    \text{Shape} \propto \frac{1}{(\text{Half-Width})^2 + (\text{Detuning})^2}
+\end{equation*}
+Notice the strict structure of the denominator. For a formula to be a true Lorentzian, its denominator MUST be the sum of exactly two isolated squares: the detuning squared (which is simply $\nu - \nu_0$), and a constant squared. That constant is physically critical — it fully defines the tangible width of the peak (specifically, its half-width). Therefore, our mechanical goal in the upcoming derivation is to aggressively sculpt our messy denominator until it perfectly matches this clean `$(\text{Half-Width})^2 + (\text{Detuning})^2$' layout. Only then can we mathematically verify the shape and extract the true physical bandwidth of our atomic transition.
+\end{keyinsight}
+We start from two fundamental formulas we have already derived: the power absorption coefficient ($\alpha$) from \textbf{\nameref{subsec:power_attenuation}}, and the imaginary susceptibility near resonance ($\chi''$) from \textbf{\nameref{subsec:susceptibility_spectral_forms}}:
+\begin{equation*}
+    \alpha = -\frac{k_0}{n_b}\,\chi'' \qquad \text{and} \qquad \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \delta^2}
 \end{equation*}
 
-Notice that the factor $2\pi\nu$ from the wavenumber elegantly cancels the $2\pi\nu$ inside the denominator of the $\chi''$ term. After cancelling, we push the $\tau$ up to the numerator:
+To expose the frequency dependence hidden inside $\delta$, we substitute its definition $\delta = 2(\omega - \omega_0)/\eta$:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{1}{1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2}
+    \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \left(\dfrac{2(\omega - \omega_0)}{\eta}\right)^2} \quad \Rightarrow \quad \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
 \end{equation*}
 
-Now we must cleanly extract a common factor from the denominator to isolate the Lorentzian. The idea is to rewrite the denominator $1 + 4(2\pi)^2(\nu - \nu_0)^2\tau_t^2$ so that the $(\nu - \nu_0)^2$ term stands alone. We divide the entire denominator by $4(2\pi)^2\tau_t^2$, which means we must also divide the numerator by the same factor to keep the fraction mathematically unchanged:
+Now substitute $\chi''$ into $\alpha = -k_0\chi''/n_b$. The two minus signs cancel exactly, so $\alpha$ remains positive — which is correct for an absorbing medium:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\dfrac{1}{4(2\pi)^2\tau_t^2}}{\dfrac{1}{4(2\pi)^2\tau_t^2} + (\nu - \nu_0)^2}
+    \alpha = -\frac{k_0}{n_b}\left(-\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}\right) \quad \Rightarrow \quad \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
 \end{equation*}
 
-At this exact step, we formally introduce the Full Width at Half Maximum (FWHM) linewidth $\Delta\nu$. The linewidth is intimately coupled to the lifetime via the relation $\Delta\nu = \frac{1}{2\pi\tau_t}$. Examining the complex factor in the newly created numerator, we can rearrange it to directly expose this linewidth:
+To break the ratio in the denominator apart and expose the explicit $(\text{Half-Width})^2 + (\text{Detuning})^2$ geometric layout we are aiming for, multiply the expression by $\eta^2/\eta^2$:
 \begin{equation*}
-    \frac{1}{4(2\pi)^2\tau_t^2} = \frac{1}{4}\left(\frac{1}{2\pi\tau_t}\right)^2 = \left(\frac{\Delta\nu}{2}\right)^2
-\end{equation*}
-Substituting this elegant form back into both the numerator and denominator:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2\,\tau_t}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\left(\dfrac{\Delta\nu}{2}\right)^2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+    \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
 \end{equation*}
 
-We now isolate the Lorentzian. Factor $\left(\frac{\Delta\nu}{2}\right)^2$ as $\frac{\Delta\nu}{2}\cdot\frac{\Delta\nu}{2}$, and note that $\tau = \frac{1}{2\pi\Delta\nu}$. Substitute:
-\begin{gather*}
-    \tau_t\cdot\left(\frac{\Delta\nu}{2}\right)^2 = \frac{1}{2\pi\Delta\nu}\cdot\frac{(\Delta\nu)^2}{4} = \frac{\Delta\nu}{8\pi}
-\end{gather*}
-Therefore:
+Next, we eliminate the wavenumber $k_0$ in favour of a true frequency. Substitute $k_0 = \omega/c_0$:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\Delta\nu}{8\pi}\cdot\frac{4}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}
+    \alpha = \frac{(\omega/c_0)}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
 \end{equation*}
-Collecting terms and isolating the frequency-dependent components into a single term yields:
+Notice the perfect cancellation: the angular frequency $\omega$ in the numerator (just introduced from the optical wavenumber $k_0$) exactly cancels the $\omega$ sitting in the denominator of the microscopic atomic fraction. With this explicit $\omega$ dependence cleanly stripped away, we consolidate the remaining prefactors to get:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot\underbrace{\frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}}_{g_{\nu_0}(\nu)}
+    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
 \end{equation*}
 
-The underbraced fraction perfectly isolates the entire resonant behavior. We extract this explicitly to officially define the \textbf{line shape function} (also called the \textbf{Lorentzian function} or \textbf{absorption profile}):
-\begin{keyresult}
-\begin{equation}
-    g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
-\end{equation}
-\end{keyresult}
+The expression is still in angular frequency $\omega$. The line shape function $g_{\nu_0}(\nu)$ must ultimately be a function of ordinary frequency $\nu$. Substitute $\omega - \omega_0 = 2\pi(\nu - \nu_0)$ and expand the bracket:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 4\left[2\pi(\nu - \nu_0)\right]^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 16\pi^2(\nu - \nu_0)^2}
+\end{equation*}
 
-By substituting $\alpha = -k_0\chi''/n_b$ and converting from angular to ordinary frequency, we successfully separated the frequency-dependent part of $\alpha$ into the universal Lorentzian line shape $g_{\nu_0}(\nu)$. What remains as the prefactor is a collection of atomic constants that does not vary with frequency.
+The detuning is now explicitly in ordinary frequency, but the denominator still carries an unwanted $16\pi^2$ coefficient. To force the fraction into our target $(\text{Half-Width})^2 + (\text{Detuning})^2$ geometric layout, divide the numerator and denominator by $16\pi^2$ and immediately group it into a perfect square:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\dfrac{\eta^2}{16\pi^2}}{\dfrac{\eta^2}{16\pi^2} + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\left(\dfrac{\eta}{4\pi}\right)^2}{\left(\dfrac{\eta}{4\pi}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
 
-\subsection{The Radiative Lifetime \texorpdfstring{$\tau_r$}{τr} and the Clean Final Form}
+The mathematical shape is now visually flawless, but the width is still written using the unmeasurable theoretical damping rate $\eta$. We trade this for the lab-measurable FWHM linewidth $\Delta\nu$ using their known physical relation:
+\begin{equation*}
+    \Delta\nu = \frac{\eta}{2\pi} \quad \Rightarrow \quad \eta = 2\pi\Delta\nu
+\end{equation*}
+Substituting this everywhere:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{m\,(2\pi\Delta\nu)\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\left(\dfrac{2\pi\Delta\nu}{4\pi}\right)^2}{\left(\dfrac{2\pi\Delta\nu}{4\pi}\right)^2 + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\varepsilon_0\,n_b\,c_0}\cdot\frac{1}{2\pi\Delta\nu}\cdot\frac{\left(\dfrac{\Delta\nu}{2}\right)^2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
 
-The formula $\alpha = \dfrac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)$ contains a rather abstract prefactor built from fundamental constants ($e$, $m$, $\varepsilon_0$). In optics, we prefer to replace this with a single, directly measurable quantity: the \textbf{radiative lifetime} $\tau_r$.
+The denominator now has its final Lorentzian form. We simplify the numerical prefactor — collecting $\frac{1}{2\pi\Delta\nu}\cdot\left(\frac{\Delta\nu}{2}\right)^2$ step by step:
+\begin{equation*}
+    \frac{1}{2\pi\Delta\nu}\cdot\left(\frac{\Delta\nu}{2}\right)^2
+    = \frac{1}{2\pi\Delta\nu}\cdot\frac{(\Delta\nu)^2}{4}
+    = \frac{\Delta\nu}{8\pi}
+\end{equation*}
+Substituting this back:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{m\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\dfrac{\Delta\nu}{8\pi}}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
+At this point, the numerator contains $\Delta\nu/8\pi$. However, a true Lorentzian probability distribution must integrate to exactly 1. This mathematically guarantees that the shape function dictates \emph{only} the spectral profile, cleanly separating it from the total absorption strength. To enforce this strict normalisation, the fraction's numerator must be exactly $\Delta\nu/2\pi$. We therefore split $1/8\pi = (1/4)\cdot(1/2\pi)$ and absorb the $1/4$ into the constant prefactor:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
 
-The radiative lifetime is the average time an excited atom will spontaneously emit a photon and return to the ground state, \emph{in the absence of any other decay mechanism}. Physically, this timescale is set by how strongly the oscillating dipole couples to the surrounding electromagnetic field: a larger charge-to-mass ratio ($e^2/m$) means a stronger oscillating dipole, which radiates faster and therefore has a shorter $\tau_r$. A higher resonance frequency $\omega_0$ also means faster oscillation and faster radiation. Collecting these dependencies from the classical Larmor radiation formula yields:
+The mathematical separation is now fully visible: the prefactor $\dfrac{N_A e^2}{4\varepsilon_0 m n_b c_0}$ is a pure constant, and the remaining fraction is exclusively a function of $\nu$. We have successfully isolated the Lorentzian profile! This cleanly separated frequency fraction is exactly what we call the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$.
+
+However, the physics isn't finished yet. The prefactor remains a messy cluster of unobservable microscopic constants ($e$, $m$, $\varepsilon_0$). To fulfill our goal of a truly empirical formula, we must collapse these into a single macroscopic, measurable parameter before we can declare our final forms for $\alpha$ and $g_{\nu_0}(\nu)$.
+
+The tool we need is the \textbf{radiative lifetime} $\tau_r$. The radiative lifetime is the average time an excited atom takes to spontaneously emit a photon and return to the ground state, assuming no non-radiative decay channels compete. It is an intrinsic property of the transition that we can measure spectroscopically. From the classical Larmor radiation theory — which models the oscillating electron as an accelerating charged particle radiating electromagnetic energy — the result is:
 \begin{keyresult}
 \begin{equation}
     \tau_r = \frac{6\pi\varepsilon_0\,m\,c_0^3}{e^2\,\omega_0^2\,n_b}
 \end{equation}
 \end{keyresult}
-where:
-\begin{itemize}
-    \item $\tau_r$: The spontaneous radiative lifetime of the excited state.
-    \item $\omega_0 = 2\pi\nu_0$: The resonance angular frequency.
-    \item $n_b$: The host refractive index (a denser medium means more electromagnetic modes, accelerating spontaneous emission and shortening $\tau_r$).
-\end{itemize}
 
-Now let us rearrange $\tau_r$ to isolate $e^2/(\varepsilon_0 m)$:
+If $\tau_r$ is short, the atom radiates quickly and efficiently. If $\tau_r$ is long, the atom holds onto its energy for a long time before emitting. This is exactly why $\tau_r$ is a far more tangible quantity than the bare combination $e^2/\varepsilon_0 m$ — and that swap is what we carry out now.
+
+Rearrange the $\tau_r$ formula to isolate $e^2/\varepsilon_0 m$:
 \begin{equation*}
     \frac{e^2}{\varepsilon_0\,m} = \frac{6\pi\,c_0^3}{\tau_r\,\omega_0^2\,n_b}
 \end{equation*}
-Substitute into $\alpha$:
+
+Now isolate $e^2/\varepsilon_0 m$ within our full expression for $\alpha$, then substitute directly:
 \begin{equation*}
-    \alpha = \frac{N_A}{4n_b\,c}\cdot\frac{6\pi\,c_0^3}{\tau_r\,\omega_0^2\,n_b}\cdot g_{\nu_0}(\nu) = \frac{6\pi\,N_A\,c_0^2}{4n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
+    \alpha = \left[ \frac{N_A}{4\,n_b\,c_0}\cdot\frac{e^2}{\varepsilon_0\,m} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \left[ \frac{N_A}{4\,n_b\,c_0}\cdot\frac{6\pi\,c_0^3}{\tau_r\,\omega_0^2\,n_b} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-Simplify $6/4 = 3/2$:
+Collecting the constant factors:
 \begin{equation*}
-    \alpha = \frac{3\pi\,N_A\,c_0^2}{2n_b^2\,\tau_r\,\omega_0^2}\cdot g_{\nu_0}(\nu)
+    \alpha = \left[ \frac{6\pi\,N_A\,c_0^2}{4\,n_b^2\,\tau_r\,\omega_0^2} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \left[ \frac{3\pi\,N_A\,c_0^2}{2\,n_b^2\,\tau_r\,\omega_0^2} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-Convert $\omega_0^2 = (2\pi\nu_0)^2 = 4\pi^2\nu_0^2$. Also, recall that $c_0 = \lambda_0 \nu_0$ (the fundamental wave relation in vacuum), so $\lambda_0 = c_0/\nu_0$ and therefore $c_0^2/\nu_0^2 = \lambda_0^2$. Substituting both:
+
+There is still an $\omega_0$ here. Convert to ordinary frequency — substitute $\omega_0 = 2\pi\nu_0$, so $\omega_0^2 = 4\pi^2\nu_0^2$:
 \begin{equation*}
-    \alpha = \frac{3\pi\,N_A\,c_0^2}{2n_b^2\,\tau_r\cdot 4\pi^2\nu_0^2}\cdot g_{\nu_0}(\nu) = \frac{3N_A\,\lambda_0^2}{8\pi\,n_b^2\,\tau_r}\cdot g_{\nu_0}(\nu)
+    \alpha = \left[ \frac{3\pi\,N_A\,c_0^2}{2\,n_b^2\,\tau_r\cdot 4\pi^2\,\nu_0^2} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \left[ \frac{3N_A\,c_0^2}{8\pi\,n_b^2\,\tau_r\,\nu_0^2} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-Since the wavelength inside the host medium is $\lambda = \lambda_0/n_b$, we have $\lambda_0^2 = n_b^2\lambda^2$. Substituting:
+
+Using the vacuum wave relation $c_0 = \lambda_0\nu_0$, we substitute $c_0^2/\nu_0^2 = \lambda_0^2$:
 \begin{equation*}
-    \alpha = \frac{3N_A\,n_b^2\lambda^2}{8\pi\,n_b^2\,\tau_r}\cdot g_{\nu_0}(\nu)
+    \alpha = \left[ \frac{3N_A\,\lambda_0^2}{8\pi\,n_b^2\,\tau_r} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-The $n_b^2$ factors cancel completely:
+
+Here, $\lambda_0$ is the resonance wavelength in vacuum. Inside the background medium, the actual resonant wavelength is $\lambda = \lambda_0/n_b$. Substituting $\lambda^2 = \lambda_0^2/n_b^2$ gives:
+\begin{equation*}
+    \alpha = \left[ \frac{3N_A\,\lambda^2}{8\pi\,\tau_r} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
+
+Now we have exactly what we came for. Every piece of the prefactor ($\lambda$, $\tau_r$, $N_A$) is a directly measurable macroscopic property of the material, and the geometry of the frequency fraction perfectly matches our targeted distribution. We can now officially declare our final, macroscopic expressions for both $\alpha(\nu)$ and the line shape function $g_{\nu_0}(\nu)$ side-by-side:
 \begin{keyresult}
-\begin{equation}
-    \alpha = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\cdot g_{\nu_0}(\nu)
-\end{equation}
+\begin{gather}
+    \alpha(\nu) = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu) \\[2ex]
+    g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{gather}
 \end{keyresult}
-where $\lambda = \lambda_0/n_b$ is the wavelength of the light inside the host medium.
+where:
+\begin{itemize}
+    \item $\lambda = \lambda_0/n_b$: The resonant wavelength inside the host medium.
+    \item $\tau_r$: The radiative lifetime of the transition.
+    \item $N_A$: The number density of absorbing atoms.
+    \item $\nu$: The optical frequency at which we evaluate the absorption.
+    \item $\nu_0$: The resonance frequency at the centre of the line.
+    \item $\Delta\nu$: The FWHM linewidth of the transition, set by the total lifetime $\tau_t$ via $\Delta\nu = 1/(2\pi\tau_t)$.
+\end{itemize}
 
-This is the elegant final form. All the messy atomic constants ($e$, $m$, $\varepsilon_0$) have been absorbed into a single measurable number $\tau_r$, and the wavelength appears squared — a hint that the optical cross section scales as $\lambda^2$.
+\begin{keyinsight}[Why $\lambda$, Not $\lambda_0$, Appears in the Final Formula]
+At first glance, a contradiction seems to lurk in our result. We began the derivation with $\lambda_0$ — the vacuum wavelength, defined cleanly by $c_0 = \lambda_0\nu_0$. Yet the final absorption formula contains $\lambda = \lambda_0/n_b$, not $\lambda_0$. Why would the background medium, which plays no role in the quantum transition itself, alter the wavelength that governs how strongly the transition absorbs?
 
-To strip away the math for a second, the absorption coefficient can be elegantly expressed in two complementary forms: the explicit atomic form $\alpha = \frac{N_A e^2}{4\varepsilon_0 m n_b c_0}\,g_{\nu_0}(\nu)$ and the radiative-lifetime form $\alpha = \frac{3N_A\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu)$. Both will be used extensively in the chapters ahead.
+The resolution lies in the fact that the atoms are not interacting with the vacuum wave — they are interacting with the wave \textit{as it actually exists inside the host}. The resonance frequency $\nu_0$ is fixed forever by the quantum energy gap ($E = h\nu_0$); it cannot change. But when the wave enters the background medium of index $n_b$, the host slows the phase velocity down to $v = c_0/n_b$. Since frequency is invariant and speed has dropped, the spatial crests must pile up closer together: the wavelength compresses to $\lambda = \lambda_0/n_b$. This compressed $\lambda$ is the true spatial periodicity that the atom sees and responds to inside the dielectric. The $n_b^2$ factor that appeared in the prefactor was not a coincidence — it arose from the host's permittivity, and its cancellation against $\lambda_0^2$ is precisely what replaces the vacuum quantity with the physically correct in-medium one.
+\end{keyinsight}
+
+Ultimately, this derivation succeeded in translating abstract theoretical physics into a practical engineering toolkit. By executing our frequency substitutions and introducing $\tau_r$, we collapsed unintuitive microscopic noise into clean, lab-measurable variables. We now possess two defining expressions for the absorption coefficient:
+\begin{itemize}
+    \item \textbf{Microscopic form:} $\alpha = \dfrac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\,g_{\nu_0}(\nu)$ exposes the fundamental electrical mechanics of the atomic transition itself.
+    \item \textbf{Optical form:} $\alpha = \dfrac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)$ relies entirely on macroscopic, observable material properties.
+\end{itemize}
+
+One final, vital insight explains why this works so cleanly. Because $\lambda = c_0/(n_b\nu)$, one might expect the $\lambda^2$ prefactor to continuously sweep as we alter frequency. Physically, however, optical spectral linewidths ($\Delta\nu$) are profoundly narrow compared to their massive carrier frequencies ($\nu_0$). The wavelength variation across the active band is completely negligible. We simply lock $\lambda$ as a fixed parameter measured strictly at resonance, forcing all dynamic spectral shape to reside exclusively within $g_{\nu_0}(\nu)$. 
+
+Now that we have rigorously isolated this Lorentzian line shape function, we must understand its pure statistical behaviour. Let's physically dissect $g_{\nu_0}(\nu)$ to see what its normalisation implies, and what geometric reality the linewidth $\Delta\nu$ actively controls.
 
 \subsection{Normalisation and the Physical Meaning of \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)}}
 
-The line shape function $g_{\nu_0}(\nu)$ is \textbf{normalised to unity}:
+Now that we have derived the explicit form of $g_{\nu_0}(\nu)$ and used it to write down a clean, optics-friendly expression for $\alpha$, let's pause and ask: what kind of mathematical object is $g_{\nu_0}(\nu)$, really? The answer has a deep physical consequence.
+
+The line shape function $g_{\nu_0}(\nu)$ is \textbf{normalised to unity}. That is:
 \begin{equation*}
     \int_{-\infty}^{\infty} g_{\nu_0}(\nu)\,d\nu = 1
 \end{equation*}
-This is what allows us to interpret it as a probability distribution function — the total probability that a photon somewhere in the spectrum is absorbed sums to one (as long as we consider only this one transition near $\nu_0$; at frequencies far from $\nu_0$, the probability is simply very small).
+This normalisation condition is what allows us to interpret $g_{\nu_0}(\nu)$ as a \textbf{probability density function} over frequency. The idea is analogous to a probability distribution in statistics: $g_{\nu_0}(\nu)\,d\nu$ gives the probability that a photon with frequency between $\nu$ and $\nu + d\nu$ will be absorbed by this particular transition. Since the photon must land somewhere in the spectrum (given that we are only considering this single transition near $\nu_0$), the total area must sum to one.
 
-The term $\frac{1}{(\Delta\nu/2)^2 + (\nu - \nu_0)^2}$ gives $g_{\nu_0}(\nu)$ its Lorentzian shape. The prefactor $\frac{\Delta\nu}{2\pi}$ is the normalisation constant that ensures the integral equals one.
+Looking back at the expression we derived:
+\begin{equation*}
+    g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+\end{equation*}
+we can identify its two structural components:
+\begin{itemize}
+    \item The \textbf{denominator} $\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2$ gives $g_{\nu_0}(\nu)$ its characteristic Lorentzian shape — it peaks when $\nu = \nu_0$ and decays symmetrically on both sides as the detuning $(\nu-\nu_0)$ grows.
+    \item The \textbf{numerator} $\Delta\nu/2\pi$ is precisely the normalisation constant, chosen so that integrating over all $\nu$ gives exactly one.
+\end{itemize}
 
 \begin{keyinsight}[Unit of the Line Shape Function]
-The unit of $g_{\nu_0}(\nu)$ is $1/\text{frequency}$ (i.e., seconds), since it is a probability distribution over frequency. Integrating over all frequencies gives a dimensionless number (one), so $g_{\nu_0}(\nu)$ must carry inverse-frequency units.
+Because $g_{\nu_0}(\nu)$ is a probability density over frequency, its unit is $1/\text{frequency}$ — equivalently, seconds. This is easy to verify by dimensional analysis: integrating $g_{\nu_0}(\nu)\,d\nu$ must yield a dimensionless number (one), so $g_{\nu_0}(\nu)$ must cancel the unit of $d\nu$, which is Hz. Therefore, $[g_{\nu_0}(\nu)] = \text{s} = \text{Hz}^{-1}$.
 \end{keyinsight}
 
-The line shape function $g_{\nu_0}(\nu)$ acts as a normalised Lorentzian probability density: it tells us how the absorption strength is distributed across frequency around $\nu_0$, and its total area is exactly one.
+So, to strip away the formalism for a second: the line shape function $g_{\nu_0}(\nu)$ is a normalised Lorentzian probability density. It tells us how the absorption strength is distributed across frequency around the resonance $\nu_0$, and its total area is always exactly one — regardless of how broad or narrow the line is. The entire effect of broadening (wider $\Delta\nu$, shorter $\tau_t$) is to flatten and spread this distribution, while the narrower the line, the taller and more sharply peaked it becomes. In both cases, the area is conserved at unity.
 
-\subsection{The FWHM and the Line Width}
+\subsection{Geometry of the Line Shape: Peak and FWHM}
 
-Let us now look at the line shape function graphically. It has a peak at $\nu = \nu_0$ with value $g_{\max} = \dfrac{2}{\pi\Delta\nu}$, and it decays symmetrically on both sides.
+Now that we have the line shape function in hand, let's look at it geometrically. The Lorentzian $g_{\nu_0}(\nu)$ peaks sharply at the resonance frequency $\nu = \nu_0$. To find that peak value, we set $\nu = \nu_0$, which zeros out the detuning term in the denominator:
+\begin{equation*}
+    g_{\max} = g_{\nu_0}(\nu_0) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + 0} = \frac{\Delta\nu/2\pi}{(\Delta\nu)^2/4} = \frac{4}{2\pi\Delta\nu} = \frac{2}{\pi\Delta\nu}
+\end{equation*}
+The peak amplitude of the Lorentzian is therefore $g_{\max} = 2/(\pi\Delta\nu)$, and the distribution decays symmetrically on both sides as the detuning $(\nu - \nu_0)$ grows.
 
-The quantity $\Delta\nu$ has a precise physical meaning:
-\begin{equation*}
-    \Delta\nu = \frac{1}{2\pi\tau} = \text{FWHM} = \text{Full Width at Half Maximum}
-\end{equation*}
-where \emph{Full Width at Half Maximum} means the width of the curve measured where $g_{\nu_0}(\nu)$ has fallen to half its peak value $g_{\max}/2$. Let us verify this claim explicitly. Substitute $\nu - \nu_0 = \pm\Delta\nu/2$ into $g_{\nu_0}(\nu)$:
-\begin{equation*}
-    g_{\nu_0}\!\left(\nu_0 \pm \frac{\Delta\nu}{2}\right) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\pm\dfrac{\Delta\nu}{2}\right)^2} = \frac{\Delta\nu/2\pi}{\dfrac{(\Delta\nu)^2}{4} + \dfrac{(\Delta\nu)^2}{4}} = \frac{\Delta\nu/2\pi}{\dfrac{(\Delta\nu)^2}{2}}
-\end{equation*}
-Simplify:
-\begin{equation*}
-    g_{\nu_0}\!\left(\nu_0 \pm \frac{\Delta\nu}{2}\right) = \frac{\Delta\nu}{2\pi} \cdot \frac{2}{(\Delta\nu)^2} = \frac{1}{\pi\Delta\nu} = \frac{g_{\max}}{2} \quad \checkmark
-\end{equation*}
-This confirms that at exactly $\nu = \nu_0 \pm \Delta\nu/2$, the line shape function has fallen to exactly half its peak value. The total width between these two half-maximum points is $\Delta\nu/2 - (-\Delta\nu/2) = \Delta\nu$, which is indeed the Full Width at Half Maximum.
+Now we need to pin down the physical meaning of the parameter $\Delta\nu$ that appears throughout. We formally define the \textbf{Full Width at Half Maximum (FWHM)} (or bandwidth) as the total frequency span across which the Lorentzian stays above half of its peak value. The claim is that $\Delta\nu$ is exactly this FWHM. Let's prove it.
+
+We evaluate the distribution at the two candidate edge frequencies $\nu = \nu_0 \pm \Delta\nu/2$ — the boundary of the proposed FWHM span — and check what amplitude we arrive at:
+\begin{align*}
+    g_{\nu_0}\!\left(\nu_0 \pm \frac{\Delta\nu}{2}\right) &= \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\pm\dfrac{\Delta\nu}{2}\right)^2} = \frac{\Delta\nu/2\pi}{\dfrac{(\Delta\nu)^2}{4} + \dfrac{(\Delta\nu)^2}{4}} \\[2ex]
+    &= \frac{\Delta\nu/2\pi}{\dfrac{(\Delta\nu)^2}{2}} = \frac{\Delta\nu}{2\pi} \cdot \frac{2}{(\Delta\nu)^2} = \frac{1}{\pi\Delta\nu} = \frac{g_{\max}}{2}
+\end{align*}
+At precisely $\nu = \nu_0 \pm \Delta\nu/2$, the Lorentzian has fallen to exactly half its peak. The total width between these two half-maximum points is $\Delta\nu/2 - (-\Delta\nu/2) = \Delta\nu$, proving that $\Delta\nu$ is indeed the FWHM.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/lineshape_function_lorentzian.jpg}
-    \caption{The Line Shape Function: The Lorentzian distribution normalised to unity, explicitly marking the peak amplitude and the Full Width at Half Maximum (FWHM).}
+    \caption{The Line Shape Function: The Lorentzian distribution normalised to unity, explicitly marking the peak amplitude $g_{\max} = 2/\pi\Delta\nu$ and the Full Width at Half Maximum $\Delta\nu$.}
     \label{fig:ch1_line_shape_fwhm}
 \end{figure}
 
-$\Delta\nu$ is also called the \textbf{line width} (or bandwidth, BW) of the transition. We can notice that:
-\begin{itemize}
-    \item As $\Delta\nu$ increases, the peak drops and $g(\nu)$ flattens and spreads.
-    \item The area under $g(\nu)$ is always fixed at one, by normalisation.
-\end{itemize}
+Having proven what $\Delta\nu$ represents geometrically, we now ask what sets its actual size physically. Recall from \textbf{\nameref{subsec:energy_decay_lifetime}} that the bandwidth is fixed strictly by the total lifetime of the excited state: $\Delta\nu = 1/(2\pi\tau_t)$. 
 
-The relationship $\Delta\nu = 1/(2\pi\tau)$ reveals a deep physical insight: the linewidth and the excited-state lifetime are inversely related. If an atom's excited state decays rapidly (short $\tau$), the emission/absorption event is brief, and the Heisenberg Uncertainty Principle forces the energy — and thus the frequency — to be poorly defined. The result is a broad, smeared spectral profile. Conversely, if the excited state is long-lived (large $\tau$, as in a metastable state), the oscillation persists for many cycles, precisely defining the frequency and producing a very narrow, sharp spectral line. This is quantified by the celebrated \textbf{lifetime-bandwidth product}: $\Delta\nu \cdot \tau = 1/(2\pi)$.
+This inverse relationship is not a coincidence; it is a direct consequence of the Heisenberg Uncertainty Principle in its energy-time form, which dictates that $\Delta E \Delta t \ge \hbar/2$. Because a photon's energy is irrevocably tied to its frequency by $E = h\nu$, an uncertainty in energy translates perfectly to an uncertainty in the emitted frequency spread ($\Delta E = h\Delta\nu$). If an atom's excited state decays rapidly (short $\tau_t$), the emission event is violently brief — the photon's energy is thus highly uncertain, forcing a massive frequency spread and a broad, flat Lorentzian. Conversely, a long-lived excited state — such as a metastable lasing level — gives the atom time to ring for millions of coherent cycles before decaying. The photon energy becomes highly well-defined, resulting in a tall, aggressively narrow spectral line.
 
-Ultimately, the line shape function $g_{\nu_0}(\nu)$ represents a Lorentzian probability distribution that describes the frequency-resolved absorption probability around a resonance. Its width $\Delta\nu$ is set entirely by the lifetime $\tau$ of the upper energy state — short lifetime means broad line, long lifetime means narrow line. Now let's connect it to the absorption cross section — but first, we must address a fundamental limitation of the classical model.
+The consequence of this fundamental quantum limit is captured neatly by the \textbf{lifetime-bandwidth product}, which sets a fixed universal constant for any homogeneously broadened transition: $\Delta\nu \cdot \tau_t = 1/(2\pi)$. Notice that multiplying this by $h$ yields $h\Delta\nu\,\tau_t = h/(2\pi) = \hbar$, which safely satisfies the $\ge \hbar/2$ Heisenberg bound. No matter how broad or narrow the line, two things always hold: as $\Delta\nu$ grows, the peak $g_{\max} = 2/(\pi\Delta\nu)$ drops proportionally, keeping the total area under $g_{\nu_0}(\nu)$ conserved at exactly one.
 
-\section{Why the Classical Model Cannot Produce Gain}
-
-Before introducing the absorption cross section, let us make a crucial observation about everything we have derived so far. Recall from \textbf{\nameref{subsec:power_attenuation}} that our final absorption coefficient is:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)
-\end{equation*}
-
-We can inspect every single factor in this expression:
-\begin{itemize}
-    \item $N_A$: Number density of atoms — strictly positive.
-    \item $e^2$: Square of the electron charge — strictly positive.
-    \item $\varepsilon_0$, $m$, $n_b$, $c$: All fundamental constants — strictly positive.
-    \item $g_{\nu_0}(\nu)$: A Lorentzian probability density — strictly positive everywhere.
-\end{itemize}
-
-There is absolutely no way for $\alpha$ to ever become negative. A strictly positive $\alpha$ dictates exponential power decay (loss) via $P(z) = P(0)e^{-\alpha z}$, which means the classical electron oscillator is fundamentally incapable of producing optical amplification. There is no parameter we can tune, no frequency we can choose, and no material density we can adjust that would flip the sign of $\alpha$.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/loss_vs_gain.jpg}
-    \caption{Loss vs. Gain: The classical electron oscillator inherently enforces energy decay ($\alpha > 0$), mathematically forbidding the exponential amplification ($\alpha < 0$) required for lasers.}
-    \label{fig:ch1_loss_vs_gain}
-\end{figure}
-
-While the classical electron oscillator gives us a beautiful framework for dispersion and absorption, it inherently cannot produce gain. To ultimately explain optical amplification — the mechanism that makes lasers possible — we will need a quantum model that separates atoms into distinct energy levels and introduces the concept of population inversion. This is precisely the motivation for everything that follows.
-
-Now that we understand the line shape function $g_{\nu_0}(\nu)$ and the fundamental limitation of the classical model, let's connect $g_{\nu_0}(\nu)$ to a physically intuitive quantity: the absorption cross section.
+With the line shape fully characterised, we can now connect $g_{\nu_0}(\nu)$ to a physically intuitive per-atom quantity: the absorption cross section.
 
 % ----------------------------------------------------------
 %  Section 3: Absorption Cross Section
@@ -1446,7 +1463,7 @@ This integral is a convolution of a Lorentzian (from the line shape function) an
         \bar{g}(\nu) = g_{\nu_0}(\nu) \qquad \text{(Lorentzian — homogeneous limit)}
     \end{equation*}
 
-    This type of broadening is frequently called \textbf{lifetime/collision broadening}, because its width ($\Delta\nu = 1/2\pi\tau$) sits purely dictated by the lifetime $\tau$ of the state, not the atom's movement.
+    This type of broadening is frequently called \textbf{lifetime/collision broadening}, because its width ($\Delta\nu = 1/2\pi\tau_t$) is purely dictated by the total lifetime $\tau_t$ of the state, not the atom's movement.
 
     \item \textbf{Inhomogeneous Broadening (High Doppler Effect):}
 
@@ -1514,6 +1531,24 @@ The absorption coefficient then becomes:
 The same structure holds; only the shape of the line has changed. The absorption cross section with Gaussian distribution describes the actual frequency-resolved absorption in a real gas much more accurately than the simple Lorentzian alone.
 
 % ----------------------------------------------------------
+%  Section: Why the Classical Model Cannot Produce Gain
+% ----------------------------------------------------------
+\section{Why the Classical Model Cannot Produce Gain}
+
+Before closing the classical treatment, let us make one final, crucial observation. Recall from \textbf{\nameref{subsec:power_attenuation}} that our final absorption coefficient is:
+\begin{equation*}
+    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)
+\end{equation*}
+Every single factor here is strictly positive: $N_A$, $e^2$, $\varepsilon_0$, $m$, $n_b$, $c_0$ are all fundamental constants or densities, and $g_{\nu_0}(\nu)$ is a Lorentzian probability density that is positive everywhere. There is therefore absolutely no way for $\alpha$ to ever become negative. A strictly positive $\alpha$ dictates exponential power decay via $P(z) = P(0)e^{-\alpha z}$, meaning the classical electron oscillator is fundamentally incapable of producing optical amplification — no matter what frequency, material, or density we choose.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/loss_vs_gain.jpg}
+    \caption{Loss vs. Gain: The classical electron oscillator inherently enforces energy decay ($\alpha > 0$), mathematically forbidding the exponential amplification ($\alpha < 0$) required for lasers.}
+    \label{fig:ch1_loss_vs_gain}
+\end{figure}
+
+% ----------------------------------------------------------
 %  Closing Section: End of Classical Model
 % ----------------------------------------------------------
 \section{End of the Classical Model and Looking Ahead}
@@ -1525,6 +1560,4 @@ We have now completed everything we wanted to study using the classical model. L
     \item \textbf{Doppler broadening} modifies the line shape function for moving atoms in a gas. In the homogeneous limit, the result is a Lorentzian (lifetime/collision broadening). In the inhomogeneous limit, the result is a Gaussian (Doppler-dominated broadening). The average line shape function $\bar{g}(\nu)$ is in general the convolution of both.
 \end{enumerate}
 
-However, we must not forget what the classical model fundamentally \emph{cannot} do: it is incapable of describing optical amplification. The absorption coefficient $\alpha$ is always positive in the classical picture — the medium always attenuates light, never amplifies it. There is no mechanism in this model for population inversion or stimulated emission gain.
-
-This is precisely why we will now move on to the next level of description. The models coming ahead — starting with Einstein's model — will show us how to flip $\alpha$ to a negative value (gain instead of loss), leading ultimately to a complete understanding of how a laser actually works. All the phenomena we studied classically — the line shape, the cross section, the broadening — will reappear in those more correct models, but now with the added richness that allows both absorption \emph{and} amplification.
+This is precisely why we must now move to the next level of description. The models ahead — starting with Einstein's rate equation model — will show us how to flip $\alpha$ to a negative value (gain instead of loss), leading ultimately to a complete understanding of how a laser works. All the phenomena we studied classically — the line shape, the cross section, the broadening — will reappear in those models, but now enriched with the mechanisms that allow both absorption \emph{and} amplification.
