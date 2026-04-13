@@ -49,7 +49,7 @@ Before we dive into the derivations, let's categorize exactly what each model do
 
 This table gives us our roadmap: we will start classically, discover a mechanism it fails to explain (gain), and step up into the Einstein model to resolve that gap. Now, let's derive the classical model from scratch.
 
-\section{Classical Electron Oscillator (CEO): Lossless Start}\label{sec:classical_electron_oscillator}
+\section{Classical Electron Oscillator (CEO): Lossless Start}
 \subsection{Bound Electron as a Restoring-Force System}
 Now we'll model our atom. Let's first build our physical intuition. Treat the atom as a heavy, fixed positive core (nucleus) and a much lighter bound electron orbiting it. 
 
@@ -104,7 +104,7 @@ One might ask: doesn't thermal energy already displace the electron and cause os
 \subsection{Why This Is Incomplete}
 While simple, this lossless model is critically flawed and not physically realistic. It predicts an infinitely sharp resonance (meaning the atom interacts with light \emph{only} at exactly $\omega_0$) and assumes the electron will oscillate forever without losing any energy. In reality, real atoms lose energy through radiation (the antenna effect) and through collisions (lattice vibrations). We must now upgrade our model to incorporate these losses.
 
-\section{Damping, Lifetime, and Broadening}\label{sec:damping_and_lifetime}
+\section{Damping, Lifetime, and Broadening}
 \subsection{The Damped Oscillator Equation}
 To account for these energy losses, we must introduce an equivalent frictional force into our equation. Recall from basic electromagnetics that any electron undergoing acceleration will radiate electromagnetic waves, losing energy. Additionally, electrons scatter off other atoms in the lattice. 
 
@@ -175,7 +175,7 @@ where $\omega_d$ is the damped natural frequency, defined as:
 Is the underdamped assumption ($\eta/2 < \omega_0$) valid for optical materials? Yes. The displacement solution $x(t) = A e^{-\eta t/2}\cos(\omega_d t+\phi)$ explicitly shows that the coefficient $\eta$ acts purely as a decay rate for the amplitude envelope, while $\omega_0$ (via the damped frequency $\omega_d=\sqrt{\omega_0^2-(\eta/2)^2}$) sets the rapid oscillation. For visible light, the natural oscillation frequency of an electron is immense: $\omega_0 \approx 10^{15}$ rad/s. In contrast, the atomic ``friction'' causing the oscillation to decay acts much more slowly. The amplitude typically takes a few nanoseconds to visibly shrink, making the decay rate roughly $\eta \approx 10^9$ s$^{-1}$. Because $10^9 \ll 10^{15}$ (meaning $\eta \ll \omega_0$), the electron will ring for millions of cycles before the envelope dies out. Therefore, atomic electron oscillators are strictly underdamped!
 \end{keyinsight}
 
-\subsection{Energy Decay and the Concept of "Lifetime"}\label{subsec:energy_decay_lifetime}
+\subsection{Energy Decay and the Concept of "Lifetime"}
 Now let's talk about the energy of this system. The total energy $U$ of our Classical Electron Oscillator (CEO) is the sum of its potential and kinetic energy. 
 
 First, let's derive the potential energy stored in our ideal spring model. The restoring force of the spring is $F_s = -k_s x$. The potential energy (P.E) is the work done against this force to stretch the spring from equilibrium ($x=0$) to a displacement $x$:
@@ -213,7 +213,7 @@ In general, the atom has multiple ways to "relax" and lose this energy. We disti
 \end{equation*}
 We fully explore both channels below:
 \begin{itemize}
-    \item \textbf{Radiative Lifetime ($\tau_r$):} The atom relaxes by shining! This happens because an accelerated charge radiates an electromagnetic field (the ``antenna effect''). A classic example is spontaneous emission. This property is governed by the relation:
+    \item \textbf{Radiative Lifetime ($\tau_r$):} The average time an excited atom takes to release its stored energy by emitting a photon. It fundamentally measures how strongly the atom couples to the electromagnetic field — a short $\tau_r$ means the atom radiates quickly and efficiently, while a long $\tau_r$ means the atom is weakly coupled and holds its energy for a long time before any emission occurs. This is governed by the relation:
     \begin{equation*}
     \tau_r = \frac{6 \pi \epsilon m c^3}{e^2 \omega_0^2}, \quad \text{where } \epsilon = n^2 \varepsilon_0, \ c = \frac{c_0}{n}
     \end{equation*}
@@ -229,7 +229,7 @@ We fully explore both channels below:
 
 The physical takeaway here is that the friction parameter $\eta$ governs the total lifetime $\tau_t$ of the atom's excited state, combining both radiative light-emitting effects and non-radiative collisional effects.
 
-\subsection{Broadening Insight: Why Damping Creates Bandwidth}\label{subsec:broadening_insight}
+\subsection{Broadening Insight: Why Damping Creates Bandwidth}
 To master light-matter interaction, we must understand how damping changes the frequency response. Without damping, the interaction between light and matter happens strictly at an infinitely sharp impulse at $\omega_0$. 
 
 However, because of the damping mechanisms (both radiative and collisional) causing energy loss, the spectral response broadens. This phenomenon is called \textbf{Broadening}. 
@@ -289,7 +289,7 @@ Because we established the strict condition $v \ll c_0$, we can safely drop the 
 
 For all standard linear optics where electrons aren't moving anywhere near the speed of light, we only need to worry about the electric push of the light wave, ignoring its magnetic tug entirely.
 
-\subsection{The Driven Equation: Adding an External Wave}\label{subsec:driven_equation}
+\subsection{The Driven Equation: Adding an External Wave}
 So far, we looked at how the electron naturally behaves under damping without external influence. Now, let's force the system. We will substitute our external force $F \approx -e E(t)$ into the right-hand side of our damped differential equation (replacing the zero):
 \begin{equation*}
 m\frac{d^2x}{dt^2}+b\frac{dx}{dt}+k_s x = -e E(t)
@@ -409,7 +409,7 @@ By applying the complex conjugate technique to the displacement phasor, we clean
 
 \subsection{From Single-Atom Dipole to Macroscopic Polarization}
 
-Now we'll scale up from a single microscopic atom to an entire macroscopic block of material. Recall from \textbf{\nameref{subsec:driven_equation}} that we derived the phasor displacement $x_0$ of the electron relative to its nucleus. This displaced charge pair — the positive nucleus and the displaced negative electron — forms an electric dipole. Physically, the \textbf{atomic dipole moment} quantifies how far the charge has been pulled apart and how strong the resulting local electric field distortion is. We define it as charge times displacement:
+Now we'll scale up from a single microscopic atom to an entire macroscopic block of material. The phasor displacement $x_0$ of the driven electron relative to its nucleus fundamentally creates a displaced charge pair. This pair — the positive nucleus and the displaced negative electron — forms an electric dipole. Physically, the \textbf{atomic dipole moment} quantifies how far the charge has been pulled apart and how strong the resulting local electric field distortion is. We define it as charge times displacement:
 \begin{equation*}
     p_0 = q\,x_0 = -e\,x_0
 \end{equation*}
@@ -448,7 +448,7 @@ To find a concrete expression for $\chi(\omega)$, we equate our two definitions 
 \begin{equation*}
     \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e\,x_0
 \end{equation*}
-Substitute the phasor displacement $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$ that we derived in \textbf{\nameref{subsec:driven_equation}}:
+Substituting the phasor displacement $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$ of the driven oscillator:
 \begin{equation*}
     \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e \left(-\frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}\right) \implies \varepsilon_0\,\chi(\omega)\,E_0 = N_A\,e \cdot \frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}
 \end{equation*}
@@ -490,7 +490,7 @@ For two complex equations to be mathematically equal, their purely real parts mu
     \chi' = -\frac{N_A e}{\varepsilon_0 E_0}x' \quad \text{and} \quad \chi'' = -\frac{N_A e}{\varepsilon_0 E_0}x''
 \end{equation*}
 
-Finally, we simply substitute our exact algebraic formulas for $x'$ and $x''$ derived in \textbf{\nameref{subsec:driven_equation}} into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
+Finally, we simply substitute the exact algebraic formulas for $x'$ and $x''$ of the driven electron into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
 \begin{keyresult}
 \begin{gather}
     \chi'(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m} \left[ \frac{\omega_0^2 - \omega^2}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ Controls Dispersion)} \\[1ex]
@@ -504,7 +504,7 @@ These exact classical equations are universally true. They completely dictate th
 
 So, when all the math clears, the full macroscopic susceptibility profiles perfectly inherit the real and imaginary structure of the isolated electron's displacement. Because dealing with these exact, full-spectrum formulas is mathematically cumbersome, we will now zoom in strictly on the ultra-narrow frequency range where lasers actually operate to derive a far more elegant and powerful approximation.
 
-\subsubsection{The Near-Resonance Approximation}\label{subsec:susceptibility_spectral_forms}
+\subsubsection{The Near-Resonance Approximation}
 
 While the exact equations cover the entire electromagnetic spectrum, in laser physics and applied optics we almost exclusively operate extremely close to the atomic resonance peak. This allows us to make a powerful simplifying assumption: $\omega \approx \omega_0$. 
 
@@ -567,7 +567,7 @@ Think of $\delta$ as a dimensionless ``score'' of how far off-resonance the driv
 \begin{itemize}
     \item \textbf{$\delta = 0$:} The driving frequency $\omega$ exactly equals the resonance $\omega_0$. We are perfectly on resonance. Because $\delta$ is exactly zero in the numerator of $\chi'$, dispersion vanishes entirely ($|\chi'| = 0$). However, the denominator $(1 + \delta^2) = 1$ is at its absolute minimum, meaning the absorption term $|\chi''|$ reaches its absolute maximum peak. At exact resonance, the atom's entire response goes into absorbing energy, not bending light.
     \item \textbf{$|\delta| = 1$:} We are off resonance by exactly $\eta/2$ in frequency (i.e., $|\omega - \omega_0| = \eta/2$). The denominator $(1 + \delta^2) = 2$, meaning the absorption $|\chi''|$ has dropped to exactly half of its peak value. However, something completely different happens for dispersion! Because $\chi' \propto \frac{\delta}{1+\delta^2}$, setting $|\delta|=1$ yields $\frac{1}{2}$, which is the mathematical \emph{maximum} of this function. So exactly at the points where absorption drops to half, dispersion fiercely peaks.
-    \item \textbf{$|\delta| \gg 1$:} We are far from resonance — the mismatch $|\omega - \omega_0|$ is much larger than the damping rate $\eta$. The denominator $(1 + \delta^2) \approx \delta^2 \gg 1$, driving both $\chi'$ and $\chi''$ to essentially zero. Recall from our analysis in \textbf{\nameref{subsec:driven_equation}} that far off-resonance, the electron either acts as a pure spring (Case 1, $\omega \ll \omega_0$) or a pure inertial mass (Case 2, $\omega \gg \omega_0$) — and in both cases no net energy is absorbed. The large $\delta^2$ in the denominator is the mathematical signature of that same physics.
+    \item \textbf{$|\delta| \gg 1$:} We are far from resonance — the mismatch $|\omega - \omega_0|$ is much larger than the damping rate $\eta$. The denominator $(1 + \delta^2) \approx \delta^2 \gg 1$, driving both $\chi'$ and $\chi''$ to essentially zero. Far off-resonance, the classical electron either acts as a pure spring (Case 1, $\omega \ll \omega_0$) or a pure inertial mass (Case 2, $\omega \gg \omega_0$) — and in both cases no net energy is absorbed. The large $\delta^2$ in the denominator is the mathematical signature of that same physics.
 \end{itemize}
 To strip away the math for a second, $\delta$ is the single number that encodes where you are sitting on the resonance curve. The closer $|\delta|$ is to zero, the more dramatically the atom responds to the light.
 \end{keyinsight}
@@ -581,7 +581,7 @@ To strip away the math for a second, $\delta$ is the single number that encodes 
 
 Now let's extract the physical implications embedded within the susceptibility profiles shown above. This visualization provides us with a rigorous mathematical map of the atom's optical response, simultaneously encoding the exact behaviour of both its internal friction (manifesting as absorption) and its physical inertia (manifesting as dispersion) as it interacts with the light.
 
-Starting with the absorption peak: notice the double-headed arrow labelled FWHM. The \textbf{Full Width at Half Maximum (FWHM)} is the total horizontal width of the absorption curve measured between the two points where $|\chi''|$ has dropped to exactly half of its peak value. Recall from our earlier primer in \textbf{\nameref{subsec:broadening_insight}} that we promised friction ($\eta$) physically smears the atom's frequency response into a wider band --- the FWHM is the precise, quantitative measure of that smearing. To prove this, we need to find where the absorption drops to half its peak. Since $|\chi''|$ is normalised to peak at 1, we set:
+Starting with the absorption peak: notice the double-headed arrow labelled FWHM. The \textbf{Full Width at Half Maximum (FWHM)} is the total horizontal width of the absorption curve measured between the two points where $|\chi''|$ has dropped to exactly half of its peak value. As established conceptually, friction ($\eta$) physically smears the atom's frequency response into a wider band --- the FWHM is the precise, quantitative measure of that smearing. To prove this, we need to find where the absorption drops to half its peak. Since $|\chi''|$ is normalised to peak at 1, we set:
 \begin{equation*}
     \frac{1}{1 + \delta^2} = \frac{1}{2}
 \end{equation*}
@@ -641,8 +641,8 @@ Re-examining the susceptibility profiles plotted earlier, notice that the absorp
 
 Dispersion ($\chi'$, the solid line), however, is wildly asymmetric — it is positive for negative detuning, crosses zero at resonance, and dips negative for positive detuning. Why? Because of the uncanceled $\delta$ in its numerator! 
 \begin{itemize}
-    \item \textbf{Negative Detuning ($\delta < 0$, $\omega < \omega_0$):} We are driving the electron slowly. As we saw in the first regime of \textbf{\nameref{subsec:driven_equation}}, it acts like a pure spring and moves \emph{in-phase} with the light. This in-phase electron movement adds constructively to the light wave, effectively making the material feel ``denser'' and \textbf{slowing the light down} (positive dispersion).
-    \item \textbf{Positive Detuning ($\delta > 0$, $\omega > \omega_0$):} We are driving the electron too quickly. As we saw in the second regime of \textbf{\nameref{subsec:driven_equation}}, its inertia prevents it from keeping up, and its position flips to $180^\circ$ \emph{out-of-phase}. This completely opposite movement destructively interferes with the light wave, making the material feel ``less dense'' and causing the phase velocity to \textbf{speed up} (negative dispersion).
+    \item \textbf{Negative Detuning ($\delta < 0$, $\omega < \omega_0$):} We are driving the electron slowly. As we saw in the low-frequency limit, it acts like a pure spring and moves \emph{in-phase} with the light. This in-phase electron movement adds constructively to the light wave, effectively making the material feel ``denser'' and \textbf{slowing the light down} (positive dispersion).
+    \item \textbf{Positive Detuning ($\delta > 0$, $\omega > \omega_0$):} We are driving the electron too quickly. As we saw in the high-frequency limit, its inertia prevents it from keeping up, and its position flips to $180^\circ$ \emph{out-of-phase}. This completely opposite movement destructively interferes with the light wave, making the material feel ``less dense'' and causing the phase velocity to \textbf{speed up} (negative dispersion).
 \end{itemize}
 This beautifully illustrates how microscopic electron inertia is directly responsible for macroscopic phenomena like light slowing down in glass!
 \end{keyinsight}
@@ -657,7 +657,7 @@ One might ask: we applied $\omega \approx \omega_0$ to reach these expressions, 
 
 The physical takeaway here is that scaling $x_0$ to $N_A$ atoms builds the material susceptibility $\chi$. Splitting $\chi$ into real and imaginary parts proves that any medium interacting with light will simultaneously change the light's velocity ($\chi'$, dispersion) and change its power ($\chi''$, absorption or gain). Now we must connect $\chi$ to the refractive index and the wave propagation — and for that, we need the \textbf{relative permittivity}.
 
-\subsection{Relative Permittivity and the Complex Refractive Index}\label{subsec:permittivity_and_n}
+\subsection{Relative Permittivity and the Complex Refractive Index}
 
 In every real optoelectronic device, there are \textit{two} optically distinct populations of atoms that we must account for simultaneously:
 
@@ -671,7 +671,7 @@ Every subsequent derivation relies explicitly on this physical split. The host m
 
 With this foundation in place, we can now define the exact quantity that bridges the microscopic atomic susceptibility to the macroscopic propagation of the wave.
 
-\subsubsection{From Susceptibility to Permittivity — The General Case}\label{subsubsec:permittivity_general}
+\subsubsection{From Susceptibility to Permittivity — The General Case}
 
 Recall from Maxwell's equations that the electric displacement field $\mathbf{D}$ is related to the applied electric field $\mathbf{E}$ and the polarisation $\mathbf{P}$ of the medium by:
 \begin{equation*}
@@ -701,7 +701,7 @@ so that $\mathbf{D} = \varepsilon_0 \varepsilon_r \mathbf{E}$. Since $\chi$ is c
 
 But this formula, $\varepsilon_r = 1 + \chi$, implicitly assumes that the atoms are sitting in \textit{vacuum}. As we noted above, that is never the case in a real device. Let's now do the general case properly.
 
-\subsubsection{The Total Permittivity: Host + Transition Atoms}\label{subsubsec:host_medium}
+\subsubsection{The Total Permittivity: Host + Transition Atoms}
 
 Since the host and the transition atoms are two independent populations, their polarisation responses simply add. The total susceptibility of the composite medium is therefore:
 \begin{equation*}
@@ -747,7 +747,7 @@ where:
 
 Notice what happened structurally: the $1$ in the vacuum formula $\varepsilon_r = 1 + \chi$ has been replaced by $n_b^2$. This is not just a cosmetic change — $n_b^2$ can be much larger than $1$ (e.g.\ $n_b = 3.5$ gives $n_b^2 = 12.25$), so the host completely dominates the permittivity. The vacuum case is simply the special case where $n_b = 1$.
 
-\subsubsection{Deriving the Complex Refractive Index \texorpdfstring{$\tilde{n}$}{ñ}}\label{subsubsec:complex_n}
+\subsubsection{Deriving the Complex Refractive Index \texorpdfstring{$\tilde{n}$}{ñ}}
 
 We know from electromagnetics that the refractive index of a material is defined as $n = \sqrt{\varepsilon_r}$. Since $\varepsilon_r = n_b^2 + \chi$ is complex (because $\chi$ is complex), the square root will also be complex in general. We therefore define the \textbf{complex refractive index} $\tilde{n}$ as the quantity whose square equals $\varepsilon_r$:
 \begin{equation*}
@@ -801,9 +801,11 @@ If the transition atoms were not embedded in a solid host medium but were instea
 \end{keyinsight}
 
 Ultimately, by factoring the relative permittivity as $\varepsilon_r = n_b^2 + \chi$ and applying the binomial expansion (justified by the geometric restriction $|\chi| \ll n_b^2$), we dissect the complex refractive index into two fundamentally distinct physical components. The real refractive index $n$ governs the wave's phase velocity and is overwhelmingly dominated by the passive background host. In contrast, the extinction coefficient $\kappa$ exclusively controls the exponential amplitude growth or decay, and is driven entirely by the active quantum transitions of our dopant atoms. Together, these two fundamental numbers dictate the complete macroscopic evolution of an electromagnetic wave traversing a medium. Armed with these parameters, we can now investigate exactly how they manifest in the propagating electric field itself.
+
 \newpage
+
 \section{Wave Propagation: Attenuation and Dispersion}
-\subsection{Power Attenuation and the Absorption Coefficient \texorpdfstring{$\alpha$}{α}}\label{subsec:power_attenuation}
+\subsection{Power Attenuation and the Absorption Coefficient \texorpdfstring{$\alpha$}{α}}
 
 Recall that a plane wave propagating in the $+z$ direction through a medium with complex refractive index $\tilde{n}$ has the form:
 \begin{equation*}
@@ -876,7 +878,7 @@ So, the obvious takeaway is that the refractive index $n$ increases with frequen
 
 \subsection{Multiple Resonances and the Broadband Refractive Index}
 
-Recall that in \textbf{\nameref{sec:classical_electron_oscillator}} we only considered a single resonance at $\omega_0$. In real materials, atoms and molecules have many different resonance frequencies — some in the infrared (IR), some in the visible, and some in the ultraviolet (UV). Each resonance produces its own localised absorption peak and its own anomalous dispersion dip.
+Our initial classical derivations exclusively modelled a single, isolated resonance at $\omega_0$. In real materials, atoms and molecules have many different resonance frequencies — some in the infrared (IR), some in the visible, and some in the ultraviolet (UV). Each resonance produces its own localised absorption peak and its own anomalous dispersion dip.
 
 As we sweep across the entire electromagnetic spectrum, the refractive index $n$ shows a staircase-like pattern: it climbs gradually (normal dispersion) between resonances and briefly dips (anomalous dispersion) whenever it crosses through a resonance. This broadband behavior explains why real glass has a smoothly varying $n(\lambda)$ curve across the visible range — it is in a normal-dispersion region between the nearest IR and UV resonances.
 
@@ -897,7 +899,7 @@ Imagine shining a broadband light source—like a continuous white-light continu
 
 If we shine this emerging light through a prism, it disperses into the continuous visible spectrum — from red at one end to violet at the other. But fundamentally, each distinct color simply represents a distinct driving frequency $\nu$. The material treats every single color (frequency) completely differently.
 
-For the vast majority of frequencies, the light passes directly through the medium. The photons at these frequencies might slightly jiggle the electron clouds as they pass (which, as derived in \textbf{\nameref{subsubsec:complex_n}}, gives rise to the real refractive index $n$ and macroscopic phase delay), but they do not possess the exact required energy to be permanently captured. They are scattered forward and emerge on the other side. This baseline behavior is what we call \textbf{transmission}.
+For the vast majority of frequencies, the light passes directly through the medium. The photons at these frequencies might slightly jiggle the electron clouds as they pass (which physically gives rise to the real refractive index $n$ and macroscopic phase delay), but they do not possess the exact required energy to be permanently captured. They are scattered forward and emerge on the other side. This baseline behavior is what we call \textbf{transmission}.
 
 However, at certain highly specific frequencies—the fundamental \textbf{resonance frequencies} of the material—something completely different happens. To understand this, we must look at the quantum structure of the atoms themselves. Every atom possesses a distinct, quantized set of allowed electron orbits or energy levels. If an incoming photon carries a packet of energy that \emph{exactly} matches the energy gap between a lower level ($E_1$) and an empty upper level ($E_2$), the photon is completely annihilated. 
 
@@ -930,7 +932,7 @@ If we look back at our transmission spectrum, one might naively expect absorptio
 
 In practice, absorption always spans a \textbf{range of frequencies} centred around $\nu_0$. It peaks exactly at resonance but smoothly tapers off on either side. Why does this occur?
 
-Recall from \textbf{\nameref{sec:damping_and_lifetime}} that any real oscillating system experiences damping ($\eta$), which inherently broadens the resonance response. In the quantum picture, atomic energy levels are never perfectly sharp; they possess an intrinsic energy spread dictated by the excited state's finite lifetime via the Heisenberg Uncertainty Principle.
+Fundamentally, any real oscillating system experiences damping ($\eta$), which inherently broadens the resonance response. In the quantum picture, atomic energy levels are never perfectly sharp; they possess an intrinsic energy spread dictated by the excited state's finite lifetime via the Heisenberg Uncertainty Principle.
 
 Consequently, if a photon arrives with a frequency $\nu$ slightly off $\nu_0$, the transition can still occur provided $\nu$ falls within this broadened bandwidth. While maximum absorption remains strictly at resonance, a non-zero probability of absorption persists throughout the immediate neighbourhood.
 
@@ -945,7 +947,7 @@ To model this smeared probability mathematically, we define the \textbf{line sha
 
 This proves that an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
 
-\subsection{Deriving the Line Shape Function and the Final Form of \texorpdfstring{$\alpha$}{α}}\label{subsec:deriving_lineshape}
+\subsection{Deriving the Line Shape Function and the Final Form of \texorpdfstring{$\alpha$}{α}}
 
 Our overarching goal here is to transform the absorption coefficient $\alpha$ from a messy theoretical expression into a clean, empirical formula that we can actually use in the lab. The central idea is that $\alpha$ must be separable into two completely independent physical concepts: its overall ``strength'' and its statistical ``shape''.
 \begin{equation*}
@@ -965,7 +967,7 @@ To understand the logic behind the algebraic steps that follow, we must define w
 \end{equation*}
 Notice the strict structure of the denominator. For a formula to be a true Lorentzian, its denominator MUST be the sum of exactly two isolated squares: the detuning squared (which is simply $\nu - \nu_0$), and a constant squared. That constant is physically critical — it fully defines the tangible width of the peak (specifically, its half-width). Therefore, our mechanical goal in the upcoming derivation is to aggressively sculpt our messy denominator until it perfectly matches this clean `$(\text{Half-Width})^2 + (\text{Detuning})^2$' layout. Only then can we mathematically verify the shape and extract the true physical bandwidth of our atomic transition.
 \end{keyinsight}
-We start from two fundamental formulas we have already derived: the power absorption coefficient ($\alpha$) from \textbf{\nameref{subsec:power_attenuation}}, and the imaginary susceptibility near resonance ($\chi''$) from \textbf{\nameref{subsec:susceptibility_spectral_forms}}:
+We start directly from the macroscopic power absorption coefficient ($\alpha$) and the explicitly derived imaginary susceptibility near resonance ($\chi''$):
 \begin{equation*}
     \alpha = -\frac{k_0}{n_b}\,\chi'' \qquad \text{and} \qquad \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \delta^2}
 \end{equation*}
@@ -1153,7 +1155,7 @@ At precisely $\nu = \nu_0 \pm \Delta\nu/2$, the Lorentzian has fallen to exactly
     \label{fig:ch1_line_shape_fwhm}
 \end{figure}
 
-Having proven what $\Delta\nu$ represents geometrically, we now ask what sets its actual size physically. Recall from \textbf{\nameref{subsec:energy_decay_lifetime}} that the bandwidth is fixed strictly by the total lifetime of the excited state: $\Delta\nu = 1/(2\pi\tau_t)$. 
+Having proven what $\Delta\nu$ represents geometrically, we now ask what sets its actual size physically. The resonance bandwidth is fundamentally fixed by the total radiation lifetime of the excited state: $\Delta\nu = 1/(2\pi\tau_t)$. 
 
 This inverse relationship is not a coincidence; it is a direct consequence of the Heisenberg Uncertainty Principle in its energy-time form, which dictates that $\Delta E \Delta t \ge \hbar/2$. Because a photon's energy is irrevocably tied to its frequency by $E = h\nu$, an uncertainty in energy translates perfectly to an uncertainty in the emitted frequency spread ($\Delta E = h\Delta\nu$). If an atom's excited state decays rapidly (short $\tau_t$), the emission event is violently brief — the photon's energy is thus highly uncertain, forcing a massive frequency spread and a broad, flat Lorentzian. Conversely, a long-lived excited state — such as a metastable lasing level — gives the atom time to ring for millions of coherent cycles before decaying. The photon energy becomes highly well-defined, resulting in a tall, aggressively narrow spectral line.
 
@@ -1166,6 +1168,7 @@ With the line shape fully characterised, we can now connect $g_{\nu_0}(\nu)$ to 
 % ----------------------------------------------------------
 \section{Absorption Cross Section}
 
+
 \subsection{Definition and Physical Picture}
 
 The \textbf{absorption cross section} $\sigma(\nu)$ is a quantity that tells us how strongly a single molecule (or equivalently, for our purposes, a single atom in a gas) interacts with light at frequency $\nu$. In the geometric picture used here, it is represented as an \emph{effective interaction area}: if the path of the light intersects that area, the event is counted as absorption. It is therefore not the literal physical size of the atom, but a compact way to describe the absorption strength of one atom at a given frequency.
@@ -1174,16 +1177,53 @@ Think of it this way. We have a large material through which light is passing. I
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Figures/Chapter 1/absorption_cross_section.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/absorption_cross_section.jpg}
     \caption{The Absorption Cross Section: a conceptual picture in which each atom contributes the same effective interaction area $\sigma(\nu)$; paths that intersect this area are absorbed, while paths that miss all such areas are transmitted.}
     \label{fig:ch1_cross_section_concept}
 \end{figure}
 
-The term we use is $\sigma(\nu)$, and its unit is area (e.g., $\text{m}^2$ or $\text{cm}^2$). The goal now is to derive what $\sigma(\nu)$ actually equals, using the intensity decay that we already know.
+The term we use is $\sigma(\nu)$, and its unit is area (e.g., $\text{m}^2$ or $\text{cm}^2$). We can extract the exact mathematical formula for this cross section directly from the macroscopic absorption coefficient we derived earlier.
+
+\subsection{Deriving the Explicit Formula for \texorpdfstring{$\sigma(\nu)$}{sigma(nu)}}
+
+The macroscopic absorption coefficient naturally takes the form:
+\begin{equation*}
+    \alpha(\nu) = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)
+\end{equation*}
+
+This formula cleanly factors into the atomic number density $N_A$ explicitly scaled by a purely frequency-dependent per-atom term. We can physically group it as:
+\begin{equation*}
+    \alpha(\nu) = N_A \cdot \left[ \frac{3\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu) \right]
+\end{equation*}
+
+We formally define this isolated per-atom factor as the \textbf{absorption cross section}:
+
+\begin{keyresult}
+\begin{equation}
+    \sigma(\nu) = \frac{3\lambda^2}{8\pi\tau_r}\cdot g_{\nu_0}(\nu)
+\end{equation}
+\end{keyresult}
+
+And therefore, the macroscopic absorption coefficient directly relates to the microscopic cross section simply as:
+\begin{keyresult}
+\begin{equation}
+    \alpha = N_A\,\sigma(\nu)
+\end{equation}
+\end{keyresult}
+
+The absorption cross section $\sigma(\nu)$ is the per-atom absorption strength at frequency $\nu$. It carries two independent pieces of information encoded together: the \emph{spectral shape}, which comes entirely from $g_{\nu_0}(\nu)$ and tells us how the absorption is distributed across frequencies, and the \emph{overall magnitude}, which is fixed by $\lambda^2/\tau_r$ and tells us how strongly one atom interacts with the field in the first place.
+
+The $\tau_r$ in the denominator reflects the core physical principle that emission and absorption are reciprocal processes. An atom with a short $\tau_r$ is strongly coupled to the field — it emits quickly, and equally, it absorbs efficiently — so its cross section is large. An atom with a long $\tau_r$ barely interacts with the field at all, so even though it is nominally resonant, it captures very little of the incoming light.
+
+\begin{keyinsight}[Limiting Case: $\tau_r \to \infty$]
+If the radiative lifetime were infinite, the atom would have zero coupling to the electromagnetic field — it would never emit, and by the same token, never absorb. The formula correctly captures this: $\sigma(\nu) \to 0$ as $\tau_r \to \infty$. This is not a breakdown of the physics; it is exactly what we expect from a perfectly stable state with no field interaction whatsoever.
+\end{keyinsight}
+
+Through $\alpha = N_A\,\sigma(\nu)$, the per-atom cross section scales up to the macroscopic absorption coefficient. Let us now confirm physically why this product correctly maps to the fractional intensity decay we observe experimentally.
 
 \subsection{Relating Intensity Change to the Cross Section}
 
-As established in \textbf{\nameref{subsec:power_attenuation}}, the intensity of light decays exponentially as it travels through an absorbing medium:
+Now that we have explicitly derived $\alpha = N_A\,\sigma(\nu)$, let us verify that this mathematical separation makes physical sense by looking at how light intensity decays. Fundamentally, light intensity decays exponentially as it travels through a uniformly absorbing medium:
 \begin{equation*}
     I(z) = I_0\, e^{-\alpha z} \qquad (\text{intensity at position } z)
 \end{equation*}
@@ -1211,7 +1251,7 @@ Now we apply the Taylor approximation $e^{-\alpha\Delta z} \approx 1 - \alpha\De
     \frac{\Delta I}{I} = (1 - \alpha\Delta z) - 1 = -\alpha\Delta z
 \end{equation*}
 
-Substitute $\alpha = N_A\,\sigma(\nu)$ (which we will shortly justify):
+Since we just firmly established that $\alpha = N_A\,\sigma(\nu)$, we can seamlessly substitute this into the differential decay equation:
 \begin{equation*}
     \frac{\Delta I}{I} = -N_A\,\sigma(\nu)\,\Delta z
 \end{equation*}
@@ -1233,7 +1273,7 @@ Therefore:
 \end{equation}
 \end{keyresult}
 
-This result is dimensionless (as it must be, since $\Delta I/I$ is a ratio), which confirms that $\sigma(\nu)$ must have units of area. This is why we call it a \emph{cross section}.
+This result is dimensionless (as it must be, since $\Delta I/I$ is a ratio), which perfectly confirms that our mathematical formulation of $\sigma(\nu)$ must indeed have units of area. This completes the physical picture: $\sigma(\nu)$ represents a true macroscopic \emph{cross section}.
 
 \textbf{Interpretation for a single atom:} If there is exactly one atom in the cross-sectional area, then:
 \begin{equation*}
@@ -1251,65 +1291,6 @@ which is entirely consistent with what we derived above.
 Note that $\dfrac{\Delta I}{I} = \dfrac{\Delta P}{P}$, since $I = P/A$ and the area $A$ cancels. This means all the results we derived for fractional changes in intensity apply equally to fractional changes in optical power.
 \end{keyinsight}
 
-\subsection{Deriving the Explicit Formula for \texorpdfstring{$\sigma(\nu)$}{sigma(nu)}}
-
-Now we derive the formula for $\sigma(\nu)$. We start from what we already know:
-\begin{equation*}
-    \tau_r = \frac{6\pi\varepsilon_0 n^2 m C_0^3}{q^2 \omega_0^2 n^3}
-\end{equation*}
-This is the radiation lifetime — the only quantity in our expression that accounts for how quickly the excited state spontaneously emits. It is a pure material/geometric constant.
-
-Recall from \textbf{\nameref{subsec:deriving_lineshape}} that:
-\begin{equation*}
-    \alpha = \frac{N_A q^2}{4\varepsilon_0 m n C_0}\cdot g_{\nu_0}(\nu)
-\end{equation*}
-
-We now multiply $\alpha$ by the factor $\tau_r / \tau_r$ (which equals one, so nothing changes physically). This seemingly trivial step reorganises the expression to isolate the per-atom cross section:
-
-\begin{gather*}
-    \alpha = \frac{N_A q^2}{4\varepsilon_0 m n C_0} \cdot \frac{6\pi\varepsilon_0 n^2 m C_0^3}{q^2\omega_0^2 n^3 \tau_r} \cdot \tau_r \cdot g_{\nu_0}(\nu)
-\end{gather*}
-
-Carrying out the algebra — $q^2$, $m$, and $\varepsilon_0$ cancel between the two fractions. The $\tau_r$ outside and inside also cancel (that was the point of multiplying by $\tau_r/\tau_r$). Group the remaining powers of $C_0$ and $n$:
-\begin{gather*}
-    \alpha = N_A \cdot \frac{6\pi C_0^2}{4\omega_0^2 n^2 \tau_r} \cdot g_{\nu_0}(\nu)
-\end{gather*}
-
-Now we strictly simplify using the vacuum relationships $\omega_0 = 2\pi\nu_0$ (so $\omega_0^2 = 4\pi^2\nu_0^2$) and $C_0 = \lambda_0\nu_0$ (so $C_0^2 = \lambda_0^2\nu_0^2$, where $\lambda_0$ is the vacuum wavelength). Substitute these explicitly into the fraction:
-\begin{gather*}
-    \alpha = N_A \cdot \frac{6\pi \cdot \lambda_0^2 \nu_0^2}{4 \cdot 4\pi^2 \nu_0^2 \cdot n^2 \cdot \tau_r} \cdot g_{\nu_0}(\nu) \notag\\
-    = N_A \cdot \frac{3\lambda_0^2}{8\pi n^2 \tau_r} \cdot g_{\nu_0}(\nu)
-\end{gather*}
-
-Here $\lambda_0$ is the wavelength explicitly in vacuum. However, recalling that the wavelength scaled inside the material is $\lambda = \lambda_0/n$, we mathematically recognize that $\lambda_0^2/n^2 = \lambda^2$. The standard convention in most optoelectronics texts is exactly to substitute this directly to yield the compact classical form:
-
-\begin{gather*}
-    \alpha = N_A \cdot \frac{3\lambda^2}{8\pi\tau_r} \cdot g_{\nu_0}(\nu)
-\end{gather*}
-
-where $\lambda$ is strictly defined as the wavelength inside the host medium.
-
-At this point we can see that $\alpha = N_A \sigma(\nu)$, which means:
-
-\begin{keyresult}
-\begin{equation}
-    \sigma(\nu) = \frac{3\lambda^2}{8\pi\tau_r}\cdot g_{\nu_0}(\nu)
-\end{equation}
-\end{keyresult}
-
-And therefore the absorption coefficient relates to the cross section simply as:
-\begin{keyresult}
-\begin{equation}
-    \alpha = N_A\,\sigma(\nu)
-\end{equation}
-\end{keyresult}
-
-\textbf{Commentary:} The absorption cross section $\sigma(\nu)$ inherits the frequency shape of the Lorentzian $g_{\nu_0}(\nu)$ directly, scaled by a constant that depends on the wavelength $\lambda$ and the radiation lifetime $\tau_r$. The longer $\tau_r$ is, the smaller the cross section — meaning atoms that hold onto their energy for a long time are actually \emph{less efficient} per-atom absorbers per unit frequency. This makes physical sense: a long $\tau_r$ means the atom is slow to interact with the field.
-
-\textbf{Physical edge case — if $\tau_r \to \infty$:} If the radiation lifetime were infinite, $\sigma(\nu) \to 0$, meaning the atom does not absorb anything. This is consistent with the interpretation: $\tau_r \to \infty$ means the atom never radiates (never exchanges energy with the field), which is precisely the description of the ground state itself — an electron sitting stably in its ground state with constant energy, completely undisturbed, with no interaction whatsoever. This limiting case is not a contradiction; it is simply a description of absolute stability.
-
-The physical takeaway here is that the absorption cross section $\sigma(\nu)$ functions as the effective photon-capturing area per atom, shaped by the line shape function $g_{\nu_0}(\nu)$ and scaled by the radiation efficiency of the atom. Through $\alpha = N_A\sigma(\nu)$, it directly determines how fast the intensity decays as light passes through the material.
-
 Now that we fully understand how a \emph{stationary} atom absorbs light and what the resulting line shape looks like, we must address a crucial physical reality: in gases, the atoms are \emph{not} stationary. They are moving. This changes the picture significantly.
 
 % ----------------------------------------------------------
@@ -1319,46 +1300,49 @@ Now that we fully understand how a \emph{stationary} atom absorbs light and what
 
 \subsection{Overview: Why Atom Motion Matters}
 
-Doppler broadening is a phenomenon that is exclusive to \textbf{gases}. Up to this point, we have been talking about atoms sitting fixed in place while photons come in and interact with them. In a gas, however, the atoms themselves are in constant thermal motion — they zip around in all directions with a distribution of speeds.
+Everything derived so far implicitly assumed that the absorbing atoms are stationary. In that case, every atom sees the same incoming frequency, and the line shape function $g_{\nu_0}(\nu)$ is a complete and accurate spectral description of the medium.
 
-This motion has a well-known consequence: the \textbf{Doppler effect}. When the source of a wave (in our case, the atom acting as an absorber) and the observer (in our case, the light wave) are in relative motion, the frequency perceived is shifted from the true emitted frequency. Let's define this carefully.
+In a \emph{gas}, however, this assumption breaks down. Gas atoms are in constant thermal motion — moving in random directions with a wide statistical distribution of speeds. Because of this relative motion between each atom and the incoming light wave, each atom perceives the wave at a slightly different frequency. This Doppler shift displaces every atom's absorption peak away from $\nu_0$ by an amount proportional to its velocity. Since an entire ensemble of atoms is present simultaneously, each moving at a different speed, their individual shifted peaks collectively smear the absorption profile across a band of frequencies. This is the phenomenon of \textbf{Doppler broadening}.
 
 \subsection{The Doppler Frequency Shift}
 
-Let:
+Let us define the operational parameters:
 \begin{itemize}
-    \item $\nu_0$: the true resonance frequency of the atom (what it would absorb if stationary).
-    \item $V$: the velocity of the atom along the direction of light propagation.
-    \item $\nu_{\text{res}}$: the frequency of light that the atom actually perceives (the ``observed'' frequency from the atom's reference frame).
+    \item $\nu_0$: the atom's true internal resonance. This is a fixed quantum property; the atom only absorbs light if the frequency \emph{it perceives in its own rest frame} is exactly $\nu_0$.
+    \item $\nu_{\text{res}}$: the \textbf{source frequency} required to successfully excite this moving atom.
+    \item $V$: the atom's velocity component along the axis of light propagation, with the sign convention $V > 0$ for motion away from the source (same direction as the light) and $V < 0$ for motion toward it.
 \end{itemize}
 
-The relativistic Doppler formula gives the observed frequency as seen by the moving atom:
+Because the atom is moving relative to the incoming source wave, it perceives an inherent Doppler shift. The exact Doppler relation between the required source frequency ($\nu_{\text{res}}$) and the fixed atomic resonance ($\nu_0$) is:
 \begin{equation*}
-    \nu_{\text{res}} = \nu_0\left(1 - \frac{V}{c_0}\right)^{-1}\cdot\left(1-\frac{V^2}{c_0^2}\right)^{1/2}
+    \nu_{\text{res}} = \nu_0 \left(1 - \frac{V}{c_0}\right)^{-1}\!\left(1 - \frac{V^2}{c_0^2}\right)^{1/2}
 \end{equation*}
 
-For non-relativistic atoms ($V \ll c_0$), this simplifies. The observed frequency from the atom's perspective is:
+Since thermal gas velocities are far below the speed of light ($V \ll c_0$), we simplify this exact formula using a first-order Taylor expansion in $x = V/c_0 \ll 1$. We treat the two factors separately:
+\begin{itemize}
+    \item \textbf{The first factor:} $\left(1 - V/c_0\right)^{-1}$ — applying the standard approximation $(1-x)^{-1} \approx 1 + x$ yields $1 + V/c_0$.
+    \item \textbf{The second factor:} $\left(1 - V^2/c_0^2\right)^{1/2}$ — the term $V^2/c_0^2$ is purely second-order. Therefore, to first order, this entire factor simply evaluates to $1$ and drops out.
+\end{itemize}
+
+Multiplying the two remaining factors back together:
 \begin{equation*}
-    \nu_{\text{res}} \approx \nu_0\left(1 + \frac{V}{c_0}\right) \qquad \text{(using Taylor approximation)}
+    \nu_{\text{res}} \approx \nu_0 \cdot \left[1 + \frac{V}{c_0}\right] \cdot [1]
 \end{equation*}
+
+This neatly isolates the final non-relativistic Doppler shift equation:
 
 \begin{keyresult}
 \begin{equation}
-    \nu_{\text{res}} = \nu_0\left(1 + \frac{V}{c_0}\right)
+    \nu_{\text{res}} = \nu_0\!\left(1 + \frac{V}{c_0}\right)
 \end{equation}
 \end{keyresult}
 
-where:
+The result $\nu_{\text{res}} = \nu_0(1 + V/c_0)$ has a direct physical reading. The correction factor $V/c_0$ specifies by exactly what fraction the source frequency must depart from $\nu_0$ to account for the atom's motion:
 \begin{itemize}
-    \item $\nu_{\text{res}}$: the frequency of light that causes maximum absorption as seen by this particular moving atom.
-    \item $\nu_0$: the resonance frequency of the stationary atom.
-    \item $V$: the velocity of the atom (positive if moving opposite to the light propagation direction, negative if moving in the same direction).
-    \item $c$: the speed of light.
+    \item \textbf{$V > 0$ — atom moving away from the source:} The atom is fleeing the incoming wave, so the crests chase it and arrive at its location less frequently than they are emitted — the atom perceives a \textbf{red-shift}, a lower frequency than what the source emits. For the atom to still perceive exactly $\nu_0$ despite this downward distortion, the source must transmit at a frequency \emph{above} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c_0) > \nu_0$.
+    \item \textbf{$V < 0$ — atom moving toward the source:} The atom is running into the incoming wave, so the crests pile up and arrive more frequently — the atom perceives a \textbf{blue-shift}, a higher frequency than what the source emits. For the atom to perceive exactly $\nu_0$ despite this upward distortion, the source must transmit at a frequency \emph{below} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c_0) < \nu_0$.
 \end{itemize}
-
-If $V$ is in the \textbf{same direction} as the propagating light: the atom is running away from the incoming wave, so from the atom's perspective the photons are coming in slower, i.e., at a lower frequency — $\nu_{\text{res}} < \nu_0$.
-
-If $V$ is in the \textbf{opposite direction} to the propagating light: the atom is running toward the incoming wave, so from the atom's perspective the photons appear blue-shifted — $\nu_{\text{res}} > \nu_0$.
+In both cases, the factor $(1 + V/c_0)$ in the formula automatically encodes the required adjustment — it shifts the firing frequency by precisely the amount needed so that the atom, despite its kinematic frequency distortion, perceives exactly its resonance $\nu_0$.
 
 \begin{figure}[H]
     \centering
@@ -1367,175 +1351,221 @@ If $V$ is in the \textbf{opposite direction} to the propagating light: the atom 
     \label{fig:ch1_doppler_effect}
 \end{figure}
 
-The observation is clear: a stationary atom absorbs maximally at $\nu_0$. A moving atom absorbs maximally at the Doppler-shifted resonance frequency $\nu_{\text{res}} = \nu_0(1+V/c)$, which depends on its velocity.
+In isolation, a single atom with velocity $V$ is completely characterised by this shift. The complication arises when every atom in the gas has a different $V$ drawn from a thermal distribution — and we must now build the collective picture.
 
-\subsection{The Line Shape Function for a Moving Atom}
+\subsection{Building the Ensemble Line Shape}
 
-As we derived in \textbf{\nameref{subsec:deriving_lineshape}}, the line shape function $g_{\nu_0}(\nu)$ for a stationary atom (at $V=0$) is:
+A stationary, lifetime-limited atom exhibits a purely Lorentzian line shape centred at $\nu_0$:
 \begin{equation*}
-    g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu-\nu_0)^2} \qquad \text{(from source at } V=0\text{)}
+    g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\right)^2}
 \end{equation*}
 
-For a moving atom with velocity $V$, the resonance is shifted to $\nu_{\text{res}} = \nu_0(1+V/c)$, so the line shape function shifts accordingly:
+When the atom moves with velocity $V$, its perceived resonance centre shifts from $\nu_0$ to $\nu_{\text{res}} = \nu_0(1 + V/c_0)$, as we just derived. Crucially, the Lorentzian shape and its linewidth $\Delta\nu$ are completely unchanged by the motion — only the centre frequency relocates:
 \begin{equation*}
-    g_{\nu_{\text{res}}}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\left[1+\dfrac{V}{c}\right]\right)^2} \qquad \text{(from source at } V\neq 0\text{)}
+    g_{\nu_{\text{res}}}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1 + \dfrac{V}{c_0}\right]\right)^2}
 \end{equation*}
 
-We can write this more compactly by recognising the argument shift. If we define $g_{\nu_0}(\nu)$ as the base function, then the Doppler-shifted version is simply:
+This fully characterises the absorption profile of one atom moving at a fixed velocity $V$. In a real gas, however, no two atoms share the same velocity. Each atom has its own $V$, drawn from a thermal distribution, and therefore its own shifted Lorentzian centred at a slightly different frequency. The total absorption profile of the gas emerges from overlaying all of those shifted Lorentzians simultaneously — each one weighted by the probability that the gas actually hosts an atom moving at that particular velocity. Each atom's contribution to the total profile is therefore its shifted Lorentzian multiplied by the probability density of its velocity. The effective ensemble line shape $\bar{g}(\nu)$ is the continuous weighted average:
 \begin{equation*}
-    g_{\nu_{\text{res}}}(\nu) = g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c_0}\right)
+    \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_{\text{res}}}(\nu)\,f_V(V)\,dV
 \end{equation*}
+where $f_V(V)$ is the velocity probability density function. To evaluate this integral we need its explicit form, which we now derive.
 
-This is the line shape function for a \emph{single} atom moving at velocity $V$. The problem is: in a real gas, every atom has a different velocity. We now need to account for all of them together.
+\subsection{The Thermal Velocity Distribution}
 
-\subsection{The Velocity Distribution of Gas Atoms}
-
-As we said, the velocity distribution of atoms inside a gas follows a \textbf{Gaussian (Maxwell-Boltzmann) distribution}. The probability density function (PDF) of the atomic velocities is:
+From statistical mechanics, the velocity component of a gas atom along a single spatial axis obeys a Gaussian distribution at thermal equilibrium. This is a direct consequence of the \textbf{equipartition theorem}: each translational degree of freedom carries an average kinetic energy of $\frac{1}{2}k_BT$, and the unique normalised distribution satisfying this constraint is a Gaussian centred at zero velocity. The result, known as the \textbf{Maxwell-Boltzmann velocity distribution}, is:
 
 \begin{keyresult}
 \begin{equation}
-    \text{PDF} = f_V(V) = \frac{1}{\sqrt{2\pi}\,\sigma_V}\,\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right)
+    f_V(V) = \frac{1}{\sqrt{2\pi}\,\sigma_V}\,\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right)
 \end{equation}
 \end{keyresult}
 
-with the normalisation condition:
-\begin{equation*}
-    \int_{-\infty}^{\infty} f_V(V)\,dV = 1
-\end{equation*}
-
 where:
 \begin{itemize}
-    \item $V$: the velocity of a single atom.
-    \item $\sigma_V$: the standard deviation of the velocity distribution (characterises the spread of speeds).
-    \item $f_V(V)$: the probability that an atom has velocity $V$.
+    \item $V$: The velocity component of the gas atom along the axis of light propagation.
+    \item $\sigma_V = \sqrt{k_BT/m}$: The standard deviation of the velocity distribution, where $T$ is the absolute gas temperature, $m$ is the mass of a single atom, and $k_B$ is Boltzmann's constant. It dictates the distribution's width, which broadens at higher temperatures and narrows for more massive atoms.
 \end{itemize}
+
+This distribution is perfectly normalised to unity ($\int_{-\infty}^{\infty} f_V(V)\,dV = 1$). As plotted in the distribution below, we can clearly see that its peak at $V = 0$ indicates that slowly-moving atoms are fundamentally the most abundant, with the population decaying exponentially as the absolute speed $|V|$ increases.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/velocity_distribution.jpg}
-    \caption{Velocity Distribution: The Maxwell-Boltzmann Gaussian probability density governing the speeds of the atoms in a thermal gas.}
+    \caption{Velocity Distribution: The Maxwell-Boltzmann Gaussian PDF governing the thermal speeds of gas atoms along a single axis.}
     \label{fig:ch1_velocity_pdf}
 \end{figure}
 
-Two limiting cases to keep in mind:
-\begin{itemize}
-    \item If $\sigma_V \to 0$: all atoms have nearly the same velocity (narrow spread) — the PDF collapses to an impulse: $f_V(V) \to \delta(V)$.
-    \item If $\sigma_V \to \infty$: atoms have velocities spread over a huge range — the PDF becomes very flat and approaches zero everywhere.
-\end{itemize}
-The maximum of $f_V(V)$ is at $V=0$, meaning the most probable velocity is zero (i.e., most atoms are moving slowly in any given direction).
-
-\subsection{The Average Line Shape Function}
-
-Now we have two things in motion simultaneously: the photons (described by the line shape function $g_{\nu_{\text{res}}}(\nu)$ for each atom) and the atoms (described by the velocity PDF $f_V(V)$). To find the \emph{effective} absorption behaviour seen by the light wave when it passes through the gas, we need to take the average over all possible atomic velocities.
-
-The average line shape function is:
-\begin{equation*}
-    \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_{\text{res}}}(\nu)\, f_V(V)\, dV
-\end{equation*}
-
-Substituting explicitly:
+We now substitute the explicit forms of both the shifted Lorentzian $g_{\nu_{\text{res}}}(\nu)$ and the thermal Gaussian $f_V(V)$ directly into the weighted average integral:
 \begin{equation}
-    \bar{g}(\nu) = \int_{-\infty}^{\infty} \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1+\dfrac{V}{c}\right]\right)^2} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) dV
-    \tag{I}
+    \bar{g}(\nu) = \int_{-\infty}^{\infty} \left[ \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1+\dfrac{V}{c_0}\right]\right)^2} \right] \cdot \left[ \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) \right] dV \tag{I}
 \end{equation}
 
-This integral is a convolution of a Lorentzian (from the line shape function) and a Gaussian (from the velocity PDF). The result of such a convolution is called a \textbf{Voigt profile} in the general case. However, in two extreme limits, it simplifies beautifully to either a pure Lorentzian or a pure Gaussian. These two limits correspond to the two types of broadening we now discuss.
+This integral represents the mathematical \textbf{convolution of a Lorentzian and a Gaussian}. The resulting distribution is known as a \textbf{Voigt profile}. 
 
-\subsection{Two Types of Doppler Broadening}
+Because the Lorentzian natural linewidth ($\Delta\nu$) and the Gaussian thermal spread ($\sigma_V$) cannot be separated inside the integral, the general case has no closed-form algebraic solution and must be evaluated numerically. However, we can still extract exact closed-form solutions by evaluating integral \textup{(I)} in its two extreme limits, which are dictated by the width $\sigma_V$. We will now analyze both of these distinct broadening regimes.
 
-\begin{enumerate}
-    \item \textbf{Homogeneous Broadening (Low Doppler Effect):}
+\subsubsection{Homogeneous Broadening — Negligible Doppler ($\sigma_V \to 0$)}
 
-    This occurs when the gas is \textbf{homogeneous} — meaning all atoms are essentially identical and have the same resonance frequency $\nu_0$. In this case, the velocity spread $\sigma_V$ is very small (the atoms are nearly at rest relative to each other), so the Gaussian PDF is extremely narrow.
-
-    Mathematically, as $\sigma_V \to 0$, the probability distribution collapses:
-    \begin{equation*}
-        f_V(V) \to \delta(V)
-    \end{equation*}
-    Substituting this into integral \textup{(I)}:
-    \begin{equation*}
-        \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_0}\!\left(\nu - \nu_0\frac{V}{c_0}\right) \delta(V)\,dV = g_{\nu_0}(\nu)
-    \end{equation*}
-
-    The sifting property of the delta function completely kills everything except exactly the $V=0$ term. The average line shape function therefore simplifies flawlessly to our original Lorentzian:
-
-    \begin{equation*}
-        \bar{g}(\nu) = g_{\nu_0}(\nu) \qquad \text{(Lorentzian — homogeneous limit)}
-    \end{equation*}
-
-    This type of broadening is frequently called \textbf{lifetime/collision broadening}, because its width ($\Delta\nu = 1/2\pi\tau_t$) is purely dictated by the total lifetime $\tau_t$ of the state, not the atom's movement.
-
-    \item \textbf{Inhomogeneous Broadening (High Doppler Effect):}
-
-    This occurs when the gas is \textbf{inhomogeneous} — meaning the atoms are moving rapidly in entirely random directions with a wide spread of velocities ($\sigma_V \to \infty$).
-
-    In this high-velocity spread limit, the line width $\Delta\nu$ of each individual atom is \emph{tiny} compared to the vast Doppler shifts sweeping across the full Gaussian. From the Gaussian's sweeping perspective, each tiny Lorentzian is effectively an infinitely sharp vertical impulse function:
-    \begin{equation*}
-        \lim_{\Delta\nu \to 0} g_{\nu_{\text{res}}}(\nu) = \delta\!\left(\nu - \nu_0\left[1+\frac{V}{c_0}\right]\right) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
-    \end{equation*}
-
-    To evaluate an integral containing this delta function over $dV$, we must formally apply the scaling property of the delta function $\delta(Ax-B) = \frac{1}{|A|}\delta(x - B/A)$ to properly extract out $V$. Here, $A = -\nu_0/c$. So we rewrite the delta effectively as:
-    \begin{equation*}
-        \delta\!\left(\left(-\frac{\nu_0}{c_0}\right)V + (\nu-\nu_0) \right) = \frac{1}{\left|-\dfrac{\nu_0}{c}\right|}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right) = \frac{c}{\nu_0}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right)
-    \end{equation*}
-
-    Now substitute this perfectly scaled delta function into our average integral \textup{(I)}:
-    \begin{equation*}
-        \bar{g}(\nu) = \int_{-\infty}^{\infty} f_V(V)\cdot \left[ \frac{c}{\nu_0}\delta\!\left(V - \frac{c(\nu-\nu_0)}{\nu_0}\right) \right] dV
-    \end{equation*}
-
-    Applying the sifting property, the integral fires exactly when $V = \dfrac{c(\nu-\nu_0)}{\nu_0}$. We substitute and pull out the constant:
-    \begin{equation*}
-        \bar{g}(\nu) = \frac{c}{\nu_0} \cdot f_V\!\left(\frac{c(\nu-\nu_0)}{\nu_0}\right)
-    \end{equation*}
-
-    Now we fully explicitly substitute the Gaussian velocity PDF $f_V(V)$:
-    \begin{equation*}
-        \bar{g}(\nu) = \frac{c}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{\left[\frac{c(\nu-\nu_0)}{\nu_0}\right]^2}{2\sigma_V^2}\right) = \frac{1}{\sqrt{2\pi}\left(\frac{\nu_0}{c_0}\sigma_V\right)} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\left(\frac{\nu_0}{c_0}\sigma_V\right)^2}\right)
-    \end{equation*}
-
-    Let's make a beautiful grouping substitution. Define $\sigma_0 = \frac{\nu_0}{c_0}\sigma_V$. Our enormous equation reduces perfectly:
-    \begin{keyresult}
+When temperature is low ($T \to 0$) and atomic velocities are negligible, essentially all atoms are stationary. All Doppler shifts vanish and their individual Lorentzians coalesce at exactly $\nu_0$, meaning the gas behaves as a spectrally uniform medium. Mathematically, this is captured by the velocity distribution collapsing to a single spike:
+\begin{equation*}
+    f_V(V) \to \delta(V)
+\end{equation*}
+Substituting into \textup{(I)} and applying the sifting property of the delta function:
+\begin{equation*}
+    \bar{g}(\nu) = \int_{-\infty}^{\infty} g_{\nu_{\text{res}}}(\nu)\,\delta(V)\,dV = g_{\nu_0}(\nu)
+\end{equation*}
+The delta function selects only the $V = 0$ term — the unshifted stationary-atom Lorentzian:
+\begin{keyresult}
 \begin{equation}
-        \bar{g}(\nu) = \frac{1}{\sqrt{2\pi}\,\sigma_0}\,\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_0^2}\right) \qquad \text{(Gaussian — inhomogeneous limit)}
-    \end{equation}
+    \bar{g}(\nu) = g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2} \qquad \text{(Lorentzian)}
+\end{equation}
 \end{keyresult}
 
-    Note carefully: $\sigma_0$ correctly takes units of frequency. The ratio $\nu_0/c$ flawlessly converted the velocity spread ($\sigma_V$) into an equivalent frequency spread. Because of the sheer multitude of differently Doppler-shifted atoms, their tiny Lorentzians mathematically stacked up to perfectly trace a pure broad Gaussian envelope!
+Under this \textbf{homogeneous broadening} limit, every single atom in the gas acts as a spectrally equivalent absorber — they all absorb at the same frequency and respond identically to any incoming light. The linewidth $\Delta\nu = 1/(2\pi\tau_t)$ is set entirely by the excited state's total lifetime $\tau_t$, with zero contribution from atomic motion.
+
+\subsubsection{Inhomogeneous Broadening — Dominant Doppler ($\sigma_V \to \infty$)}
+Now let's consider the opposite extreme. When the temperature of the gas is very high, the atoms fly around with an enormous spread of thermal velocities. This means each atom gets Doppler-shifted to a significantly different resonance frequency, so the gas as a whole absorbs over a very wide spectral window. Consequently, different velocity groups contribute to entirely different segments of the overall line shape.
+
+The mathematical condition defining this extreme regime is:
+\begin{equation*}
+    \frac{\nu_0}{c_0}\sigma_V \gg \Delta\nu
+\end{equation*}
+
+It is crucial to explicitly unpack what this inequality represents:
+\begin{itemize}
+    \item \textbf{Where it came from:} We established that an atomic velocity $V$ induces a Doppler frequency shift of $\nu_0 \frac{V}{c_0}$. Because the thermal velocities within the gas are statistically distributed with a standard deviation $\sigma_V$, the resulting Doppler shifts intrinsically inherit a standard deviation of $\frac{\nu_0}{c_0}\sigma_V$. The left side therefore quantifies the macroscopic Doppler frequency spread across the entire gas ensemble.
+    \item \textbf{The Physical Meaning:} This inequality formally compares two fundamentally distinct broadening mechanisms: the macroscopic Doppler spread of the gas ensemble (left) and the intrinsic natural linewidth of a single atom (right). Enforcing this condition defines a high-temperature regime where the thermal velocity distribution completely dominates the absorption profile. In this limit, the underlying Lorentzian width of any individual atom is rendered physically negligible.
+    \item \textbf{The Mathematical Target:} The general line shape is a complex Voigt convolution lacking a closed-form solution. This extreme condition rigorously justifies taking the limit $\Delta\nu \to 0$. Collapsing the underlying Lorentzian into a Dirac delta function allows the intractable integral to instantly evaluate into a simple, closed-form Gaussian formula.
+\end{itemize}
+
+To execute this mathematical goal, we use a convenient tool called the Cauchy limit identity. It provides a formal way to write a Dirac delta function identically as the limit of a squeezed Lorentzian fraction:
+\begin{equation*}
+    \lim_{\epsilon \to 0} \frac{\epsilon}{\epsilon^2 + x^2} = \pi\,\delta(x)
+\end{equation*}
+This identity tells us that when the width $\epsilon$ of a Lorentzian goes to zero, the Lorentzian collapses into a delta function. This is exactly what is happening physically: as $\Delta\nu \to 0$, each atom's Lorentzian collapses into a spike.
+
+To apply this, we first rewrite our single-atom Lorentzian $g_{\nu_\text{res}}(\nu)$ in a form that matches the left-hand side. We factor out $1/\pi$:
+\begin{equation*}
+    g_{\nu_\text{res}}(\nu)
+    = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c_0}\right)^2}
+    = \frac{1}{\pi}\cdot\frac{\Delta\nu/2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c_0}\right)^2}
+\end{equation*}
+
+We can now directly read off the correspondence with the Cauchy limit: set $\epsilon = \Delta\nu/2$ (the half-linewidth) and $x = \nu - \nu_0 - \nu_0 V/c_0$ (the frequency detuning from the atom's shifted resonance). Substituting these into the Cauchy limit as $\epsilon = \Delta\nu/2 \to 0$:
+\begin{equation*}
+    \lim_{\Delta\nu \to 0} g_{\nu_\text{res}}(\nu) = \frac{1}{\pi} \cdot \pi\,\delta(x) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
+\end{equation*}
+
+This mathematical result perfectly encodes our high-temperature physical simplification. By forcing the internal natural linewidth to zero, we are mathematically modelling each individual atom as an idealized, infinitely selective receiver. An atom travelling at velocity $V$ will now absorb incoming light exclusively at its precise Doppler-shifted resonance, $\nu_0(1 + V/c_0)$, and will remain completely transparent to all other frequencies. Its absorption profile has effectively collapsed from a continuous smeared curve into one perfectly sharp, singular frequency spike.
+
+We now substitute this delta function approximation back into our general ensemble integral \textup{(I)}, replacing the full Lorentzian with the spike:
+\begin{equation*}
+    \bar{g}(\nu)
+    = \int_{-\infty}^{\infty} \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
+    \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) dV
+\end{equation*}
+
+\begin{keyinsight}[The Sifting Property of the Dirac Delta]
+The sifting (or sampling) property is the defining characteristic of the Dirac delta function under integration. It dictates that integrating the product of any function $f(x)$ and a delta spike $\delta(x - x_0)$ simply evaluates the function at the spike's location:
+\begin{equation*}
+    \int_{-\infty}^{\infty} f(x)\,\delta(x - x_0)\,dx = f(x_0)
+\end{equation*}
+Because the delta function is strictly zero everywhere except at exactly $x = x_0$, the integral destroys the entire continuum of $f(x)$ except for that one single point. It ``sifts'' through the function to pull out the exact target value $f(x_0)$, collapsing the integral into a simple algebraic substitution.
+\end{keyinsight}
+
+The delta function's argument in our integral currently contains the integration variable $V$ multiplied by a constant coefficient $\left(\frac{\nu_0}{c_0}\right)$. While the sifting property could technically be applied directly using the formal scaling identity $\delta(aV) = \frac{1}{|a|}\delta(V)$, it is mathematically cleaner to simply change variables to clear the coefficient. Let us define a new dummy integration variable $u$:
+\begin{equation*}
+    u \equiv \frac{\nu_0}{c_0}\,V \quad\Longrightarrow\quad V = \frac{c_0}{\nu_0}\,u \quad\text{and}\quad dV = \frac{c_0}{\nu_0}\,du
+\end{equation*}
+
+Since $\nu_0$ and $c_0$ are strictly positive constants, the limits of integration are unchanged ($V: -\infty \to \infty$ maps cleanly to $u: -\infty \to \infty$). Substituting both $V = \frac{c_0}{\nu_0}u$ and $dV = \frac{c_0}{\nu_0}du$ into the integral yields:
+\begin{equation*}
+    \bar{g}(\nu)
+    = \int_{-\infty}^{\infty} \delta(\nu - \nu_0 - u)
+    \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{u^2 c_0^2}{2\sigma_V^2\nu_0^2}\right) \frac{c_0}{\nu_0}\,du
+\end{equation*}
+
+Because the delta function is perfectly symmetric ($\delta(-y) = \delta(y)$), our term $\delta(\nu - \nu_0 - u)$ is mathematically identical to $\delta(u - (\nu - \nu_0))$. It therefore acts as a pure sifting function triggering exactly at $u = \nu - \nu_0$. By applying the sifting property, we pick out precisely this corresponding value of $u$ from the remaining exponential integrand, causing the integral to structurally collapse:
+\begin{equation*}
+    \bar{g}(\nu) = \frac{c_0}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{(\nu-\nu_0)^2 c_0^2}{2\sigma_V^2\nu_0^2}\right)
+\end{equation*}
+
+This expression already is a Gaussian, but it doesn't look like one yet because the constants are scattered. Let's group them. We pull the $c_0/\nu_0$ factor into the denominator under the square root:
+\begin{equation*}
+    \bar{g}(\nu)
+    = \frac{1}{\sqrt{2\pi}\!\left(\dfrac{\nu_0}{c_0}\sigma_V\right)}
+    \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\!\left(\dfrac{\nu_0}{c_0}\sigma_V\right)^2}\right)
+\end{equation*}
+
+This equation is mathematically a perfect Gaussian, centered at $\nu_0$, whose standard deviation is exactly the grouped term $\frac{\nu_0}{c_0}\sigma_V$. We formally define this term as the \textbf{Doppler broadening parameter}, $\sigma_D$, allowing us to write the final ensemble line shape in its cleanest form:
+\begin{keyresult}
+\begin{gather}
+    \bar{g}(\nu) = \frac{1}{\sqrt{2\pi}\,\sigma_D}\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right) \qquad \text{(Gaussian)} \\[1ex]
+    \sigma_D = \frac{\nu_0}{c_0}\,\sigma_V \nonumber
+\end{gather}
+\end{keyresult}
+where $\sigma_D$ operates as the standard deviation of the macroscopic absorption profile in frequency units. It quantifies how significantly the Doppler shifts spread the gas's overall absorption spectrum by scaling the previously defined underlying thermal velocity spread, $\sigma_V = \sqrt{k_BT/m}$.
+
+The most practically useful measure of a line's width is its Full Width at Half Maximum (FWHM), $\Delta\nu_D$, since this is what can be directly measured. We find it by asking: at what frequencies does the profile fall to half its peak value?
+
+The peak of our Gaussian is at $\nu = \nu_0$ and has the value $1/(\sqrt{2\pi}\,\sigma_D)$. The half-maximum condition on the exponential factor is:
+\begin{equation*}
+    \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right) = \frac{1}{2}
+\end{equation*}
+
+Taking the natural logarithm of both sides:
+\begin{equation*}
+    -\frac{(\nu-\nu_0)^2}{2\sigma_D^2} = -\ln 2
+\end{equation*}
+
+Solving for the detuning $(\nu - \nu_0)$:
+\begin{equation*}
+    (\nu-\nu_0)^2 = 2\sigma_D^2\ln 2 \quad\Longrightarrow\quad \nu = \nu_0 \pm \sqrt{2\ln 2}\cdot\sigma_D
+\end{equation*}
+
+The total width between the two half-maximum points is strictly twice this detuning:
+\begin{equation*}
+    \Delta\nu_D = 2 \cdot \sqrt{2\ln 2}\;\sigma_D
+\end{equation*}
+
+Which cleanly simplifies to:
+\begin{keyresult}
+\begin{equation}
+    \Delta\nu_D = \sqrt{8\ln 2}\;\sigma_D
+\end{equation}
+\end{keyresult}
+
+Physically, this mathematically confirms the core mechanism of \textbf{inhomogeneous broadening}: \emph{the gas is spectrally not a single entity, but a continuum of isolated velocity groups}. Because thermal motion scatters their individual resonance spikes across a vast spectral band, the tiny natural linewidth ($\Delta\nu$) of any single atom is completely washed out. The observed profile and its measurable linewidth $\Delta\nu_D$ are purely macroscopic statistical phenomena — they emerge entirely from the thermal velocity distribution and carry no information whatsoever about the internal quantum mechanics of the individual atoms.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/inhomogeneous_broadening.jpg}
-    \caption{Inhomogeneous Broadening: A large gas ensemble produces countless thinly shifted Doppler Lorentzians, fundamentally tracing out the macroscopic Gaussian profile.}
+    \caption{Inhomogeneous Broadening: Each individual atom contributes a narrow Doppler-shifted Lorentzian at its own resonance frequency. Their collective superposition constructs a broad Gaussian ensemble profile.}
     \label{fig:ch1_inhomogeneous_limit}
 \end{figure}
-\end{enumerate}
 
-This precise mechanism defines \textbf{Doppler broadening}.
-What this proves is that Doppler broadening turns the microscopic Lorentzian line shape into a macroscopic Gaussian line shape when gas atoms have a wide thermal velocity distribution. The average absorption function $\bar{g}(\nu)$ becomes uniquely Gaussian, scaled directly by the standard deviation of velocity ($\sigma_0 = (\nu_0/c)\sigma_V$).
+\newpage
 
-\subsection{Summary: Updating the Absorption Cross Section}
+\begin{keyinsight}[Homogeneous vs.\ Inhomogeneous Broadening]
+The distinction is not merely a matter of line shape — it reflects whether or not all atoms in the gas participate identically.
+\begin{itemize}
+    \item In \textbf{homogeneous broadening}, all atoms are spectrally identical. Any incoming light frequency interacts with every atom equally. The medium is spectrally uniform.
+    \item In \textbf{inhomogeneous broadening}, the ensemble is spectrally partitioned by velocity. A laser at a specific frequency only interacts with the narrow velocity subgroup that is Doppler-shifted into resonance with it — the remaining atoms are completely transparent to that frequency.
+\end{itemize}
+This distinction becomes critical when we study laser gain: an inhomogeneously broadened gain medium can support simultaneous oscillation at multiple laser frequencies, each burning its own spectral hole into a distinct velocity class.
+\end{keyinsight}
 
-Now that we know the line shape is modified by Doppler broadening in a gas, the absorption cross section must be updated accordingly. We simply replace $g_{\nu_0}(\nu)$ with the average line shape function $\bar{g}(\nu)$:
-\begin{equation*}
-    \bar{\sigma}(\nu) = \frac{3\lambda^2}{8\pi\tau_r}\cdot\bar{g}(\nu)
-\end{equation*}
+In most practical gas systems at room temperature, the Doppler contribution dominates and the Gaussian approximation is entirely valid. As a concrete example, in a He-Ne gas discharge at 300\,K, the thermal velocity spread gives $\sigma_D \approx 750$\,MHz at the 633\,nm line — compared to the natural linewidth of only $\sim$10\,MHz. The Gaussian profile completely swamps the Lorentzian; a full Voigt treatment is only necessary when both contributions are comparable.
 
-where $\bar{g}(\nu)$ is the appropriate average line shape function — Lorentzian for homogeneous matter, Gaussian for inhomogeneous matter, and in general the full Voigt convolution integral from above.
-
-The absorption coefficient then becomes:
-\begin{equation*}
-    \alpha = N_A\,\bar{\sigma}(\nu)
-\end{equation*}
-
-The same structure holds; only the shape of the line has changed. The absorption cross section with Gaussian distribution describes the actual frequency-resolved absorption in a real gas much more accurately than the simple Lorentzian alone.
+With $\bar{g}(\nu)$ now fully derived, the entire spectral framework developed earlier requires no structural modification. Every formula — from the absorption cross section $\bar{\sigma}(\nu) = \frac{3\lambda^2}{8\pi\tau_r}\bar{g}(\nu)$ to the macroscopic absorption coefficient $\alpha = N_A\bar{\sigma}(\nu)$ — carries over identically. The only change is which line shape $\bar{g}(\nu)$ is substituted: a Lorentzian in the homogeneous lifetime-limited regime, a Gaussian in the inhomogeneous Doppler-dominated regime, or the full Voigt integral \textup{(I)} in the general intermediate case. With the spectral framework now complete for both broadening regimes, we are ready to address one final, fundamental question: can $\alpha$ ever become negative?
 
 % ----------------------------------------------------------
 %  Section: Why the Classical Model Cannot Produce Gain
 % ----------------------------------------------------------
 \section{Why the Classical Model Cannot Produce Gain}
 
-Before closing the classical treatment, let us make one final, crucial observation. Recall from \textbf{\nameref{subsec:power_attenuation}} that our final absorption coefficient is:
+Before closing the classical treatment, let us make one final, crucial observation regarding our fundamental macroscopic absorption coefficient:
 \begin{equation*}
     \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot g_{\nu_0}(\nu)
 \end{equation*}
@@ -1547,17 +1577,5 @@ Every single factor here is strictly positive: $N_A$, $e^2$, $\varepsilon_0$, $m
     \caption{Loss vs. Gain: The classical electron oscillator inherently enforces energy decay ($\alpha > 0$), mathematically forbidding the exponential amplification ($\alpha < 0$) required for lasers.}
     \label{fig:ch1_loss_vs_gain}
 \end{figure}
-
-% ----------------------------------------------------------
-%  Closing Section: End of Classical Model
-% ----------------------------------------------------------
-\section{End of the Classical Model and Looking Ahead}
-
-We have now completed everything we wanted to study using the classical model. Let us briefly summarise what we found and why it matters:
-\begin{enumerate}
-    \item The \textbf{line shape function} $g_{\nu_0}(\nu)$ is a Lorentzian distribution in frequency, derived directly from the absorption coefficient $\alpha$ of the classical model. It tells us the frequency-resolved probability of absorption, and it is normalised to unity.
-    \item The \textbf{absorption cross section} $\sigma(\nu)$ quantifies the effective photon-catching area of a single atom. Through $\alpha = N_A\sigma(\nu)$, it connects microscopic atomic physics to the macroscopic intensity decay.
-    \item \textbf{Doppler broadening} modifies the line shape function for moving atoms in a gas. In the homogeneous limit, the result is a Lorentzian (lifetime/collision broadening). In the inhomogeneous limit, the result is a Gaussian (Doppler-dominated broadening). The average line shape function $\bar{g}(\nu)$ is in general the convolution of both.
-\end{enumerate}
 
 This is precisely why we must now move to the next level of description. The models ahead — starting with Einstein's rate equation model — will show us how to flip $\alpha$ to a negative value (gain instead of loss), leading ultimately to a complete understanding of how a laser works. All the phenomena we studied classically — the line shape, the cross section, the broadening — will reappear in those models, but now enriched with the mechanisms that allow both absorption \emph{and} amplification.

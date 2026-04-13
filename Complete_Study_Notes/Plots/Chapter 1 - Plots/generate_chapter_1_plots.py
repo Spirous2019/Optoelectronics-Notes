@@ -337,8 +337,228 @@ def plot_transmission_spectrum():
     plt.close(fig)
 
 
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  FIGURE 4  —  Maxwell-Boltzmann Velocity Distribution  f_V(V)
+# ═══════════════════════════════════════════════════════════════════════════
+
+MINT   = "#00897b"
+ORANGE = "#e65100"
+
+def plot_velocity_distribution():
+    """
+    f_V(V) = 1 / (sqrt(2π) σ_V) · exp(−V² / 2σ_V²)
+
+    Single panel showing the Maxwell-Boltzmann 1-D velocity PDF.
+    Features:
+      • Curve in TEAL.
+      • Dot at the peak (V=0, f_max) in TEAL with centered label.
+      • Dots at V = ±σ_V on the curve in CORAL with individual labels.
+      • No shading or dotted lines.
+    """
+    sigma_V = 1.0          # normalised; axis labels are written symbolically
+    V       = np.linspace(-4.0 * sigma_V, 4.0 * sigma_V, 6000)
+
+    def fV(v):
+        return (1.0 / (np.sqrt(2 * np.pi) * sigma_V)) * np.exp(-v**2 / (2 * sigma_V**2))
+
+    f      = fV(V)
+    f_peak = fV(0.0)                  # maximum value at V = 0
+    f_sig  = fV(sigma_V)              # value at V = ±σ_V  (= f_peak / sqrt(e))
+
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.set_facecolor(WHITE)
+    fig.patch.set_facecolor(WHITE)
+
+    # ── Main PDF curve ───────────────────────────────────────────────────────
+    ax.plot(V, f, color=TEAL, linewidth=2.5, label=r"$f_V(V)$")
+
+    # ── Dot at peak (V = 0) ──────────────────────────────────────────────────
+    ax.plot(0, f_peak, 'o', color=TEAL, markersize=8, zorder=5)
+    ax.text(0, f_peak * 1.04,
+            r"$f_{\max} = \dfrac{1}{\sqrt{2\pi}\,\sigma_V}$",
+            fontsize=11, color=TEAL, ha="center", va="bottom")
+
+    # ── Standard deviation spanning arrow ────────────────────────────────────
+    ax.plot([-sigma_V, sigma_V], [f_sig, f_sig], 'o', color=CORAL, markersize=6, zorder=7)
+    ax.annotate("",
+                xy=(sigma_V, f_sig), xytext=(-sigma_V, f_sig),
+                arrowprops=dict(arrowstyle="<->", color=CORAL, lw=1.8))
+
+    # ── x-axis ticks: −2σ, −σ, 0, +σ, +2σ ──────────────────────────────────
+    x_ticks  = [-2*sigma_V, -sigma_V, 0, sigma_V, 2*sigma_V]
+    x_labels = [r"$-2\sigma_V$", r"$-\sigma_V$", r"$0$",
+                r"$\sigma_V$",   r"$2\sigma_V$"]
+    ax.set_xticks(x_ticks)
+    ax.set_xticklabels(x_labels, fontsize=11)
+
+    # ── y-axis ticks: 0, f(σ), f_peak ───────────────────────────────────────
+    ax.set_yticks([0, f_sig, f_peak])
+    ax.set_yticklabels([r"$0$",
+                        r"$f_{\max} e^{-1/2}$",
+                        r"$f_{\max}$"], fontsize=11)
+
+    # ── Axis limits, labels, title ───────────────────────────────────────────
+    ax.set_xlim(V[0], V[-1])
+    ax.set_ylim(0, f_peak * 1.32)
+    ax.set_xlabel(r"Velocity $V$ along propagation axis", fontsize=13)
+    ax.set_ylabel(r"Probability Density $f_V(V)$", fontsize=13)
+    ax.set_title(r"Maxwell-Boltzmann Single-Axis Velocity Distribution", fontsize=15, pad=12)
+    ax.grid(True)
+
+    # ── Legend ───────────────────────────────────────────────────────────────
+    handles = [
+        plt.Line2D([0], [0], color=TEAL,  linewidth=2.5, label=r"Maxwell-Boltzmann PDF $f_V(V)$"),
+        plt.Line2D([0], [0], color=CORAL, linewidth=1.8, label=r"Standard Deviation spread ($2\sigma_V$)"),
+    ]
+    ax.legend(handles=handles, loc="upper right",
+              framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc",
+              labelcolor=AXES_CLR, fontsize=10)
+
+    fig.tight_layout()
+    out_path = os.path.join(OUT_DIR, "velocity_distribution.jpg")
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+#  FIGURE 5  —  Inhomogeneous Broadening: Shifted Lorentzians → Gaussian
+# ═══════════════════════════════════════════════════════════════════════════
+
+LAVENDER = "#7e57c2"
+
+def plot_inhomogeneous_broadening():
+    """
+    Illustrates inhomogeneous Doppler broadening:
+      • Several individual atom Lorentzians weighted by the Gaussian PDF, in LAVENDER.
+      • Dots at every individual peak, tracing the Gaussian envelope shape.
+      • The Gaussian ensemble profile ḡ(ν) in TEAL on top.
+      • Dot at the Gaussian peak (ν₀, ḡ_max) in TEAL with centred label using σ_D.
+      • FWHM shading on the Gaussian, with Δν_D = 2√(2 ln2)·σ_D double-headed arrow.
+      • Half-maximum point marked in CORAL.
+    """
+    # ── Parameters ───────────────────────────────────────────────────────────
+    nu0    = 0.0
+    sigma_D = 1.0       # Doppler broadening parameter (std dev in frequency units)
+    dnu    = 0.18       # individual Lorentzian FWHM  (≪ σ_D → inhomogeneous limit)
+
+    # Doppler FWHM of the Gaussian envelope
+    dnu_D = 2.0 * np.sqrt(2.0 * np.log(2.0)) * sigma_D
+
+    n_atoms = 9
+    shifts  = np.linspace(-2.5 * sigma_D, 2.5 * sigma_D, n_atoms)
+
+    nu = np.linspace(-5.0 * sigma_D, 5.0 * sigma_D, 8000)
+
+    def lorentzian(f, nu_res):
+        return (dnu / (2 * np.pi)) / ((dnu / 2)**2 + (f - nu_res)**2)
+
+    def gaussian_envelope(f):
+        return (1.0 / (np.sqrt(2 * np.pi) * sigma_D)) * np.exp(-f**2 / (2 * sigma_D**2))
+
+    g_gauss = gaussian_envelope(nu)
+    g_peak  = gaussian_envelope(nu0)        # = 1 / (√(2π) σ_D)
+    g_half  = g_peak / 2.0                  # half-maximum of Gaussian
+
+    # FWHM boundary frequencies
+    nu_left  = nu0 - dnu_D / 2
+    nu_right = nu0 + dnu_D / 2
+
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+    ax.set_facecolor(WHITE)
+    fig.patch.set_facecolor(WHITE)
+
+
+
+    # ── Individual shifted Lorentzians (weighted by Gaussian PDF) ───────────
+    peak_xs, peak_ys = [], []
+    for i, nu_res in enumerate(shifts):
+        L        = lorentzian(nu, nu_res)
+        weight   = gaussian_envelope(nu_res)
+        L_scaled = L / np.max(L) * weight          # peak height == g(ν_res)
+        label    = r"Individual atom $g_{\nu_\mathrm{res}}(\nu)$" if i == 0 else None
+        ax.plot(nu, L_scaled, color=LAVENDER, linewidth=1.4,
+                alpha=0.60, linestyle="-", label=label)
+        peak_xs.append(nu_res)
+        peak_ys.append(np.max(L_scaled))
+
+    # ── Gaussian ensemble profile curve (on top) ─────────────────────────────
+    ax.plot(nu, g_gauss, color=TEAL, linewidth=2.5,
+            label=r"Gaussian ensemble profile $\bar{g}(\nu)$")
+
+    # ── Dots at ALL individual Lorentzian peaks ───────────────────────────────
+    ax.plot(peak_xs, peak_ys, 'o', color=LAVENDER, markersize=6,
+            zorder=6, label=r"Individual peak $g_{\nu_\mathrm{res}}(\nu_\mathrm{res})$")
+
+    # ── Dot at Gaussian peak with correct σ_D label ───────────────────────────
+    ax.plot(nu0, g_peak, 'o', color=TEAL, markersize=8, zorder=7)
+    ax.text(nu0, g_peak * 1.07,
+            r"$\bar{g}_{\max} = \dfrac{1}{\sqrt{2\pi}\,\sigma_D}$",
+            fontsize=11, color=TEAL, ha="center", va="bottom")
+
+    # ── Half-maximum dots at FWHM boundary in CORAL ───────────────────────────
+    ax.plot([nu_left, nu_right], [g_half, g_half],
+            'o', color=CORAL, markersize=6, zorder=7)
+
+    # ── FWHM double-headed arrow at g_half ────────────────────────────────────
+    ax.annotate("",
+                xy=(nu_right, g_half), xytext=(nu_left, g_half),
+                arrowprops=dict(arrowstyle="<->", color=CORAL, lw=1.8))
+
+    # ── x-axis ticks ─────────────────────────────────────────────────────────
+    x_ticks  = [-2*sigma_D, -sigma_D, nu0, sigma_D, 2*sigma_D]
+    x_labels = [r"$\nu_0 - 2\sigma_D$", r"$\nu_0 - \sigma_D$",
+                r"$\nu_0$",
+                r"$\nu_0 + \sigma_D$", r"$\nu_0 + 2\sigma_D$"]
+    ax.set_xticks(x_ticks)
+    ax.set_xticklabels(x_labels, fontsize=10)
+
+    # ── y-axis ticks: 0, g_half, g_peak ──────────────────────────────────────
+    ax.set_yticks([0, g_half, g_peak])
+    ax.set_yticklabels([
+        r"$0$",
+        r"$\dfrac{\bar{g}_{\max}}{2}$",
+        r"$\bar{g}_{\max} = \dfrac{1}{\sqrt{2\pi}\,\sigma_D}$",
+    ], fontsize=10)
+
+    ax.set_xlim(nu[0], nu[-1])
+    ax.set_ylim(0, g_peak * 1.50)
+    ax.set_xlabel(r"Frequency $\nu$", fontsize=13)
+    ax.set_ylabel(r"Spectral Intensity (normalised)", fontsize=13)
+    ax.set_title(r"Inhomogeneous Broadening: Shifted Lorentzians and the Gaussian Ensemble Profile",
+                 fontsize=15, pad=12)
+    ax.grid(True)
+
+    # ── Legend ───────────────────────────────────────────────────────────────
+    handles = [
+        plt.Line2D([0], [0], color=TEAL,     linewidth=2.5,
+                   label=r"Gaussian ensemble profile $\bar{g}(\nu)$"),
+
+        plt.Line2D([0], [0], color=LAVENDER, linewidth=1.4, alpha=0.7,
+                   label=r"Individual atom $g_{\nu_\mathrm{res}}(\nu)$"),
+        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=LAVENDER,
+                   markersize=7, label=r"Individual peak $g_{\nu_\mathrm{res}}(\nu_\mathrm{res})$"),
+        plt.Line2D([0], [0], color=CORAL, linewidth=1.8,
+                   label=r"$\Delta\nu_D = \sqrt{8\ln 2}\;\sigma_D$  (Doppler FWHM)"),
+    ]
+    ax.legend(handles=handles, loc="upper right",
+              framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc",
+              labelcolor=AXES_CLR, fontsize=10)
+
+    fig.tight_layout()
+    out_path = os.path.join(OUT_DIR, "inhomogeneous_broadening.jpg")
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
+
 # ── Entry point ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     plot_susceptibility_lineshapes()
     plot_transmission_spectrum()
     plot_lineshape_lorentzian()
+    plot_velocity_distribution()
+    plot_inhomogeneous_broadening()
+
