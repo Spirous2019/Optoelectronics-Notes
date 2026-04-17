@@ -1,4 +1,4 @@
-% =========================================================
+﻿% =========================================================
 %  Chapter 2 — The Einstein Model
 %  Style: student-voice notes matching the personal style guide
 % =========================================================
@@ -16,7 +16,7 @@ The two most fundamental changes from the classical picture are:
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/classical_vs_quantum_medium.jpg}
     \caption{Classical vs. Quantum Material: The classical continuous medium compared to the discrete quantum energy states of the Einstein model.}
-    \label{fig:ch2_classical_vs_quantum}
+    
 \end{figure}
 
 \begin{motivation}[Why the Einstein Model Works Where the Classical One Fails]
@@ -25,7 +25,7 @@ The classical model built a powerful toolkit — susceptibility, complex refract
 
 \subsection{Energy Level Populations}
 
-In the Einstein model, each energy level $E_i$ is characterised by a number $N_i$ — the \textbf{atom density} (or \textbf{population density}) of that level, defined as the number of atoms per unit volume currently occupying it. Note that this is different from the classical picture: recall that in the classical model we had a single quantity $N_A$ representing the total number of atoms per unit volume for the entire material. Here, $N_A$ is split — each energy level has its own population $N_i$, and the total number of atoms is $N_A = \sum_i N_i$.
+In the Einstein model, each energy level $E_i$ is characterised by a number $N_i$ — the \textbf{atom density} (or \textbf{population density}) of that level, defined as the number of atoms per unit volume currently occupying it. Note that this is different from the classical picture: in the classical model we had a single quantity $N_A$ representing the total number of atoms per unit volume for the entire material. Here, $N_A$ is split — each energy level has its own population $N_i$, and the total number of atoms is $N_A = \sum_i N_i$.
 
 We will work with a \textbf{two-level system}, which is the simplest non-trivial case. We have:
 \begin{itemize}
@@ -37,7 +37,7 @@ We will work with a \textbf{two-level system}, which is the simplest non-trivial
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/two_level_system.jpg}
     \caption{The Two-Level System: Depicting the lower and upper energy levels ($E_1$ and $E_2$), their respective populations ($N_1$ and $N_2$), and the required transition photon energy.}
-    \label{fig:ch2_two_level_system}
+    
 \end{figure}
 
 The energy difference between the two levels determines the photon frequency at which the atom can interact with light:
@@ -73,7 +73,7 @@ In an \textbf{indirect band gap semiconductor}, the electron and hole do not hav
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/direct_vs_indirect_bandgap.jpg}
     \caption{Direct vs. Indirect Band Gap: Comparing the purely vertical transition of a direct gap emitter to the phonon-assisted diagonal transition of an indirect gap emitter.}
-    \label{fig:ch2_direct_vs_indirect}
+    
 \end{figure}
 
 Now, let's return to the main thread and look at the three fundamental processes by which atoms in the Einstein model interact with light.
@@ -84,92 +84,66 @@ In the Einstein model, the interaction between light and a two-level material ca
 
 \subsection{Process 1: Spontaneous Emission}
 
-Spontaneous emission is the process by which an atom that finds itself in the upper energy level $E_2$ relaxes back down to $E_1$ on its own, without any external trigger, by emitting a photon.
-
-More precisely: suppose an atom is sitting in $E_2$. This is not its natural, preferred state — the atom's ground state is $E_1$. Regardless of how it got to $E_2$ (we don't care about the past), the atom will spontaneously try to shed the extra energy and return to $E_1$. It does so by emitting a photon whose energy is exactly equal to the energy difference:
+Suppose an atom is sitting in the upper energy level $E_2$. This is not its natural, preferred state — the atom's ground state is $E_1$. Regardless of how it got to $E_2$ (we don't care about the past), the atom will inherently try to shed the extra energy and relax back down to $E_1$. It does so by emitting a photon whose energy is exactly equal to the difference between the two states:
 \begin{equation*}
     E_{\text{photon}} = E_2 - E_1 = h\nu
 \end{equation*}
 
-This process is called \emph{spontaneous} because it happens entirely on the atom's own initiative — no external field, no incident photon is required. The atom simply falls from $E_2$ to $E_1$ and a photon pops out.
+This process is called \textbf{spontaneous emission} because it happens entirely on the atom's own initiative. There is no external trigger, no applied field, and no incident photon required; the atom simply falls from $E_2$ to $E_1$ on its own and a photon pops out.
 
-\textbf{Key property of the emitted photon:} The photon produced by spontaneous emission has a completely \textbf{random direction, random polarisation, and random phase}. It is essentially noise from the perspective of building a coherent beam. However — and this is a point to keep in the back of your mind — spontaneous emission is the \emph{seed} that starts laser action, even though the laser itself runs on stimulated emission. We will understand exactly why when we get to the laser structure. For now, just note this fact.
+Critically, the photon produced by spontaneous emission has a completely \textbf{random direction, random polarisation, and random phase}. It is essentially noise from the perspective of building a coherent beam. However — and this is a point to keep in the back of your mind — spontaneous emission is the \emph{seed} that starts laser action, even though the laser itself runs on stimulated emission. We will understand exactly why when we get to the laser structure. For now, just note this fact.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/spontaneous_emission.jpg}
     \caption{Spontaneous Emission: An atom in the excited state ($E_2$) decays spontaneously to the ground state ($E_1$), emitting a photon with random phase and direction.}
-    \label{fig:ch2_spontaneous_emission}
+    
 \end{figure}
 
-\textbf{Mathematical representation:} To describe this process mathematically, we track the rate of change of the upper-level population $N_2$ with time. Since spontaneous emission takes atoms \emph{out of} $E_2$, it causes $N_2$ to decrease. The rate of decrease is proportional to $N_2$ itself (more atoms in $E_2$ means more spontaneous emission events per second), and it is governed by the \textbf{spontaneous emission lifetime} $\tau_{sp}$.
-
-The inverse of $\tau_{sp}$ is the probability per unit time that a single atom will spontaneously leave $E_2$. Multiplying by the total number of atoms in $E_2$ gives the total rate:
+To describe this process mathematically, we track the rate of change of the upper-level population $N_2$ with time. Since spontaneous emission removes atoms \emph{from} $E_2$, it causes $N_2$ to decrease. Now, how fast does this depletion happen? We characterise each atom's tendency to decay by the \textbf{spontaneous emission lifetime} $\tau_{sp}$ — the \emph{average} time a single atom spends sitting in $E_2$ before it spontaneously falls down to $E_1$. If an atom \emph{on average} waits a time $\tau_{sp}$ before decaying, then the probability that it decays in any small time interval $dt$ is simply $dt/\tau_{sp}$. In other words, the \textbf{decay probability per unit time for a single atom} is $1/\tau_{sp}$ — this is the \textbf{Einstein A coefficient}. We have $N_2$ atoms per unit volume all independently undergoing this same process, so the total rate at which the $E_2$ population decreases is just this per-atom rate multiplied by the number of atoms available:
 
 \begin{equation*}
     \left.\frac{dN_2}{dt}\right|_{sp} = -A\,N_2
 \end{equation*}
 
-where:
-\begin{itemize}
-    \item $N_2$: the population density of the upper energy level $E_2$ (atoms per unit volume currently in $E_2$).
-    \item $A$: the \textbf{Einstein A coefficient}, the spontaneous emission rate per atom (units: $\text{s}^{-1}$).
-    \item The negative sign indicates that $N_2$ is decreasing because atoms are leaving $E_2$.
-\end{itemize}
+where $N_2$ is the population density of $E_2$ (atoms per unit volume), $A$ has units of $\text{s}^{-1}$, and the negative sign reflects that atoms are \emph{leaving} $E_2$. The formal definition of $A$ from this reasoning is:
 
-The Einstein A coefficient is formally defined as the inverse of the lifetime:
 \begin{keyresult}
 \begin{equation}
     A = \frac{1}{\tau_{sp}}
 \end{equation}
 \end{keyresult}
-where:
-\begin{itemize}
-    \item $\tau_{sp}$: the \textbf{spontaneous emission lifetime} — the average time an atom spends in $E_2$ before spontaneously decaying.
-\end{itemize}
-
-This is the probability that a single atom transitions from $E_2$ to $E_1$ per unit time via spontaneous emission. The total rate at which the $E_2$ population decreases due to spontaneous emission is $A\,N_2$.
-
-Ultimately, spontaneous emission drains the upper-level population at a rate proportional to $N_2$, where the proportionality constant $A = 1/\tau_{sp}$ tells us exactly how quickly the atom typically decays on its own.
 
 \subsection{Process 2: Absorption}
 
-Absorption is the process by which an atom sitting in its ground state $E_1$ absorbs an incoming photon and gets promoted to the upper level $E_2$, but only if the photon's energy exactly matches the energy gap:
+Absorption is the process by which an atom in its ground state $E_1$ absorbs an incoming photon and is promoted to the upper level $E_2$, but only if the photon's energy exactly matches the transition energy:
 \begin{equation*}
-    E_{\text{photon}} = E_2 - E_1 = h\nu
+    E_{\text{photon}} = E_2 - E_1 = h\nu_0
 \end{equation*}
 
-In other words, the photon must arrive at the \textbf{resonance frequency} of the transition. If its frequency is right, the atom absorbs the photon's energy and jumps up to $E_2$. What happens to the atom after that is irrelevant to this particular process — it might subsequently undergo spontaneous emission, or lose energy through collisions, or do something else entirely. We describe absorption in isolation.
+What happens to the atom after the absorption is irrelevant to this process — it might subsequently decay via spontaneous emission, lose energy through collisions, or undergo something else entirely. We describe absorption in isolation.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/photon_absorption.jpg}
     \caption{Absorption: An incoming photon interacts with an atom in the ground state ($E_1$), transferring its energy to promote the atom to the excited state ($E_2$).}
-    \label{fig:ch2_absorption}
+    
 \end{figure}
 
-\textbf{Mathematical representation:} Absorption takes atoms \emph{into} $E_2$ from $E_1$, so it causes $N_2$ to increase (positive contribution). The rate of absorption depends on two things:
-\begin{enumerate}
-    \item How many atoms are available in $E_1$ to be absorbed (i.e., $N_1$).
-    \item How many photons are available at the right frequency to trigger the absorption, i.e., the energy spectral density $\mathcal{E}(\nu)$ of the incident light.
-\end{enumerate}
-
-Unlike spontaneous emission, absorption is not self-driven — it requires an incoming photon. That is why the rate depends on $\mathcal{E}(\nu)$: the denser the photon field at the resonance frequency, the faster atoms get promoted. We introduce a new proportionality constant $B_{12}$, the \textbf{Einstein $B_{12}$ coefficient}, where the subscript ``12'' indicates the direction of the transition (from level 1 to level 2):
+Mathematically, absorption takes atoms \emph{into} $E_2$ from $E_1$, increasing $N_2$. Unlike spontaneous emission, this process is not self-driven — it requires an incoming photon. The rate therefore depends on both how many atoms are sitting in $E_1$ available to absorb ($N_1$) and how dense the photon field is at the resonance frequency (the energy spectral density $\rho(\nu)$). We capture this through the \textbf{Einstein $B_{12}$ coefficient}, where the subscript ``12'' encodes the direction of the transition (from level 1 to level 2):
 
 \begin{equation*}
-    \left.\frac{dN_2}{dt}\right|_{abs} = B_{12}\,\mathcal{E}(\nu)\,N_1
+    \left.\frac{dN_2}{dt}\right|_{abs} = B_{12}\,\rho(\nu)\,N_1
 \end{equation*}
 
 where:
 \begin{itemize}
-    \item $N_1$: the population density of the lower level $E_1$ (atoms per unit volume currently in $E_1$, available to be excited).
-    \item $B_{12}$: the \textbf{Einstein $B_{12}$ coefficient} — the absorption rate per atom per unit energy spectral density (units: $\text{m}^3/(\text{J}\cdot\text{s}^2)$, or equivalently volume per energy per time).
-    \item $\mathcal{E}(\nu)$: the \textbf{energy spectral density} of the incident radiation, defined as the energy per unit volume per unit frequency (units: $\text{J}/(\text{m}^3 \cdot \text{Hz})$). This is also related to black-body radiation, as we will see shortly.
+    \item $N_1$: the population density of $E_1$ (atoms per unit volume available to be excited).
+    \item $B_{12}$: the absorption rate per atom per unit energy spectral density (units: $\text{m}^3/(\text{J}\cdot\text{s}^2)$).
+    \item $\rho(\nu)$: the \textbf{energy spectral density} of the incident radiation — the energy stored per unit volume per unit frequency (units: $\text{J}/(\text{m}^3 \cdot \text{Hz})$).
 \end{itemize}
 
-The subscript on $B_{12}$ encodes the direction: the ``1'' means we start at level 1, the ``2'' means we end at level 2. We will see shortly that there is also a $B_{21}$ for the reverse process.
-
-This means absorption promotes atoms from $E_1$ to $E_2$ at a rate $B_{12}\,\mathcal{E}(\nu)\,N_1$, entirely driven by the incident photon field.
+We will see shortly that the reverse transition has its own coefficient $B_{21}$, and that the two turn out to be equal — a result that follows from the time-reversal symmetry of the process.
 
 \subsection{Process 3: Stimulated Emission}
 
@@ -181,31 +155,24 @@ The remarkable thing is the nature of the emitted photon: it is an \textbf{exact
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/stimulated_emission.jpg}
     \caption{Stimulated Emission: An incoming photon triggers an excited atom ($E_2$) to decay. Crucially, the process yields two perfectly identical, coherent photons.}
-    \label{fig:ch2_stimulated_emission}
+    
 \end{figure}
 
+
+\begin{keyinsight}[Why the Emitted Photon is an Exact Clone]
+Stimulated emission can be understood as the physical time-reverse of absorption. Maxwell's equations are time-reversal invariant — running an electromagnetic interaction backwards in time yields an equally valid physical process. Absorption takes \textbf{one photon in} and \textbf{zero photons out} (the photon is destroyed, the atom jumps up). Its time-reverse must therefore take \textbf{one photon in} and produce \textbf{two photons out}: the original triggering photon plus a newly emitted one. That two-photon output is precisely stimulated emission. This is why the emitted photon must be an exact clone of the incident one — time-reversal symmetry leaves no freedom to choose its frequency, phase, or direction independently.
+\end{keyinsight}
+
+To quantify this, the rate of stimulated emission must depend on the number of atoms available to be stimulated ($N_2$) and on the density of the incoming triggering photons ($\rho(\nu)$). We capture this through the \textbf{Einstein $B_{21}$ coefficient}, where the subscript ``21'' encodes the downward direction of the transition:
+
 \begin{equation*}
-    E_2 - E_1 = \Delta E = h\nu
+    \left.\frac{dN_2}{dt}\right|_{stim} = -B_{21}\,\rho(\nu)\,N_2
 \end{equation*}
 
-\textbf{Alternative viewpoint — time reversibility:} There is an elegant way to think about stimulated emission as the time-reverse of absorption. Recall that Maxwell's equations satisfy time-reversal symmetry: if you replace $t \to -t$ in the equations, they remain valid. In absorption, one incident photon hits an atom in $E_1$, the photon is absorbed, and the atom jumps up to $E_2$. If we time-reverse this picture — reversing all arrows, swapping input and output — we get: an excited atom in $E_2$ emits one photon and drops to $E_1$, yielding one outgoing photon. But that describes spontaneous emission. For stimulated emission, the correct time-reversal partner involves two photons: in absorption, one photon arrives and is destroyed; in stimulated emission, one photon arrives and \emph{two} photons leave (the triggering photon plus the newly emitted clone). The time-reversal symmetry thus connects an absorption event (one photon in, zero photons out) to a stimulated emission event (one photon in, two photons out).
-
-\textbf{Mathematical representation:} Stimulated emission takes atoms \emph{out of} $E_2$ (the atom falls down to $E_1$), so it decreases $N_2$ — hence the negative sign. The rate depends on the number of atoms available in $E_2$ (i.e., $N_2$) and on the photon field energy density $\mathcal{E}(\nu)$, since an incident photon is required to trigger the process. The proportionality constant is $B_{21}$, the \textbf{Einstein $B_{21}$ coefficient}:
-
-\begin{equation*}
-    \left.\frac{dN_2}{dt}\right|_{stim} = -B_{21}\,\mathcal{E}(\nu)\,N_2
-\end{equation*}
-
-where:
-\begin{itemize}
-    \item $N_2$: the population density in the upper level (atoms available to be stimulated down).
-    \item $B_{21}$: the \textbf{Einstein $B_{21}$ coefficient} — the stimulated emission rate per atom per unit energy spectral density. The subscript ``21'' means the atom moves from level 2 down to level 1.
-    \item $\mathcal{E}(\nu)$: the energy spectral density of the incident field (same as in absorption).
-    \item The negative sign: $N_2$ is decreasing as atoms leave $E_2$.
-\end{itemize}
+where $B_{21}$ is the stimulated emission rate per atom per unit energy spectral density (same units as $B_{12}$).
 
 \begin{keyinsight}[Three Processes and Their Signs]
-It is worth pausing here to collect the signs and confirm they are all physically consistent. Spontaneous emission removes atoms from $E_2$ on its own ($-AN_2$). Absorption adds atoms to $E_2$ by taking them from $E_1$ ($+B_{12}\mathcal{E}N_1$). Stimulated emission removes atoms from $E_2$ with the help of an incident photon ($-B_{21}\mathcal{E}N_2$). All three are rates of change of $N_2$ and all three signs make physical sense.
+It is worth pausing here to collect the signs and confirm they are all physically consistent. Spontaneous emission removes atoms from $E_2$ on its own ($-AN_2$). Absorption adds atoms to $E_2$ by taking them from $E_1$ ($+B_{12}\,\rho N_1$). Stimulated emission removes atoms from $E_2$ with the help of an incident photon ($-B_{21}\,\rho N_2$). All three are rates of change of $N_2$ and all three signs make physical sense.
 \end{keyinsight}
 
 \subsection{An Important Note on Probability}
@@ -230,80 +197,74 @@ The total rate of change of $N_2$ is the sum of contributions from all three pro
 
 Substituting the expressions we derived for each process:
 \begin{equation*}
-    -A\,N_2 + B_{12}\,\mathcal{E}(\nu)\,N_1 - B_{21}\,\mathcal{E}(\nu)\,N_2 = 0
+    -A\,N_2 + B_{12}\,\rho(\nu)\,N_1 - B_{21}\,\rho(\nu)\,N_2 = 0
 \end{equation*}
 
-Collecting the $\mathcal{E}(\nu)$ terms on one side:
+Collecting the $\rho(\nu)$ terms on one side:
 \begin{equation*}
-    \mathcal{E}(\nu)\left[B_{12}\,N_1 - B_{21}\,N_2\right] = A\,N_2
+    \rho(\nu)\left[B_{12}\,N_1 - B_{21}\,N_2\right] = A\,N_2
 \end{equation*}
 
-Solving for $\mathcal{E}(\nu)$:
+Solving for $\rho(\nu)$:
 \begin{equation}
-    \mathcal{E}(\nu) = \frac{A\,N_2}{B_{12}\,N_1 - B_{21}\,N_2}
+    \rho(\nu) = \frac{A\,N_2}{B_{12}\,N_1 - B_{21}\,N_2}
     \tag{I}
 \end{equation}
 
-The physical takeaway is that thermal equilibrium requires the spontaneous and stimulated downward flows to perfectly balance the upward absorption flow. Setting this balance yields our exact expression (I) for the necessary equilibrium photon field $\mathcal{E}(\nu)$.
+The physical takeaway is that thermal equilibrium requires the spontaneous and stimulated downward flows to perfectly balance the upward absorption flow. Setting this balance yields our exact expression (I) for the necessary equilibrium photon field $\rho(\nu)$.
 
-This gives us $\mathcal{E}(\nu)$ as a function of the populations and the Einstein coefficients. But we don't know the values of $B_{12}$ and $B_{21}$ yet, and we don't know the ratio $N_1/N_2$ in equilibrium without additional physics. We now bring in two separate pieces of known physics to evaluate both.
+This gives us $\rho(\nu)$ as a function of the populations and the Einstein coefficients. But we don't know the values of $B_{12}$ and $B_{21}$ yet, and we don't know the ratio $N_1/N_2$ in equilibrium without additional physics. We now bring in two separate pieces of known physics to evaluate both.
 
 \subsection{The Boltzmann Population Ratio}
 
-Recall from modern physics that the \textbf{Boltzmann distribution} describes how atoms (or electrons, in the case of a semiconductor) are distributed among energy levels at thermal equilibrium. The probability of finding an atom at energy $E$ is proportional to $e^{-E/(k_B T)}$, where $k_B$ is Boltzmann's constant and $T$ is the absolute temperature.
+For gases and \textbf{non-degenerate semiconductors} (where the Fermi level sits safely inside the bandgap, at least $3k_BT$ away from the nearest band edge), particles at thermal equilibrium follow the \textbf{Boltzmann distribution}. The probability of finding an atom or electron at energy $E$ is proportional to $e^{-E/(k_B T)}$, where $k_B$ is Boltzmann's constant and $T$ is the absolute temperature. We explicitly assume the non-degenerate case to rule out \textbf{degenerate semiconductors} — heavily doped materials where the Fermi level is pushed into the bands, rendering them quasimetallic and strictly requiring Fermi-Dirac statistics instead.
 
-For our two-level system, this gives:
+For our two-level system, the population densities are proportional to these probabilities:
 \begin{equation*}
-    N_1 \approx e^{-E_1/(k_B T)}, \qquad N_2 \approx e^{-E_2/(k_B T)}
+    N_1 \propto e^{-E_1/(k_B T)}, \qquad N_2 \propto e^{-E_2/(k_B T)}
 \end{equation*}
 
-Note: we always assume in the Boltzmann approximation that $N \approx e^{-E/(k_B T)}$; there are pre-exponential factors (density of states, degeneracy) that we ignore in this simplified treatment.
-
-Taking the ratio:
+Taking their ratio:
 \begin{equation*}
     \frac{N_1}{N_2} = \frac{e^{-E_1/(k_B T)}}{e^{-E_2/(k_B T)}} = e^{-(E_1 - E_2)/(k_B T)} = e^{(E_2 - E_1)/(k_B T)}
 \end{equation*}
 
-Since $E_2 - E_1 = h\nu$:
+Since $E_2 - E_1 = h\nu_0$:
 \begin{equation}
-    \frac{N_1}{N_2} = e^{h\nu/(k_B T)}
+    \frac{N_1}{N_2} = e^{h\nu_0/(k_B T)}
     \tag{II}
 \end{equation}
 
-This confirms what we expect: since $E_2 > E_1$, we have $h\nu > 0$, so $N_1/N_2 > 1$, meaning $N_1 > N_2$ always at thermal equilibrium. At thermal equilibrium, there are always more atoms in the lower level than in the upper level — this is a fundamental constraint that the laser must overcome.
-
-Note that at room temperature, $k_B T \approx 26\,\text{meV}$, which is a useful value to remember for quick estimates.
-
-The Boltzmann statistical reality proves a difficult truth: without external interference, populations exponentially favour the lower energy state, establishing an absolute ceiling $N_1 \gg N_2$ at room temperature.
+\begin{keyinsight}[The Iron Rule of Thermal Equilibrium]
+Because the photon energy $h\nu_0$ and thermal energy $k_B T$ are strictly positive, the exponent $h\nu_0/k_B T$ is always positive, mathematically guaranteeing that $\mathbf{N_1 > N_2}$ without exception. For typical optical frequencies ($h\nu_0 \approx 1{-}3\,\text{eV}$) at room temperature ($k_B T \approx 26\,\text{meV}$), this exponent is huge, making the population ratio $N_1/N_2$ astronomically large. The statistical reality establishes a brutal baseline: matter exponentially crowds the lowest available energy state ($N_1 \gg N_2$), leaving the upper level virtually empty. Overcoming this natural limit is the fundamental hurdle in building a laser.
+\end{keyinsight}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 2/boltzmann_distribution.jpg}
     \caption{Boltzmann Population Distribution: The exponential decay curve illustrates why the lower energy state inherently sustains a vastly larger population than the upper state in thermal equilibrium.}
-    \label{fig:ch2_boltzmann_distribution}
+    
 \end{figure}
 
-\textbf{An important restriction:} The Boltzmann distribution applies to \textbf{non-degenerate semiconductors} (where the Fermi level lies at least $3k_BT$ away from the nearest band edge, sitting comfortably inside the bandgap) and to gases. It does \emph{not} apply to \textbf{degenerate semiconductors} — those with very heavy doping, where the Fermi level has been pushed inside one of the bands. In that regime, the material starts to behave more like a metal, and the strict Fermi-Dirac distribution must be used instead of Boltzmann.
-
-\subsection{Substituting the Boltzmann Ratio into \texorpdfstring{$\mathcal{E}(\nu)$}{E(nu)}}
+\subsection{Substituting the Boltzmann Ratio into \texorpdfstring{$\rho(\nu)$}{E(nu)}}
 
 We now substitute ratio \textup{(II)} into expression \textup{(I)}. Start from expression \textup{(I)}:
 \begin{equation*}
-    \mathcal{E}(\nu) = \frac{A\,N_2}{B_{12}\,N_1 - B_{21}\,N_2}
+    \rho(\nu) = \frac{A\,N_2}{B_{12}\,N_1 - B_{21}\,N_2}
 \end{equation*}
 
 Divide numerator and denominator by $N_2$:
 \begin{equation*}
-    \mathcal{E}(\nu) = \frac{A}{B_{12}\,\dfrac{N_1}{N_2} - B_{21}}
+    \rho(\nu) = \frac{A}{B_{12}\,\dfrac{N_1}{N_2} - B_{21}}
 \end{equation*}
 
 We previously found that $\dfrac{N_1}{N_2} = e^{h\nu/(k_BT)}$. We substitute this absolute ratio into the denominator explicitly:
 \begin{equation*}
-    \mathcal{E}(\nu) = \frac{A}{B_{12}\left(e^{h\nu/(k_BT)}\right) - B_{21}}
+    \rho(\nu) = \frac{A}{B_{12}\left(e^{h\nu/(k_BT)}\right) - B_{21}}
 \end{equation*}
 
 \begin{equation}
-    \mathcal{E}(\nu) = \frac{A}{B_{12}\,e^{h\nu/(k_BT)} - B_{21}}
+    \rho(\nu) = \frac{A}{B_{12}\,e^{h\nu/(k_BT)} - B_{21}}
     \tag{III}
 \end{equation}
 
@@ -313,7 +274,7 @@ This is the energy spectral density implied by the Einstein model at thermal equ
 
 The \textbf{energy spectral density of black-body radiation} is a well-known result from physics:
 \begin{equation*}
-    \mathcal{E}_{BB}(\nu) = \frac{8\pi n^3 h\nu^3}{c_0^3} \cdot \frac{1}{e^{h\nu/(k_BT)} - 1}
+    \rho_{BB}(\nu) = \frac{8\pi n^3 h\nu^3}{c_0^3} \cdot \frac{1}{e^{h\nu/(k_BT)} - 1}
 \end{equation*}
 
 where:
@@ -327,7 +288,7 @@ where:
     \item Note: since $c_0 = \lambda_0\nu$ (where $\lambda_0$ is the free-space wavelength), we can also write $\lambda_0 = c_0/\nu$ and $\lambda = \lambda_0/n$ is the wavelength inside the medium with refractive index $n$.
 \end{itemize}
 
-The black-body formula describes the energy distribution of radiation in a cavity at thermal equilibrium — which is exactly the same physical situation we have been computing with the Einstein model. Therefore, the $\mathcal{E}(\nu)$ from expression \textup{(III)} must equal $\mathcal{E}_{BB}(\nu)$:
+The black-body formula describes the energy distribution of radiation in a cavity at thermal equilibrium — which is exactly the same physical situation we have been computing with the Einstein model. Therefore, the $\rho(\nu)$ from expression \textup{(III)} must equal $\rho_{BB}(\nu)$:
 \begin{equation*}
     \frac{A}{B_{12}\,e^{h\nu/(k_BT)} - B_{21}} = \frac{8\pi n^3 h\nu^3}{c_0^3} \cdot \frac{1}{e^{h\nu/(k_BT)} - 1}
 \end{equation*}
@@ -343,12 +304,12 @@ This is a remarkable result: \textbf{the absorption coefficient equals the stimu
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/einstein_coefficients_symmetry.jpg}
     \caption{Einstein Coefficients Symmetry: Highlighting the fundamental bidirectional equivalence ($B_{12} = B_{21}$) between the rates of upward absorption and downward stimulated emission.}
-    \label{fig:ch2_einstein_symmetry}
+    
 \end{figure}
 
 With $B_{12} = B_{21} = B$, equation \textup{(III)} simplifies to:
 \begin{equation*}
-    \mathcal{E}(\nu) = \frac{A}{B\left(e^{h\nu/(k_BT)} - 1\right)}
+    \rho(\nu) = \frac{A}{B\left(e^{h\nu/(k_BT)} - 1\right)}
 \end{equation*}
 
 Comparing with the black-body formula:
@@ -361,7 +322,7 @@ The denominators are identical, so we equate the numerators:
     \frac{A}{B} = \frac{8\pi n^3 h\nu^3}{c_0^3}
 \end{equation*}
 
-Using $\lambda_0 = c_0/\nu$ and $c_0 = \lambda_0\,\nu$, so $c_0^3 = \lambda_0^3\,\nu^3$, and recalling that $A = 1/\tau_{sp}$:
+Using $\lambda_0 = c_0/\nu$ and $c_0 = \lambda_0\,\nu$, so $c_0^3 = \lambda_0^3\,\nu^3$, and substituting $A = 1/\tau_{sp}$:
 \begin{equation*}
     \frac{1}{B\,\tau_{sp}} = \frac{8\pi n^3 h\nu^3}{c_0^3} = \frac{8\pi n^3 h\nu^3}{\lambda_0^3\nu^3} = \frac{8\pi n^3 h}{\lambda_0^3}
 \end{equation*}
@@ -384,7 +345,7 @@ And the spontaneous emission rate is determined by the same chain:
     A = \frac{1}{\tau_{sp}} = \frac{8\pi h}{\lambda^3}\,B
 \end{equation*}
 
-\textbf{Commentary:} These are the Einstein coefficients. The A coefficient governs how quickly atoms spontaneously release energy from $E_2$; the B coefficient (which is the same for absorption and stimulated emission) governs how strongly the atom responds to an external photon field. Notably, $B_{12} = B_{21}$ means that at a fundamental level, an atom is equally likely to absorb a photon (going up) as it is to emit a stimulated photon (going down), for the same photon density. The asymmetry between absorption-dominated and gain-dominated behaviour comes entirely from the populations $N_1$ and $N_2$, not from any asymmetry in the coefficients themselves.
+These are the Einstein coefficients. The $A$ coefficient governs how quickly atoms spontaneously release energy from $E_2$; the $B$ coefficient (which is the same for absorption and stimulated emission) governs how strongly the atom responds to an external photon field. Notably, $B_{12} = B_{21}$ means that at a fundamental level, an atom is equally likely to absorb a photon (going up) as it is to emit a stimulated photon (going down), for the same photon density. The asymmetry between absorption-dominated and gain-dominated behaviour comes entirely from the populations $N_1$ and $N_2$, not from any asymmetry in the coefficients themselves.
 
 The mathematics leave no other option: forcing the thermal equilibrium condition to match the known black-body radiation spectrum irrefutably proves that $B_{12} = B_{21} = B = \lambda^3 / (8\pi h\,\tau_{sp})$ (using the in-medium wavelength $\lambda$) and confirms the Einstein A coefficient as $A = 1/\tau_{sp}$.
 
@@ -392,7 +353,7 @@ The mathematics leave no other option: forcing the thermal equilibrium condition
 
 At this point, a natural question arises: we have the three processes, we have the Einstein coefficients, and we have the energy spectral density. Why don't we just push forward and find the intensity? Why stop here?
 
-The problem is \textbf{broadening}. Recall from Chapter 1 that the interaction between light and matter does not happen at a single sharp frequency — it happens over a range of frequencies described by the line shape function $g_{\nu_0}(\nu)$. In everything we have written so far in this chapter, we have been treating the photon as interacting at a single, exact frequency $\nu$. This is not physically correct.
+The problem is \textbf{broadening}. The interaction between light and matter does not happen at a single sharp frequency — it happens over a range of frequencies described by the line shape function $g_{\nu_0}(\nu)$, as the classical model established. In everything we have written so far in this chapter, we have been treating the photon as interacting at a single, exact frequency $\nu$. This is not physically correct.
 
 The Einstein model as originally formulated has no line shape function — there is no $g_{\nu_0}(\nu)$ anywhere in the expressions for $dN_2/dt$. This means it implicitly treats the transition as a perfectly sharp delta function in frequency, which we already know from the classical model is wrong.
 
@@ -402,9 +363,7 @@ Since we cannot yet jump to the full quantum mechanical model (as we discussed i
 
 \subsection{The Physical Motivation: Uncertainty and Energy Level Spread}
 
-Now let's understand why broadening appears in the quantum picture. In the classical model, we explained broadening through the damping term $\gamma$. In the quantum model, the fundamental explanation is the \textbf{Heisenberg Uncertainty Principle}.
-
-Recall from modern physics that the uncertainty principle states:
+Now let's understand why broadening appears in the quantum picture. In the classical model, we explained broadening through the damping term $\gamma$. In the quantum model, the fundamental explanation is the \textbf{Heisenberg Uncertainty Principle}, which states:
 \begin{equation*}
     \Delta E \cdot \Delta t \gtrsim \hbar
 \end{equation*}
@@ -431,7 +390,7 @@ The atom distribution within each level's spread is itself a peaked function —
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/heisenberg_broadening.jpg}
     \caption{Heisenberg Uncertainty and Broadening: Quantum uncertainty dictates that the upper energy level is not perfectly sharp, creating a blurred energy band ($\Delta E$) and consequently a spread in transition frequencies ($\Delta\nu$).}
-    \label{fig:ch2_uncertainty_broadening}
+    
 \end{figure}
 
 \subsection{Incorporating the Line Shape Function into the Rate Equations}
@@ -442,8 +401,8 @@ The three modified rate equations are:
 
 \begin{align*}
     \left.\frac{dN_2}{dt}\right|_{sp} &= -A\,N_2\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
-    \left.\frac{dN_2}{dt}\right|_{abs} &= B\,\mathcal{E}(\nu)\,N_1\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
-    \left.\frac{dN_2}{dt}\right|_{stim} &= -B\,\mathcal{E}(\nu)\,N_2\,g_{\nu_0}(\nu)\,d\nu
+    \left.\frac{dN_2}{dt}\right|_{abs} &= B\,\rho(\nu)\,N_1\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
+    \left.\frac{dN_2}{dt}\right|_{stim} &= -B\,\rho(\nu)\,N_2\,g_{\nu_0}(\nu)\,d\nu
 \end{align*}
 
 where the factor $g_{\nu_0}(\nu)\,d\nu$ represents the probability that the atom interacts with photons within the frequency slice $d\nu$ around frequency $\nu$. Integrating over all frequencies recovers the original (unbroadened) rates, consistent with the fact that $\int g_{\nu_0}(\nu)\,d\nu = 1$.
@@ -456,14 +415,14 @@ To fix our theoretical gap, we simply multiply each Einstein rate equation by th
 
 Now that the rate equations are modified, we want to work toward the intensity $I_\nu$ of the light field — which is, ultimately, the quantity we care about (we want to know whether the field grows or decays as it passes through the medium). But the intensity does not appear directly in the rate equations yet. We need to introduce a new parameter that links the energy density to the intensity, and then connect both to the rate equations.
 
-\textbf{Energy density $\rho_\nu$:} The \textbf{energy density} is the energy per unit volume. It is related to the energy spectral density by:
+The \textbf{energy density} $\rho_\nu$ is the energy per unit volume. It is related to the energy spectral density by:
 \begin{equation*}
-    \rho_\nu = \mathcal{E}(\nu)\,d\nu \qquad \left[\frac{\text{J}}{\text{m}^3}\right]
+    \rho_\nu = \rho(\nu)\,d\nu \qquad \left[\frac{\text{J}}{\text{m}^3}\right]
 \end{equation*}
 
 where $d\nu$ is the frequency range of interest (the bandwidth of the photon beam we are considering). Physically, $\rho_\nu$ is the energy stored in the electromagnetic field per unit volume in the frequency interval $d\nu$ around $\nu$.
 
-\textbf{Connecting energy density to intensity:} Consider a small volume element inside the material — a slab of cross-sectional area $A$ and thickness $\Delta z$. The energy stored in this slab is $\rho_\nu \cdot A \cdot \Delta z$. The power carried by the photons passing through the slab is:
+To connect energy density to intensity, consider a small volume element inside the material — a slab of cross-sectional area $A$ and thickness $\Delta z$. The energy stored in this slab is $\rho_\nu \cdot A \cdot \Delta z$. The power carried by the photons passing through the slab is:
 \begin{equation*}
     \text{Power} = \frac{\text{Energy}}{\text{time}} = \frac{\rho_\nu \cdot A \cdot \Delta z}{\text{time}}
 \end{equation*}
@@ -495,7 +454,7 @@ So the energy density and intensity are related by a factor of $n/c_0$. This fac
 
 Functionally, the energy density $\rho_\nu$ defines the energy stored per unit volume in a given frequency slice, and it maps directly to our measurable intensity via $I_\nu = \rho_\nu V_g$. This critical bridge allows us to convert Einstein's rate equations—which are naturally written in terms of energy density—directly into statements about optical intensity.
 
-\textbf{Substituting $\rho_\nu = I_\nu/V_g$ into the rate equations:} With this substitution, the three modified rate equations become:
+Substituting $\rho_\nu = I_\nu/V_g$ into the rate equations, the three modified rate equations become:
 
 \begin{align*}
     \left.\frac{dN_2}{dt}\right|_{sp} &= -A\,N_2\,g_{\nu_0}(\nu)\,d\nu \\[6pt]
@@ -560,11 +519,11 @@ And by identical algebra, the stimulated emission rate becomes:
     \left.\frac{dN_2}{dt}\right|_{stim} = -\sigma(\nu)\,\Phi\,N_2
 \end{equation*}
 
-\textbf{Note on the difference between classical and Einstein cross sections:} We have now derived the absorption cross section from the Einstein model in terms of the in-medium wavelength $\lambda$:
+There is an instructive structural comparison between the Einstein and classical cross sections. The Einstein result is:
 \begin{equation*}
     \sigma_{\text{Einstein}}(\nu) = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
 \end{equation*}
-Recall that from the classical model we had:
+The classical model gave:
 \begin{equation*}
     \sigma_{\text{classical}}(\nu) = \frac{3\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)
 \end{equation*}
@@ -595,7 +554,7 @@ where $\tau_{st}$ is the \textbf{stimulated emission lifetime} — the average t
 
 This confirms explicitly that absorption and stimulated emission have the same per-atom rate (since $B_{12} = B_{21}$), and the net direction of population flow depends entirely on whether $N_1 > N_2$ (absorption wins) or $N_2 > N_1$ (stimulated emission wins).
 
-\textbf{Note on spontaneous emission:} We can include spontaneous emission inside the same framework by writing its rate coefficient as $-A = -1/\tau_{sp}$, but note that this term describes emission into all directions and does not contribute to the directed beam — it cannot be collected into the mode we care about (without a cavity). The spontaneous emission into the specific optical mode we are amplifying is a much smaller fraction of the total $A\,N_2$ rate.
+One important caveat on the spontaneous emission term: it describes emission into all directions and does not contribute to the directed beam — it cannot be collected into the mode we care about without a cavity. The spontaneous emission into the specific optical mode we are amplifying is a much smaller fraction of the total $A\,N_2$ rate.
 
 With all the physical pieces collected, these three simultaneous processes are now fully described by the compact rate equations above. The cross section $\sigma(\nu)$ neatly swallows all frequency-dependent interaction strength, while the photon flux $\Phi$ natively handles the intensity of the driving field.
 
@@ -613,7 +572,7 @@ For now, the key reference summary of this chapter is:
     \centering
     \includegraphics[width=0.8\textwidth]{Figures/Chapter 2/population_flows_summary.jpg}
     \caption{Summary of Population Flows: A consolidated overview of the three fundamental processes—absorption, spontaneous emission, and stimulated emission—dictating population dynamics in the Einstein model.}
-    \label{fig:ch2_population_flows}
+    
 \end{figure}
 
 \begin{table}[H]
@@ -631,7 +590,7 @@ Stimulated emission & $\sigma\Phi = 1/\tau_{st}$ & Decreases & Yes \\
 
 And the two key relationships between energy density, flux, and intensity:
 \begin{equation*}
-    \rho_\nu = \mathcal{E}(\nu)\,d\nu, \qquad I_\nu = \rho_\nu\,V_g = \rho_\nu\,\frac{c_0}{n}, \qquad \Phi = \frac{I_\nu}{h\nu}
+    \rho_\nu = \rho(\nu)\,d\nu, \qquad I_\nu = \rho_\nu\,V_g = \rho_\nu\,\frac{c_0}{n}, \qquad \Phi = \frac{I_\nu}{h\nu}
 \end{equation*}
 
 And the absorption cross section in the Einstein model:

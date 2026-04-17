@@ -1,722 +1,800 @@
-% ============================================================================
-% CHAPTER 4 — THE LASER OSCILLATOR
-% ============================================================================
+% =========================================================
+%  Chapter 4 — The Laser Oscillator
+%  Style: student-voice notes matching the personal style guide
+% =========================================================
 
-Recall from the closing of Chapter~3 that we introduced the idea of an \emph{optical oscillator} — a device that, unlike a travelling-wave amplifier, folds the gain medium back on itself through feedback mirrors. We called this the LASER (Light Amplification by Stimulated Emission of Radiation). The amplifier we studied was an \emph{open-loop} system: light enters, gets amplified, and exits. A laser is a \emph{closed-loop} system: a fraction of the amplified light is reflected back through the gain medium over and over again. The central question of this chapter is: \emph{under what precise conditions does this system break into self-sustained oscillation, and what determines the power it delivers once it does?}
+We have now built the complete physical and mathematical picture of optical amplification. We understand how a population-inverted medium amplifies a traveling wave, how the gain saturates as the signal grows, and how a real device like the EDFA is constructed and characterised. But throughout that analysis, the light made one pass through the gain medium and exited. There was no feedback. Now we add feedback by enclosing the gain medium between two mirrors, creating a \textbf{laser} — an acronym for Light Amplification by Stimulated Emission of Radiation. The central question of this chapter is: \emph{under what precise conditions does this closed-loop system break into self-sustained oscillation, and what determines the power it delivers once it does?}
 
-To master this, we must work through the physics carefully, section by section.
+\begin{motivation}[Closing the Loop — From Amplifier to Oscillator]
+An amplifier is an open-loop device: energy enters, gets boosted, and exits. A laser is a closed-loop device: a fraction of the amplified light is reflected back through the gain medium over and over. Three ingredients are needed for this feedback loop to generate sustained oscillation rather than simply collapse or diverge. First, a noise source must seed the process. Second, a selective feedback mechanism must sustain and constrain the oscillation to specific frequencies. Third, a nonlinearity must stabilise the amplitude so it does not grow without bound. All three have exact physical counterparts in the laser, and identifying them gives us both the oscillation conditions and the steady-state operating point.
+\end{motivation}
 
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 1: The Three Conditions for Laser Oscillation
+% ----------------------------------------------------------
 \section{The Three Conditions for Laser Oscillation}
-% ============================================================================
 
-A laser is, at its core, an oscillator in the engineering sense of the word. Recall that any oscillator --- electronic or optical --- needs three things: a noise source to start it, a feedback mechanism to sustain oscillation, and a nonlinearity to stabilise the amplitude so that it does not grow to infinity. In a laser, each of these maps to a specific physical mechanism.
+A laser is, at its core, an oscillator in the engineering sense. Any oscillator — electronic or optical — needs three things: a noise source to start it, a feedback mechanism to sustain oscillation, and a nonlinearity to stabilise the amplitude. In a laser, each of these maps exactly to a specific physical mechanism.
 
-\begin{enumerate}
-    \item \textbf{Starting noise} $\longrightarrow$ \textbf{Spontaneous Emission.} Every oscillator needs a seed signal. In a laser, this seed is provided by spontaneous emission from the excited atoms in the gain medium. These photons are emitted in random directions, polarisations, and frequencies, but the small fraction that happen to travel along the cavity axis get amplified and eventually dominate.
+The starting noise is provided by \textbf{spontaneous emission}. Every oscillator needs a seed signal to start from. In a laser, this seed is provided by spontaneous emission from the excited atoms in the gain medium. These photons are emitted in random directions, polarisations, and frequencies, but the small fraction that happen to travel along the cavity axis get amplified and eventually dominate the intracavity field.
 
-    \item \textbf{Feedback} $\longrightarrow$ \textbf{The Fabry-P\'erot Resonator.} In an electronic oscillator, feedback is provided by the circuit that routes the output back to the input. In a laser, feedback is provided by two mirrors that face each other across the gain medium, forcing photons to bounce back and forth and accumulate gain on each pass. This mirror-plus-gain-medium assembly is called a \textbf{Fabry-P\'erot resonator}.
+The feedback is provided by the \textbf{Fabry-Pérot resonator}. In an electronic oscillator, feedback routes the output back to the input through a circuit. In a laser, two mirrors facing each other across the gain medium force photons to bounce back and forth and accumulate gain on each pass. This mirror-plus-gain-medium assembly is the Fabry-Pérot resonator, and it additionally acts as a frequency filter: only the discrete resonance modes of the cavity experience constructive round-trip interference and survive.
 
-    \item \textbf{Gain non-linearity} $\longrightarrow$ \textbf{Gain Saturation.} If the loop gain stayed above unity forever, the laser power would grow without bound. What saves us is gain saturation: as the photon flux inside the cavity builds up, it depletes the population inversion, driving the gain coefficient $\gamma$ downward until, at steady state, the gain exactly equals the loss. This saturation mechanism is the ``non-linearity'' that stabilises laser oscillation. As we already know from Chapter~3, the saturated gain coefficient for a homogeneously broadened medium takes the form
-    %
-    \begin{equation}
-        \gamma = \frac{\gamma_0}{1 + \Phi/\Phi_s},
-    \end{equation}
-    %
-    where $\gamma_0$ is the small-signal (unsaturated) gain coefficient, $\Phi$ is the photon flux density inside the cavity, and $\Phi_s$ is the saturation photon flux density. As $\Phi$ grows, $\gamma$ decreases, until at steady state $\gamma = \alpha_r$, the threshold gain.
-\end{enumerate}
+The stabilising nonlinearity is \textbf{gain saturation}. If the round-trip gain stayed above unity forever, the intracavity power would grow without limit. What saves us is the saturation physics we derived in the previous chapter: as the photon flux inside the cavity builds up, it depletes the population inversion, driving the gain coefficient $\gamma$ downward. At steady state the gain is driven down exactly to the level of the cavity loss, and the oscillation stabilises at a finite power. The saturated gain coefficient for a homogeneously broadened medium is:
+\begin{equation*}
+    \gamma = \frac{\gamma_0}{1 + \Phi/\Phi_s}
+\end{equation*}
+where $\gamma_0$ is the small-signal gain, $\Phi$ is the intracavity photon flux density, and $\Phi_s$ is the saturation photon flux density. As $\Phi$ grows, $\gamma$ decreases until steady state is reached.
 
-Distilling this down, a laser fundamentally needs spontaneous emission to spark it, geometric mirrors to sustain it, and gain saturation to forcibly stabilize it.
+Distilling this: a laser needs spontaneous emission to spark it, geometric mirrors to sustain and select it, and gain saturation to stabilise it.
 
-% ============================================================================
-\section{The Fabry-P\'erot Cavity: Round-Trip Analysis}
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 2: The Fabry-Pérot Cavity — Round-Trip Analysis
+% ----------------------------------------------------------
+\section{The Fabry-Pérot Cavity — Round-Trip Analysis}
 
-Now let's talk about the heart of the laser: the Fabry-P\'erot resonator. The cavity consists of a gain medium of length $L$ sandwiched between two mirrors $M_1$ and $M_2$, with field reflectivities $r_1$ and $r_2$ (and corresponding power reflectivities $R_1 = r_1^2$ and $R_2 = r_2^2$). The gain medium has a gain coefficient $\gamma \neq 0$ and a scattering/absorption loss coefficient $\alpha_s \neq 0$.
-
-We start by asking: what happens to the electric field amplitude as it makes one complete round trip?
+Now let's talk about the heart of the laser: the Fabry-Pérot resonator. The cavity consists of a gain medium of length $L$ between two mirrors $M_1$ and $M_2$ with field reflectivities $r_1$ and $r_2$ (and power reflectivities $R_1 = r_1^2$ and $R_2 = r_2^2$). The gain medium has gain coefficient $\gamma$ and internal loss coefficient $\alpha_s$.
 
 \subsection{Following the Field Through One Round Trip}
 
-Let the field amplitude at a reference point (say, just inside mirror $M_1$) be $E_1$. We follow it through the cavity step by step.
+We start by asking what happens to the electric field amplitude as it completes one full round trip. Let the field amplitude at a reference point just inside mirror $M_1$ be $E_1$. We follow it step by step.
 
-\textbf{Step 1.} The field propagates from $M_1$ to $M_2$ over a length $L$. The propagation factor carries both the phase accumulated ($e^{-j\beta L}$) and the net amplitude change due to gain and loss ($e^{-\frac{\alpha_s}{2}L} \cdot e^{\frac{\gamma}{2}L}$, where the factor of $1/2$ on each exponent converts from power to field amplitude). So upon reaching $M_2$:
-\[
-    E_2 = E_1 \, e^{-j\beta L} \cdot e^{-\frac{\alpha_s}{2}L} \cdot e^{\frac{\gamma}{2}L}.
-\]
+The field propagates from $M_1$ to $M_2$ over length $L$, accumulating a phase factor $e^{-j\beta L}$ and an amplitude factor $e^{-\alpha_s L/2}\,e^{\gamma L/2}$ (one-half exponents convert from power to field amplitude):
+\begin{equation*}
+    E_2 = E_1\,e^{-j\beta L}\,e^{(\gamma - \alpha_s)L/2}
+\end{equation*}
 
-\textbf{Step 2.} The field reflects off $M_2$ with field reflectivity $r_2$:
-\[
-    E_3 = r_2 \, E_1 \, e^{-j\beta L} \cdot e^{-\frac{\alpha_s}{2}L} \cdot e^{\frac{\gamma}{2}L}.
-\]
+The field then reflects off $M_2$ with field reflectivity $r_2$:
+\begin{equation*}
+    E_3 = r_2\,E_1\,e^{-j\beta L}\,e^{(\gamma - \alpha_s)L/2}
+\end{equation*}
 
-\textbf{Step 3.} The field propagates back from $M_2$ to $M_1$, picking up the same exponential factors again:
-\[
-    E_4 = r_2 \, E_1 \, e^{-2j\beta L} \cdot e^{-\alpha_s L} \cdot e^{\gamma L}.
-\]
+It propagates back from $M_2$ to $M_1$, picking up the same exponential factors again:
+\begin{equation*}
+    E_4 = r_2\,E_1\,e^{-j2\beta L}\,e^{(\gamma - \alpha_s)L}
+\end{equation*}
 
-\textbf{Step 4.} The field reflects off $M_1$ with field reflectivity $r_1$:
-\[
-    E_5 = r_1 r_2 \, E_1 \, e^{-2j\beta L} \cdot e^{-\alpha_s L} \cdot e^{\gamma L}.
-\]
+Finally, it reflects off $M_1$ with field reflectivity $r_1$:
+\begin{equation*}
+    E_5 = r_1 r_2\,E_1\,e^{-j2\beta L}\,e^{(\gamma - \alpha_s)L}
+\end{equation*}
 
-So after one complete round trip, the returned field $E_5$ is related to the starting field $E_1$ by:
+After one complete round trip, the returned field $E_5$ is related to the starting field $E_1$ by the round-trip multiplication factor:
+\begin{equation*}
+    \frac{E_5}{E_1} = r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma - \alpha_s)L}
+\end{equation*}
+
+For sustained oscillation we need $E_5 = E_1$ — the field must reproduce itself exactly after every round trip. This single vector equation splits into a phase condition and an amplitude condition, which we now derive separately.
+
+\subsection{The Phase Condition — Longitudinal Modes}
+
+For $E_5 = E_1$, the complex round-trip factor must equal exactly one. The phase part of this requirement is:
+\begin{equation*}
+    e^{-j2\beta L} = 1
+\end{equation*}
+
+This holds only when the round-trip phase is an integer multiple of $2\pi$:
+\begin{equation*}
+    2\beta L = 2q\pi, \qquad q = 1,\,2,\,3,\,\ldots
+\end{equation*}
+
+The propagation constant in a medium of refractive index $n$ is $\beta = 2\pi n\nu/c_0$. Substituting:
+\begin{equation*}
+    2\cdot\frac{2\pi n\nu}{c_0}\cdot L = 2q\pi
+\end{equation*}
+Dividing through by $2\pi$:
+\begin{equation*}
+    \frac{2nL\,\nu_q}{c_0} = q
+\end{equation*}
+Solving for $\nu_q$:
+\begin{keyresult}
 \begin{equation}
-    \frac{E_5}{E_1} = r_1 r_2 \, e^{-2j\beta L} \cdot e^{(\gamma - \alpha_s)L}.
-    \label{eq:roundtrip}
+    \nu_q = q\cdot\frac{c_0}{2nL}, \qquad q = 1,\,2,\,3,\,\ldots
 \end{equation}
-
-For sustained oscillation, we need $E_5 = E_1$, meaning the field must reproduce itself exactly after every round trip. This gives us both a \emph{phase condition} and an \emph{amplitude condition}, which we now derive separately.
-
-\subsection{The Phase Condition: Longitudinal Modes}
-
-The phase condition demands that the round-trip phase factor equal unity:
-\begin{equation}
-    e^{-2j\beta L} = 1.
-\end{equation}
-
-For this to hold, the exponent must be an integer multiple of $-2\pi j$:
-\begin{equation}
-    2\beta L = 2q\pi, \qquad q = 1, 2, 3, \ldots
-\end{equation}
-
-Now recall that the propagation constant $\beta$ is related to the free-space wavenumber by $\beta = \frac{2\pi \nu}{c} \cdot n$, where $n$ is the refractive index of the cavity medium. For a free-space or air-filled cavity ($n \approx 1$), $\beta = 2\pi\nu/c$. Substituting:
-\[
-    2 \cdot \frac{2\pi\nu}{c} \cdot L = 2q\pi.
-\]
-Dividing both sides by $2\pi$:
-\[
-    \frac{2\nu L}{c} = q.
-\]
-Solving for $\nu$:
-\begin{equation}
-    \boxed{\nu_q = q \cdot \frac{c}{2L}, \qquad q = 1, 2, 3, \ldots}
-    \label{eq:longitudinal_modes}
-\end{equation}
-
+\end{keyresult}
 where:
 \begin{itemize}
-    \item $\nu_q$: the frequency of the $q$-th longitudinal mode (also called a \textbf{Fabry-P\'erot resonance mode})
-    \item $q$: the longitudinal mode number (an integer; in practice $q \sim 10^5$--$10^6$ for optical cavities)
-    \item $c$: the speed of light
-    \item $L$: the cavity length
+    \item $\nu_q$: the frequency of the $q$-th \textbf{longitudinal mode} of the cavity.
+    \item $q$: the longitudinal mode number (an integer; in practice $q \sim 10^5$--$10^6$ for optical cavities).
+    \item $c_0$: the speed of light in vacuum and $n$ the refractive index of the medium.
 \end{itemize}
 
-This is a remarkable result. The phase condition tells us that only certain \emph{discrete} frequencies are allowed to oscillate inside the cavity --- those for which the round-trip optical path length is exactly an integer number of wavelengths. These discrete frequencies are the \textbf{longitudinal modes} of the cavity. Note that these mode frequencies depend \emph{only on the cavity length $L$}, not on the gain medium; we therefore sometimes call them the \textbf{cold-resonator modes} (i.e., the mode frequencies of the cavity with the gain turned off). Functionally, the phase condition acts as a strict geometric constraint: it physically forces the optical field to form a perfect standing wave pattern locked inside the cavity.
+Only these discrete frequencies satisfy the phase condition. At any other frequency, successive round trips interfere destructively and the field dies. These $\nu_q$ are called the \textbf{cold-resonator modes} because they depend only on the cavity geometry — not on the gain medium. The phase condition is purely a geometric constraint: the round-trip optical path length $2nL$ must contain exactly $q$ whole wavelengths.
 
 \subsection{The Free Spectral Range and Finesse}
 
-We can notice that the longitudinal modes are evenly spaced in frequency, with a spacing of:
+The longitudinal modes are evenly spaced, with a spacing of:
+\begin{keyresult}
 \begin{equation}
-    \boxed{\nu_F = \frac{c}{2L}}
-    \label{eq:FSR}
+    \nu_F = \frac{c_0}{2nL}
+\end{equation}
+\end{keyresult}
+
+This is the \textbf{Free Spectral Range} (FSR) of the cavity — the frequency separation between adjacent longitudinal modes. The $q$-th mode frequency can be written as $\nu_q = q\,\nu_F$.
+
+The modes have a finite linewidth $\delta\nu$ because photons leak out through the mirrors at a finite rate. The ratio of the FSR to this linewidth defines the \textbf{finesse}:
+\begin{keyresult}
+\begin{equation}
+    \mathcal{F} = \frac{\nu_F}{\delta\nu}
+\end{equation}
+\end{keyresult}
+
+where $\delta\nu$ is the FWHM linewidth of a single resonator mode. The finesse plays the same role for a Fabry-Pérot resonator as the quality factor $Q$ does for an electronic resonator — it quantifies how sharply the resonances are defined. A high-finesse cavity has very narrow mode linewidths, meaning photons bounce many times before leaking out.
+
+The photon lifetime $\tau_{\text{ph}}$ — the average time a photon survives inside the cavity — is related to the mode linewidth by:
+\begin{equation*}
+    \delta\nu = \frac{1}{2\pi\,\tau_{\text{ph}}}
+\end{equation*}
+
+\subsection{Deriving the Cavity Linewidth from First Principles}
+
+The finesse definition $\mathcal{F} = \nu_F/\delta\nu$ tells us what the linewidth means, but not how to compute it from the physical mirror parameters $R_1$, $R_2$, and the loss $\alpha_s$. To get an explicit formula, we need the full frequency dependence of the intracavity intensity. We obtain this by summing all rightward-travelling field contributions inside the cavity. Every additional round trip multiplies the field by the round-trip factor $r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}$, so the total forward field is an infinite geometric series:
+\begin{equation*}
+    E^{+} = E_0\!\left[1 + r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}
+    + \!\left(r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}\right)^2 + \cdots\right]
+\end{equation*}
+
+The ratio of this series is $\xi = r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}$, with modulus $|\xi| = r_1 r_2 e^{-\alpha_s L} < 1$ for any lossy cavity. The series converges to:
+\begin{equation}
+    E^{+} = \frac{E_0}{1 - r_1 r_2\,e^{-j2\beta L}\,e^{-\alpha_s L}} \tag{I}
 \end{equation}
 
-This quantity $\nu_F$ is called the \textbf{Free Spectral Range (FSR)} of the resonator. It is the frequency spacing between adjacent longitudinal modes. The $q$-th mode frequency can be written compactly as $\nu_q = q \cdot \nu_F$.
+The optical intensity is $I^{+} = |E^{+}|^2/(2\eta)$. Multiplying \textup{(I)} by its complex conjugate:
+\begin{equation*}
+    I^{+} = \frac{|E_0|^2}{2\eta}
+    \cdot\frac{1}{\left(1 - r_1 r_2\,e^{-j2\beta L}\,e^{-\alpha_s L}\right)\!\left(1 - r_1 r_2\,e^{j2\beta L}\,e^{-\alpha_s L}\right)}
+\end{equation*}
 
-Now, the modes are not infinitely sharp --- they have a finite linewidth $\delta\nu$ due to the finite reflectivity of the mirrors (photons leak out of the cavity at a finite rate). The ratio of the FSR to this linewidth defines the \textbf{Finesse} $\mathcal{F}$ of the resonator:
+Expanding the denominator product and using $e^{j\theta}+e^{-j\theta}=2\cos\theta$:
+\begin{equation*}
+    I^{+} = \frac{|E_0|^2}{2\eta}\cdot\frac{1}{1+(r_1 r_2)^2 e^{-2\alpha_s L}-2\,r_1 r_2 e^{-\alpha_s L}\cos(2\beta L)}
+\end{equation*}
+
+Applying $\cos\theta = 1-2\sin^2(\theta/2)$ with $\theta = 2\beta L$, then collecting — the first three denominator terms form the perfect square $(1 - r_1 r_2 e^{-\alpha_s L})^2$:
+\begin{equation*}
+    I^{+} = \frac{|E_0|^2}{2\eta}\cdot
+    \frac{1}{\left(1-r_1 r_2 e^{-\alpha_s L}\right)^2+4\,r_1 r_2 e^{-\alpha_s L}\sin^2(\beta L)}
+\end{equation*}
+
+This is the \textbf{Airy function} of the cavity. Intensity is maximised when $\sin(\beta L)=0$ — precisely at the resonance frequencies — and falls as the sine term grows off resonance. The half-power condition $I^+ = I^+_{\max}/2$ requires the oscillatory term to equal the constant offset:
+\begin{equation*}
+    4\,r_1 r_2 e^{-\alpha_s L}\sin^2(\beta L) = \left(1 - r_1 r_2 e^{-\alpha_s L}\right)^2
+\end{equation*}
+
+Solving for $\sin(\beta L)$, substituting $\beta = 2\pi n\nu/c_0$, doubling for the full FWHM, and writing $c_0/(2nL)=\nu_F$:
+\begin{equation*}
+    \delta\nu = \frac{2\nu_F}{\pi}\,\sin^{-1}\!\left[\frac{1 - r_1 r_2 e^{-\alpha_s L}}{2\sqrt{r_1 r_2 e^{-\alpha_s L}}}\right]
+\end{equation*}
+
+For a high-finesse cavity ($r_1 r_2 e^{-\alpha_s L}\approx 1$), the argument of $\sin^{-1}$ is small and the small-angle approximation applies. Converting $r_i = \sqrt{R_i}$ and taking $\mathcal{F}=\nu_F/\delta\nu$:
+\begin{keyresult}
 \begin{equation}
-    \boxed{\mathcal{F} = \frac{\nu_F}{\delta\nu}}
+    \mathcal{F} \approx \frac{\pi\,(R_1 R_2)^{1/4}\,e^{-\alpha_s L/2}}{1 - \sqrt{R_1 R_2}\,e^{-\alpha_s L}}
 \end{equation}
+\end{keyresult}
+where $R_1=r_1^2$ and $R_2=r_2^2$ are the mirror power reflectivities. Perfect mirrors ($R_1=R_2=1$) and zero internal loss ($\alpha_s=0$) drive the denominator to zero and the finesse to infinity. Any real loss — through mirror transmission or internal scattering — broadens the resonances and reduces the finesse. This explicit formula is the working tool for cavity design.
 
-where $\delta\nu$ is the FWHM linewidth of a single resonator mode. The finesse plays the same role for a Fabry-P\'erot resonator as the quality factor $Q$ does for an electronic resonator --- it tells you how ``sharp'' the resonances are. A high-finesse cavity has very narrow mode linewidths, meaning a photon bounces back and forth many times before leaking out. We can also write:
-\[
-    \delta\nu \cdot \tau_{\text{ph}} = \frac{1}{2\pi},
-\]
-since the photon lifetime $\tau_{\text{ph}}$ (which we will define formally in Section~\ref{sec:threshold}) is related to the mode linewidth by $\delta\nu = 1/(2\pi\tau_{\text{ph}})$.
+\subsection{The Amplitude Condition — Threshold Gain \texorpdfstring{$\alpha_r$}{alpha\_r}}
 
-\subsection{The Amplitude (Gain) Condition: Threshold Gain \texorpdfstring{$\alpha_r$}{alpha\_r}}
-
-Now we turn to the amplitude condition. For $E_5 = E_1$, the modulus of equation~\eqref{eq:roundtrip} must equal unity:
-\begin{equation}
-    |r_1 r_2| \cdot e^{(\gamma - \alpha_s)L} = 1.
-\end{equation}
+The amplitude part of the round-trip condition $|E_5| = |E_1|$ requires:
+\begin{equation*}
+    \left|r_1 r_2\right|\cdot e^{(\gamma - \alpha_s)L} = 1
+\end{equation*}
 
 Taking the natural logarithm of both sides:
-\[
-    \ln(r_1 r_2) + (\gamma - \alpha_s)L = 0.
-\]
-Since $r_i = \sqrt{R_i}$, we have $\ln(r_1 r_2) = \frac{1}{2}\ln(R_1 R_2)$. Rearranging for $\gamma$:
-\[
-    \gamma L = \alpha_s L - \frac{1}{2}\ln(R_1 R_2) = \alpha_s L + \frac{1}{2}\ln\!\left(\frac{1}{R_1 R_2}\right).
-\]
-Dividing through by $L$:
-\begin{equation}
-    \boxed{\gamma = \alpha_s + \frac{1}{2L}\ln\!\left(\frac{1}{R_1 R_2}\right) \equiv \alpha_r}
-    \label{eq:threshold_gain}
-\end{equation}
+\begin{equation*}
+    \ln(r_1 r_2) + (\gamma - \alpha_s)L = 0
+\end{equation*}
 
-This is the \textbf{threshold gain condition}. The quantity $\alpha_r$ is called the \textbf{total loss coefficient} (or \textbf{threshold gain coefficient}) of the laser. It has two contributions:
+Since $r_i = \sqrt{R_i}$, we have $\ln(r_1 r_2) = \tfrac{1}{2}\ln(R_1 R_2)$. Rearranging for $\gamma$:
+\begin{equation*}
+    \gamma L = \alpha_s L - \tfrac{1}{2}\ln(R_1 R_2)
+    = \alpha_s L + \tfrac{1}{2}\ln\!\left(\frac{1}{R_1 R_2}\right)
+\end{equation*}
+
+Dividing through by $L$:
+\begin{keyresult}
+\begin{equation}
+    \gamma_{\text{th}} = \alpha_s + \frac{1}{2L}\ln\!\left(\frac{1}{R_1 R_2}\right) \equiv \alpha_r
+\end{equation}
+\end{keyresult}
+where:
 \begin{itemize}
-    \item $\alpha_s$: the distributed scattering and absorption loss inside the gain medium (loss per unit length due to imperfect material)
-    \item $\frac{1}{2L}\ln\!\left(\dfrac{1}{R_1 R_2}\right)$: the effective distributed loss per unit length due to \emph{useful} power leaking out through the mirrors (this is the ``output coupling loss'')
+    \item $\alpha_r$: the \textbf{total loss coefficient} (also called the \textbf{threshold gain coefficient}) — the gain per unit length that must be achieved to sustain oscillation.
+    \item $\alpha_s$: the distributed scattering and absorption loss per unit length inside the gain medium.
+    \item $\frac{1}{2L}\ln(1/R_1 R_2)$: the effective distributed loss per unit length due to useful power leaking out through the mirrors — the \textbf{output coupling loss}.
 \end{itemize}
 
-The amplitude condition therefore says: the gain coefficient must be at least as large as $\alpha_r$ to sustain oscillation. If $\gamma < \alpha_r$, the field decays on each round trip; if $\gamma > \alpha_r$, the field grows; and at steady state, gain saturation drives $\gamma$ down until $\gamma = \alpha_r$ exactly.
+The amplitude condition states: the gain coefficient must meet or exceed $\alpha_r$ to sustain oscillation. If $\gamma < \alpha_r$, the field decays after each round trip; if $\gamma > \alpha_r$, the field grows; and at steady state, gain saturation drives $\gamma$ down until $\gamma = \alpha_r$ exactly. The physical reality is that the amplitude condition serves as the hard prerequisite for lasing; once running, saturation inevitably locks $\gamma$ to the loss value and stabilises the power.
 
-The physical reality is that the amplitude condition $\gamma \geq \alpha_r$ serves as the hard prerequisite for lasing to spark; once running, gain saturation will inevitably crush $\gamma$ down until it perfectly equals the loss at steady state.
-
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 3: Types of Mirrors
+% ----------------------------------------------------------
 \section{Types of Mirrors}
-% ============================================================================
 
 Since the mirrors appear explicitly in the threshold gain condition through $R_1 R_2$, it is worth pausing to understand what kinds of mirrors are used in practice.
 
 \subsection{Simple Discontinuity}
 
-The simplest mirror is just an abrupt interface between two media with different refractive indices. Recall from electromagnetism that at a planar boundary between media with indices $n_1$ and $n_2$, the field reflectivity is given by the Fresnel formula:
-\begin{equation}
-    r = \frac{n_2 - n_1}{n_2 + n_1}.
-\end{equation}
+The simplest mirror is an abrupt interface between two media with different refractive indices. At a planar boundary between media with indices $n_1$ and $n_2$, the Fresnel formula gives the field reflectivity at normal incidence:
+\begin{equation*}
+    r = \frac{n_2 - n_1}{n_2 + n_1}
+\end{equation*}
 
-This result tells us the amplitude reflection coefficient at normal incidence. For a semiconductor-air interface (the case relevant to semiconductor lasers), $n_2 = n$ (semiconductor) and $n_1 = 1$ (air), giving:
-\begin{equation}
-    r = \frac{n - 1}{n + 1}, \qquad R = \left(\frac{n-1}{n+1}\right)^2.
-\end{equation}
+For a semiconductor-air interface with $n_2 = n$ (semiconductor) and $n_1 = 1$ (air):
+\begin{equation*}
+    r = \frac{n - 1}{n + 1}, \qquad R = \left(\frac{n-1}{n+1}\right)^{\!2}
+\end{equation*}
 
-For a typical semiconductor with $n \approx 3.5$, this gives $R \approx 31\%$, which is often sufficient to sustain laser oscillation without any additional coating.
+For a typical semiconductor with $n \approx 3.5$, this gives $R \approx 31\%$, which is often sufficient to sustain laser oscillation without any additional coating. This is how the simplest semiconductor laser diodes are constructed — the cleaved facets of the semiconductor chip act as the two mirrors.
 
-\subsection{Free-Standing Mirror}
+\subsection{Free-Standing Dielectric Mirror}
 
-A more versatile option is a free-standing dielectric mirror --- a thin slab of dielectric material placed in the cavity. By choosing the thickness and refractive index appropriately, one can engineer almost any desired reflectivity $R(\lambda)$ over a chosen wavelength range. This gives the laser designer fine control over the output coupling.
+A more versatile option is a free-standing dielectric mirror — a thin slab or multilayer stack of dielectric material placed in the cavity. By choosing the thicknesses and refractive indices appropriately, almost any desired reflectivity $R(\lambda)$ can be engineered over a chosen wavelength range. This gives the laser designer fine control over both the output coupling loss and the frequency selectivity of the cavity.
 
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 4: The Threshold Condition and Threshold Pumping
+% ----------------------------------------------------------
 \section{The Threshold Condition and Threshold Pumping}
-\label{sec:threshold}
-% ============================================================================
 
-Now we understand what $\alpha_r$ is. The next question is: how hard do we need to pump the gain medium to achieve $\gamma \geq \alpha_r$? This is the \textbf{threshold condition} on the pump rate.
+\subsection{Threshold Population Inversion}
 
-\subsection{Relating Threshold Gain to Threshold Population Inversion}
+We now know what $\alpha_r$ is and what the gain must equal for oscillation to begin. The next question is: how large must the population inversion be — and how hard must we pump — to achieve $\gamma \geq \alpha_r$? We answer this by connecting the threshold gain to the threshold population inversion and then to the threshold pump rate.
 
-Recall that the gain coefficient is related to the population inversion $N = N_2 - N_1$ by the expression we derived in Chapter~2:
-\begin{equation}
-    \gamma_0 = \sigma(\nu) \cdot N_0,
-\end{equation}
-where $\sigma(\nu)$ is the stimulated emission cross section and $N_0 = N_2 - N_1$ is the small-signal population inversion. At threshold, the small-signal gain must equal the loss:
-\begin{equation}
-    \gamma_{\text{th}} = \alpha_r \quad \Longrightarrow \quad \sigma(\nu) N_{0,\text{th}} = \alpha_r.
-\end{equation}
+The gain coefficient is related to the population inversion $N_0 = N_2 - N_1$ and the stimulated emission cross section $\sigma(\nu)$ by:
+\begin{equation*}
+    \gamma_0 = \sigma(\nu)\cdot N_0
+\end{equation*}
+
+At the lasing threshold, the small-signal gain must exactly equal the total cavity loss:
+\begin{equation*}
+    \gamma_{\text{th}} = \alpha_r \quad\Longrightarrow\quad \sigma(\nu)\,N_{0,\text{th}} = \alpha_r
+\end{equation*}
 
 Solving for the \textbf{threshold population inversion}:
+\begin{keyresult}
 \begin{equation}
-    \boxed{N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu)}}
-    \label{eq:N_th}
+    N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu)}
 \end{equation}
+\end{keyresult}
 
-This is the general expression. To get the actual numerical value, we should evaluate it at the frequency where gain is highest --- the line centre $\nu = \nu_0$ --- because that is where lasing first begins. The stimulated emission cross section at an arbitrary frequency is:
-\begin{equation}
-    \sigma(\nu) = \frac{\lambda^2}{8\pi \tau_{\text{sp}}} \cdot g(\nu),
-\end{equation}
-where:
-\begin{itemize}
-    \item $\lambda$: the in-medium wavelength at the transition frequency $\nu_0$ (where $\lambda = \lambda_0/n$)
-    \item $\tau_{\text{sp}}$: the spontaneous emission lifetime of the upper laser level
-    \item $g(\nu)$: the normalised lineshape function, satisfying $\int_{-\infty}^{\infty} g(\nu)\,d\nu = 1$
-\end{itemize}
-
-For a Lorentzian lineshape (which is the natural lineshape for homogeneously broadened transitions), the normalised form is:
+This result is general. To obtain a numerical value, we evaluate at the line centre $\nu = \nu_0$ — the frequency where gain is highest and lasing first begins. The stimulated emission cross section at line centre, for a Lorentzian lineshape of FWHM $\Delta\nu$, was derived in Chapter 2:
 \begin{equation*}
-    g(\nu) = \frac{\Delta\nu / (2\pi)}{(\nu - \nu_0)^2 + (\Delta\nu/2)^2},
-\end{equation*}
-where $\Delta\nu$ is the FWHM linewidth of the transition. Evaluating this at the line centre $\nu = \nu_0$, where the detuning $(\nu - \nu_0)^2 = 0$:
-\begin{equation*}
-    g(\nu_0) = \frac{\Delta\nu/(2\pi)}{(\Delta\nu/2)^2} = \frac{\Delta\nu/(2\pi)}{\Delta\nu^2/4} = \frac{2}{\pi\,\Delta\nu}.
+    \sigma(\nu_0) = \frac{\lambda^2}{8\pi\tau_{\text{sp}}}\cdot g(\nu_0)
+    = \frac{\lambda^2}{8\pi\tau_{\text{sp}}}\cdot\frac{2}{\pi\,\Delta\nu}
+    = \frac{\lambda^2}{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}
 \end{equation*}
 
-Now substituting back into $\sigma(\nu_0)$:
+Substituting into the threshold inversion:
 \begin{equation*}
-    \sigma(\nu_0) = \frac{\lambda^2}{8\pi \tau_{\text{sp}}} \cdot \frac{2}{\pi\,\Delta\nu} = \frac{\lambda^2}{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}.
+    N_{0,\text{th}} = \alpha_r\cdot\frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2}
 \end{equation*}
 
-Now substituting $\sigma(\nu_0)$ into equation~\eqref{eq:N_th}:
+Using the photon lifetime relation $\alpha_r = 1/(v_g\,\tau_{\text{ph}})$, and writing $v_g \approx c_0/n$ for the group velocity:
+\begin{keyresult}
+\begin{equation}
+    N_{0,\text{th}} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2\,(c_0/n)\,\tau_{\text{ph}}}
+\end{equation}
+\end{keyresult}
+
+The physical message is transparent: a shorter photon lifetime (lossier cavity), a larger atomic linewidth, or a shorter in-medium wavelength all require a higher threshold inversion before lasing can begin.
+
+\subsection{Photon Lifetime}
+
+Before connecting the threshold inversion to a pump rate, let us derive the photon lifetime concretely. Inside the lossy cavity the optical intensity decays spatially under the combined distributed loss $\alpha_r$:
 \begin{equation*}
-    N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu_0)} = \alpha_r \cdot \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2}.
+    I(z) = I(0)\,e^{-\alpha_r z}
 \end{equation*}
 
-Using the photon lifetime relation $\alpha_r = 1/(c\,\tau_{\text{ph}})$ (which we establish just below in Section~\ref{sec:photon_lifetime}), we substitute:
+To translate this spatial decay into a temporal one, we apply the chain rule. The disturbance travels at the group velocity $v_g$ of the optical mode, so $dz/dt = v_g$:
 \begin{equation*}
-    N_{0,\text{th}} = \frac{1}{c\,\tau_{\text{ph}}} \cdot \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2\,c\,\tau_{\text{ph}}}.
+    \frac{dI}{dt} = \frac{dI}{dz}\cdot\frac{dz}{dt} = (-\alpha_r I)\cdot v_g = -\alpha_r v_g\,I
 \end{equation*}
 
-This is the explicit, fully expanded threshold inversion:
+Integrating this separable ODE:
+\begin{equation*}
+    I(t) = I(0)\,e^{-\alpha_r v_g\,t}
+\end{equation*}
+
+Reading off the exponential time constant — the \textbf{photon lifetime}:
+\begin{keyresult}
 \begin{equation}
-    \boxed{N_{0,\text{th}} = \frac{4\pi^2\,\Delta\nu\,\tau_{\text{sp}}}{\lambda^2\,c\,\tau_{\text{ph}}}}
-    \label{eq:N_th_explicit}
+    \tau_{\text{ph}} = \frac{1}{\alpha_r\,v_g}
 \end{equation}
-
-The physical message is transparent: a shorter photon lifetime (lossier cavity), a larger linewidth, or a shorter wavelength all require a \emph{higher} threshold inversion to achieve lasing.
-
-\subsection{The Photon Lifetime}
-\label{sec:photon_lifetime}
-
-Before moving to the threshold pump rate, let us define an important derived quantity. The \textbf{photon lifetime} $\tau_{\text{ph}}$ is the average time a photon survives inside the cavity before being absorbed or leaking out through the mirrors. We define it via the total loss:
-\begin{equation}
-    \boxed{\tau_{\text{ph}} = \frac{1}{\alpha_r \cdot c}}
-    \label{eq:photon_lifetime}
-\end{equation}
-
-where $c$ is the speed of light and $\alpha_r$ is the total loss coefficient from equation~\eqref{eq:threshold_gain}. The physical picture is: a photon travels at speed $c$, and it sees a ``loss rate'' of $\alpha_r c$ per unit time (losses per metre times metres per second). The reciprocal is the lifetime. A related quantity is the mode linewidth:
-\begin{equation}
-    \delta\nu = \frac{1}{2\pi \tau_{\text{ph}}}.
-\end{equation}
-
-Consequently, a tightly confining high-$Q$ (high-finesse) cavity enjoys a long photon lifetime and heavily sharpened mode linewidths, whereas a highly lossy cavity suffers a short photon lifetime and bleeds into broad modes.
+\end{keyresult}
+where $v_g$ is the group velocity of the optical mode and $\alpha_r$ is the total loss coefficient. A related quantity is the mode linewidth, tied to the photon lifetime by $\delta\nu = 1/(2\pi\tau_{\text{ph}})$. A tightly confining, low-loss cavity enjoys a long photon lifetime and sharply defined narrow modes; a lossy cavity suffers a short photon lifetime and bleeds into broad modes.
 
 \subsection{Threshold Pump Rate}
 
-Now let us connect the threshold population inversion to the threshold pump rate $R_{\text{th}}$. We are working with the 3-level laser system rate equations that we derived in Chapter~3. Recall that at steady state with no signal ($\Phi = 0$), the population inversion is:
+To find the threshold pump rate, we use the three-level laser rate equation results from the previous chapter. At steady state with no intracavity signal present, the small-signal population inversion established by the pump at rate $R$ is:
+\begin{equation*}
+    N_0 = 2R\,\tau_{21} - N_a
+\end{equation*}
+where $\tau_{21}$ is the spontaneous emission lifetime of the upper lasing level and $N_a$ is the total density of active atoms. Setting $N_0 = N_{0,\text{th}}$ and solving for the threshold pump rate:
+\begin{equation*}
+    2R_{\text{th}}\,\tau_{21} - N_a = N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu_0)}
+\end{equation*}
+\begin{keyresult}
 \begin{equation}
-    N_0 = \frac{2R\tau_{21} - N_a}{1 + 2\sigma\Phi\tau_{21}}\bigg|_{\Phi=0} = 2R\tau_{21} - N_a,
+    R_{\text{th}} = \frac{N_a}{2\tau_{21}} + \frac{\alpha_r}{2\sigma(\nu_0)\,\tau_{21}}
 \end{equation}
+\end{keyresult}
 
-where $R$ is the pump rate (atoms pumped per unit volume per unit time), $\tau_{21}$ is the spontaneous lifetime of level 2, and $N_a$ is the total density of active atoms. Setting $N_0 = N_{0,\text{th}}$ from equation~\eqref{eq:N_th}:
-\[
-    2R_{\text{th}}\tau_{21} - N_a = N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu_0)}.
-\]
-Solving for $R_{\text{th}}$:
-\begin{equation}
-    \boxed{R_{\text{th}} = \frac{N_a + N_{0,\text{th}}}{2\tau_{21}} = \frac{N_a}{2\tau_{21}} + \frac{\alpha_r}{2\sigma(\nu_0)\tau_{21}}}
-    \label{eq:R_th}
-\end{equation}
+The first term $N_a/(2\tau_{21})$ is the pump rate needed just to overcome the ground-state population and reach transparency ($N_2 = N_1$). The second term is the additional pumping required to push the inversion up to the level $N_{0,\text{th}}$ needed to overcome the cavity losses. Without any pumping, $\gamma$ is negative (absorption); as $R$ increases, $\gamma$ rises; at $R = R_{\text{th}}$, the gain at line centre just reaches $\alpha_r$ and laser oscillation begins. Further pumping above threshold builds up a large intracavity photon flux.
 
-This is the threshold pump rate. It says: we must pump hard enough to first overcome the ground-state absorption (the $N_a/(2\tau_{21})$ term) and then to supply the additional inversion $N_{0,\text{th}}$ needed to overcome the cavity losses. Since $\gamma_0 = \sigma N_0$ and $\gamma_{\text{th}} = \alpha_r$, we can write the threshold condition compactly as $\gamma_0(\nu_0) = \alpha_r$, or equivalently:
-\begin{equation}
-    \sigma(\nu_0)\, N_{0,\text{th}} = \alpha_r \quad \Longrightarrow \quad N_{0,\text{th}} = \frac{\alpha_r}{\sigma(\nu_0)}.
-\end{equation}
-
-At this point we can see that: without any pumping, $\gamma$ is negative (absorption); as we increase $R$, $\gamma$ rises; at $R = R_{\text{th}}$, $\gamma$ just reaches $\alpha_r$ at the line centre --- this is the threshold condition, and laser oscillation begins. Further pumping above threshold builds up a large intracavity photon flux, which is what we calculate next.
-
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 5: Mode Selection and Broadening in the Laser
+% ----------------------------------------------------------
 \section{Mode Selection and Broadening in the Laser}
-% ============================================================================
 
-Now that we understand the conditions for lasing, we need to ask a more refined question: which frequencies actually lase? We know from the phase condition that only the discrete frequencies $\nu_q$ are geometrically allowed. But not all of these will have sufficient gain to overcome the loss. The interplay between the gain profile shape and the loss level determines which modes oscillate --- and whether one mode or many survive at steady state.
+Now that we understand the conditions for lasing, we need to ask which frequencies actually lase. The phase condition allows only the discrete frequencies $\nu_q = q\,\nu_F$, but not all of these have sufficient gain to overcome the loss. The interplay between the gain profile shape and the loss level determines which modes oscillate at steady state.
 
 \subsection{Starting Condition and Mode Selection at Turn-On}
 
-At $t = 0$ (just after the pump is turned on), there is no intracavity field. The gain coefficient is at its unsaturated value $\gamma_0(\nu)$, which takes the Lorentzian shape of the atomic lineshape function. The condition for a mode at frequency $\nu_q$ to start oscillating is simply:
-\begin{equation}
-    \gamma_0(\nu_q) > \alpha_r.
-\end{equation}
+At turn-on ($t = 0$), there is no intracavity field, so the gain is at its unsaturated value $\gamma_0(\nu)$. This takes the Lorentzian shape of the atomic lineshape function, peaked at $\nu_0$. The condition for a mode at frequency $\nu_q$ to start oscillating is simply:
+\begin{equation*}
+    \gamma_0(\nu_q) > \alpha_r
+\end{equation*}
 
-Since $\gamma_0(\nu)$ is bell-shaped with peak at $\nu_0$, all the modes $\nu_{q-1}, \nu_q, \nu_{q+1}, \ldots$ whose frequencies fall within the band where $\gamma_0(\nu) > \alpha_r$ will initially start to oscillate. These are the frequencies that satisfy both the phase condition (discrete allowed frequencies) and the amplitude condition ($\gamma > \alpha_r$). Their count depends on the ratio of the gain bandwidth to the FSR:
-\begin{equation}
-    \text{Number of lasing modes} \approx \frac{B}{\nu_F},
-\end{equation}
-where $B$ is the bandwidth over which $\gamma_0(\nu) > \alpha_r$ (the ``lasing bandwidth''), and $\nu_F = c/(2L)$ is the free spectral range.
+All modes whose frequencies fall within the band where the small-signal gain exceeds the loss will initially begin to grow. The number of such modes is approximately:
+\begin{equation*}
+    \text{Number of lasing modes} \approx \frac{B}{\nu_F}
+\end{equation*}
+where $B$ is the bandwidth over which $\gamma_0(\nu) > \alpha_r$ and $\nu_F = c_0/(2nL)$ is the FSR. What happens next depends critically on whether the medium is homogeneously or inhomogeneously broadened.
 
-At $t = 0$, the central modes (those closest to $\nu_0$) have the highest $\gamma_0$ and therefore grow the fastest. What happens next depends critically on whether the medium is \textbf{homogeneously} or \textbf{inhomogeneously broadened}.
+\subsection{Homogeneous Broadening — Mode Competition and Single-Mode Survival}
 
-\subsection{Homogeneous Broadening: Mode Competition and Single-Mode Survival}
-
-In a homogeneously broadened medium, all atoms are identical. They all respond to the \emph{same} optical field at \emph{every} frequency. This means all modes compete for the same pool of inverted atoms --- if one mode starts depleting the inversion, \emph{every other mode feels the gain drop}.
+In a homogeneously broadened medium, all atoms are spectrally identical — they all respond to the same optical field at every frequency. This means all modes compete for the same pool of inverted atoms. If one mode starts depleting the inversion, every other mode feels the gain drop.
 
 As the dominant mode (the one closest to $\nu_0$) grows, its photon flux drives gain saturation uniformly across the whole lineshape. The saturated gain coefficient is:
-\begin{equation}
-    \gamma(\nu, \Phi) = \frac{\gamma_0(\nu)}{1 + \Phi/\Phi_s},
-\end{equation}
-so the \emph{entire} gain curve is suppressed by the same factor $1/(1+\Phi/\Phi_s)$. This means: as the dominant mode saturates the gain down to $\alpha_r$ at $\nu_q$, the gain at all other frequencies is \emph{also} reduced below $\alpha_r$, and those modes die. The system drives itself to \emph{single-mode} operation.
+\begin{equation*}
+    \gamma(\nu, \Phi) = \frac{\gamma_0(\nu)}{1 + \Phi/\Phi_s}
+\end{equation*}
 
-To see this more clearly: the transient behaviour is as follows. Initially (the ``start-up'' phase), many modes satisfy $\gamma_0(\nu_q) > \alpha_r$. The gain is high and unsaturated. Modes close to $\nu_0$ grow fastest. As they grow, the gain saturates \emph{globally} (because HB), pulling the entire gain curve down. Eventually, only the mode with the \emph{highest} small-signal gain $\gamma_0$ --- which is the mode $\nu_q$ closest to the atomic resonance $\nu_0$ --- survives. At steady state, $\gamma(\nu_q) = \alpha_r$ for the surviving mode, and for all other modes $\gamma(\nu) < \alpha_r$.
+The \emph{entire} gain curve is suppressed by the same factor $1/(1 + \Phi/\Phi_s)$. As the dominant mode saturates the gain down to $\alpha_r$ at its frequency, the gain at all other frequencies is also reduced below $\alpha_r$ and those modes die. The system eventually selects a single lasing mode.
 
-\begin{keyinsight}[Homogeneous Broadening $\Rightarrow$ Single-Mode Lasing]
-In an ideally homogeneously broadened medium (ignoring spatial hole burning), gain saturation is global: every mode competes for the same atoms. The mode with the highest small-signal gain wins, and all other modes die. The steady-state result is a \emph{single} lasing mode at the frequency $\nu_q$ closest to the atomic resonance $\nu_0$.
+\begin{keyinsight}[Homogeneous Broadening Leads to Single-Mode Lasing]
+In an ideally homogeneously broadened medium (ignoring spatial hole burning), gain saturation is \emph{global}: every mode competes for the same atoms. The mode with the highest small-signal gain wins, and all other modes die at steady state. The result is a single lasing mode at the frequency $\nu_q$ closest to the atomic resonance $\nu_0$.
 \end{keyinsight}
 
 \subsection{Spatial Hole Burning}
 
-We said ``ignoring spatial hole burning'' above --- let us now address this qualification. Even in a perfectly homogeneously broadened medium, the standing wave formed by the counter-propagating beams inside the cavity creates a spatial intensity pattern: the intensity is \emph{not} uniform along the cavity axis $z$, but instead alternates between peaks and nulls with a period of $\lambda/2$. This means the gain saturation is \emph{not} spatially uniform either --- it is stronger at the intensity peaks and weaker (or zero) at the intensity nulls.
+Even in a perfectly homogeneously broadened medium, a secondary effect can allow multiple modes to coexist. The counter-propagating beams inside the cavity form a standing-wave intensity pattern that alternates between peaks and nulls with period $\lambda/2$ along the cavity axis. Gain saturation is therefore not spatially uniform — it is stronger at the intensity peaks and absent at the nulls. This is called \textbf{spatial hole burning}. A second mode, whose intensity peaks fall near the nulls of the first mode, experiences less saturation and can survive alongside it, enabling multi-mode oscillation even in homogeneous media.
 
-This phenomenon is called \textbf{spatial hole burning}. Its consequence is that a second mode, whose peak intensity falls near the \emph{nulls} of the first mode, can experience less saturation and can therefore survive alongside the first mode. Spatial hole burning thus allows \emph{multi-mode lasing} even in homogeneous media. However, in practice, spatial hole burning is a second-order effect and is often neglected in first-principles analysis.
+\subsection{Inhomogeneous Broadening — Spectral Hole Burning and the \texorpdfstring{$\sqrt{\cdot}$}{Square-Root} Saturation Law}
 
-\subsection{Inhomogeneous Broadening: Spectral Hole Burning and the Derivation of the \texorpdfstring{$\sqrt{\cdot}$}{sqrt} Saturation Law}
+In an inhomogeneously broadened medium — such as a Doppler-broadened gas laser — different sub-groups of atoms resonate at different frequencies. A mode at $\nu_q$ interacts with those atoms whose resonance frequency is close to $\nu_q$ and does \emph{not} significantly perturb atoms resonant at other frequencies. Gain saturation is therefore \emph{local} in the frequency domain: as mode $\nu_q$ grows, it burns a narrow spectral hole in the gain profile — depleting the inversion only of the atoms it resonates with, leaving the gain at other frequencies relatively untouched. This phenomenon is called \textbf{spectral hole burning}.
 
-In an inhomogeneously broadened (IHB) medium --- such as a Doppler-broadened gas laser --- the situation is fundamentally different. Different groups of atoms, distinguished by their thermal velocity in the Doppler case, resonate at different frequencies. A mode at $\nu_q$ interacts primarily with those atoms whose resonance frequency is close to $\nu_q$. It does \emph{not} significantly deplete the inversion of atoms resonant at $\nu_{q+1}$ or $\nu_{q-1}$.
+We now need the form of the saturated IHB gain, which turns out to differ qualitatively from the homogeneous case.
 
-This means gain saturation is \emph{local} in frequency. As the mode at $\nu_q$ grows, it burns a narrow ``hole'' in the gain spectrum --- depleting the inversion of only those atoms that it interacts with, leaving the gain at other frequencies relatively untouched. This phenomenon is called \textbf{spectral hole burning}.
+\subsubsection{Setting Up the Gain Integral}
 
-Before we can state the consequences for multi-mode behaviour, we need to derive the \emph{form} of the IHB saturated gain --- which turns out to be qualitatively different from the HB case. The derivation is the central result of this section.
+We model the active medium as a collection of atomic sub-groups, each with a different resonance frequency $\nu'$ drawn from a Gaussian distribution:
+\begin{equation*}
+    p(\nu') = \frac{1}{\sqrt{\pi}\,\Delta\nu_D}
+    \exp\!\left[-\!\left(\frac{\nu' - \nu_0}{\Delta\nu_D}\right)^{\!2}\right]
+\end{equation*}
+where $\Delta\nu_D$ is the $1/e$ half-width of the Doppler (inhomogeneous) distribution and $p(\nu')$ is normalised: $\int_{-\infty}^{\infty} p(\nu')\,d\nu' = 1$.
 
-\subsubsection*{Setting Up: The Gain as an Integral Over Sub-Groups}
+Within each sub-group, atoms respond to the field with a Lorentzian coupling:
+\begin{equation*}
+    L(\nu - \nu') = \frac{(\Delta\nu_H/2)^2}{(\nu-\nu')^2 + (\Delta\nu_H/2)^2}
+\end{equation*}
+where $\Delta\nu_H$ is the homogeneous linewidth of a single sub-group and $L$ is normalised to peak at 1 at resonance ($\nu = \nu'$).
 
-In an IHB medium, we think of the active medium as a collection of atomic sub-groups, each characterised by a different resonance frequency $\nu'$. Within each sub-group, all atoms are identical and respond homogeneously. The distribution of resonance frequencies across sub-groups follows a Gaussian probability distribution:
+The total saturated gain at frequency $\nu$ is the weighted average over all sub-groups:
 \begin{equation}
-    p(\nu') = \frac{1}{\sqrt{\pi}\,\Delta\nu_D} \exp\!\left[-\left(\frac{\nu' - \nu_0}{\Delta\nu_D}\right)^2\right],
-    \label{eq:gaussian_dist}
+    \bar{\gamma}(\nu) = g_0 \int_{-\infty}^{\infty}
+    p(\nu')\cdot\frac{L(\nu-\nu')}{1 + (\Phi/\Phi_s)\,L(\nu-\nu')}\,d\nu' \tag{I}
 \end{equation}
-where:
-\begin{itemize}
-    \item $\nu'$: the resonance frequency of a particular sub-group
-    \item $\nu_0$: the centre frequency of the entire transition (zero-velocity class for Doppler)
-    \item $\Delta\nu_D$: the $1/e$ half-width of the Gaussian, setting the inhomogeneous (Doppler) linewidth
-    \item $p(\nu')$: the probability density that an atom has resonance frequency $\nu'$; it satisfies $\int_{-\infty}^{\infty} p(\nu')\,d\nu' = 1$
-\end{itemize}
+where $g_0$ is a peak gain constant, $\Phi$ is the photon flux, and $\Phi_s$ is the on-resonance saturation photon flux.
 
-A monochromatic field at frequency $\nu$ interacts with the sub-group resonant at $\nu'$ via a Lorentzian coupling factor. Specifically, atoms at $\nu'$ both contribute to the gain at $\nu$ \emph{and} get saturated by the field at $\nu$ in proportion to how well they are resonantly coupled to it. The coupling strength is described by a peak-normalised Lorentzian:
-\begin{equation}
-    L(\nu - \nu') = \frac{(\Delta\nu_H/2)^2}{(\nu - \nu')^2 + (\Delta\nu_H/2)^2},
-    \label{eq:lorentz_kernel}
-\end{equation}
-where:
-\begin{itemize}
-    \item $\Delta\nu_H$: the homogeneous FWHM linewidth of a single sub-group
-    \item $L(\nu-\nu')$: peaks at 1 when $\nu = \nu'$ (perfect resonance) and falls to zero far off resonance
-\end{itemize}
+\subsubsection{Step 1 — The Lorentzian Collapses to a Dirac Delta}
 
-The total saturated gain at frequency $\nu$ is found by summing the contributions of all sub-groups, weighted by their distribution $p(\nu')$ and accounting for the fact that the field at $\nu$ partially saturates each sub-group in proportion to its coupling $L(\nu-\nu')$:
-\begin{equation}
-    \bar{\gamma}(\nu) = g_0 \int_{-\infty}^{\infty} p(\nu') \cdot \frac{L(\nu - \nu')}{1 + (\Phi/\Phi_s)\,L(\nu - \nu')}\,d\nu',
-    \label{eq:IHB_integral}
-\end{equation}
-where:
-\begin{itemize}
-    \item $\bar{\gamma}(\nu)$: the total saturated gain at frequency $\nu$, averaged over all sub-groups
-    \item $g_0$: a peak gain constant (gain per unit volume at exact resonance and zero flux)
-    \item $\Phi$: the photon flux density of the field at $\nu$
-    \item $\Phi_s$: the on-resonance saturation photon flux density
-    \item The factor $L/(1 + (\Phi/\Phi_s) L)$: the saturated gain contribution from atoms at $\nu'$ --- atoms near resonance ($L \to 1$) contribute the most gain but are also the most saturated; far-off-resonance atoms ($L \to 0$) barely contribute and are barely saturated
-\end{itemize}
+We work in the physically important limit where the homogeneous linewidth is much narrower than the Doppler linewidth:
+\begin{equation*}
+    \Delta\nu_H \ll \Delta\nu_D
+\end{equation*}
 
-This integral is the central object to evaluate. It looks formidable, but it simplifies dramatically under the physically important limit relevant to Doppler-broadened gas lasers.
+Under this condition, $L(\nu-\nu')$ is an extremely narrow function of $\nu'$, concentrated in a window of width $\sim \Delta\nu_H$ centred at $\nu' = \nu$, while $p(\nu')$ varies on the much larger scale $\Delta\nu_D$. The normalised Lorentzian area is:
+\begin{equation*}
+    \int_{-\infty}^{\infty} L(\nu-\nu')\,d\nu'
+    = \frac{\pi\,\Delta\nu_H}{2}
+\end{equation*}
 
-\subsubsection*{Step 1 --- The Lorentzian Collapses to a Dirac Delta}
+A function that is positive, concentrates in a region of vanishing width $\Delta\nu_H \to 0$, and integrates to $\pi\Delta\nu_H/2$ converges (after normalisation) to a Dirac delta:
+\begin{equation*}
+    L(\nu-\nu') \approx \frac{\pi\,\Delta\nu_H}{2}\,\delta(\nu - \nu')
+    \qquad\text{when } \Delta\nu_H \ll \Delta\nu_D
+\end{equation*}
 
-We now introduce the key simplifying limit: the homogeneous linewidth is much narrower than the Doppler (inhomogeneous) linewidth:
-\begin{equation}
-    \Delta\nu_H \ll \Delta\nu_D.
-    \label{eq:narrow_limit}
-\end{equation}
+Physically: a field at $\nu$ interacts only with those atoms exactly on resonance ($\nu' = \nu$), because the narrow Lorentzian acts as a perfect sifter. This is the microscopic mechanism of spectral hole burning.
 
-This is the condition that makes the IHB analysis physically meaningful --- if $\Delta\nu_H \gg \Delta\nu_D$, the medium would actually behave homogeneously. Under condition~\eqref{eq:narrow_limit}, the Lorentzian kernel $L(\nu - \nu')$ is an extremely narrow function of $\nu'$, concentrated in a tiny window of width $\sim \Delta\nu_H$ centred at $\nu' = \nu$, while $p(\nu')$ varies on the much larger scale $\Delta\nu_D$.
+\subsubsection{Step 2 — Rewriting the Kernel with the Saturation-Broadened Linewidth}
 
-Recall the normalisation of the Lorentzian: a routine integration by partial fractions (or by the standard result $\int_{-\infty}^{\infty} du/(u^2 + a^2) = \pi/a$) gives:
-\[
-    \int_{-\infty}^{\infty} L(\nu-\nu')\,d\nu' = \int_{-\infty}^{\infty} \frac{(\Delta\nu_H/2)^2}{(\nu-\nu')^2 + (\Delta\nu_H/2)^2}\,d\nu' = (\Delta\nu_H/2)^2 \cdot \frac{\pi}{\Delta\nu_H/2} = \frac{\pi\Delta\nu_H}{2}.
-\]
+Before applying the delta approximation, we must handle the saturation term in the denominator of integral \textup{(I)} carefully. A strong field not only drives transitions but also broadens the effective Lorentzian response through \textbf{power broadening}. We introduce the saturation-broadened linewidth:
+\begin{equation*}
+    \Delta\nu_s = \Delta\nu_H\sqrt{1 + \Phi/\Phi_s}
+\end{equation*}
 
-So the Lorentzian integrates to $\pi\Delta\nu_H/2$. A function that is (a) always positive, (b) concentrated in a region of width $\Delta\nu_H \to 0$, and (c) integrates to a finite constant proportional to $\Delta\nu_H$, is --- by the definition of the Dirac delta --- converging to a delta function. More precisely, the normalised version $L(\nu-\nu')\cdot(2/\pi\Delta\nu_H)$ integrates to 1 and concentrates at $\nu'=\nu$, so:
-\begin{equation}
-    \frac{2}{\pi\Delta\nu_H}\,L(\nu-\nu') \;\xrightarrow{\;\Delta\nu_H \,\ll\, \Delta\nu_D\;}\; \delta(\nu - \nu'),
-\end{equation}
-or equivalently:
-\begin{equation}
-    L(\nu-\nu') \approx \frac{\pi\Delta\nu_H}{2}\,\delta(\nu - \nu') \qquad \text{when }\Delta\nu_H \ll \Delta\nu_D.
-    \label{eq:lorentz_delta}
-\end{equation}
-
-This is the physical content of Step 1: a field at frequency $\nu$ interacts only with those atoms exactly on resonance ($\nu' = \nu$), because the narrow Lorentzian picks out only that sub-group from the broad Gaussian distribution. This is the microscopic mechanism of spectral hole burning.
-
-\subsubsection*{Step 2 --- Rewriting the Kernel with the Saturation-Broadened Linewidth}
-
-Before substituting the delta-function approximation into equation~\eqref{eq:IHB_integral}, we need to handle the saturation carefully. The denominator $1 + (\Phi/\Phi_s)\,L(\nu-\nu')$ means that a strong field not only drives atomic transitions, but also power-broadens the Lorentzian response. We introduce the \textbf{saturation-broadened linewidth}:
-\begin{equation}
-    \Delta\nu_s \equiv \Delta\nu_H\sqrt{1 + \Phi/\Phi_s},
-    \label{eq:sat_broadened_lw}
-\end{equation}
-which is a form we already know from the HB saturation analysis in Chapter~3: a strong field widens the effective linewidth by $\sqrt{1+\Phi/\Phi_s}$.
-
-Now we rewrite the integrand in equation~\eqref{eq:IHB_integral} by combining the Lorentzian and its saturation denominator into a single fraction. Writing $a = \Delta\nu_H/2$ for brevity:
-\begin{align}
+Writing $a = \Delta\nu_H/2$, the integrand of \textup{(I)} becomes:
+\begin{align*}
     \frac{L(\nu-\nu')}{1 + (\Phi/\Phi_s)\,L(\nu-\nu')}
-    &= \frac{a^2/[(\nu-\nu')^2+a^2]}{1 + (\Phi/\Phi_s)\cdot a^2/[(\nu-\nu')^2+a^2]} \notag\\[6pt]
-    &= \frac{a^2}{(\nu-\nu')^2+a^2 + (\Phi/\Phi_s)\,a^2} \notag\\[6pt]
-    &= \frac{a^2}{(\nu-\nu')^2 + a^2(1+\Phi/\Phi_s)}.
-\end{align}
+    &= \frac{a^2/[(\nu-\nu')^2 + a^2]}{1 + (\Phi/\Phi_s)\cdot a^2/[(\nu-\nu')^2 + a^2]} \\[1ex]
+    &= \frac{a^2}{(\nu-\nu')^2 + a^2(1+\Phi/\Phi_s)} \\[1ex]
+    &= \frac{1}{1+\Phi/\Phi_s}\cdot\frac{(\Delta\nu_s/2)^2}{(\nu-\nu')^2 + (\Delta\nu_s/2)^2}
+    \;=\;\frac{L_s(\nu-\nu')}{1+\Phi/\Phi_s}
+\end{align*}
+where $L_s(\nu-\nu')$ is a broadened Lorentzian of width $\Delta\nu_s$ — still peak-normalised to 1 but wider. Since $\Delta\nu_s = \Delta\nu_H\sqrt{1+\Phi/\Phi_s}$ and $\Delta\nu_H \ll \Delta\nu_D$, we have $\Delta\nu_s \ll \Delta\nu_D$ for all physically reasonable fluxes. The narrow-Lorentzian limit therefore applies equally to $L_s$:
+\begin{equation*}
+    L_s(\nu-\nu') \approx \frac{\pi\,\Delta\nu_s}{2}\,\delta(\nu-\nu')
+\end{equation*}
 
-Now we recognise that $a^2(1+\Phi/\Phi_s) = (\Delta\nu_s/2)^2$ from equation~\eqref{eq:sat_broadened_lw}. So:
+Substituting both results into integral \textup{(I)}:
+\begin{equation*}
+    \bar{\gamma}(\nu) \approx g_0 \int_{-\infty}^{\infty}
+    p(\nu')\cdot\frac{1}{1+\Phi/\Phi_s}\cdot\frac{\pi\,\Delta\nu_s}{2}\,\delta(\nu-\nu')\,d\nu'
+\end{equation*}
+
+\subsubsection{Step 3 — Applying the Sifting Property}
+
+The sifting property of the Dirac delta states that integrating the product of any function $f(\nu')$ with $\delta(\nu - \nu')$ simply evaluates $f$ at $\nu' = \nu$. Here the role of $f(\nu')$ is played by $p(\nu')$, while all other factors are constants with respect to $\nu'$:
+\begin{equation*}
+    \bar{\gamma}(\nu)
+    = \frac{g_0}{1+\Phi/\Phi_s}\cdot\frac{\pi\,\Delta\nu_s}{2}\cdot p(\nu)
+\end{equation*}
+
+Substituting $\Delta\nu_s = \Delta\nu_H\sqrt{1+\Phi/\Phi_s}$:
+\begin{equation*}
+    \bar{\gamma}(\nu)
+    = \frac{g_0}{1+\Phi/\Phi_s}\cdot\frac{\pi\,\Delta\nu_H\sqrt{1+\Phi/\Phi_s}}{2}\cdot p(\nu)
+\end{equation*}
+
+One factor of $\sqrt{1+\Phi/\Phi_s}$ in the numerator (from the saturation broadening of $\Delta\nu_s$) cancels one of the two factors of $(1+\Phi/\Phi_s)$ in the denominator:
+\begin{equation*}
+    \frac{\sqrt{1+\Phi/\Phi_s}}{1+\Phi/\Phi_s} = \frac{1}{\sqrt{1+\Phi/\Phi_s}}
+\end{equation*}
+
+So:
+\begin{equation*}
+    \bar{\gamma}(\nu) = \frac{g_0\,p(\nu)\,\pi\Delta\nu_H/2}{\sqrt{1+\Phi/\Phi_s}}
+\end{equation*}
+
+We recognise the numerator as the unsaturated IHB gain $\gamma_0(\nu) = g_0\,p(\nu)\,\pi\Delta\nu_H/2$ (the gain at $\Phi = 0$, which inherits the Gaussian profile of $p(\nu)$). Therefore:
+\begin{keyresult}
 \begin{equation}
-    \frac{L(\nu-\nu')}{1+(\Phi/\Phi_s)L(\nu-\nu')} = \frac{(\Delta\nu_H/2)^2}{(\nu-\nu')^2 + (\Delta\nu_s/2)^2}.
-    \label{eq:kernel_combined}
+    \bar{\gamma}(\nu) = \frac{\gamma_0(\nu)}{\sqrt{1 + \Phi/\Phi_s}}
 \end{equation}
+\end{keyresult}
+where $\gamma_0(\nu)$ is the unsaturated (small-signal) gain at $\nu$, with the Gaussian (Doppler) spectral envelope.
 
-We can further factor this as:
-\begin{equation}
-    \frac{(\Delta\nu_H/2)^2}{(\nu-\nu')^2+(\Delta\nu_s/2)^2}
-    = \frac{(\Delta\nu_H)^2}{(\Delta\nu_s)^2} \cdot \frac{(\Delta\nu_s/2)^2}{(\nu-\nu')^2+(\Delta\nu_s/2)^2}
-    = \frac{1}{1+\Phi/\Phi_s} \cdot L_s(\nu-\nu'),
-    \label{eq:kernel_factored}
-\end{equation}
-where we used $(\Delta\nu_H/\Delta\nu_s)^2 = 1/(1+\Phi/\Phi_s)$ and defined the saturation-broadened Lorentzian $L_s(\nu-\nu')$ as:
-\begin{equation}
-    L_s(\nu-\nu') \equiv \frac{(\Delta\nu_s/2)^2}{(\nu-\nu')^2+(\Delta\nu_s/2)^2}.
-    \label{eq:Ls_def}
-\end{equation}
+This is the key structural difference from the homogeneous case. In homogeneous broadening, the saturated gain is $\gamma_0/(1+\Phi/\Phi_s)$ — a full suppression factor. In inhomogeneous broadening, it is $\gamma_0/\sqrt{1+\Phi/\Phi_s}$ — only a square root. The physical mechanism behind this difference is transparent from the derivation: saturation broadens the Lorentzian hole by $\sqrt{1+\Phi/\Phi_s}$ as the flux grows. This broadening introduces one power of $\sqrt{1+\Phi/\Phi_s}$ into the numerator through $\Delta\nu_s$, which then partially cancels the amplitude suppression in the denominator. The hole gets deeper but also wider; the two effects do not fully cancel, leaving a net $1/\sqrt{1+\Phi/\Phi_s}$.
 
-Note that $L_s$ has exactly the same form as $L$ from equation~\eqref{eq:lorentz_kernel}, but with the power-broadened linewidth $\Delta\nu_s$ replacing $\Delta\nu_H$. It is still peak-normalised to 1 at $\nu'=\nu$.
+The consequence for multi-mode behaviour is profound. In an IHB medium, different modes interact with different sub-groups of atoms, so their saturations are independent. Burning a hole at $\nu_q$ does not affect the gain available at $\nu_{q+1}$. Each mode can therefore coexist with all others, each depleting its own private pool of resonant atoms. IHB lasers natively support multi-mode oscillation, with the number of modes approximately equal to $B/\nu_F$. This contrasts sharply with the homogeneous case, where global saturation forces single-mode operation.
 
-Now, since $\Delta\nu_s = \Delta\nu_H\sqrt{1+\Phi/\Phi_s}$ and we are in the regime $\Delta\nu_H \ll \Delta\nu_D$, the condition $\Delta\nu_s \ll \Delta\nu_D$ holds for all physically reasonable photon fluxes. Therefore, the narrow-Lorentzian limit of Step 1 applies equally to $L_s$:
-\begin{equation}
-    L_s(\nu-\nu') \approx \frac{\pi\Delta\nu_s}{2}\,\delta(\nu-\nu').
-    \label{eq:Ls_delta}
-\end{equation}
-
-Substituting equations~\eqref{eq:kernel_factored} and~\eqref{eq:Ls_delta} into the integrand of equation~\eqref{eq:IHB_integral}:
-\begin{equation}
-    \bar{\gamma}(\nu) \approx g_0 \int_{-\infty}^{\infty} p(\nu') \cdot \frac{1}{1+\Phi/\Phi_s} \cdot \frac{\pi\Delta\nu_s}{2}\,\delta(\nu-\nu')\,d\nu'.
-    \label{eq:IHB_before_sift}
-\end{equation}
-
-\subsubsection*{Step 3 --- Executing the Sifting Property}
-
-We now execute the integral in equation~\eqref{eq:IHB_before_sift} using the \textbf{sifting property} of the Dirac delta:
-\[
-    \int_{-\infty}^{\infty} f(\nu')\,\delta(\nu - \nu')\,d\nu' = f(\nu),
-\]
-which selects the value of the function $f$ at the point $\nu' = \nu$. Here the function playing the role of $f(\nu')$ is $p(\nu')$. The constants $g_0$, $1/(1+\Phi/\Phi_s)$, and $\pi\Delta\nu_s/2$ are independent of $\nu'$ and come outside the integral:
-\[
-    \bar{\gamma}(\nu) = \frac{g_0}{1+\Phi/\Phi_s} \cdot \frac{\pi\Delta\nu_s}{2} \cdot \int_{-\infty}^{\infty} p(\nu')\,\delta(\nu-\nu')\,d\nu'.
-\]
-Applying the sifting property:
-\[
-    \bar{\gamma}(\nu) = \frac{g_0}{1+\Phi/\Phi_s} \cdot \frac{\pi\Delta\nu_s}{2} \cdot p(\nu).
-\]
-
-Now substitute $\Delta\nu_s = \Delta\nu_H\sqrt{1+\Phi/\Phi_s}$ from equation~\eqref{eq:sat_broadened_lw}:
-\[
-    \bar{\gamma}(\nu) = \frac{g_0}{1+\Phi/\Phi_s} \cdot \frac{\pi\,\Delta\nu_H\sqrt{1+\Phi/\Phi_s}}{2} \cdot p(\nu).
-\]
-
-We can now see that one factor of $\sqrt{1+\Phi/\Phi_s}$ in the numerator (coming from the saturation broadening of $\Delta\nu_s$) cancels one of the two factors of $\sqrt{1+\Phi/\Phi_s}$ in the denominator:
-\[
-    \frac{\sqrt{1+\Phi/\Phi_s}}{1+\Phi/\Phi_s} = \frac{1}{\sqrt{1+\Phi/\Phi_s}}.
-\]
-
-Therefore:
-\[
-    \bar{\gamma}(\nu) = g_0 \cdot p(\nu) \cdot \frac{\pi\Delta\nu_H/2}{\sqrt{1+\Phi/\Phi_s}}.
-\]
-
-The last step is to recognise that $g_0 \cdot p(\nu) \cdot \pi\Delta\nu_H/2$ is precisely the \emph{unsaturated} IHB gain $\gamma_0(\nu)$. We can verify this by setting $\Phi = 0$ in equation~\eqref{eq:IHB_integral} and applying the same narrow-Lorentzian limit:
-\[
-    \bar{\gamma}(\nu)\big|_{\Phi=0} = g_0 \int_{-\infty}^{\infty} p(\nu')\,L(\nu-\nu')\,d\nu' \approx g_0\,p(\nu)\int_{-\infty}^{\infty} L(u)\,du = g_0\,p(\nu)\cdot\frac{\pi\Delta\nu_H}{2} \equiv \gamma_0(\nu).
-\]
-
-The unsaturated gain inherits the Gaussian profile of $p(\nu)$, which is why IHB media have a Gaussian gain profile. With this identification:
-
-\begin{equation}
-    \boxed{\bar{\gamma}(\nu) = \frac{\gamma_0(\nu)}{\sqrt{1 + \Phi/\Phi_s}}}
-    \label{eq:IHB_sat_gain}
-\end{equation}
-
-where:
-\begin{itemize}
-    \item $\bar{\gamma}(\nu)$: the total saturated gain coefficient at frequency $\nu$, averaged over all sub-groups of the IHB medium
-    \item $\gamma_0(\nu)$: the unsaturated (small-signal) gain at $\nu$, which has the Gaussian (Doppler) envelope
-    \item $\Phi$: the photon flux density of the mode at frequency $\nu$
-    \item $\Phi_s$: the on-resonance saturation photon flux density
-\end{itemize}
-
-This result is the key difference from the HB case. Recall that for a homogeneously broadened medium the saturated gain is $\gamma_0/(1+\Phi/\Phi_s)$ --- the full saturation factor in the denominator. Here, for an IHB medium, it is $\gamma_0/\sqrt{1+\Phi/\Phi_s}$ --- only a square root. The physical mechanism behind this difference is transparent from the derivation: saturation broadens the Lorentzian spectral hole by a factor $\sqrt{1+\Phi/\Phi_s}$, widening the hole as the flux grows. The sifting of the Gaussian distribution by this broadened Lorentzian introduces one power of $\sqrt{1+\Phi/\Phi_s}$ into the numerator (from $\Delta\nu_s$), which then partially cancels the $(1+\Phi/\Phi_s)$ amplitude suppression in the denominator, leaving a net $1/\sqrt{1+\Phi/\Phi_s}$. The hole gets deeper but it also gets wider, and these two effects do not cancel completely: the remaining suppression is exactly the square root.
-
-For the multi-mode case, where the $m$-th mode oscillates at $\nu_m$ with photon flux $\Phi_m$, the gain available to that mode is:
-\begin{equation}
-    \bar{\gamma}_m(\nu_m) = \frac{\gamma_0(\nu_m)}{\sqrt{1 + \Phi_m/\Phi_s}},
-    \label{eq:IHB_multimode}
-\end{equation}
-and since in the IHB case different modes interact with different sub-groups, their saturations are independent of each other: the hole burned by mode $m$ at $\nu_m$ does not affect the gain available to mode $m+1$ at $\nu_{m+1}$.
-
-The operational takeaway here is profound: HB lasers heavily bias toward single-mode output because global saturation guarantees only the strongest mode survives the deathmatch. In contrast, IHB lasers natively support multi-mode output—spectral hole burning lets each mode gorge on its own private subset of atoms independently, allowing many to safely coexist. In the IHB case, the sheer number of allowed modes is roughly $B/\nu_F$ (where $B$ spans the gain profile above the loss line). Moreover, the square-root saturation law $\bar{\gamma} = \gamma_0/\sqrt{1+\Phi/\Phi_s}$ is no mere mathematical nuance—it is the inescapable physical consequence of forcing a Gaussian thermal velocity distribution through the sifter of a power-broadened Lorentzian hole.
-
-% ============================================================================
+% ----------------------------------------------------------
+%  Section 6: Laser Output Power
+% ----------------------------------------------------------
 \section{Laser Output Power}
-\label{sec:output_power}
-% ============================================================================
 
-Now that we understand the mode structure and steady-state condition, we can calculate the actual \emph{power} delivered by the laser. This is one of the most important practical results we derive in this course.
+Now that we understand the mode structure and the steady-state condition, we can calculate the actual optical power delivered by the laser.
 
-\subsection{Steady-State Internal Photon-Flux Density}
+\subsection{Steady-State Intracavity Photon-Flux Density}
 
-We start by computing the \emph{intracavity} photon-flux density $\Phi$ at steady state. The steady-state condition is simply $\gamma = \alpha_r$. For a homogeneously broadened medium:
-\[
-    \frac{\gamma_0}{1 + \Phi/\Phi_s} = \alpha_r.
-\]
-Solving for $\Phi$:
-\[
-    1 + \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r}.
-\]
-\[
-    \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r} - 1.
-\]
+At steady state, gain saturation has driven the gain exactly to the loss level: $\gamma = \alpha_r$. For a homogeneously broadened medium:
+\begin{equation*}
+    \frac{\gamma_0}{1 + \Phi/\Phi_s} = \alpha_r
+\end{equation*}
+
+Solving for the intracavity photon-flux density $\Phi$:
+\begin{equation*}
+    1 + \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r}
+    \quad\Longrightarrow\quad
+    \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r} - 1
+\end{equation*}
+\begin{keyresult}
 \begin{equation}
-    \boxed{\Phi = \Phi_s\left(\frac{\gamma_0}{\alpha_r} - 1\right), \qquad \gamma_0 > \alpha_r}
-    \label{eq:intracavity_flux}
+    \Phi = \Phi_s\!\left(\frac{\gamma_0}{\alpha_r} - 1\right), \qquad \gamma_0 > \alpha_r
 \end{equation}
+\end{keyresult}
 
-and $\Phi = 0$ if $\gamma_0 \leq \alpha_r$ (below threshold, no oscillation). This is the \textbf{steady-state intracavity photon-flux density}. Note that $\Phi$ represents photons travelling in \emph{both} directions inside the cavity (it is the sum of the forward and backward fluxes). Since the cavity is approximately symmetric (we will assume $R_1 = R_2 = R$ for simplicity shortly), the flux in each direction is $\Phi^+ \approx \Phi^- \approx \Phi/2$.
+and $\Phi = 0$ if $\gamma_0 \leq \alpha_r$ (below threshold, no oscillation). The intracavity photon flux represents photons travelling in both directions; for a symmetric cavity ($R_1 = R_2$) the flux in each direction is approximately $\Phi/2$.
 
 \subsection{Output Power Through a Mirror}
 
-Now let's convert $\Phi$ into output power. The output power through mirror $M_1$ (with power transmission $T_1 = 1 - R_1$) is the photon flux escaping through that mirror times the energy per photon times the beam area:
-\begin{equation}
-    P_{\text{out},1} = \frac{\Phi}{2} \cdot h\nu \cdot \text{Area} \cdot T_1,
-\end{equation}
-where the factor of $1/2$ accounts for the fact that only the forward-travelling flux exits through $M_1$, and Area is the cross-sectional area of the beam. Substituting equation~\eqref{eq:intracavity_flux}:
-\begin{equation}
-    P_{\text{out},1} = \frac{\Phi_s}{2} \cdot h\nu \cdot \text{Area} \cdot \left(\frac{\gamma_0}{\alpha_r} - 1\right) \cdot T_1.
-    \label{eq:Pout_raw}
-\end{equation}
+The output power through mirror $M_1$ with power transmission $T_1 = 1 - R_1$ is:
+\begin{equation*}
+    P_{\text{out},1} = \frac{\Phi}{2}\cdot h\nu\cdot A\cdot T_1
+\end{equation*}
+where $A$ is the cross-sectional beam area and the factor $1/2$ accounts for only the forward-travelling flux exiting through $M_1$. Substituting the steady-state flux:
+\begin{equation*}
+    P_{\text{out},1} = \frac{\Phi_s}{2}\cdot h\nu\cdot A\cdot T_1 \cdot\left(\frac{\gamma_0}{\alpha_r} - 1\right)
+\end{equation*}
 
-Defining $P_s = \Phi_s \cdot h\nu \cdot \text{Area}$ as the \textbf{saturation power} (the power at which the gain is half its small-signal value), we can write:
-\begin{equation}
-    P_{\text{out},1} = \frac{P_s}{2}\left(\frac{\gamma_0}{\alpha_r} - 1\right) T_1.
-\end{equation}
+Defining $P_s = \Phi_s\,h\nu\,A$ as the \textbf{saturation power:}
+\begin{equation*}
+    P_{\text{out},1} = \frac{P_s}{2}\,T_1\!\left(\frac{\gamma_0}{\alpha_r} - 1\right)
+\end{equation*}
 
-Now recall that $\gamma_0 = \sigma N_0$ and $\alpha_r = \alpha_s + \frac{1}{2L}\ln(1/R_1 R_2)$. For a symmetric cavity with $R_1 = R_2 = R$ and low transmissivity ($T = 1 - R \ll 1$, so $\ln(1/R) \approx T$):
-\[
-    \alpha_r \approx \alpha_s + \frac{T}{L}.
-\]
-Let us define $\ell = 2\alpha_s L$ (total internal round-trip loss) and $g = 2\gamma_0 L$ (total round-trip small-signal gain). Then:
-\[
-    \frac{\gamma_0}{\alpha_r} \approx \frac{g/2L}{(\ell/2L) + (T/L)} = \frac{g}{\ell + T}.
-\]
+For a symmetric cavity ($R_1 = R_2 = R$, $T = 1 - R$) with low transmissivity ($T \ll 1$) we approximate $\ln(1/R) \approx T$ and:
+\begin{equation*}
+    \alpha_r \approx \alpha_s + \frac{T}{L}
+\end{equation*}
 
-Substituting back into the power expression and replacing $T_1 = T$ (for the symmetric case):
+Defining the round-trip gain $g = 2\gamma_0 L$ and round-trip internal loss $\ell = 2\alpha_s L$:
+\begin{equation*}
+    \frac{\gamma_0}{\alpha_r} \approx \frac{g/2L}{(\ell/2L) + (T/L)} = \frac{g}{\ell + T}
+\end{equation*}
+\begin{keyresult}
 \begin{equation}
-    P_{\text{out}} = \frac{P_s}{2}\left(\frac{g}{\ell + T} - 1\right) T = \frac{P_s}{2}\left(\frac{gT}{\ell + T} - T\right) = \frac{P_s}{2}\left(\frac{gT - \ell T - T^2}{\ell + T}\right).
+    P_{\text{out}} = \frac{P_s}{2}\cdot T\!\left(\frac{g}{\ell + T} - 1\right)
+    = \frac{P_s}{2}\cdot\frac{T(g - \ell - T)}{\ell + T}
 \end{equation}
-
-This can be simplified by collecting terms:
-\begin{equation}
-    \boxed{P_{\text{out}} = \frac{P_s}{2}\left(\frac{g \cdot T}{\ell + T} - T\right) = \frac{P_s}{2}\!\left(\frac{g T - T(\ell + T)}{\ell + T}\right)}
-    \label{eq:Pout_general}
-\end{equation}
+\end{keyresult}
 
 \subsection{Optimal Mirror Transmission and Maximum Output Power}
 
-We can notice that equation~\eqref{eq:Pout_general} depends on the mirror transmissivity $T$. There is a tension: if $T$ is too small, very little light leaks out even though the intracavity flux is high; if $T$ is too large, the loss is so high that the gain barely exceeds the threshold. There must be an optimal $T$ that maximises $P_{\text{out}}$.
+We can notice that the output power depends on the mirror transmissivity $T$. There is clearly a tension: if $T$ is too small, very little light exits even though the intracavity power is high; if $T$ is too large, the loss is so great that the gain barely exceeds threshold and the power is again small. An optimal transmissivity $T_{\text{opt}}$ must therefore exist.
 
-We start by writing the output power more compactly. Using the shorthand $g = 2\gamma_0 L$ and $\ell = 2\alpha_s L$:
+We differentiate the output power with respect to $T$ and set the derivative to zero:
+\begin{equation*}
+    \frac{dP_{\text{out}}}{dT}
+    = \frac{P_s}{2}\!\left[\frac{g(\ell + T) - gT}{(\ell + T)^2} - 1\right]
+    = \frac{P_s}{2}\!\left[\frac{g\ell}{(\ell + T)^2} - 1\right] = 0
+\end{equation*}
+
+Setting the bracket to zero and solving for $T_{\text{opt}}$:
+\begin{equation*}
+    \frac{g\ell}{(\ell + T_{\text{opt}})^2} = 1
+    \quad\Longrightarrow\quad
+    \ell + T_{\text{opt}} = \sqrt{g\ell}
+\end{equation*}
+\begin{keyresult}
 \begin{equation}
-    P_{\text{out}} = \frac{P_s}{2} \cdot T \left(\frac{g}{\ell + T} - 1\right).
+    T_{\text{opt}} = \sqrt{g\ell} - \ell
 \end{equation}
+\end{keyresult}
 
-To find the optimal $T$, we differentiate with respect to $T$ and set the derivative to zero:
+Substituting $T_{\text{opt}}$ back and simplifying $(\sqrt{g/\ell} - 1)(\sqrt{g\ell} - \ell)/\ell = (\sqrt{g}-\sqrt{\ell})^2/\ell\cdot\ell/\sqrt{\ell}$... let us carry through carefully. At $T = T_{\text{opt}}$:
+\begin{equation*}
+    \frac{g}{\ell + T_{\text{opt}}} - 1 = \frac{g}{\sqrt{g\ell}} - 1 = \sqrt{\frac{g}{\ell}} - 1
+    = \frac{\sqrt{g} - \sqrt{\ell}}{\sqrt{\ell}}
+\end{equation*}
+
+So:
+\begin{equation*}
+    P_{\text{max}}
+    = \frac{P_s}{2}\cdot(\sqrt{g\ell} - \ell)\cdot\frac{\sqrt{g} - \sqrt{\ell}}{\sqrt{\ell}}
+    = \frac{P_s}{2}\cdot\sqrt{\ell}(\sqrt{g} - \sqrt{\ell})\cdot\frac{\sqrt{g} - \sqrt{\ell}}{\sqrt{\ell}}
+\end{equation*}
+\begin{keyresult}
 \begin{equation}
-    \frac{dP_{\text{out}}}{dT} = \frac{P_s}{2}\left[\frac{g(\ell + T) - gT}{(\ell + T)^2} - 1\right] = \frac{P_s}{2}\left[\frac{g\ell}{(\ell + T)^2} - 1\right] = 0.
+    P_{\text{max}} = \frac{P_s}{2}\!\left(\sqrt{g} - \sqrt{\ell}\right)^{\!2}
 \end{equation}
-
-Setting the bracket to zero:
-\[
-    \frac{g\ell}{(\ell + T_{\text{opt}})^2} = 1 \quad \Longrightarrow \quad (\ell + T_{\text{opt}})^2 = g\ell.
-\]
-Taking the square root (taking the positive root since $\ell + T > 0$):
-\[
-    \ell + T_{\text{opt}} = \sqrt{g\ell}.
-\]
-\begin{equation}
-    \boxed{T_{\text{opt}} = \sqrt{g\ell} - \ell}
-    \label{eq:T_opt}
-\end{equation}
-
-To find the maximum power, we substitute $T_{\text{opt}}$ back into the power expression:
-\[
-    P_{\text{max}} = \frac{P_s}{2} \cdot T_{\text{opt}} \left(\frac{g}{\ell + T_{\text{opt}}} - 1\right) = \frac{P_s}{2} \cdot (\sqrt{g\ell} - \ell) \cdot \left(\frac{g}{\sqrt{g\ell}} - 1\right).
-\]
-
-Simplify $\frac{g}{\sqrt{g\ell}} = \sqrt{g/\ell}$. And $\sqrt{g/\ell} - 1 = \frac{\sqrt{g} - \sqrt{\ell}}{\sqrt{\ell}}$. So:
-\[
-    P_{\text{max}} = \frac{P_s}{2} \cdot \sqrt{\ell}(\sqrt{g} - \sqrt{\ell}) \cdot \frac{\sqrt{g} - \sqrt{\ell}}{\sqrt{\ell}} = \frac{P_s}{2} (\sqrt{g} - \sqrt{\ell})^2.
-\]
-
-\begin{equation}
-    \boxed{P_{\text{max}} = \frac{P_s}{2}\!\left(\sqrt{g} - \sqrt{\ell}\right)^2}
-    \label{eq:P_max}
-\end{equation}
-
-This is a beautiful and physically transparent result. The maximum laser output power is determined by the saturation power $P_s$, the round-trip gain $g$, and the round-trip internal loss $\ell$. Note that $P_{\text{max}} \to 0$ as $g \to \ell$ (at threshold, no output power) and grows as $(\sqrt{g} - \sqrt{\ell})^2$ above threshold.
+\end{keyresult}
 
 \begin{keyinsight}[Maximum Laser Output Power]
-The maximum output power of a laser is $P_{\text{max}} = \frac{P_s}{2}(\sqrt{g} - \sqrt{\ell})^2$, achieved at the optimal transmissivity $T_{\text{opt}} = \sqrt{g\ell} - \ell$. There is a fundamental trade-off: higher output coupling (higher $T$) extracts more power but also raises the threshold, so the optimum is not at $T \to \infty$.
+The maximum output power $P_{\text{max}} = \frac{P_s}{2}(\sqrt{g} - \sqrt{\ell})^2$ is achieved at the optimal transmissivity $T_{\text{opt}} = \sqrt{g\ell} - \ell$. The $({\sqrt{g} - \sqrt{\ell}})^2$ structure reveals a fundamental trade-off: as the gain $g$ increases above the loss $\ell$, the maximum achievable power grows quadratically with the excess. At threshold ($g = \ell$), $P_{\text{max}} = 0$ — no output power is produced. There is also a trade-off in choosing $T$: perfect mirrors ($T = 0$) trap all the light inside and produce zero output, while too high a $T$ raises the threshold so much that little inversion is left to drive the oscillation. The optimum balances both effects.
 \end{keyinsight}
 
-\begin{misconception}[Higher Reflectivity Is Always Better]
-One might think that using perfect mirrors ($R_1 = R_2 = 1$, so $T = 0$) would give the maximum power, since all the intracavity energy is kept inside. In fact, $T = 0$ means \emph{no light exits at all} --- $P_{\text{out}} = 0$! The optimal transmissivity is $T_{\text{opt}} = \sqrt{g\ell} - \ell > 0$, which is always greater than zero for a laser operating above threshold.
-\end{misconception}
+% ----------------------------------------------------------
+%  Section 7: Effect of Gain on Resonance Frequency
+% ----------------------------------------------------------
+\section{Effect of Gain on Resonance Frequency — The Hot Resonator}
 
-Ultimately, the laser physically outputs dead zero power below threshold ($\gamma_0 \leq \alpha_r$), ramps up linearly with the pump rate once ignited, and crests exactly at the engineered optimal mirror transmissivity derived in equation~\eqref{eq:T_opt}.
-
-% ============================================================================
-\section{Effect of Gain on Resonance Frequency: The Hot Resonator}
-\label{sec:hot_resonator}
-% ============================================================================
-
-So far we have assumed that the phase condition gives fixed resonance frequencies $\nu_q = qc/(2L)$ --- the cold-resonator modes. But we forgot something important: the gain medium inside the cavity also introduces a \emph{phase shift}, not just amplitude gain. Recall from Chapter~1 that the susceptibility $\chi$ is complex, and its real part $\chi'$ is responsible for a change in the refractive index, while its imaginary part $\chi''$ is responsible for gain or absorption. These two are linked --- we cannot have one without the other. This connection is expressed by the \textbf{Kramers-Kronig relations}.
+So far we have assumed that the resonance frequencies are the cold-cavity values $\nu_q = qc_0/(2nL)$, determined purely by geometry. But we forgot something important: the gain medium inside the cavity also introduces a \emph{phase shift} — not just amplitude gain. This is a direct consequence of the Kramers-Kronig relations, which link the real and imaginary parts of the complex susceptibility. We cannot have gain (imaginary part) without also having an accompanying change in the refractive index (real part), and that index change modifies the round-trip phase.
 
 \subsection{Phase Shift Introduced by the Gain Medium}
 
-Recall from Chapter~1 that for a host medium with transition atoms:
-\[
-    \chi'' = \frac{n}{k_0}\,\gamma \quad (\text{related to gain}),
-\]
-\[
-    \chi' = \frac{2(\nu - \nu_0)}{\Delta\nu}\,\chi'' \quad (\text{Kramers-Kronig near resonance}).
-\]
+The complex susceptibility of the gain medium has a real part $\chi'$ (dispersion, causes a phase shift) and an imaginary part $\chi''$ (gain or absorption). Close to resonance, these satisfy:
+\begin{equation*}
+    \chi'' \propto \gamma \qquad\text{(related to gain)}
+\end{equation*}
+\begin{equation*}
+    \chi' = \frac{2(\nu - \nu_0)}{\Delta\nu}\,\chi'' \qquad\text{(Kramers-Kronig near resonance)}
+\end{equation*}
 
-This $\chi'$ modifies the propagation constant. Recall that the effective propagation constant is:
-\[
-    \beta_{\text{eff}} = n k_0 + \frac{k_0 \chi'}{2n}.
-\]
-The gain medium therefore adds an extra phase increment $\Delta\beta$ to the cold-cavity propagation constant $\beta = nk_0$:
+The susceptibility $\chi'$ modifies the effective propagation constant. The gain medium adds an extra phase increment $\Delta\beta$ per unit length to the cold-cavity phase constant $\beta = nk_0$:
+\begin{keyresult}
 \begin{equation}
-    \Delta\beta = \frac{k_0 \chi'}{2n} = \frac{k_0}{2n} \cdot \frac{2(\nu-\nu_0)}{\Delta\nu}\,\chi'' = \left(\frac{\nu-\nu_0}{\Delta\nu}\right)\gamma,
+    \Delta\beta = \left(\frac{\nu - \nu_0}{\Delta\nu}\right)\gamma
 \end{equation}
-since $\chi'' \cdot k_0/n = \gamma$. So:
-\begin{equation}
-    \boxed{\Delta\beta = \left(\frac{\nu - \nu_0}{\Delta\nu}\right)\gamma}
-    \label{eq:Delta_beta}
-\end{equation}
+\end{keyresult}
 
-where $\gamma$ is the (saturated) gain coefficient. This is the phase shift per unit length introduced by the gain medium. We can notice that $\Delta\beta = 0$ at $\nu = \nu_0$ (at line centre, the gain introduces no extra phase shift); $\Delta\beta > 0$ above resonance and $\Delta\beta < 0$ below resonance.
+We can notice that $\Delta\beta = 0$ at line centre $\nu = \nu_0$ — the gain introduces no extra phase at the atomic resonance itself. Off-resonance, $\Delta\beta$ is proportional to both the detuning from line centre and the gain coefficient.
 
-\subsection{Modified Phase Condition: The Hot Resonator}
+\subsection{Modified Phase Condition — The Hot Resonator}
 
-The total propagation constant inside the cavity is now $\beta + \Delta\beta$. The modified round-trip phase condition therefore becomes:
-\begin{equation}
-    2(\beta + \Delta\beta)L = 2q\pi.
-\end{equation}
+The total propagation constant inside the cavity is now $\beta + \Delta\beta$. The modified round-trip phase condition becomes:
+\begin{equation*}
+    2(\beta + \Delta\beta)L = 2q\pi
+\end{equation*}
 
-Substituting $\beta = 2\pi\nu/c$ and $\Delta\beta$ from equation~\eqref{eq:Delta_beta}:
-\[
-    2\cdot\frac{2\pi\nu}{c}\cdot L + 2\left(\frac{\nu-\nu_0}{\Delta\nu}\right)\gamma L = 2q\pi.
-\]
-Dividing by $2\pi$:
-\begin{equation}
-    \frac{2\nu L}{c} + \frac{(\nu - \nu_0)}{\pi\Delta\nu}\,\gamma L = q.
-    \label{eq:modified_phase}
-\end{equation}
+Substituting $\beta = 2\pi\nu/c_0$ (using $n \approx 1$ for simplicity) and $\Delta\beta$:
+\begin{equation*}
+    \frac{2\nu L}{c_0} + \frac{(\nu - \nu_0)}{\pi\Delta\nu}\,\gamma L = q
+\end{equation*}
 
-This is the modified phase condition. The oscillation frequency $\nu'_q$ (the ``hot-resonator'' mode frequency) is the solution of equation~\eqref{eq:modified_phase} for $\nu$, and in general it differs from the cold-resonator mode $\nu_q = qc/(2L)$.
+The oscillation frequency $\nu'_q$ (the ``hot-resonator'' mode frequency) is the solution of this equation, and in general it differs from the cold-resonator mode $\nu_q = qc_0/(2L)$.
 
-\subsection{Cold vs Hot Resonator Frequencies}
+\subsection{Frequency Pulling}
 
-To see how the hot-resonator frequency $\nu'_q$ relates to the cold-resonator frequency $\nu_q$, we note that if $\Delta\beta = 0$ the solution is just $\nu'_q = \nu_q$. When $\Delta\beta \neq 0$, equation~\eqref{eq:modified_phase} can be solved graphically. It is a straight line (from the $\frac{2\nu L}{c}$ term) plus a dispersive correction (from the $\Delta\beta$ term).
-
-The key physical insight is this: near the atomic resonance $\nu_0$, the gain-induced phase shift $\Delta\beta$ has a dispersive (odd-symmetric) profile --- it is negative for $\nu < \nu_0$ and positive for $\nu > \nu_0$. This phase shift modifies the effective optical path length of the cavity. For modes below $\nu_0$, the extra phase \emph{decreases} $\beta_{\text{eff}}$, which means the cavity looks ``shorter'' at those frequencies, and the mode frequency shifts \emph{upward} toward $\nu_0$. For modes above $\nu_0$, the reverse occurs, and the mode shifts \emph{downward} toward $\nu_0$.
+To understand how $\nu'_q$ differs from $\nu_q$, consider the dispersive profile of $\Delta\beta$: it is negative for $\nu < \nu_0$ (below resonance) and positive for $\nu > \nu_0$ (above resonance). For modes below $\nu_0$, the extra phase \emph{decreases} the effective propagation constant, which makes the cavity look optically shorter — the mode frequency shifts \emph{up} toward $\nu_0$. For modes above $\nu_0$, the reverse occurs and the mode shifts \emph{down} toward $\nu_0$.
 
 The net effect is that all hot-resonator modes $\nu'_q$ are \textbf{pulled toward the atomic resonance $\nu_0$} relative to the cold-resonator modes $\nu_q$. This phenomenon is called \textbf{frequency pulling}.
 
-\begin{keyinsight}[Frequency Pulling: Cold vs Hot Resonator]
-The cold-resonator modes are at $\nu_q = qc/(2L)$, determined purely by cavity geometry. The hot-resonator modes (with the gain medium present) are at $\nu'_q$, which are pulled slightly toward the atomic resonance $\nu_0$. The amount of pulling depends on how far $\nu_q$ is from $\nu_0$ and on the magnitude of the gain. This is why the real laser oscillation frequencies are not exactly at the cold-resonator mode frequencies.
+\begin{keyinsight}[Cold vs Hot Resonator Frequencies]
+The cold-resonator modes at $\nu_q = qc_0/(2L)$ are determined purely by cavity geometry. The hot-resonator modes $\nu'_q$ — the actual oscillation frequencies of the running laser — are pulled slightly toward the atomic resonance $\nu_0$. The amount of pulling depends on how far $\nu_q$ is from $\nu_0$ and on the magnitude of the gain. This is why a real laser oscillates at frequencies that are close to, but measurably offset from, the purely geometric cold-cavity frequencies. The dispersive Kramers-Kronig phase shift from the gain medium inevitably acts as a force dragging the oscillation toward line centre.
 \end{keyinsight}
 
-To summarise the modified phase condition result compactly: from equation~\eqref{eq:modified_phase}, we can write the hot-resonator mode condition as:
+% ----------------------------------------------------------
+%  Section 8: The Fabry-Pérot Cavity as a Sub-Threshold Amplifier
+% ----------------------------------------------------------
+\section{The Fabry-Pérot Cavity as a Sub-Threshold Amplifier}
+
+Having characterised the laser in the oscillation regime — where $\gamma \geq \alpha_r$ and the device self-sustains — it is equally important to understand what the same Fabry-Pérot structure does when the gain is deliberately kept \emph{below} the threshold. The resonator, the mirrors, and the gain medium are all present; the only difference is that the round-trip gain never quite matches the round-trip loss. Under that condition the device amplifies an external input signal rather than generating its own: this is the \textbf{Fabry-Pérot amplifier}.
+
+\subsection{The Three Operating Regimes}
+
+The operating point of a Fabry-Pérot device is fully specified by comparing the small-signal gain coefficient $\gamma_{ss}$ with the total cavity loss $\alpha_r$:
+
+If $\gamma_{ss} < \alpha_r$, the round-trip gain is less than the round-trip loss. The field decays slightly on each round trip and cannot self-sustain. Inject an external signal and it is amplified — this is the \textbf{FP amplifier} regime.
+
+If $\gamma_{ss} = \alpha_r$, gain exactly compensates loss. The medium is at transparency with respect to the cavity: a photon entering will exit with the same power on average.
+
+If $\gamma_{ss} > \alpha_r$, round-trip gain exceeds loss. The field grows on every pass without any input, and the device breaks into self-sustained oscillation — the \textbf{laser oscillator} we have just analysed.
+
+The connection to the traveling-wave amplifier (TWA) is direct: forcing $R_1 = R_2 = 0$ makes $\alpha_r \to \infty$, so $\gamma_{ss} < \alpha_r$ is trivially satisfied for any finite gain — which is exactly why the perfectly anti-reflected TWA can never oscillate.
+
+\subsection{Deriving the Amplifier Gain Profile}
+
+To find the total power gain $G = P_{\text{out}}/P_{\text{in}}$, we track the electric field self-consistently through the cavity. Let $A(z)$ denote the rightward-travelling field amplitude and $B(z)$ the leftward-travelling one. Boundary conditions at both mirrors must be satisfied simultaneously.
+
+At the left entrance facet ($z = 0$), the total rightward field is the superposition of the transmitted input and the reflected fraction of the leftward field:
 \begin{equation}
-    \nu'_q + \frac{c}{2\pi}\cdot\frac{\nu'_q - \nu_0}{\Delta\nu}\,\gamma = q\,\nu_F,
+    A(0) = E_{\text{in}}\,t_1 + B(0)\,r_1 \tag{I}
 \end{equation}
-where $\nu_F = c/(2L)$. This shows that the oscillation frequency $\nu'_q$ is always between $\nu_q$ (cold mode) and $\nu_0$ (atomic resonance) --- it is pulled from $\nu_q$ toward $\nu_0$ by the dispersive phase shift of the gain medium.
 
-As a result, an active laser actually oscillates at frequencies that are close to—but measurably offset from—the geometric cold-resonator mode frequencies. The excited gain medium inevitably injects a dispersive phase shift (governed rigidly by Kramers-Kronig) that physically drags the oscillation frequencies toward the atomic line centre $\nu_0$. This undeniable ``hot resonator'' effect introduces serious engineering implications regarding the true spectral purity and absolute frequency stability of any laser source.
+At the right exit facet ($z = L$), the output field is the transmitted fraction of the rightward field:
+\begin{equation}
+    E_{\text{out}} = A(L)\,t_2 \tag{II}
+\end{equation}
 
-% ============================================================================
+The leftward field born at the right mirror is the reflected fraction of $A(L)$:
+\begin{equation}
+    B(L) = A(L)\,r_2 \tag{III}
+\end{equation}
+
+Rearranging \textup{(I)} to isolate the input and dividing the output \textup{(II)} by it gives the field transfer function:
+\begin{equation}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(L)\,t_1\,t_2}{A(0)-B(0)\,r_1} \tag{IV}
+\end{equation}
+
+The propagation laws across the cavity accumulate phase, internal loss, and gain:
+\begin{equation*}
+    A(L) = A(0)\,e^{-j\beta L}\,e^{-\alpha_s L/2}\,e^{\gamma L/2}
+\end{equation*}
+\begin{equation*}
+    B(0) = B(L)\,e^{-j\beta L}\,e^{-\alpha_s L/2}\,e^{\gamma L/2}
+\end{equation*}
+
+Substituting \textup{(III)} to replace $B(L)=A(L)r_2$ and then substituting both propagation expressions into \textup{(IV)}, factoring and cancelling $A(0)$:
+\begin{equation*}
+    \frac{E_{\text{out}}}{E_{\text{in}}}
+    = \frac{t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}}{1-r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}}
+\end{equation*}
+
+We define the \textbf{single-pass power gain} as the net power multiplication factor accumulated in one traversal of the cavity:
+\begin{keyresult}
+\begin{equation}
+    G_0 = e^{(\gamma-\alpha_s)L}
+\end{equation}
+\end{keyresult}
+
+$G_0$ bundles the amplification $e^{\gamma L}$ and the internal scattering loss $e^{-\alpha_s L}$ into a single factor. Taking the squared modulus of the transfer function to obtain the power gain $G = |E_{\text{out}}|^2/|E_{\text{in}}|^2$, expanding with $e^{j\theta}+e^{-j\theta}=2\cos\theta$ and applying $\cos(2\beta L)=1-2\sin^2(\beta L)$, the constant denominator terms form the perfect square $(1-r_1 r_2 G_0)^2$. Writing $r_1 r_2=\sqrt{R_1 R_2}$ and $t_i^2=T_i=1-R_i$:
+\begin{keyresult}
+\begin{equation}
+    G = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1-G_0\sqrt{R_1 R_2}\right)^2+4\,G_0\sqrt{R_1 R_2}\,\sin^2(\beta L)}
+\end{equation}
+\end{keyresult}
+where:
+\begin{itemize}
+    \item $G$: the total power gain of the FP amplifier at frequency $\nu$.
+    \item $R_1,R_2$: power reflectivities of the entrance and exit facets.
+    \item $G_0 = e^{(\gamma-\alpha_s)L}$: the single-pass net power gain.
+    \item $\beta = 2\pi n\nu/c_0$: the phase constant, whose frequency dependence through $\sin^2(\beta L)$ drives the gain ripple.
+\end{itemize}
+
+The gain is not flat with frequency. At a resonance frequency where $\sin(\beta L)=0$, the denominator minimises and the gain peaks at:
+\begin{equation*}
+    G_{\max} = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1-G_0\sqrt{R_1 R_2}\right)^2}
+\end{equation*}
+
+Midway between resonances ($\sin^2(\beta L)=1$), the denominator maximises and the gain drops to:
+\begin{equation*}
+    G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1+G_0\sqrt{R_1 R_2}\right)^2}
+\end{equation*}
+
+\begin{keyinsight}[Recovering the TWA as a Special Case]
+Setting $R_1=R_2=0$ collapses the FP gain formula to $G = G_0 = e^{(\gamma-\alpha_s)L}$ — exactly the single-pass gain of the anti-reflected traveling-wave amplifier. The FP formula is a strict generalisation.
+\end{keyinsight}
+
+\subsection{Gain Ripple}
+
+The frequency swing of the gain from peak to trough is quantified by the \textbf{gain ripple ratio} $\rho$, defined as the ratio of the resonance peak gain to the trough gain:
+\begin{keyresult}
+\begin{equation}
+    \rho = \frac{G_{\max}}{G_{\min}}
+          = \left(\frac{1+G_0\sqrt{R_1 R_2}}{1-G_0\sqrt{R_1 R_2}}\right)^{\!2}
+\end{equation}
+\end{keyresult}
+
+We can notice that $\rho \geq 1$ always, with equality only when $R_1 R_2=0$ (the TWA). As $G_0\sqrt{R_1 R_2}\to 1$ — meaning the round-trip gain approaches the round-trip loss — the denominator $(1-G_0\sqrt{R_1 R_2})\to 0$ and $\rho\to\infty$. An infinite ripple ratio is the signature of the oscillation threshold: $G_{\max}\to\infty$ while $G_{\min}$ remains finite, meaning no external input is needed for output at the resonance frequencies. In practice, $\rho$ must be kept below a system-specified engineering bound (often $\rho < 1\,\mathrm{dB}$) to prevent selective amplification of individual wavelength channels in a multiplexed link.
+
+\subsection{Active Bandwidth and Modified Finesse}
+
+The FWHM bandwidth $\delta\nu$ of one amplified resonance peak follows from the half-power condition $G = G_{\max}/2$. The numerators cancel and the condition reduces to:
+\begin{equation*}
+    4\,G_0\sqrt{R_1 R_2}\,\sin^2(\beta L) = \left(1-G_0\sqrt{R_1 R_2}\right)^2
+\end{equation*}
+
+Solving for $\sin(\beta L)$, taking the inverse sine, doubling for the full FWHM, and writing $\mathrm{FSR} = c_0/(2nL)$:
+\begin{keyresult}
+\begin{equation}
+    \delta\nu = \frac{2\,\mathrm{FSR}}{\pi}\,
+    \sin^{-1}\!\left[\frac{1-G_0\sqrt{R_1 R_2}}{2\sqrt{G_0\sqrt{R_1 R_2}}}\right]
+\end{equation}
+\end{keyresult}
+
+Defining $R=\sqrt{R_1 R_2}$ as the geometric mean mirror reflectivity and applying the small-angle approximation (valid for high finesse), the ratio $\mathrm{FSR}/\delta\nu$ gives the \textbf{active finesse}:
+\begin{keyresult}
+\begin{equation}
+    \mathcal{F}_{\text{active}} \approx \frac{\pi\sqrt{R\,G_0}}{1-R\,G_0}
+\end{equation}
+\end{keyresult}
+
+\begin{keyinsight}[Active Finesse Reduces to Passive Finesse at Zero Gain]
+Setting $\gamma=0$ gives $G_0=e^{-\alpha_s L}$ and:
+\begin{equation*}
+    \mathcal{F}_{\text{active}}\big|_{\gamma=0} = \frac{\pi\sqrt{R\,e^{-\alpha_s L}}}{1-R\,e^{-\alpha_s L}}
+\end{equation*}
+This is exactly the passive finesse expression $\pi(R_1 R_2)^{1/4}e^{-\alpha_s L/2}/(1-\sqrt{R_1 R_2}\,e^{-\alpha_s L})$ derived earlier. The active finesse is therefore a genuine generalisation — it recovers the passive result when the gain is switched off.
+\end{keyinsight}
+
+The active finesse exceeds the passive finesse whenever $G_0 > 1$, because the gain reduces the net round-trip loss experienced by a photon. As $RG_0\to 1$ — as we approach the oscillation threshold derived earlier in this chapter — the active finesse diverges and the resonance peaks become arbitrarily narrow. At that crossing, what was a sub-threshold amplifier becomes, precisely, the laser oscillator.
+
+\subsubsection*{Connecting the Finesse to the Total Loss Coefficient}
+
+There is a satisfying structural link between the finesse formula and the total cavity loss $\alpha_r$ introduced in the amplitude condition. Because the mirrors absorb a fraction of the circulating energy on every reflection, their effect can be folded into a distributed loss via the identity:
+\begin{equation*}
+    R\,e^{-\alpha_s L} = e^{-\alpha_r L}
+    \qquad\Longrightarrow\qquad
+    \alpha_r = \alpha_s + \frac{1}{2L}\ln\!\left(\frac{1}{R_1 R_2}\right)
+\end{equation*}
+This is exactly the total-loss coefficient we derived from the amplitude condition. The geometric mean reflectivity $R = \sqrt{R_1 R_2}$ and the internal scattering loss $\alpha_s$ combine into a single exponential envelope that determines the per-round-trip power retention $e^{-\alpha_r L}$.
+
+Substituting $Re^{-\alpha_s L} = e^{-\alpha_r L}$ into the passive finesse expression, the passive finesse becomes:
+\begin{equation*}
+    \mathcal{F} = \frac{\pi\,e^{-\alpha_r L/2}}{1 - e^{-\alpha_r L}}
+\end{equation*}
+When the combined loss per round trip is small ($\alpha_r L \ll 1$), the exponential can be linearised: $e^{-\alpha_r L} \approx 1 - \alpha_r L$ and $e^{-\alpha_r L/2} \approx 1$. The finesse then reduces to an exceptionally clean expression:
+\begin{keyresult}
+\begin{equation}
+    \mathcal{F} \approx \frac{\pi}{\alpha_r L}
+    \qquad (\alpha_r L \ll 1)
+\end{equation}
+\end{keyresult}
+
+This is the most transparent form of the finesse: it is simply $\pi$ divided by the total fractional round-trip loss $\alpha_r L$. As internal losses fall and mirror reflectivities approach unity, $\alpha_r \to 0$ and the finesse diverges — the resonances become infinitely sharp and the photon lifetime $\tau_{\text{ph}} = 1/(\alpha_r v_g)$ grows without bound. The two limits, $\mathcal{F} \to \infty$ and $\tau_{\text{ph}} \to \infty$, are two faces of the same physics: an ideal lossless cavity traps a photon forever.
+
 \section{Summary and Looking Ahead}
-% ============================================================================
 
-In this chapter we have built the complete picture of the laser oscillator from the ground up. We identified the three necessary conditions: spontaneous emission noise, feedback from the Fabry-P\'erot resonator, and gain saturation as the stabilising nonlinearity. We derived the two fundamental conditions that must be simultaneously satisfied at the operating frequency:
-\begin{enumerate}
-    \item The \textbf{phase condition}: $\nu_q = q\,c/(2L)$, selecting discrete longitudinal modes.
-    \item The \textbf{amplitude (gain) condition}: $\gamma \geq \alpha_r = \alpha_s + \frac{1}{2L}\ln(1/R_1 R_2)$, ensuring net round-trip gain.
-\end{enumerate}
-We then derived the threshold pump rate, the steady-state intracavity photon flux, the output power formula, and the optimal mirror transmissivity $T_{\text{opt}} = \sqrt{g\ell} - \ell$ that maximises output. We explained how gain broadening (HB vs IHB) determines whether the laser oscillates on one mode or many --- and we derived from first principles why the IHB saturated gain scales as $\gamma_0/\sqrt{1+\Phi/\Phi_s}$ rather than as $\gamma_0/(1+\Phi/\Phi_s)$: the $\sqrt{\cdot}$ emerges from the sifting of the Gaussian velocity distribution by the saturation-broadened Lorentzian hole, where saturation broadening introduces one power of $\sqrt{1+\Phi/\Phi_s}$ into the numerator that partially cancels the amplitude suppression. We also identified the frequency-pulling effect that shifts laser oscillation frequencies from the cold-resonator values toward the atomic resonance, as a direct consequence of the Kramers-Kronig dispersive phase shift.
+We have built the complete picture of the Fabry-Pérot resonator — both above and below the oscillation threshold. We identified three necessary ingredients for lasing — spontaneous emission, resonant feedback, and gain saturation — and derived the two conditions that must simultaneously hold at an oscillating mode:
 
-The next natural step is to look at specific, technologically important laser systems --- in particular, semiconductor diode lasers --- where the gain medium, the cavity, and the pumping mechanism all take very specific forms that require a quantum-mechanical treatment of the gain. This will be the focus of the chapters ahead.
+The \textbf{phase condition}, $\nu_q = q\,c_0/(2nL)$, selects discrete longitudinal modes separated by the FSR.
+
+The \textbf{amplitude condition}, $\gamma \geq \alpha_r = \alpha_s + \frac{1}{2L}\ln(1/R_1 R_2)$, ensures net round-trip gain, and gain saturation locks $\gamma$ to exactly $\alpha_r$ at steady state.
+
+We derived the threshold population inversion $N_{0,\text{th}} = \alpha_r/\sigma(\nu_0)$ and the threshold pump rate $R_{\text{th}} = N_a/(2\tau_{21}) + \alpha_r/(2\sigma\tau_{21})$. We derived the Airy function intensity spectrum from the geometric series sum of round-trip contributions, obtaining the explicit cavity finesse formula $\mathcal{F} \approx \pi(R_1 R_2)^{1/4}e^{-\alpha_s L/2}/(1-\sqrt{R_1 R_2}e^{-\alpha_s L})$ and confirming that the photon lifetime $\tau_{\text{ph}} = 1/(\alpha_r v_g)$ governs the temporal decay of stored light. We showed that homogeneous broadening produces single-mode operation through global gain saturation, while inhomogeneous broadening allows multi-mode operation through spectral hole burning, with the IHB saturated gain scaling as $\gamma_0/\sqrt{1+\Phi/\Phi_s}$. We calculated the laser output power and found the optimal transmissivity $T_{\text{opt}} = \sqrt{g\ell}-\ell$ that maximises output. Finally, we identified frequency pulling and derived the FP sub-threshold amplifier gain profile $G = (1-R_1)(1-R_2)G_0/[(1-G_0\sqrt{R_1 R_2})^2 + 4G_0\sqrt{R_1 R_2}\sin^2(\beta L)]$, characterised its gain ripple, active bandwidth, and modified finesse — which converges precisely to the laser threshold condition as $G_0\sqrt{R_1 R_2}\to 1$.
+
+The next natural step is to examine specific laser systems where the gain medium, the cavity, and the pumping mechanism take the concrete forms dictated by semiconductor physics — the diode laser, where many of the assumptions we have made here are challenged and refined.
