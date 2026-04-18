@@ -721,15 +721,15 @@ Setting $R_1=R_2=0$ collapses the FP gain formula to $G = G_0 = e^{(\gamma-\alph
 
 \subsection{Gain Ripple}
 
-The frequency swing of the gain from peak to trough is quantified by the \textbf{gain ripple ratio} $\rho$, defined as the ratio of the resonance peak gain to the trough gain:
+The frequency swing of the gain from peak to trough is quantified by the \textbf{gain ripple ratio} $\rho(\nu)$, defined as the ratio of the resonance peak gain to the trough gain:
 \begin{keyresult}
 \begin{equation}
-    \rho = \frac{G_{\max}}{G_{\min}}
+    \rho(\nu) = \frac{G_{\max}}{G_{\min}}
           = \left(\frac{1+G_0\sqrt{R_1 R_2}}{1-G_0\sqrt{R_1 R_2}}\right)^{\!2}
 \end{equation}
 \end{keyresult}
 
-We can notice that $\rho \geq 1$ always, with equality only when $R_1 R_2=0$ (the TWA). As $G_0\sqrt{R_1 R_2}\to 1$ — meaning the round-trip gain approaches the round-trip loss — the denominator $(1-G_0\sqrt{R_1 R_2})\to 0$ and $\rho\to\infty$. An infinite ripple ratio is the signature of the oscillation threshold: $G_{\max}\to\infty$ while $G_{\min}$ remains finite, meaning no external input is needed for output at the resonance frequencies. In practice, $\rho$ must be kept below a system-specified engineering bound (often $\rho < 1\,\mathrm{dB}$) to prevent selective amplification of individual wavelength channels in a multiplexed link.
+We can notice that $\rho(\nu) \geq 1$ always, with equality only when $R_1 R_2=0$ (the TWA). As $G_0\sqrt{R_1 R_2}\to 1$ — meaning the round-trip gain approaches the round-trip loss — the denominator $(1-G_0\sqrt{R_1 R_2})\to 0$ and $\rho(\nu)\to\infty$. An infinite ripple ratio is the signature of the oscillation threshold: $G_{\max}\to\infty$ while $G_{\min}$ remains finite, meaning no external input is needed for output at the resonance frequencies. In practice, $\rho(\nu)$ must be kept below a system-specified engineering bound (often $\rho(\nu) < 1\,\mathrm{dB}$) to prevent selective amplification of individual wavelength channels in a multiplexed link.
 
 \subsection{Active Bandwidth and Modified Finesse}
 

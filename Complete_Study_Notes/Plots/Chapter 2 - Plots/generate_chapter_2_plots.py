@@ -6,12 +6,20 @@ Generates matplotlib figures for Chapter 2 of the Optoelectronics notes.
 Currently produces:
   - boltzmann_distribution.jpg : Shows the exponential decay curve of thermal population
                                  vs energy, highlighting that N1 >> N2.
+  - narrow_vs_wide_source.jpg  : Shows geometric overlap derivation of a narrow spectral field
+                                 in a wide lineshape, and a wide field in a narrow lineshape.
 """
 
 import os
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+
+def lorentzian(x, x0, gamma):
+    return (1 / np.pi) * (0.5 * gamma) / ((x - x0)**2 + (0.5 * gamma)**2)
+    
+def gaussian(x, x0, sigma):
+    return np.exp(-0.5 * ((x - x0)/sigma)**2)
 
 # ── Paths ───────────────────────────────────────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -117,5 +125,69 @@ def plot_boltzmann_distribution():
     print(f"Saved: {out_path}")
     plt.close(fig)
 
+def plot_narrow_vs_wide_source():
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Common axis range
+    x = np.linspace(-3, 3, 500)
+
+    # ==========================================
+    # PANEL 1: Narrow Light Source
+    # ==========================================
+    # g(v) is wide, p(v) is narrow
+    g1 = lorentzian(x, x0=0, gamma=2.0)
+    # scale g1 just for visual balance
+    g1 = g1 / np.max(g1) * 0.8
+
+    # p(v) is narrow and slightly offset
+    vs = -0.5
+    p1 = gaussian(x, x0=vs, sigma=0.1)
+
+    ax1.plot(x, g1, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
+    ax1.plot(x, p1, color=CORAL, linewidth=2.5, label=r"$\rho(\nu)$ (Narrow Source)")
+
+    # Formatting
+    ax1.set_xlim(-3, 3)
+    ax1.set_ylim(0, 1.2)
+    ax1.set_title("Narrow Incident Source", fontsize=15, pad=15)
+    ax1.set_xlabel(r"Frequency $\nu$", fontsize=13)
+    ax1.set_yticks([])  # Hide y numbers
+    ax1.set_xticks([0, vs])
+    ax1.set_xticklabels([r"$\nu_0$", r"$\nu_s$"], fontsize=13)
+    ax1.legend(loc="upper right", fontsize=11, frameon=True, fancybox=True, edgecolor="#cccccc", facecolor="#f5f5f5")
+
+    # ==========================================
+    # PANEL 2: Wide Light Source
+    # ==========================================
+    # g(v) is narrow at center
+    g2 = lorentzian(x, x0=0, gamma=0.3)
+    g2 = g2 / np.max(g2)
+
+    # p(v) is very wide sweeping across
+    p2 = gaussian(x, x0=0, sigma=4.0)
+    p2 = p2 / np.max(p2) * 0.6
+
+    ax2.plot(x, g2, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
+    ax2.plot(x, p2, color=CORAL, linewidth=2.5, label=r"$\rho(\nu)$ (Wide Source)")
+
+    # Formatting
+    ax2.set_xlim(-3, 3)
+    ax2.set_ylim(0, 1.2)
+    ax2.set_title("Wide Black-Body Source", fontsize=15, pad=15)
+    ax2.set_xlabel(r"Frequency $\nu$", fontsize=13)
+    ax2.set_yticks([])
+    ax2.set_xticks([0])
+    ax2.set_xticklabels([r"$\nu_0$"], fontsize=13)
+    ax2.legend(loc="upper right", fontsize=11, frameon=True, fancybox=True, edgecolor="#cccccc", facecolor="#f5f5f5")
+
+    # Finish
+    fig.tight_layout()
+
+    out_path = os.path.join(OUT_DIR, "narrow_vs_wide_source.jpg")
+    plt.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
 if __name__ == "__main__":
     plot_boltzmann_distribution()
+    plot_narrow_vs_wide_source()

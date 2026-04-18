@@ -42,3 +42,6 @@ Thumbs.db
 
 ## Ignore temporary plot outputs:
 Complete_Study_Notes/Plots/**/*.jpg
+
+## Ignore temporary workspace folders
+TEMP/
