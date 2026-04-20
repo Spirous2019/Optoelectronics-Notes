@@ -258,7 +258,7 @@ Solving for the \textbf{threshold population inversion}:
 \end{equation}
 \end{keyresult}
 
-This result is general. To obtain a numerical value, we evaluate at the line centre $\nu = \nu_0$ — the frequency where gain is highest and lasing first begins. The stimulated emission cross section at line centre, for a Lorentzian lineshape of FWHM $\Delta\nu$, was derived in Chapter 2:
+This result is general. To obtain a numerical value, we evaluate at the line centre $\nu = \nu_0$ — the frequency where gain is highest and lasing first begins. The stimulated emission cross section at line centre for a Lorentzian lineshape of FWHM $\Delta\nu$ follows directly from the Einstein $B$-coefficient relation tied to the lineshape function $g(\nu_0) = 2/(\pi\Delta\nu)$:
 \begin{equation*}
     \sigma(\nu_0) = \frac{\lambda^2}{8\pi\tau_{\text{sp}}}\cdot g(\nu_0)
     = \frac{\lambda^2}{8\pi\tau_{\text{sp}}}\cdot\frac{2}{\pi\,\Delta\nu}
@@ -472,6 +472,37 @@ This is the key structural difference from the homogeneous case. In homogeneous 
 
 The consequence for multi-mode behaviour is profound. In an IHB medium, different modes interact with different sub-groups of atoms, so their saturations are independent. Burning a hole at $\nu_q$ does not affect the gain available at $\nu_{q+1}$. Each mode can therefore coexist with all others, each depleting its own private pool of resonant atoms. IHB lasers natively support multi-mode oscillation, with the number of modes approximately equal to $B/\nu_F$. This contrasts sharply with the homogeneous case, where global saturation forces single-mode operation.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 4/homogeneous_vs_inhomogeneous.jpg}
+    \caption{Homogeneous vs. Inhomogeneous Saturation: Graphical proof that an inhomogeneously broadened gain medium exhibits far stiffer resistance to saturation, scaling strictly with the square root.}
+\end{figure}
+
+\subsection{Spectral Hole Burning in a Doppler-Broadened Medium --- The Lamb Dip}
+
+The general IHB picture applies to any inhomogeneously broadened medium. But in a gas laser --- the canonical IHB system --- the inhomogeneous broadening arises from the thermal motion of atoms, and the resulting Doppler picture has an important subtlety worth examining explicitly.
+
+Consider an atom moving with velocity $v$ along the cavity axis. Because of the Doppler effect, this atom does not interact with light at $\nu_0$ but at a shifted frequency. An atom moving \emph{toward} the incoming beam sees it blue-shifted to $\nu_0(1 + v/c)$; an atom moving \emph{away} sees it red-shifted to $\nu_0(1 - v/c)$.
+
+The intracavity mode at frequency $\nu_q$ is a standing wave --- the superposition of two counter-propagating beams. This means a single mode at $\nu_q$ resonates simultaneously with \emph{two} distinct velocity classes:
+\begin{itemize}
+    \item Atoms moving toward the rightward beam with speed $+v$ such that $\nu_q = \nu_0(1 + v/c)$.
+    \item Atoms moving toward the leftward beam with speed $-v$ such that $\nu_q = \nu_0(1 - v/c)$, i.e.\ the same speed magnitude $|v| = c|\nu_q/\nu_0 - 1|$.
+\end{itemize}
+The mode therefore saturates atoms on \emph{both} sides of the Doppler distribution, burning \emph{two} symmetric spectral holes --- one on each side of the central frequency $\nu_0$.
+
+\subsubsection*{The Lamb Dip}
+
+As the mode frequency $\nu_q$ is tuned toward line centre $\nu_0$ and eventually reaches $\nu_q = \nu_0$, the two velocity classes merge: both the $+v$ and $-v$ groups collapse to $v = 0$. Instead of drawing from two separate pools, the mode now draws from a single, shared pool of stationary atoms. The number of active atoms available to the mode therefore \emph{decreases} as $\nu_q \to \nu_0$, even though the unsaturated gain is highest at line centre.
+
+This causes the mode output power to actually \emph{decrease} as $\nu_q$ is tuned through $\nu_0$. The output power as a function of $\nu_q$ traces a bell-curve with a central \textbf{depression} at line centre. This central dip is called the \textbf{Lamb dip}.
+
+\begin{keyinsight}[The Lamb Dip]
+In a Doppler-broadened medium, a mode at $\nu_q \neq \nu_0$ burns two holes simultaneously in the gain profile --- one for each velocity class resonating with the standing-wave field. When $\nu_q = \nu_0$, the two holes collapse into one because only the $v = 0$ atoms are available. The mode loses half its pool of active atoms, and the power drops. The resulting central depression in the mode's frequency-tuning curve is the \textbf{Lamb dip} --- a direct signature of the two-hole burning mechanism unique to standing-wave cavities in Doppler-broadened media.
+\end{keyinsight}
+
+The Lamb dip is not merely a curiosity. Because it is extremely narrow and occurs precisely at the atomic resonance $\nu_0$, it is exploited constructively in \textbf{saturated-absorption spectroscopy}: locking a laser to the centre of the Lamb dip provides sub-Doppler frequency stabilisation far more precise than is achievable by sitting at the broad Doppler gain peak.
+
 % ----------------------------------------------------------
 %  Section 6: Laser Output Power
 % ----------------------------------------------------------
@@ -499,6 +530,12 @@ Solving for the intracavity photon-flux density $\Phi$:
 \end{keyresult}
 
 and $\Phi = 0$ if $\gamma_0 \leq \alpha_r$ (below threshold, no oscillation). The intracavity photon flux represents photons travelling in both directions; for a symmetric cavity ($R_1 = R_2$) the flux in each direction is approximately $\Phi/2$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 4/gain_saturation_curve.jpg}
+    \caption{Steady-State Saturation: Visualising the inevitable collapse of the small-signal gain curve down to exactly match the fixed horizontal loss line $\alpha_r$ as the intracavity flux $\Phi$ builds up.}
+\end{figure}
 
 \subsection{Output Power Through a Mirror}
 
@@ -576,6 +613,34 @@ So:
 \begin{keyinsight}[Maximum Laser Output Power]
 The maximum output power $P_{\text{max}} = \frac{P_s}{2}(\sqrt{g} - \sqrt{\ell})^2$ is achieved at the optimal transmissivity $T_{\text{opt}} = \sqrt{g\ell} - \ell$. The $({\sqrt{g} - \sqrt{\ell}})^2$ structure reveals a fundamental trade-off: as the gain $g$ increases above the loss $\ell$, the maximum achievable power grows quadratically with the excess. At threshold ($g = \ell$), $P_{\text{max}} = 0$ — no output power is produced. There is also a trade-off in choosing $T$: perfect mirrors ($T = 0$) trap all the light inside and produce zero output, while too high a $T$ raises the threshold so much that little inversion is left to drive the oscillation. The optimum balances both effects.
 \end{keyinsight}
+
+\subsection{IHB Laser: Steady-State Power}
+
+All of the output-power analysis above assumed a homogeneously broadened medium. For an inhomogeneously broadened laser the saturated gain takes the square-root form, but at steady state the gain must still lock exactly to the loss. Setting $\bar{\gamma} = \alpha_r$:
+\begin{equation*}
+    \frac{\gamma_0}{\sqrt{1 + \Phi_m/\Phi_s}} = \alpha_r
+\end{equation*}
+where $\Phi_m$ is the steady-state intracavity photon flux. Solving step by step --- first isolate the square root:
+\begin{equation*}
+    \sqrt{1 + \frac{\Phi_m}{\Phi_s}} = \frac{\gamma_0}{\alpha_r}
+\end{equation*}
+Squaring both sides:
+\begin{equation*}
+    1 + \frac{\Phi_m}{\Phi_s} = \left(\frac{\gamma_0}{\alpha_r}\right)^{\!2}
+    \quad\Longrightarrow\quad
+    \frac{\Phi_m}{\Phi_s} = \left(\frac{\gamma_0}{\alpha_r}\right)^{\!2} - 1
+\end{equation*}
+Multiplying through by $P_s = \Phi_s\,h\nu\,A$ to convert to power:
+\begin{keyresult}
+\begin{equation}
+    P_m = P_s\!\left[\left(\frac{\gamma_0}{\alpha_r}\right)^{\!2} - 1\right]
+\end{equation}
+\end{keyresult}
+where $P_m$ is the steady-state intracavity power. Comparing this to the HB result $P = P_s(\gamma_0/\alpha_r - 1)$, we can factor the IHB result as:
+\begin{equation*}
+    P_m = P_s\!\left(\frac{\gamma_0}{\alpha_r} + 1\right)\!\left(\frac{\gamma_0}{\alpha_r} - 1\right)
+\end{equation*}
+The extra factor $(\gamma_0/\alpha_r + 1) > 1$ means the IHB laser accumulates \emph{more} intracavity power for the same pump level above threshold compared to the HB laser. This is a direct consequence of the weaker square-root saturation: gain does not collapse as quickly, so more photons build up before equilibrium is reached.
 
 % ----------------------------------------------------------
 %  Section 7: Effect of Gain on Resonance Frequency

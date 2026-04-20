@@ -5,132 +5,130 @@
 
 At the close of the previous chapter, we derived the fundamental macroscopic propagation equation for the photon flux $\Phi$, arriving at the compact result $\Phi(z) = \Phi(0)\,e^{\gamma z}$ where $\gamma = \sigma(N_2 - N_1)$ is the gain coefficient. The key insight was that the exponential growth of the field depends entirely on the \emph{sign} of $\gamma$: if $N_2 > N_1$, the medium amplifies; if $N_2 < N_1$, it absorbs. Everything that follows in this chapter is really an answer to one question: \emph{how do we engineer a real medium to have $N_2 > N_1$, and what are the performance consequences when we do?}
 
-We will build the theory in three stages. First, we identify the physical conditions — population inversion — that make amplification possible in the first place. Second, we write the full rate equations governing the atomic populations and solve them at steady state, which gives us the saturation physics that governs how the gain evolves with signal power. Third, we translate those atomic results into the engineering parameters that characterise a real amplifier: gain $G$, bandwidth, and noise figure. The chapter closes with the Erbium-Doped Fibre Amplifier (EDFA), the technology that directly implements everything we derive here.
-
-Unless explicitly stated otherwise, we work throughout in the \textbf{homogeneous broadening} regime.
-
 % =============================================================
 \section{Population Inversion}
 % =============================================================
 
 \subsection{What It Is and Why We Need It}
 
-Population inversion is the state of matter in which the upper energy level $E_2$ contains \emph{more} atoms than the lower energy level $E_1$: that is, $N_2 > N_1$. This phenomenon is called inversion because it \textbf{inverts} the natural thermodynamic ordering of the populations. Since $\gamma = \sigma(N_2 - N_1)$, a positive population difference directly makes $\gamma > 0$ — the necessary condition for optical amplification.
+Population inversion is the condition of a medium in which the upper energy level $E_2$ contains \emph{more} atoms than the lower energy level $E_1$: that is, $N_2 > N_1$. This phenomenon is called inversion because it \textbf{inverts} the natural thermal ordering of the populations. Since $\gamma = \sigma(N_2 - N_1)$, a positive population difference directly makes $\gamma > 0$ — the necessary condition for optical amplification.
 
-The analogy with a water pump is exact: just as you need a pump to move water from a lower reservoir to a higher one against gravity, you need a \textbf{pump} to move atoms from $E_1$ to $E_2$ against the Boltzmann distribution.
+The analogy with a water pump is instructive: just as you need a pump to move water from a lower reservoir to a higher one against gravity, you need a \textbf{pump} to move atoms from $E_1$ to $E_2$ against the Boltzmann distribution.
 
 \subsection{The Pumping Mechanism}
 
-The key point is that we must create population inversion \emph{before} the signal light enters the medium. The pump must excite atoms from their ground state up to the excited level, and it must do so fast enough to maintain $N_2 > N_1$ continuously.
+The pump must continuously excite atoms from the ground state $E_1$ up to a higher energy level fast enough to maintain $N_2 > N_1$. Crucially, the pump operates on the atomic populations independently of the signal — it is not driven by the light we want to amplify, but by a separate external energy source.
 
-The pump can in principle be any energy source that atoms can absorb: an electron beam whose electrons collide with atoms and donate kinetic energy, or a separate light source (typically at a different frequency) whose photons are absorbed. In either case, the role of the pump has nothing to do with the signal we want to amplify — the pump operates on the atomic populations before the signal is even present.
+The pump can in principle be any energy source that atoms can absorb: an electron beam whose electrons collide with atoms and donate kinetic energy, or a separate energetic light source at a different frequency.
 
-We characterise the pump by its \textbf{pumping rate} $R$, defined as the number of atoms extracted from a level (or injected into a level) per unit time per unit volume (units: atoms~m$^{-3}$~s$^{-1}$). Practically, we model the system with \textbf{two independent pumps}:
-\begin{enumerate}
-  \item $R_1$: the pump that extracts atoms \emph{out of} $E_1$ and sends them down to the ground state $E_0$ below it. By depleting $E_1$, this pump helps achieve $N_1 < N_2$.
-  \item $R_2$: the pump that injects atoms \emph{into} $E_2$ from the ground state $E_0$ below it. By filling $E_2$, this pump helps achieve $N_2 > N_1$.
-\end{enumerate}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/pumping_mechanism.jpg}
-    \caption{The Pumping Mechanism: External energy alters populations against the thermal Boltzmann distribution, evacuating the lower state and filling the upper state to achieve inversion.}
-\end{figure}
-
-This pumping always originates from the ground state $E_0$, because that is where the overwhelming majority of atoms reside under thermal equilibrium — it makes physical sense to pump from the most densely populated level.
-
-\begin{keyinsight}[Is a Monochromatic Pump Required?]
-One might worry: if the pump light must have exactly the photon energy $E_2 - E_0$ to excite atoms from $E_0$ to $E_2$, then the pump itself would need to be a laser — which is circular! In practice, however, real light sources contain a small but finite range of frequencies. Because different energy levels in the medium respond to different frequencies within that range, the pump can excite transitions into several nearby levels, not just $E_2$. As long as the overall effect is that $N_1$ drops and $N_2$ rises, the population inversion condition can still be achieved. The key condition remains that the dominant desired transition is driven efficiently.
-\end{keyinsight}
+We characterise the pump generically by its \textbf{pumping rate} $R$, which is the net rate at which atoms are transferred from the ground state $E_1$ up to the upper lasing level $E_2$ per unit volume per unit time (units: atoms~m$^{-3}$~s$^{-1}$).
 
 \subsection{The Metastable State Requirement}
 
-There is one more condition that is absolutely necessary for population inversion to be sustainable: the upper level $E_2$ must be a \textbf{metastable state}. A metastable state is an energy level with an unusually long lifetime — much longer than the lifetimes of the other levels involved. Why is this so critical?
+There is one more condition that is absolutely necessary for population inversion to be sustainable: the upper level $E_2$ must be a \textbf{metastable state}. A metastable state is an energy level with an unusually long spontaneous emission lifetime. Why is this so critical?
 
 After the pump has placed atoms in $E_2$, those atoms will eventually decay back down by spontaneous emission. If the lifetime of $E_2$ is very short, atoms will immediately fall back down before stimulated emission from the signal can exploit them, making it impossible to maintain $N_2 > N_1$. If, on the other hand, the lifetime of $E_2$ is very long (metastable), atoms pile up in $E_2$ and stay there long enough to sustain the inversion.
 
-For sustained population inversion, the physical requirements are therefore clear: we need (1) a strong pump to bulldoze atoms from $E_1$ to $E_2$, and (2) the upper level $E_2$ must be metastable, meaning it intrinsically holds onto its atoms much longer than the other levels involved.
+For sustained population inversion, the physical requirements are therefore clear: we need (1) a strong pump to bulldoze atoms upwards from the ground state $E_1$, and (2) the upper level $E_2$ must be metastable.
 
 % =============================================================
-\section{Rate Equations}
+\section{The Two-Level Laser --- and Why It Cannot Work}
 % =============================================================
 
-\subsection{Structure of the Rate Equations}
+Before introducing complex architectures, we must ask: why not directly pump a two-level system? By shining an intense optical pump tuned precisely to the resonant energy gap ($h\nu_0 = E_2 - E_1$), we would intuitively expect to drive the overwhelming majority of ground-state atoms into $E_2$. Let us formally test this hypothesis using the rate equation.
 
-Now we're ready to write the full, general \textbf{rate equations} — the differential equations that describe how $N_2$ and $N_1$ evolve in time. We derive these by taking the modified Einstein model (which gave us stimulated emission and absorption terms) and adding the new pump terms $R_1$ and $R_2$. Note that we have now left the small-signal world entirely; the rate equations are \textbf{general} and apply for any signal power.
+With a pump photon flux density $\Phi_p$ and an interaction cross-section $\sigma$, there are three fundamental processes governing the population $N_2$:
+\begin{enumerate}
+    \item \textbf{Absorption (Pump Up):} The pump photons excite atoms from $E_1$ to $E_2$ at a rate $+\sigma\Phi_p\,N_1$.
+    \item \textbf{Stimulated Emission (Pump Down):} Because the quantum mechanical probabilities for absorption and stimulated emission are precisely identical, the same pump photons will inevitably force atoms in $E_2$ back down to $E_1$ at a rate $-\sigma\Phi_p\,N_2$.
+    \item \textbf{Spontaneous Emission (Decay):} Atoms in $E_2$ naturally decay back to $E_1$ governed by their spontaneous lifetime $\tau_{sp}$. This gives a rate $-\frac{N_2}{\tau_{sp}}$.
+\end{enumerate}
 
-Let's first identify all the processes that change $N_2$ and $N_1$, keeping track of the sign of each contribution. For the upper level $E_2$:
-
+Combining these independent processes, the complete differential equation describing the rate of change of the upper level population is:
 \begin{equation*}
-  \frac{dN_2}{dt} = \underbrace{R_2}_{\substack{\text{pump into} \\ E_2 \text{ from } E_0}} - \underbrace{\frac{N_2}{\tau_{sp}}}_{\substack{\text{spont. emission} \\ \text{from } E_2}} - \underbrace{\sigma\,\Phi_\nu\,N_2}_{\substack{\text{stim. emission} \\ \text{from } E_2}} + \underbrace{\sigma\,\Phi_\nu\,N_1}_{\substack{\text{absorption} \\ \text{from } E_1 \text{ into } E_2}}
+    \frac{dN_2}{dt} = \underbrace{\sigma\Phi_p\,N_1}_{\text{Absorption}} - \underbrace{\sigma\Phi_p\,N_2}_{\text{Stim. Emission}} - \underbrace{\frac{N_2}{\tau_{sp}}}_{\text{Spont. Emission}}
 \end{equation*}
 
-where $\tau_{sp}$ is the total spontaneous emission lifetime out of $E_2$, combining both available decay channels:
-\begin{equation*}
-  \frac{1}{\tau_{sp}} = \frac{1}{\tau_{21}} + \frac{1}{\tau_{20}}
-\end{equation*}
-Here $\tau_{21}$ is the spontaneous lifetime for $E_2 \to E_1$ and $\tau_{20}$ for $E_2 \to E_0$.
+\subsection{Steady-State Analysis}
 
-For the lower level $E_1$:
+To determine the maximum achievable populations, we let the system settle into steady state where the atomic populations no longer change in time ($dN_2/dt = 0$). Setting the derivative strictly to zero gives:
 \begin{equation*}
-  \frac{dN_1}{dt} = \underbrace{-R_1}_{\substack{\text{pump out of} \\ E_1 \text{ to } E_0}} - \underbrace{\frac{N_1}{\tau_1}}_{\substack{\text{spont. emission} \\ \text{from } E_1}} + \underbrace{\frac{N_2}{\tau_{21}}}_{\substack{\text{spont. emission} \\ \text{from } E_2 \text{ into } E_1}} + \underbrace{\sigma\,\Phi_\nu\,N_2}_{\substack{\text{stim. emission} \\ \text{from } E_2 \text{ into } E_1}} - \underbrace{\sigma\,\Phi_\nu\,N_1}_{\substack{\text{absorption} \\ \text{from } E_1}}
+    0 = \sigma\Phi_p\,N_1 - \sigma\Phi_p\,N_2 - \frac{N_2}{\tau_{sp}}
 \end{equation*}
 
-where $\tau_1$ is the lifetime of $E_1$ (how fast atoms drain out of $E_1$ by spontaneous emission to levels below it).
+To solve for the population ratio $N_2/N_1$, we formally balance the rates by moving all terms containing $N_2$ to the left-hand side (which physically equates the sum of all downward decay rates to the isolated upward absorption rate):
+\begin{equation*}
+    \sigma\Phi_p\,N_2 + \frac{N_2}{\tau_{sp}} = \sigma\Phi_p\,N_1
+\end{equation*}
 
-\subsection{Important Notes on the Rate Equations}
+Factoring out $N_2$ on the left:
+\begin{equation*}
+    N_2\!\left(\sigma\Phi_p + \frac{1}{\tau_{sp}}\right) = \sigma\Phi_p\,N_1
+\end{equation*}
 
-\textbf{Note 1 — Special case where $E_1$ is the ground state:} If $E_1$ is the lowest level (ground state) and there is no level below it, then atoms in $E_1$ have nowhere to go. There is no pump $R_1$ and the lifetime is $1/\tau_1 = 0$, i.e.\ $\tau_1 \to \infty$. Physically, no energy can be released from the ground state since it has no lower level to transition to. In this case $R_1 = 0$.
-
-\textbf{Note 2 — Forbidden transitions:} In practice, some transitions between energy levels are forbidden by quantum-mechanical selection rules. This simply means that the corresponding spontaneous emission term does not appear in the rate equations for those specific level pairs. The physics of forbidden transitions is beyond our scope here, but it is important to know they exist.
-
-\textbf{Note 3 — How many atoms must the pump move?} To achieve population inversion ($N_2 > N_1$), at least half the atoms originally in $E_1$ must be transferred to $E_2$. That is, the pump must move at least $N/2$ atoms (where $N$ is the total atom density) upward before inversion occurs.
-
-\textbf{Note 4 — Three-level and four-level lasers:} Depending on how many energy levels are actively involved in the pumping and lasing cycle, we classify lasers as follows.
-
-\textbf{Three-level laser:} Here the pumping excites atoms from $E_1$ (the ground state) up to a third level $E_3$. Atoms then quickly decay from $E_3$ down to the metastable level $E_2$ via non-radiative emission (releasing heat, not light). The lasing transition is then from $E_2$ down to $E_1$. In this scheme, since $E_1$ is the ground state, we always have $R_1 = 0$. The difficulty with a three-level laser is that the lower lasing level \emph{is} the ground state, which is heavily populated, so a large pump power is needed to invert the population.
-
-\textbf{Four-level laser:} Here the pumping excites atoms from $E_1$ (the ground state) up to a fourth level $E_4$. Atoms quickly decay from $E_4$ to the metastable level $E_3$ (the upper lasing level). The lasing transition is from $E_3$ down to $E_2$, and atoms then rapidly drain out of $E_2$ back to $E_1$. Since $E_2$ empties quickly (short $\tau_2$), the lower lasing level stays nearly empty and population inversion is achieved much more easily than in the three-level scheme. This is why most practical lasers use the four-level design.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/three_vs_four_level_systems.jpg}
-    \caption{Three-Level vs. Four-Level Systems: The four-level architecture is vastly superior because its terminal lasing level empties instantly, making population inversion practically effortless compared to the three-level design.}
-\end{figure}
-
-An important observation about both designs: the photons produced by stimulated emission have a \emph{lower} frequency (longer wavelength) than the photons absorbed by the pump. This is physically sensible — the pump drives atoms up to a higher level, and the atoms then lase on a smaller gap (between intermediate levels), releasing less energy per photon than was pumped in.
-
-\textbf{Note 5 — Transparency condition:} If $N_2 = N_1$ exactly, then $N_2 - N_1 = 0$ and therefore $\gamma_0 = 0$. This means the medium neither absorbs nor amplifies the signal — light passes through completely unchanged. This phenomenon is called the \textbf{transparency condition}. It is the boundary between the absorbing regime ($N_2 < N_1$) and the amplifying regime ($N_2 > N_1$). Achieving transparency is a prerequisite for crossing into gain.
-
-\section{The Three-Level Laser System}
-
-Up to this point we have described the pump in terms of two abstract rates $R_1$ and
-$R_2$ — we never asked where these rates come from or how they depend on the system
-parameters.  Now we turn to the most practically important laser architecture —
-the \textbf{three-level laser system} — and work through its rate equations
-explicitly.  This is not just an academic exercise: the Erbium-doped fibre amplifier
-(EDFA) that we will meet at the end of this chapter is a three-level system.
-
-\subsection{System Architecture}
-
-The three-level laser has three energy levels $E_1 < E_2 < E_3$.  The level
-assignments are:
-
-\begin{itemize}
-    \item $E_1$: the \textbf{ground state} (lower lasing level), with population
-    density $N_1$.
-    \item $E_2$: the \textbf{metastable upper lasing level}, with population
-    density $N_2$ and spontaneous lifetime $\tau_{21}$.
-    \item $E_3$: the \textbf{pump level} to which atoms are excited.  The decay
-    $E_3 \to E_2$ is assumed to be very fast ($\tau_{32} \to 0$, i.e.\ atoms
-    pumped into $E_3$ immediately fall to $E_2$).  As a result, the population
-    of $E_3$ is negligibly small: $N_3 \approx 0$.
-\end{itemize}
-
-The total density of active atoms is fixed:
+Finally, dividing both sides by $N_1$ and by the bracketed term gives us our explicit steady-state ratio:
 \begin{keyresult}
 \begin{equation}
-    N_a = N_1 + N_2 + N_3 \approx N_1 + N_2. 
+    \frac{N_2}{N_1} = \frac{\sigma\Phi_p}{\sigma\Phi_p + \dfrac{1}{\tau_{sp}}}
+\end{equation}
+\end{keyresult}
+
+\subsection{The Physical Impossibility of Inversion}
+
+Look closely at the algebraic structure of this result. The numerator is exactly $\sigma\Phi_p$, while the denominator is that same $\sigma\Phi_p$ \emph{plus} a strictly positive constant ($1/\tau_{sp} > 0$). Because the denominator will always mathematically exceed the numerator for any finite pump power, it dictates an absolute ceiling on the populations:
+\begin{equation*}
+    \frac{N_2}{N_1} < 1 \quad \text{unconditionally.}
+\end{equation*}
+
+What happens if we buy the most expensive, infinitely powerful pump laser in the world ($\Phi_p \to \infty$)? As the pump rate completely dominates the finite spontaneous emission term, the $1/\tau_{sp}$ fraction vanishes, and the $\sigma\Phi_p$ terms cancel out. The population ratio asymptotically approaches exactly $1$:
+\begin{equation*}
+    \lim_{\Phi_p \to \infty} \frac{N_2}{N_1} = 1
+\end{equation*}
+When $N_1 = N_2$, the medium reaches the \textbf{transparency condition} where the net gain is precisely zero. The intense pump light simply passes through as if the medium weren't there at all, but the population never truly inverts.
+
+\begin{keyinsight}[The Fundamental Flaw of the Two-Level System]
+The physical failure here stems directly from Einstein's observation that the coefficients for absorption and stimulated emission are strictly equal ($B_{12} = B_{21}$). The very same optical transition the pump uses to push ground-state atoms \emph{up} is identical to the transition that stimulated emission uses to push excited atoms \emph{back down}. 
+
+As you continuously dial up the pump power, you certainly increase the upward excitation rate, but you symmetrically and inescapably increase the downward stimulated rate. The pump is fundamentally fighting its own success. The system can at best equalise the two populations (transparency), but it can never tip the scales into a true inversion ($N_2 > N_1$). 
+\end{keyinsight}
+
+Because a two-level system is perfectly symmetric and self-limiting, optical amplification using only two levels is physically impossible. We are therefore forced to introduce intermediary energy levels (the three-level and four-level architectures) to physically decouple the pumping pathway from the lasing pathway, breaking the mathematical symmetry and allowing an inversion to safely accumulate.
+
+% =============================================================
+\section{The Three-Level Laser System and Kinetics}
+% =============================================================
+
+By introducing a fast-decaying intermediary energy level, we route atoms through pathways that successfully bypass the two-level failure. In a three-level laser setup, the generic pump exclusively excites atoms from $E_1$ (the ground state) up to a third level $E_3$. Atoms then quickly fall from $E_3$ down to the metastable level $E_2$ via non-radiative emission (releasing heat, not light). Finally, the incoming signal stimulates these trapped atoms to drop from $E_2$ back down to $E_1$. Because the signal and the pump operate on entirely different energy gaps, the signal safely triggers amplification without inadvertently fighting the upward pump.
+
+The fundamental difficulty with a three-level laser is that the lower lasing level \emph{is} the ground state, which is naturally extremely heavily populated. Therefore, a massive optical pump power is required to successfully invert the population, because at least half of the total atoms in the medium must be physically lifted to $E_2$.
+
+The overall pumping rate $R$ can be constant or dynamically driven. If the pump is an optical signal of flux density $\Phi_p$, the rate depends entirely on the available ground state population:
+\begin{equation*}
+    R = \sigma_p\,\Phi_p\,N_1
+\end{equation*}
+where $\sigma_p$ is the specific absorption cross-section for the $E_1 \to E_3$ pump transition.
+
+\begin{keyinsight}[Is a Monochromatic Pump Required?]
+A logical paradox arises: if pumping requires the exact photon energy ($h\nu_p = E_3 - E_1$), wouldn't the pump itself need to be a perfectly monochromatic laser? If you need a laser to build a laser, how was the first one ever built?
+
+The physical workaround is that $E_3$ is rarely a single, sharp quantum line. In practical mediums like doped glasses, upper energy states blur together to form a broad \textbf{absorption band}. Because the target is wide, we can cleanly use intense, broadband sources like flashlamps or LEDs. The medium absorbs a massive spectrum of this ordinary light, exciting atoms to various heights across the $E_3$ band. Regardless of precisely where they land, they all rapidly decay and funnel down to the sharp $E_2$ metastable shelf to successfully maintain the inversion.
+\end{keyinsight}
+
+With the architecture established, we now derive its kinetics explicitly. This is no mere academic exercise: the Erbium-doped fibre amplifier (EDFA) analyzed later is exactly a three-level system, and every formula derived here strictly governs its operation.
+
+\subsection{System Variables and Assumptions}
+
+The three-level system has three energy levels $E_1 < E_2 < E_3$, with populations $N_1, N_2, N_3$.  
+\begin{itemize}
+    \item $E_1$: the \textbf{ground state} (lower lasing level), where atoms originate.
+    \item $E_2$: the \textbf{metastable upper lasing level}, with spontaneous lifetime $\tau_{21}$.
+    \item $E_3$: the \textbf{pump level} to which atoms are actively excited. The non-radiative decay $E_3 \to E_2$ is assumed to be extremely fast ($\tau_{32} \to 0$, i.e.\ atoms pumped into $E_3$ immediately cascade to $E_2$). As a result, atoms never accumulate in $E_3$: $N_3 \approx 0$.
+\end{itemize}
+
+The total density of active atoms is strictly fixed:
+\begin{keyresult}
+\begin{equation}
+    N_a = N_1 + N_2 + N_3 \approx N_1 + N_2
 \end{equation}
 \end{keyresult}
 
@@ -141,452 +139,337 @@ term in the rate equations.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{Figures/Chapter 3/three_level_pumping_architecture.jpg}
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 3/three_level_pumping_architecture.jpg}
     \caption{System Architecture: Physical realization of a 3-level optical pumping scheme, showcasing the rapid non-radiative decay $\tau_{32}$ creating the population inversion bottleneck at $E_2$.}
 \end{figure}
 
 \subsection{Case 1: Constant Pump Rate, No Signal (\texorpdfstring{$\Phi = 0$}{Phi=0})}
 
-We first ask: what population inversion can the pump establish \emph{before}
-any signal is present?  With $\Phi = 0$ (no signal) and a constant pump rate
-$R$ (atoms~m$^{-3}$~s$^{-1}$, independent of the populations), the rate
-equations for $N_3$ and $N_2$ are:
+We first ask: what population inversion can the pump establish \emph{before} any signal is present? To find out, we assume no external signal ($\Phi = 0$) and a constant generic pump pulling atoms up at a steady rate $R$ (units: atoms~m$^{-3}$~s$^{-1}$). Let us explicitly map out the processes governing the populations of the two upper levels, $N_3$ and $N_2$.
 
+For the pump level $E_3$, there are two governing processes:
+\begin{enumerate}
+    \item \textbf{Pump Arrival:} Atoms are forced into $E_3$ from the ground state at a rate $+R$.
+    \item \textbf{Thermal Cascade (Decay):} Atoms spontaneously drop from $E_3$ down to $E_2$ via non-radiative decay at a rate $-\frac{N_3}{\tau_{32}}$.
+\end{enumerate}
+
+Combining these, the differential rate equation for $N_3$ is:
 \begin{equation}
-    \frac{dN_3}{dt} = R - \frac{N_3}{\tau_{32}} = 0
-    \quad \Longrightarrow \quad N_3 = \tau_{32}\,R \approx 0
-    \tag{I}
-\end{equation}
-\begin{equation}
-    \frac{dN_2}{dt} = \frac{N_3}{\tau_{32}} - \frac{N_2}{\tau_{21}} = 0
-    \quad \Longrightarrow \quad N_2 = \tau_{21}\,R
-    \tag{II}
+    \frac{dN_3}{dt} = \underbrace{R}_{\text{Pump Up}} - \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Decay to } E_2} \tag{I}
 \end{equation}
 
-The equation for $N_1$ is redundant --- it follows from \textup{(I)} and \textup{(II)} together with the constraint $N_1 + N_2 = N_a$. We do not need to write it separately.
+For the metastable upper lasing level $E_2$, there are also two governing processes:
+\begin{enumerate}
+    \item \textbf{Cascade Arrival:} The exact same atoms decaying down from $E_3$ enter $E_2$ at a rate $+\frac{N_3}{\tau_{32}}$.
+    \item \textbf{Spontaneous Emission (Decay):} Atoms slowly leak out of $E_2$ back to the ground state $E_1$ at a rate $-\frac{N_2}{\tau_{21}}$.
+\end{enumerate}
 
-From the constraint, $N_1 = N_a - N_2 = N_a - \tau_{21}R$.  The population
-inversion is:
+The differential rate equation for $N_2$ is therefore:
+\begin{equation}
+    \frac{dN_2}{dt} = \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Arrival from } E_3} - \underbrace{\frac{N_2}{\tau_{21}}}_{\text{Spont. Decay to } E_1} \tag{II}
+\end{equation}
+
+The equation for the ground state $N_1$ is mathematically redundant. Because the total number of atoms in the system is strictly conserved ($N_1 + N_2 + N_3 = N_a$), following any two populations automatically dictates the third. We therefore only need to solve \textup{(I)} and \textup{(II)}.
+
+\subsubsection*{Steady-State Analysis}
+
+To determine the final populations achievable by this pump, we let the system settle into steady state where the populations no longer change in time. We set the derivatives to zero.
+
+Starting with the pump level $E_3$ by setting $dN_3/dt = 0$ in equation \textup{(I)}:
 \begin{equation*}
-    N \equiv N_2 - N_1 = \tau_{21}R - (N_a - \tau_{21}R) = 2\tau_{21}R - N_a.
+    0 = R - \frac{N_3}{\tau_{32}} \quad \Longrightarrow \quad N_3 = R\,\tau_{32}
+\end{equation*}
+As we established in our design requirements, the $E_3 \to E_2$ decay is engineered to be instantaneous ($\tau_{32} \to 0$). Therefore:
+\begin{equation*}
+    N_3 \approx 0
+\end{equation*}
+This formally confirms that atoms never pile up in the uppermost level; they fall to the metastable shelf instantly.
+
+Next, we evaluate the metastable shelf $E_2$ by setting $dN_2/dt = 0$ in equation \textup{(II)}:
+\begin{equation*}
+    0 = \frac{N_3}{\tau_{32}} - \frac{N_2}{\tau_{21}}
+\end{equation*}
+Substituting the steady-state relationship $N_3 = R\,\tau_{32}$ into equation \textup{(II)}:
+\begin{equation*}
+    0 = \frac{R\,\tau_{32}}{\tau_{32}} - \frac{N_2}{\tau_{21}} \quad \Longrightarrow \quad 0 = R - \frac{N_2}{\tau_{21}} \quad \Longrightarrow \quad N_2 = R\,\tau_{21}
 \end{equation*}
 
+With $N_2$ found and $N_3 = 0$, we find the ground state population $N_1$ using our strict atom conservation law:
+\begin{equation*}
+    N_1 = N_a - N_2 = N_a - R\,\tau_{21}
+\end{equation*}
+
+Finally, we calculate the general \textbf{population inversion} parameter $N \equiv N_2 - N_1$:
+\begin{equation*}
+    N = R\,\tau_{21} - (N_a - R\,\tau_{21}) \quad \Longrightarrow \quad N = 2R\,\tau_{21} - N_a
+\end{equation*}
+
+However, because this specific derivation assumes there is absolutely no external signal saturating the system ($\Phi = 0$), this is purely the baseline \textbf{small-signal population inversion}. We therefore formally lock this maximum undisturbed value in as $N_0$:
 \begin{keyresult}
 \begin{equation}
     N_0 = 2R\tau_{21} - N_a
 \end{equation}
 \end{keyresult}
 
-This is the \textbf{small-signal population inversion} of the three-level system.
+Because this value represents the undisturbed maximum inversion before any signal begins to deplete it ($\Phi = 0$), it directly establishes the \textbf{small-signal gain coefficient} ($\gamma_0$) of the amplifier:
+\begin{keyresult}
+\begin{equation}
+    \gamma_0 = \sigma N_0 = \sigma(2R\tau_{21} - N_a)
+\end{equation}
+\end{keyresult}
 
 \subsubsection*{Threshold Pump Rate}
 
-For positive inversion ($N_0 > 0$, hence $\gamma_0 > 0$), we need:
+For optical amplification to be physically possible, the inversion must be strictly positive ($N_0 > 0$, and therefore $\gamma_0 > 0$). Enforcing this condition:
+\begin{equation*}
+    2R\tau_{21} - N_a > 0 \quad \Longrightarrow \quad 2R\tau_{21} > N_a
+\end{equation*}
+
 \begin{keyresult}
 \begin{equation}
-    2R\tau_{21} - N_a > 0
-    \quad \Longrightarrow \quad
     R > R_\text{th} \equiv \frac{N_a}{2\tau_{21}}
 \end{equation}
 \end{keyresult}
 
-This is the \textbf{threshold pump rate} for the three-level system.  It says:
-the pump must transfer atoms from $E_1$ to $E_2$ at a rate fast enough to more
-than half-empty the ground state — we need to move more than $N_a/2$ atoms out
-of $E_1$ into $E_2$ to achieve $N_2 > N_1$.  This is one of the fundamental
-difficulties of the three-level laser (compared to the four-level laser):
-since the lower lasing level is the heavily-populated ground state, the pump
-must first fight its way through a very large population before achieving
-inversion.
-
-Without any driving signal, the physics dictates that the pump establishes
-$N_0 = 2R\tau_{21} - N_a$. This mathematically sets the minimum required pump rate at $R > N_a/(2\tau_{21})$ just to break even on inversion.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/population_inversion_dynamics.jpg}
-    \caption{Population Inversion Dynamics: Linear dependence of the inversion $N_0$ on the steady-state pump rate $R$, illustrating the critical threshold $R_\text{th}$.}
-\end{figure}
+This is the \textbf{threshold pump rate}. Physically, the pump excites atoms from the ground state $E_1$ into $E_3$, which instantly cascade down to fill the metastable $E_2$ shelf. Because the lower lasing level is the ground state itself, achieving inversion ($N_2 > N_1$) inherently requires relocating more than half the total atomic population ($N_a/2$) into $E_2$ just to break even.
 
 \subsection{Case 2: Constant Pump Rate, With Signal (\texorpdfstring{$\Phi \neq 0$}{Phi not=0})}
 
-Now we introduce the signal: $\Phi \neq 0$.  The signal drives stimulated
-transitions between $E_2$ and $E_1$.  The rate equations become:
+Now we introduce the optical signal: $\Phi \neq 0$. The pump continues to run at a constant rate $R$, but the signal now actively drives stimulated transitions between $E_1$ and $E_2$. Let us explicitly map out the physical processes.
 
+For the pump level $E_3$, the governing processes remain unchanged from before:
+\begin{enumerate}
+    \item \textbf{Pump Arrival:} Atoms are forced into $E_3$ at a constant rate $+R$.
+    \item \textbf{Thermal Cascade (Decay):} Atoms drop down to $E_2$ at a rate $-\frac{N_3}{\tau_{32}}$.
+\end{enumerate}
+
+The differential rate equation for $N_3$ is identical:
 \begin{equation}
-    \frac{dN_3}{dt} = R - \frac{N_3}{\tau_{32}} = 0
-    \quad \Longrightarrow \quad N_3 = \tau_{32}\,R \approx 0
-    \tag{I}
-\end{equation}
-\begin{equation}
-    \frac{dN_2}{dt} = \frac{N_3}{\tau_{32}} - \frac{N_2}{\tau_{21}}
-    - \sigma\Phi(N_2 - N_1) = 0
-    \tag{II}
-\end{equation}
-\begin{equation}
-    \frac{dN_1}{dt} = \frac{N_2}{\tau_{21}}
-    + \sigma\Phi(N_2 - N_1) - R = 0
-    \tag{III}
+    \frac{dN_3}{dt} = \underbrace{R}_{\text{Pump Up}} - \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Decay to } E_2} \tag{I}
 \end{equation}
 
-The third equation is redundant — it is the negative of the second, added to the time derivative of the conservation law $N_a = N_1 + N_2$. We work only with \textup{(I)} and \textup{(II)}.
+For the metastable upper lasing level $E_2$, we now have three governing processes:
+\begin{enumerate}
+    \item \textbf{Cascade Arrival:} Atoms entering from $E_3$ at a rate $+\frac{N_3}{\tau_{32}}$.
+    \item \textbf{Spontaneous Emission (Decay):} Atoms spontaneously leaking down to $E_1$ at a rate $-\frac{N_2}{\tau_{21}}$.
+    \item \textbf{Net Stimulated Transitions:} The signal actively forces atoms out of $E_2$ (stimulated emission) and atoms into $E_2$ (stimulated absorption). Because both processes are identically driven by the external field $\Phi$, they are grouped into a single net downward rate: $-\sigma\Phi(N_2 - N_1)$.
+\end{enumerate}
 
-From equation~(I): $N_3 \approx 0$, so equation~(II) becomes:
+The differential rate equation for $N_2$ expands to:
+\begin{equation}
+    \frac{dN_2}{dt} = \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Arrival from } E_3} - \underbrace{\frac{N_2}{\tau_{21}}}_{\text{Spont. Decay}} - \underbrace{\sigma\Phi(N_2 - N_1)}_{\text{Net Stimulated Exit}} \tag{II}
+\end{equation}
+
+As before, the equation for $N_1$ is redundant thanks to the conservation constraint ($N_1 + N_2 + N_3 = N_a$). We proceed with \textup{(I)} and \textup{(II)}.
+
+\subsubsection*{Steady-State Analysis}
+
+Setting the derivatives to zero for steady state, the pump level again yields $N_3 = R\,\tau_{32}$. Substituting this relationship into equation \textup{(II)}:
 \begin{equation*}
-    R = \frac{N_2}{\tau_{21}} + \sigma\Phi(N_2 - N_1).
-\end{equation*}
-We denote $N \equiv N_2 - N_1$ as before and substitute $N_1 = N_a - N_2 - N_3
-\approx N_a - N_2$:
-\begin{equation*}
-    R = \frac{N_2}{\tau_{21}} + \sigma\Phi\,N.
-\end{equation*}
-We also have $N_2 - N_1 = N \Rightarrow 2N_2 = N + N_a \Rightarrow N_2 = (N + N_a)/2$.
-Substituting:
-\begin{equation*}
-    R = \frac{N + N_a}{2\tau_{21}} + \sigma\Phi\,N.
-\end{equation*}
-Solving for $N$:
-\begin{equation*}
-    R - \frac{N_a}{2\tau_{21}} = N\!\left(\frac{1}{2\tau_{21}} + \sigma\Phi\right).
-\end{equation*}
-\begin{equation*}
-    N = \frac{R - \dfrac{N_a}{2\tau_{21}}}{\dfrac{1}{2\tau_{21}} + \sigma\Phi}
-    = \frac{2R\tau_{21} - N_a}{1 + 2\sigma\Phi\tau_{21}}.
+    0 = \frac{R\,\tau_{32}}{\tau_{32}} - \frac{N_2}{\tau_{21}} - \sigma\Phi(N_2 - N_1) \quad \Longrightarrow \quad 0 = R - \frac{N_2}{\tau_{21}} - \sigma\Phi(N_2 - N_1)
 \end{equation*}
 
-We recognise the numerator as $N_0 = 2R\tau_{21} - N_a$ — the no-signal population inversion established by the pump — and define the saturation photon flux density for the three-level system:
+To simplify the stimulated term, we use our fundamental definition $N \equiv N_2 - N_1$:
 \begin{equation*}
-    \Phi_s \equiv \frac{1}{2\sigma\tau_{21}},
+    R = \frac{N_2}{\tau_{21}} + \sigma\Phi\,N
 \end{equation*}
-which allows us to write the result in the standard saturation form:
 
+Because our ultimate engineering goal is to derive a steady-state equation purely for the macroscopic population inversion $N$ (since $N$ dictates the optical gain $\gamma = \sigma N$), we must eliminate the standalone microscopic variable $N_2$. From the conservation law (with $N_3 = 0$), we have $N_1 = N_a - N_2$. Substituting this into $N$ and solving for $N_2$:
+\begin{equation*}
+    N = N_2 - (N_a - N_2) = 2N_2 - N_a \quad \Longrightarrow \quad N_2 = \frac{N + N_a}{2}
+\end{equation*}
+
+Substitute this into our steady-state balance, isolate the $N$ terms, and factor:
+\begin{equation*}
+    R = \frac{N + N_a}{2\tau_{21}} + \sigma\Phi\,N \quad \Longrightarrow \quad R = \frac{N_a}{2\tau_{21}} + \frac{N}{2\tau_{21}} + \sigma\Phi\,N \quad \Longrightarrow \quad R - \frac{N_a}{2\tau_{21}} = N\!\left(\frac{1}{2\tau_{21}} + \sigma\Phi\right)
+\end{equation*}
+
+Divide to explicitly solve for $N$, then multiply numerator and denominator by $2\tau_{21}$ to clear the complex fractions:
+\begin{equation*}
+    N = \frac{R - \dfrac{N_a}{2\tau_{21}}}{\dfrac{1}{2\tau_{21}} + \sigma\Phi} \quad \Longrightarrow \quad N = \frac{2R\tau_{21} - N_a}{1 + 2\sigma\Phi\tau_{21}}
+\end{equation*}
+
+We immediately recognise the numerator as $N_0 = 2R\tau_{21} - N_a$ --- exactly the \textbf{small-signal population inversion} we derived in Case 1. To express the denominator in the standard normalized form, we group the fundamental physical constants scaling the signal $\Phi$ and formally define them as the inverse of the \textbf{saturation photon flux density}:
+\begin{equation*}
+    \Phi_s \equiv \frac{1}{2\sigma\tau_{21}}
+\end{equation*}
+
+Substituting these definitions, we arrive precisely at the universal saturation model:
 \begin{keyresult}
 \begin{equation}
     N = \frac{N_0}{1 + \Phi/\Phi_s}
 \end{equation}
 \end{keyresult}
 
-This is exactly the same saturation form we derived in the general case, now
-with the explicit identification $\Phi_s = 1/(2\sigma\tau_{21})$ for the
-three-level system.  The gain coefficient follows immediately:
+This mathematically proves that the introduction of an optical signal ($\Phi \neq 0$) strictly saturates the population inversion. By aggressively driving net stimulated emission, the signal actively depletes the metastable shelf, dynamically forcing the inversion down below its undisturbed ceiling ($N_0$). The corresponding saturated gain coefficient is found directly by multiplying both sides by $\sigma$:
+\begin{keyresult}
 \begin{equation*}
-    \gamma = \sigma N = \frac{\sigma N_0}{1 + \Phi/\Phi_s}
-    = \frac{\gamma_0}{1 + \Phi/\Phi_s}.
+    \gamma = \sigma N = \frac{\sigma N_0}{1 + \Phi/\Phi_s} = \frac{\gamma_0}{1 + \Phi/\Phi_s}
 \end{equation*}
+\end{keyresult}
 
-Setting $\Phi = 0$ in the saturation form $N = N_0/(1+\Phi/\Phi_s)$ recovers Case~1 exactly — as expected.
+\begin{keyinsight}[The Physics of the Saturation Flux $\Phi_s$]
+If an incoming signal ever grows intense enough to exactly reach the threshold $\Phi = \Phi_s$, the population inversion is mathematically crushed to exactly half of its unperturbed value ($N = N_0/2$). It is the absolute tipping point of saturation. Furthermore, the physics mapped inside the isolated constant ($\Phi_s \equiv \frac{1}{2\sigma\tau_{21}}$) are brilliant: materials with a large cross section $\sigma$ (highly susceptible to stimulation) or long spontaneous lifetime $\tau_{21}$ (atoms waiting a long time to interact) are inherently fragile. Their saturation threshold $\Phi_s$ drops drastically low, causing them to saturate much earlier.
+\end{keyinsight}
+
+\subsubsection*{Threshold Pump Rate}
+
+For optical amplification to be physically possible, $N_0$ must be strictly positive ($N_0 > 0$, and therefore $\gamma_0 > 0$). Since $N_0 = 2R\tau_{21} - N_a$, enforcing this condition yields:
+\begin{equation*}
+    2R\tau_{21} - N_a > 0 \quad \Longrightarrow \quad R > \frac{N_a}{2\tau_{21}}
+\end{equation*}
+\begin{keyresult}
+\begin{equation}
+    R > R_\text{th} \equiv \frac{N_a}{2\tau_{21}}
+\end{equation}
+\end{keyresult}
+
+This is the exact same threshold derived in Case 1 — and it must be. The threshold is purely a property of the pump establishing $N_0$, which in this model is still determined entirely by $R$. The signal $\Phi$ can only saturate an inversion that already exists; it cannot create one.
 
 \subsection{Case 3: Optical Pump, With Signal (\texorpdfstring{$\Phi \neq 0$, $R = \sigma_p\Phi_p N_1$}{realistic pump model})}
 
-In a real optical pumping scheme, the pump rate is \emph{not} independent of
-the atomic populations.  A pump laser of photon flux density $\Phi_p$ and
-absorption cross-section $\sigma_p$ for the $E_1 \to E_3$ transition pumps
-atoms out of $E_1$ at a rate proportional to the population of $E_1$ itself:
+In a real, physical optical pumping scheme, the pump rate is \emph{not} an abstract independent constant. A pump laser of photon flux density $\Phi_p$ relies on atomic absorption to do its work. Therefore, the rate at which it forces atoms out of $E_1$ depends directly on how many atoms are actually sitting in $E_1$ available to be absorbed:
 \begin{equation*}
-    R = \sigma_p\,\Phi_p\,N_1.
+    R = \sigma_p\,\Phi_p\,N_1
 \end{equation*}
+where $\sigma_p$ is the absorption cross-section specifically for the $E_1 \to E_3$ pump transition.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/optical_pumping_mechanics.jpg}
-    \caption{Optical Pumping Mechanics: Absorption of the $\Phi_p$ pump flux physically depleting the ground state population $N_1$.}
-\end{figure}
+This is the most physically realistic operational model of the three, and it is identically the one underpinning the \textbf{Erbium-Doped Fibre Amplifier (EDFA)} analysis later in this course. Let us explicitly map out the physical processes governing all three levels.
 
-This is the most realistic model and it is the one used in the EDFA analysis.
-The rate equations (at steady state, with $N_3 \approx 0$) are now:
-
-\begin{equation}
-    \frac{dN_3}{dt} = \sigma_p\Phi_p N_1 - \frac{N_3}{\tau_{32}} = 0
-    \;\Longrightarrow\; N_3 = \sigma_p\Phi_p N_1\,\tau_{32} \approx 0
-    \tag{I}
-\end{equation}
-\begin{equation}
-    \frac{dN_2}{dt} = \sigma_p\Phi_p N_1 - \frac{N_2}{\tau_{21}}
-    + \sigma\Phi(N_1 - N_2) = 0
-    \tag{II}
-\end{equation}
-\begin{equation}
-    \frac{dN_1}{dt} = -\sigma_p\Phi_p N_1 + \frac{N_2}{\tau_{21}}
-    + \sigma\Phi(N_2 - N_1) = 0
-    \tag{III}
-\end{equation}
-
-Note the sign change in the stimulated term in \textup{(III)}: from $E_1$'s
-perspective, stimulated emission reduces $N_1$ (atoms move from $E_1$ up to $E_2$
-during absorption) and increases $N_1$ (atoms fall from $E_2$ to $E_1$ during
-stimulated emission).  The \emph{net} stimulated rate that appears in $dN_1/dt$
-is $\sigma\Phi(N_2 - N_1)$ contributing positively (net return to $E_1$).
-
-From \textup{(II)}, at steady state:
-\begin{equation*}
-    \sigma_p\Phi_p N_1 + \sigma\Phi(N_1 - N_2) = \frac{N_2}{\tau_{21}}.
-\end{equation*}
-Adding \textup{(III)} gives: $0 = 0$ (redundant). We use the constraint
-$N_1 + N_2 = N_a$ to eliminate $N_1 = N_a - N_2$.  Let $N \equiv N_2 - N_1$,
-so $N_2 = (N_a + N)/2$ and $N_1 = (N_a - N)/2$.  Substituting into
-equation~(II):
-\begin{equation*}
-    \sigma_p\Phi_p \cdot \frac{N_a - N}{2} - \sigma\Phi\,N
-    = \frac{(N_a + N)/2}{\tau_{21}}.
-\end{equation*}
-Multiply through by $2\tau_{21}$:
-\begin{equation*}
-    \sigma_p\Phi_p\tau_{21}(N_a - N) - 2\sigma\Phi\tau_{21}\,N
-    = N_a + N.
-\end{equation*}
-Expand and collect all $N$ terms on the right:
-\begin{equation*}
-    \sigma_p\Phi_p\tau_{21}N_a - N_a
-    = N\left(1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}\right).
-\end{equation*}
-Dividing:
-\begin{equation}
-    N = \frac{N_a(\sigma_p\Phi_p\tau_{21} - 1)}
-    {1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}}. \tag{I} 
-\end{equation}
-
-We now define the \textbf{small-signal population inversion} — the inversion that exists before any signal is present, i.e.\ with $\Phi = 0$:
-\begin{equation}
-    N_0 = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}. \tag{II} 
-\end{equation}
-and the saturation photon flux density:
-\begin{equation*}
-    \Phi_s = \frac{1 + \sigma_p\Phi_p\tau_{21}}{2\tau_{21}\sigma}.
-\end{equation*}
-This then takes the standard saturation form:
-\begin{keyresult}
-\begin{equation}
-    N = \frac{N_0}{1 + \Phi/\Phi_s}
-\end{equation}
-\end{keyresult}
-
-And the gain coefficient is $\gamma = \sigma N = \gamma_0/(1+\Phi/\Phi_s)$ as before.
-
-\subsubsection*{Threshold Condition for Case 3}
-
-For positive inversion ($N_0 > 0$), we need the numerator $N_a(\sigma_p\Phi_p\tau_{21} - 1)$ to be positive:
-\begin{equation*}
-    \sigma_p\Phi_p\tau_{21} - 1 > 0
-    \quad \Longrightarrow \quad
-    \Phi_p > \frac{1}{\sigma_p\tau_{21}} \equiv \Phi_{p,\text{th}}.
-\end{equation*}
-
-This is the \textbf{threshold pump photon flux} for optical pumping of a
-three-level system.  The pump laser must be strong enough to excite atoms out
-of $E_1$ faster than they relax back — only then can inversion build up.
-
-\subsection{Case 4: Optical Pump, No Signal (\texorpdfstring{$\Phi = 0$}{Phi=0})}
-
-Setting $\Phi = 0$ in the Case~3 result gives the population inversion
-established by optical pumping alone (before the signal arrives):
-\begin{equation*}
-    N_0 = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}.
-\end{equation*}
-This is identical to the small-signal result derived above, and the threshold
-condition remains $\Phi_p > 1/(\sigma_p\tau_{21})$.  If $\Phi_p \to \infty$
-(extremely strong pumping), $N_0 \to N_a$ — complete population inversion,
-with all atoms in $E_2$ and none in $E_1$, which is the ideal limit.
-
-The beautiful synthesis here is that the three-level laser system universally yields the explicit saturation form
-$N = N_0/(1+\Phi/\Phi_s)$ in all cases. The specific $N_0$ and $\Phi_s$ adapt to the pumping model used. Under optical pumping, the hard threshold $\Phi_p > 1/(\sigma_p\tau_{21})$ tells us the pump flux must literally outpace the spontaneous decay rate just to keep $E_2$ heavier than $E_1$. This entire three-level mathematical framework serves as the direct engine for the EDFA example at the end
-of this chapter.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/optical_pumping_saturation.jpg}
-    \caption{Saturation Physics (Optical Pumping): The hard limits of complete inversion $N_a$ as incoming pump flux $\Phi_p \to \infty$.}
-\end{figure}
-
-% =============================================================
-\section{Steady-State Analysis}
-% =============================================================
-
-\subsection{Case 1: No Input Signal (\texorpdfstring{$\Phi = 0$}{Phi=0}) --- Preparing the Inversion}
-
-The three-level system gave us concrete intuition for how pumping and saturation work in one important specific architecture. We now step back and derive the equivalent results for the fully \textbf{general two-pump model} with abstract rates $R_1$ and $R_2$, which reveals the fundamental lifetime condition governing whether population inversion is achievable regardless of the specific architecture.
-
-We study the steady-state populations before any signal is injected. At steady state the time derivatives vanish ($d/dt = 0$), and with no signal present ($\Phi = 0$) all stimulated-emission and absorption terms vanish. The rate equations simplify to:
-
-For $E_2$ (setting $dN_2/dt = 0$ and $\Phi = 0$):
-\begin{equation}
-  R_2 - \frac{N_2}{\tau_{sp}} = 0 \tag{I} 
-\end{equation}
-
-For $E_1$ (setting $dN_1/dt = 0$ and $\Phi = 0$):
-\begin{equation}
-  -R_1 - \frac{N_1}{\tau_1} + \frac{N_2}{\tau_{21}} = 0 \tag{II} 
-\end{equation}
-
-From \textup{(I)}, rearranging directly for $N_2$:
-\begin{equation*}
-  N_2 = \tau_{sp}\,R_2
-\end{equation*}
-
-From \textup{(II)}, we isolate $N_1$ by moving $N_1/\tau_1$ to the left:
-\begin{equation*}
-  \frac{N_1}{\tau_1} = \frac{N_2}{\tau_{21}} - R_1
-\end{equation*}
-Multiplying both sides by $\tau_1$:
-\begin{equation*}
-  N_1 = \tau_1\left(\frac{N_2}{\tau_{21}} - R_1\right)
-\end{equation*}
-Substituting our result $N_2 = \tau_{sp}\,R_2$:
-\begin{equation*}
-  N_1 = \tau_1\left(\frac{\tau_{sp}\,R_2}{\tau_{21}} - R_1\right)
-\end{equation*}
-
-We now compute the population difference $N_0 = N_2 - N_1$:
-\begin{equation*}
-  N_0 = N_2 - N_1 = \tau_{sp}\,R_2 - \tau_1\left(\frac{\tau_{sp}\,R_2}{\tau_{21}} - R_1\right)
-\end{equation*}
-Distributing $\tau_1$ through the parentheses:
-\begin{equation*}
-  N_0 = \tau_{sp}\,R_2 - \frac{\tau_1\,\tau_{sp}\,R_2}{\tau_{21}} + \tau_1\,R_1
-\end{equation*}
-Factoring $R_2\,\tau_{sp}$ from the first two terms:
-\begin{keyresult}
-\begin{equation}
-  N_0 = R_2\,\tau_{sp}\!\left(1 - \frac{\tau_1}{\tau_{21}}\right) + R_1\,\tau_1
-\end{equation}
-\end{keyresult}
-
-This is the \textbf{population inversion parameter} in the case of no signal input. It tells us the population difference that the pump establishes before any signal is present.
-
-\subsection{Condition for Positive Population Inversion}
-
-For amplification we need $N_0 > 0$, i.e.\ $N_2 > N_1$. Looking at the expression for $N_0$, since $R_2, \tau_{sp}, R_1, \tau_1$ are all positive quantities, the critical factor is the sign of $\left(1 - \tau_1/\tau_{21}\right)$. Population inversion requires:
-\begin{keyresult}
-\begin{equation}
-  \left(1 - \frac{\tau_1}{\tau_{21}}\right) > 0 \quad \Longrightarrow \quad \frac{\tau_1}{\tau_{21}} < 1 \quad \Longrightarrow \quad \tau_1 < \tau_{21}
-\end{equation}
-\end{keyresult}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/steady_state_condition.jpg}
-    \caption{Steady-State Population Condition: Visualizing the dynamic inequality $\tau_1 < \tau_{21}$. The lower state must act as an extremely wide drain to prevent a population bottleneck from suppressing the inversion.}
-\end{figure}
-
-This condition has a beautiful physical interpretation: it says that the \emph{lifetime of the lower lasing level} $E_1$ must be \emph{shorter} than the spontaneous emission lifetime for the $E_2 \to E_1$ transition. In other words, $E_1$ must empty out faster than $E_2$ fills it from above. If $E_1$ drains quickly, the lower-level population stays small, and the upper-level population accumulates — exactly what we need for inversion. This directly confirms the earlier argument that the lower lasing level should have a short lifetime (which is why the four-level laser is easier to invert than the three-level laser).
-
-Structurally, the necessary and sufficient condition for holding a population inversion at steady state, in the absence of any signal, is entirely dictated by the simple lifetime inequality $\tau_1 < \tau_{21}$.
-
-% =============================================================
-\section{With Input Signal: Saturation and the General Case}
-% =============================================================
-
-\subsection{Population Inversion with a Signal Present}
-
-Now we'll introduce the signal: $\Phi \neq 0$. We again look at steady state ($d/dt = 0$), but now we keep all the stimulated emission and absorption terms. The rate equations become:
-
-For $E_2$:
-\begin{equation}
-  R_2 - \frac{N_2}{\tau_{sp}} - \sigma\,\Phi\,N_2 + \sigma\,\Phi\,N_1 = 0 \tag{I} 
-\end{equation}
-
-For $E_1$:
-\begin{equation}
-  -R_1 - \frac{N_1}{\tau_1} + \frac{N_2}{\tau_{21}} + \sigma\,\Phi\,N_2 - \sigma\,\Phi\,N_1 = 0 \tag{II} 
-\end{equation}
-
-To explicitly solve these two simultaneous equations for $N = N_2 - N_1$, we first isolate $N_2$ from \textup{(I)}, grouping the stimulated terms as $-\sigma\,\Phi(N_2 - N_1) = -\sigma\,\Phi\,N$ and noting $\tau_{sp} = \tau_2$:
-\begin{equation*}
-  \frac{N_2}{\tau_2} = R_2 - \sigma\,\Phi\,N \quad \Longrightarrow \quad N_2 = \tau_2(R_2 - \sigma\,\Phi\,N)
-\end{equation*}
-
-Next, we isolate $N_1$ from \textup{(II)} by moving $N_1/\tau_1$ to the left side and factoring the $\sigma\,\Phi$ terms:
-\begin{equation*}
-  \frac{N_1}{\tau_1} = -R_1 + \frac{N_2}{\tau_{21}} + \sigma\,\Phi(N_2 - N_1) = -R_1 + \frac{N_2}{\tau_{21}} + \sigma\,\Phi\,N
-\end{equation*}
-\begin{equation*}
-  N_1 = \tau_1\left( -R_1 + \sigma\,\Phi\,N \right) + \frac{\tau_1}{\tau_{21}}N_2
-\end{equation*}
-
-We now substitute $N_1$ directly into the definition of $N$:
-\begin{equation*}
-  N = N_2 - N_1 = N_2 - \left[ \tau_1\left( -R_1 + \sigma\,\Phi_\nu\,N \right) + \frac{\tau_1}{\tau_{21}}N_2 \right]
-\end{equation*}
-
-Factoring $N_2$ and isolating $N$ terms:
-\begin{equation*}
-  N = N_2\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1\,R_1 - \tau_1\,\sigma\,\Phi\,N
-\end{equation*}
-
-Now we substitute our earlier expression $N_2 = \tau_2(R_2 - \sigma\,\Phi\,N)$:
-\begin{equation*}
-  N = \tau_2(R_2 - \sigma\,\Phi\,N)\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1\,R_1 - \tau_1\,\sigma\,\Phi\,N
-\end{equation*}
-
-Expand the first term and collect all pure $N$ configurations onto the left side:
-\begin{equation*}
-  N + \tau_2\,\sigma\,\Phi\,N\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1\,\sigma\,\Phi\,N = \tau_2\,R_2\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1\,R_1
-\end{equation*}
-
-Factor $N$ entirely on the left side:
-\begin{equation*}
-  N\left[ 1 + \sigma\,\Phi\left( \tau_2\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1 \right) \right] = \tau_2\,R_2\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1\,R_1
-\end{equation*}
-
-We immediately recognise that the right side of this equality is exactly equal to the no-signal population inversion $N_0$ derived in the previous section. We also define the bracketed temporal factor attached to $\sigma\,\Phi_\nu$ as a new effective saturation time constant $\tau_s$:
-\begin{equation*}
-  \tau_s = \tau_2\left(1 - \frac{\tau_1}{\tau_{21}}\right) + \tau_1 = \tau_2 - \frac{\tau_2\,\tau_1}{\tau_{21}} + \tau_1 = \tau_2 + \tau_1\left(1 - \frac{\tau_2}{\tau_{21}}\right)
-\end{equation*}
-
-Dividing through by the bracket yields our final explicit solution for $N$:
-\begin{keyresult}
-\begin{equation}
-  N = N_2 - N_1 = \frac{N_0}{1 + \tau_s\,\sigma\,\Phi_\nu}
-\end{equation}
-\end{keyresult}
-
-\subsection{Saturation Photon Flux Density, Intensity, and Power}
-
-To write this result more compactly, we define the \textbf{saturation photon flux density}:
-\begin{equation*}
-  \Phi_s = \frac{1}{\tau_s\,\sigma}
-\end{equation*}
-Substituting into the expression for $N$:
-\begin{equation*}
-  N = \frac{N_0}{1 + \Phi/\Phi_s}
-\end{equation*}
-Since $\Phi \propto I \propto P$, we can write equivalent forms in terms of intensity $I$ and power $P$:
-\begin{equation*}
-  N = \frac{N_0}{1 + I/I_s} = \frac{N_0}{1 + P/P_s}
-\end{equation*}
-where $I_s$ is the \textbf{saturation intensity} and $P_s$ is the \textbf{saturated power}. Note carefully that $N \neq N_0$ when a signal is present: the signal itself perturbs the populations (it stimulates atoms down from $E_2$ and promotes atoms up from $E_1$), so the population difference is always smaller with a signal than without.
-
-The physical friction is clear: the presence of a signal necessarily crushes its own population inversion from $N_0$ down to $N = N_0/(1+P/P_s)$. The signal's own intensifying photons aggressively drive stimulated transitions that forcibly equalise the two working populations.
-
-The gain coefficient in the general case is:
-\begin{equation*}
-  \gamma = \sigma\,N = \frac{\sigma\,N_0}{1 + P/P_s} = \frac{\gamma_0}{1 + P/P_s}
-\end{equation*}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/gain_saturation_curve.jpg}
-    \caption{Gain Saturation Curve: The available gain progressively collapses as the intensified signal physically depletes the population inversion that supports it.}
-\end{figure}
-
-This is the \textbf{saturated gain coefficient}. It is a function of $\Phi$ (or equivalently, of $P$) — it is no longer constant. Since $\gamma$ depends on the signal power, the system is nonlinear in the general case. This confirms why we cannot use the simple constant-$\gamma_0$ solution outside the small-signal limit.
-
-\subsection{Two Operating Regimes Summarised}
-
+For the pump level $E_3$, there are two governing processes:
 \begin{enumerate}
-  \item \textbf{General (saturated) case} ($P_\text{in}$ comparable to $P_s$, or $P_\text{out}$ comparable to $P_s$):
-    \begin{align*}
-      \Phi &\neq 0, \quad N = \frac{N_0}{1+P/P_s}, \quad N \neq N_0 \\
-      \gamma &= \sigma N = \frac{\gamma_0}{1+P/P_s} \quad\text{(saturated gain coeff., function of signal)}
-    \end{align*}
-  \item \textbf{Small-signal case} ($P_\text{in} \ll P_s$ \textbf{and} $P_\text{out} \ll P_s$):
-    \begin{align*}
-      \Phi &\approx 0, \quad N = N_0, \quad \gamma = \gamma_0 = \sigma N_0 = \text{const.}
-    \end{align*}
+    \item \textbf{Optical Pump Arrival:} The pump laser actively absorbs atoms out of the ground state $E_1$ and forces them into $E_3$ at a field-driven rate $+\sigma_p\Phi_p N_1$. Crucially, this rate scales with however many atoms are currently available in $E_1$.
+    \item \textbf{Thermal Cascade (Decay):} Atoms rapidly drop from $E_3$ down to the metastable $E_2$ shelf via non-radiative decay at a rate $-\frac{N_3}{\tau_{32}}$.
 \end{enumerate}
 
-In practice, to decide which regime applies, it is best to compare the \emph{output} power against $P_s$, because even if the input is small, the signal may have grown large enough by the exit of the amplifier to cause saturation. If $P_\text{out} \ll P_s$, use the small-signal formulae. If $P_\text{out}$ is comparable to $P_s$, use the general case.
+The differential rate equation for $N_3$ is therefore:
+\begin{equation}
+    \frac{dN_3}{dt} = \underbrace{\sigma_p\Phi_p N_1}_{\text{Optical Pump Up}} - \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Decay to } E_2} \tag{I}
+\end{equation}
 
-Consequently, the gain coefficient $\gamma$ is continually crushed as the signal scales up—a hard physical bottleneck known universally as \textbf{gain saturation}. This operates exactly like the gain compression seen in any RF electronic amplifier. There is a strict maximum power the amplifier can linearly push; push harder, and the gain simply collapses.
+For the metastable upper lasing level $E_2$, there are three governing processes:
+\begin{enumerate}
+    \item \textbf{Cascade Arrival:} Atoms decaying out of $E_3$ enter $E_2$ at the same rate $+\frac{N_3}{\tau_{32}}$.
+    \item \textbf{Spontaneous Emission (Decay):} Atoms slowly leak out of the metastable shelf back to $E_1$ at a rate $-\frac{N_2}{\tau_{21}}$.
+    \item \textbf{Net Stimulated Transitions:} The signal actively forces atoms out of $E_2$ (stimulated emission) and atoms into $E_2$ (stimulated absorption). Because both processes are identically driven by the external field $\Phi$, they collapse into a single net downward rate: $-\sigma\Phi(N_2 - N_1)$.
+\end{enumerate}
+
+The differential rate equation for $N_2$ is therefore:
+\begin{equation}
+    \frac{dN_2}{dt} = \underbrace{\frac{N_3}{\tau_{32}}}_{\text{Arrival from } E_3} - \underbrace{\frac{N_2}{\tau_{21}}}_{\text{Spont. Decay}} - \underbrace{\sigma\Phi(N_2 - N_1)}_{\text{Net Stimulated Exit}} \tag{II}
+\end{equation}
+
+As before, the equation for $N_1$ is redundant thanks to the conservation constraint ($N_1 + N_2 + N_3 = N_a$). We proceed with \textup{(I)} and \textup{(II)}.
+
+\subsubsection*{Steady-State Analysis}
+
+Starting with the pump level $E_3$ by setting $dN_3/dt = 0$ in equation \textup{(I)}:
+\begin{equation*}
+    0 = \sigma_p\Phi_p N_1 - \frac{N_3}{\tau_{32}} \quad \Longrightarrow \quad N_3 = \sigma_p\Phi_p N_1 \tau_{32}
+\end{equation*}
+
+Next, we evaluate $E_2$ by setting $dN_2/dt = 0$ in equation \textup{(II)}, then substituting the steady-state relationship $N_3 = \sigma_p\Phi_p N_1\tau_{32}$ directly into its arrival term:
+\begin{equation*}
+    0 = \frac{\sigma_p\Phi_p N_1 \tau_{32}}{\tau_{32}} - \frac{N_2}{\tau_{21}} - \sigma\Phi(N_2 - N_1) \quad \Longrightarrow \quad 0 = \sigma_p\Phi_p N_1 - \frac{N_2}{\tau_{21}} - \sigma\Phi(N_2 - N_1)
+\end{equation*}
+
+Because our ultimate engineering goal is to derive a master equation purely for the macroscopic population inversion $N$, we must eliminate the standalone $N_1$ and $N_2$ variables. Using our conservation identities $N_2 = (N_a + N)/2$ and $N_1 = (N_a - N)/2$, we inject them straight into the balance equation:
+\begin{equation*}
+    \sigma_p\Phi_p\!\left(\frac{N_a - N}{2}\right) - \frac{(N_a + N)/2}{\tau_{21}} - \sigma\Phi\,N = 0
+\end{equation*}
+
+Multiply the entire equation by $2\tau_{21}$ to clear the nested fractions, then distribute all terms:
+\begin{equation*}
+    \sigma_p\Phi_p\tau_{21}(N_a - N) - (N_a + N) - 2\sigma\Phi\tau_{21}\,N = 0 \quad \Longrightarrow \quad \sigma_p\Phi_p\tau_{21}N_a - \sigma_p\Phi_p\tau_{21}N - N_a - N - 2\sigma\Phi\tau_{21}N = 0
+\end{equation*}
+
+Isolate all terms containing $N$ on the right and factor algebraically:
+\begin{equation*}
+    N + \sigma_p\Phi_p\tau_{21}N + 2\sigma\Phi\tau_{21}N = N_a\sigma_p\Phi_p\tau_{21} - N_a \quad \Longrightarrow \quad N\!\left(1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}\right) = N_a(\sigma_p\Phi_p\tau_{21} - 1)
+\end{equation*}
+
+Divide to explicitly solve for the macroscopic population inversion $N$:
+\begin{equation*}
+    N = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}}
+\end{equation*}
+
+We calculate the general \textbf{population inversion} $N$ first, then evaluate its undisturbed ceiling by assuming there is no signal present ($\Phi = 0$). This establishes the baseline \textbf{small-signal population inversion} $N_0$:
+\begin{keyresult}
+\begin{equation}
+    N_0 = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}
+\end{equation}
+\end{keyresult}
+
+Because this value represents the undisturbed maximum inversion before any signal begins to deplete it, it directly establishes the \textbf{small-signal gain coefficient} ($\gamma_0$) of the amplifier:
+\begin{keyresult}
+\begin{equation}
+    \gamma_0 = \sigma N_0 = \sigma N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}
+\end{equation}
+\end{keyresult}
+
+Now, returning to our general $N$ expression (with the signal $\Phi$ present), we express the denominator in the standard normalized form by factoring out the leading $(1 + \sigma_p\Phi_p\tau_{21})$ term:
+\begin{equation*}
+    N = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}} \quad \Longrightarrow \quad N = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{(1 + \sigma_p\Phi_p\tau_{21})\!\left(1 + \dfrac{2\sigma\Phi\tau_{21}}{1 + \sigma_p\Phi_p\tau_{21}}\right)}
+\end{equation*}
+
+The numerator and the extracted $(1 + \sigma_p\Phi_p\tau_{21})$ from the denominator now combine exactly into $N_0$. The remaining constants multiplying $\Phi$ in the denominator formally define the inverse of the \textbf{saturation photon flux density}:
+\begin{equation*}
+    \Phi_s \equiv \frac{1 + \sigma_p\Phi_p\tau_{21}}{2\sigma\tau_{21}}
+\end{equation*}
+
+Substituting these definitions, the fully realistic optical pumping model collapses cleanly into the same universal saturation form:
+\begin{keyresult}
+\begin{equation}
+    N = \frac{N_0}{1 + \Phi/\Phi_s} \quad \Longrightarrow \quad \gamma = \frac{\gamma_0}{1 + \Phi/\Phi_s}
+\end{equation}
+\end{keyresult}
+
+\subsubsection*{Threshold Condition}
+
+For optical amplification to be physically possible, the inversion must be strictly positive ($N_0 > 0$, and therefore $\gamma_0 > 0$). Enforcing this condition dictates that the numerator of $N_0$ must cross zero:
+\begin{equation*}
+    \sigma_p\Phi_p\tau_{21} - 1 > 0 \quad \Longrightarrow \quad \Phi_p > \frac{1}{\sigma_p\tau_{21}}
+\end{equation*}
+\begin{keyresult}
+\begin{equation}
+    \Phi_p > \Phi_{p,\text{th}} \equiv \frac{1}{\sigma_p\tau_{21}}
+\end{equation}
+\end{keyresult}
+
+This is the \textbf{threshold pump photon flux}. Physically, the pump laser must deliver photons fast enough to evacuate atoms out of $E_1$ into $E_3$ at a greater rate than they spontaneously cycle back. Without crossing this precise photon delivery rate, net inversion can never accumulate.
+
+All three physical models successfully converge on the exact same universal saturation form $N = N_0/(1 + \Phi/\Phi_s)$. The formulas for $N_0$ and $\Phi_s$ simply adapt to accommodate the mathematical realism of the pumping mechanism.
+
+\subsection{Comparison of the Three Pumping Models}
+
+The three cases we have analysed represent increasing levels of physical realism — from an idealized constant pump with no signal, to a constant pump driving stimulated emission, to a fully self-consistent optical pump model. The table below collects the key steady-state parameters for direct comparison across all three regimes.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{@{} >{\raggedright\arraybackslash}p{0.18\textwidth} >{\centering\arraybackslash}p{0.36\textwidth} >{\centering\arraybackslash}p{0.38\textwidth} @{}}
+\toprule
+\textbf{Parameter} & \textbf{Cases 1 \& 2} (Constant $R$) & \textbf{Case 3} (Optical Pump $\sigma_p\Phi_p N_1$) \\
+\midrule
+$N_0$ & $2R\tau_{21} - N_a$ & $N_a\,\dfrac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}$ \\[2ex]
+$\gamma_0$ & $\sigma(2R\tau_{21} - N_a)$ & $\sigma N_a\,\dfrac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}$ \\[2ex]
+$\Phi_s$ & $\dfrac{1}{2\sigma\tau_{21}}$ & $\dfrac{1 + \sigma_p\Phi_p\tau_{21}}{2\sigma\tau_{21}}$ \\[2ex]
+Threshold & $R > \dfrac{N_a}{2\tau_{21}}$ & $\Phi_p > \dfrac{1}{\sigma_p\tau_{21}}$ \\
+\bottomrule
+\end{tabular}
+\caption{Summary of key steady-state parameters across the three pumping models.}
+\end{table}
+
+Several important physical observations follow directly from this comparison:
+
+\begin{enumerate}
+    \item \textbf{$N_0$ is unbounded in Cases 1 \& 2, but bounded in Case 3.} With a constant pump $R$, the small-signal inversion $N_0 = 2R\tau_{21} - N_a$ grows without limit as $R$ increases. In Case 3, however, $N_0$ asymptotes strictly to $+N_a$ as $\Phi_p \to \infty$ — because you can never invert more atoms than you have in the system.
+
+    \item \textbf{$\Phi_s$ is a fixed material constant in Cases 1 \& 2, but pump-dependent in Case 3.} In the constant-$R$ model, $\Phi_s = 1/(2\sigma\tau_{21})$ depends only on intrinsic material properties; every amplifier operating with the same gain medium saturates at the same signal level. In Case 3, $\Phi_s$ increases with pump strength $\Phi_p$ — a stronger pump actively fights back against signal-driven depletion of $E_2$, making the amplifier harder to saturate. This is a direct consequence of the self-consistent feedback loop: as stimulated emission drains $E_1 \to E_2$ back into $E_1$, a stronger pump immediately re-evacuates those atoms.
+
+    \item \textbf{Cases 1 \& 2 share the same threshold, Case 3 introduces a new one.} Both constant-pump cases require $R > N_a/2\tau_{21}$ to achieve inversion. Case 3 translates this into a photon flux threshold $\Phi_p > 1/(\sigma_p\tau_{21})$, which states that the pump must deliver photons fast enough to keep the upward pumping rate faster than the spontaneous relaxation rate.
+
+    \item \textbf{The universal saturation form is exact in all three cases.} Despite the different levels of physical realism, all three models collapse precisely to $N = N_0/(1+\Phi/\Phi_s)$. This is not an approximation — it is an exact consequence of the three-level steady-state algebra in each regime.
+\end{enumerate}
 
 % =============================================================
 \section{Parameters of an Optical Amplifier}
@@ -604,9 +487,17 @@ The gain of any amplifier is the ratio of output power to input power:
 
 We must now find explicit expressions for $G$ in both operating regimes.
 
-\subsubsection{Case 1: Small-signal gain $G_0$}
+\subsubsection{Case 1: Small-Signal Gain $G_0$}
 
-As we already know from the small-signal section, when $P_\text{in} \ll P_s$, the gain coefficient is constant: $\gamma = \gamma_0$. The propagation equation is:
+As we already know from the small-signal section, when $P_\text{in} \ll P_s$, the gain coefficient is constant: $\gamma = \gamma_0$. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 3/differential_gain_slab.jpg}
+    \caption{Differential Gain Slab: Visualising the integration over a slice $dz$ of the active medium, where the power change $dP$ scales strictly with the local power $P$.}
+\end{figure}
+
+The propagation equation across this slice is:
 \begin{equation*}
   \frac{dP}{dz} = \gamma_0\,P
 \end{equation*}
@@ -643,7 +534,7 @@ This is the \textbf{small-signal gain}: it depends only on the gain coefficient 
 
 Therefore, while still safely in the small-signal regime, the total gain holds its pure exponential form $G_0 = e^{\gamma_0 L}$. This value is perfectly determined by merely the per-unit-length gain coefficient and the physical length constraint of the active medium.
 
-\subsubsection{Case 2: General (saturated) gain $G$}
+\subsubsection{Case 2: General (Saturated) Gain $G$}
 
 When $P_\text{in}$ is comparable to $P_s$, the gain coefficient is no longer constant:
 \begin{equation*}
@@ -1088,144 +979,11 @@ Analyzing the output floor, the undeniable dominant noise source in any optical 
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/osnr_asymptote.jpg}
     \caption{OSNR Asymptote: The fundamental noise limit of optical amplifiers at high linear gain values.}
 \end{figure}
-
-
 % =============================================================
-\section{Inhomogeneous Broadening}
+\section{Case Study: The Erbium-Doped Fibre Amplifier (EDFA)}
 % =============================================================
-
-\subsection{Why the Homogeneous Treatment Fails}
-
-In \textbf{inhomogeneous broadening}, the atoms in the medium are not identical — each atom has a slightly different resonance frequency due to local variations in the crystalline environment, Doppler shifts, or lattice strains. The overall lineshape of an inhomogeneously broadened medium is a \textbf{Gaussian} envelope, the statistical average over all the individual Lorentzian responses of the different sub-groups.
-
-\subsection{The Averaging Problem}
-
-One might think: why not just average the Lorentzian line shape functions and substitute the average into the gain formula? In the absence of a signal ($\Phi_\nu = 0$), that is indeed valid and gives $N = N_0$ and $\gamma_0 = \sigma N_0$. But the moment a signal is present, the gain formula for the general case is:
-\begin{equation*}
-  \gamma = \frac{\gamma_0}{1 + P/P_s}
-\end{equation*}
-Now the saturation power $P_s$ appears in the denominator. Since different atoms have different resonance frequencies, each sub-group of atoms has a \emph{different} effective $P_s$. The average of $\gamma_0/(1+P/P_s)$ is \emph{not} the same as $\langle\gamma_0\rangle / (1 + P/\langle P_s\rangle)$. Averaging a ratio is not the same as the ratio of averages:
-\begin{equation*}
-  \left\langle \frac{\gamma_0}{1+P/P_s} \right\rangle \neq \frac{\langle\gamma_0\rangle}{1+P/\langle P_s\rangle}
-\end{equation*}
-
-\subsection{The Correct Result for Inhomogeneous Broadening}
-
-The correct formula, derived rigorously from averaging the Lorentzian sub-groups over the Gaussian distribution, replaces the linear denominator with a square-root denominator:
-\begin{equation*}
-  \gamma_\text{inhomo} = \frac{\gamma_0}{\sqrt{1 + P/P_s}}
-\end{equation*}
-and correspondingly for the population difference:
-\begin{equation*}
-  N_\text{inhomo} = \frac{N_0}{\sqrt{1 + P/P_s}}
-\end{equation*}
-
-\subsection{Comparing the Two Saturation Behaviours}
-
-Let's see what this means physically. In the homogeneous case:
-\begin{equation*}
-  \gamma_\text{homo} = \frac{\gamma_0}{1 + P/P_s}
-\end{equation*}
-Saturation (defined as $\gamma = \gamma_0/2$) occurs when $P = P_s$.
-
-In the inhomogeneous case:
-\begin{equation*}
-  \gamma_\text{inhomo} = \frac{\gamma_0}{\sqrt{1 + P/P_s}}
-\end{equation*}
-Saturation (again $\gamma = \gamma_0/2$) occurs when $\sqrt{1+P/P_s} = 2$, i.e.\ $1 + P/P_s = 4$, i.e.\ $P = 3P_s$.
-
-So the inhomogeneously broadened amplifier requires approximately \textbf{three times} as much power to reach saturation. This is physically sensible: in a homogeneous medium every atom is identical, so all atoms saturate simultaneously at $P = P_s$. In an inhomogeneous medium the different sub-groups saturate at different power levels (because each sees a slightly different cross-section $\sigma$). As you increase the power, you saturate one sub-group at a time, so you have to keep pushing to saturate them all — and you end up needing much more power overall before the total gain is halved.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/homogeneous_vs_inhomogeneous.jpg}
-    \caption{Homogeneous vs. Inhomogeneous Saturation: Graphical proof that an inhomogeneously broadened gain medium exhibits far stiffer resistance to saturation, heavily delaying the gain collapse curve.}
-\end{figure}
-
-Macroscopically, inhomogeneous broadening arms the overall gain coefficient with a rigid resistance to saturation. You have to hammer the medium with roughly three times the raw saturation power just to collapse the total gain by the same degree you would in a homogeneous equivalent.
-
-\begin{keyinsight}[Phase Shifts in the Gain Medium]
-Our analysis has tracked only how the amplifier changes the \emph{amplitude} (power) of the signal. In reality, any medium that exhibits gain at a particular frequency \emph{must} also introduce a frequency-dependent \textbf{phase shift} on the signal. This is a fundamental consequence of causality, enforced by the Kramers-Kronig relations: the real and imaginary parts of the complex susceptibility are inextricably linked, so gain and phase shift always appear as a pair. This phase shift is especially important in dense WDM systems and inside laser cavities. Its precise calculation requires the Kramers-Kronig framework, which appears in a more advanced photonics context.
-\end{keyinsight}
-
-\section{Host + Transition Decomposition}
-
-To connect the population-inversion physics of $N_1$ and $N_2$ to the actual electromagnetic wave propagation inside a real solid-state device, we must translate from the atomic population language into the language of wave optics. The key is to recognise that a practical gain medium like an EDFA fibre is not a uniform sea of atoms — it is a two-component system: a passive, bulk \textbf{host} material (silica glass) and a dilute cloud of active \textbf{transition ions} (Erbium) embedded within it. Their electromagnetic polarisation responses are physically very different, so we must separate them.
-
-The total macroscopic polarization vector $\bm{P}$ is therefore simply the exact sum of the passive host material's polarization and the active transition material's polarization:
-\begin{equation*}
-\bm{P} = \bm{P}_{\text{host}} + \bm{P}_{\text{trans}}
-\end{equation*}
-where $\bm{P}_{\text{host}} = \varepsilon_0 \chi_{\text{host}} \bm{E}$ and $\bm{P}_{\text{trans}} = \varepsilon_0 \chi_{\text{trans}} \bm{E}$.
-
-Recall our displacement field definition $\bm{D}=\varepsilon_0\bm{E}+\bm{P}$. If we substitute our split sum into this formula, we can factor the terms to derive an effective permittivity for the entire doped structure:
-\begin{equation*}
-\bm{D} = \varepsilon_0\bm{E} + (\varepsilon_0 \chi_{\text{host}} \bm{E} + \varepsilon_0 \chi_{\text{trans}} \bm{E})
-\end{equation*}
-We first distribute the additions to drop the parentheses:
-\begin{equation*}
-\bm{D} = \varepsilon_0\bm{E} + \varepsilon_0 \chi_{\text{host}} \bm{E} + \varepsilon_0 \chi_{\text{trans}} \bm{E}
-\end{equation*}
-Next, we factor out $\varepsilon_0 \bm{E}$ strictly from the first two terms:
-\begin{equation*}
-\bm{D} = \varepsilon_0 \bm{E}(1 + \chi_{\text{host}}) + \varepsilon_0 \chi_{\text{trans}} \bm{E}
-\end{equation*}
-We recognize from fundamental dielectrics that the relative permittivity is defined as $\varepsilon_r = 1 + \chi$. Substitute $\varepsilon_{r,\text{host}} = 1 + \chi_{\text{host}}$:
-\begin{equation*}
-\bm{D} = \varepsilon_0 \varepsilon_{r,\text{host}} \bm{E} + \varepsilon_0 \chi_{\text{trans}} \bm{E}
-\end{equation*}
-Finally, to define a singular effective permittivity for the entire doped structure, we factor out $\varepsilon_0 \varepsilon_{r,\text{host}}$ entirely from both terms:
-\begin{equation*}
-\bm{D} = \underbrace{\varepsilon_0\varepsilon_{r,\text{host}} \left(1+\frac{\chi_{\text{trans}}}{\varepsilon_{r,\text{host}}}\right)}_{\text{Effective Permittivity } \varepsilon_{r,\text{eff}}} \bm{E}
-\end{equation*}
-
-This is a beautiful result. It shows exactly how the active trace ions act as a fundamental perturbation (a small fractional addition) directly on top of the bulk properties of the host fiber! 
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figures/Chapter 3/host_plus_transition_decomposition.jpg}
-    \caption{Host + Transition Decomposition: Understanding a macroscopic Erbium optical fiber as a pristine silica host glass with a perturbative cloud of transition ions injecting local gain into the overall permittivity.}    
-\end{figure}
-
-Because the susceptibility of the transition dopant is almost always very weak compared to the massive host dielectric ($\chi_{\text{trans}} \ll \varepsilon_{r,\text{host}}$), we can formulate a highly accurate approximation for the new complex propagation constant $k = k_0 \tilde{n}_{\text{eff}}$. 
-
-First, we define $\tilde{n}_{\text{eff}} = \sqrt{\varepsilon_{r,\text{eff}}}$. Substituting our new effective permittivity:
-\begin{equation*}
-\tilde{n}_{\text{eff}} = \sqrt{\varepsilon_{r,\text{host}} \left(1+\frac{\chi_{\text{trans}}}{\varepsilon_{r,\text{host}}}\right)} = \sqrt{\varepsilon_{r,\text{host}}} \sqrt{1+\frac{\chi_{\text{trans}}}{\varepsilon_{r,\text{host}}}}
-\end{equation*}
-Substitute the host refractive index $n_{\text{host}} = \sqrt{\varepsilon_{r,\text{host}}}$, which simultaneously means $\varepsilon_{r,\text{host}} = n_{\text{host}}^2$:
-\begin{equation*}
-\tilde{n}_{\text{eff}} = n_{\text{host}} \sqrt{1+\frac{\chi_{\text{trans}}}{n_{\text{host}}^2}}
-\end{equation*}
-We again apply the binomial approximation $(1+x)^{1/2} \approx 1 + x/2$. The prerequisite condition $x \ll 1$ is satisfied here because the susceptibility of the transition dopant is almost always very weak compared to the massive host dielectric ($\chi_{\text{trans}} \ll n_{\text{host}}^2$). Substitute $x = \frac{\chi_{\text{trans}}}{n_{\text{host}}^2}$:
-\begin{equation*}
-\tilde{n}_{\text{eff}} \approx n_{\text{host}} \left( 1 + \frac{\chi_{\text{trans}}}{2n_{\text{host}}^2} \right)
-\end{equation*}
-Distribute the $n_{\text{host}}$ multiplier:
-\begin{equation*}
-\tilde{n}_{\text{eff}} \approx n_{\text{host}} + \frac{n_{\text{host}}\chi_{\text{trans}}}{2n_{\text{host}}^2} = n_{\text{host}} + \frac{\chi_{\text{trans}}}{2n_{\text{host}}}
-\end{equation*}
-
-Finally, we multiply this entire effective index $\tilde{n}_{\text{eff}}$ strictly by the free-space wavenumber ($k_0 = 2\pi/\lambda_0$) to yield the total propagation constant $k$:
-\begin{equation*}
-k = k_0 \tilde{n}_{\text{eff}} \approx k_0 \left( n_{\text{host}} + \frac{\chi_{\text{trans}}}{2n_{\text{host}}} \right)
-\end{equation*}
-\begin{equation*}
-k \approx k_0 n_{\text{host}} + \frac{k_0 \chi_{\text{trans}}}{2n_{\text{host}}}
-\end{equation*}
-
-By separating the transition parameter $\chi_{\text{trans}}$ into its real and imaginary parts $\chi' - j\chi''$ (using the sign convention that naturally aligns with our approximations), we trace exactly how the doped ions physically alter the propagation wave:
-\begin{align*}
-\text{Phase Shift Increment (Dispersion velocity shift)} &\propto \Re\{\chi_{\text{trans}}\} \\
-\text{Power Attenuation/Gain Increment ($\alpha/2$)} &\propto \Im\{\chi_{\text{trans}}\}
-\end{align*}
-
-From an engineering perspective, whenever we inject dopants into a host glass, we can cleanly split our math. The giant host structure simply locks down the massive constant base refractive index. Meanwhile, the tiny complex perturbative fraction $\chi_{\text{trans}}$ holds full control over the exact localized dispersion shifts and the all-important final power gain profile. We will now deploy this directly onto the most lucrative physics example in the world.
-
-
-\section{EDFA Example (Erbium-Doped Fiber Amplifier)}
-\subsection{Practical Application: The EDFA}
-The Erbium-Doped Fiber Amplifier (EDFA) is the perfect real-world engineering application of everything we just derived regarding light-matter interaction, decomposition, and population inversion. The EDFA is a specific Traveling-Wave Amplifier (TWA) device that amplifies light directly inside optical fibers \emph{without} ever needing to convert the light stream into electricity first! 
+\subsection{What is an EDFA?}
+The Erbium-Doped Fibre Amplifier (EDFA) is the canonical real-world application of the three-level laser system we just derived. It is a Travelling-Wave Amplifier (TWA) built directly inside an optical fibre, amplifying light \emph{without} ever converting it to an electrical signal first.
 
 As the name implies, "Erbium Doped" simply means the native silica glass fiber core (the Host) has been infused with Erbium ions ($\mathrm{Er}^{3+}$) during manufacturing.
 
@@ -1262,13 +1020,13 @@ We have now built a complete picture of optical amplification:
 
 \begin{enumerate}
 
-  \item We derived the small-signal propagation equation $d\Phi_\nu/dz = \gamma_0\,\Phi_\nu$ by balancing photon creation (stimulated emission) and destruction (absorption) in a differential element of the medium.
+  \item We derived the small-signal propagation equation $d\Phi/dz = \gamma_0\,\Phi$ by balancing photon creation (stimulated emission) and destruction (absorption) in a differential element of the medium.
 
   \item We showed that gain ($\gamma_0 > 0$) requires $N_2 > N_1$ --- \textbf{population inversion} --- which is achieved by a pump before the signal enters.
 
-  \item We wrote the complete \textbf{rate equations} for $N_2$ and $N_1$ including pump terms $R_1$ and $R_2$, and solved them at steady state.
+  \item We wrote the \textbf{rate equations} for $N_2$ and $N_1$ with a single pump rate $R$ transferring atoms from the ground state $E_1$ into $E_2$ via the fast pump level $E_3$.
 
-  \item We found that population inversion is achievable if and only if $\tau_1 < \tau_{21}$: the lower-level lifetime must be shorter than the upper-level spontaneous emission lifetime.
+  \item We proved algebraically that a \textbf{two-level laser is impossible} ($N_2/N_1 < 1$ always), and showed that a three-level (or four-level) architecture separates the pump and lasing transitions, breaking the symmetry and enabling inversion.
 
   \item We worked through the \textbf{three-level laser system} explicitly, deriving $N_0$, $\Phi_s$, and the threshold pump rate for constant-rate and optical pumping models --- the direct foundation for the EDFA.
 
