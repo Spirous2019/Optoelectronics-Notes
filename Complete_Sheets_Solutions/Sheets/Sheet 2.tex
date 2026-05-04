@@ -11,56 +11,49 @@
 \end{enumerate}
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 1}
-% ============================================================================
-
-We are given a Helium-Neon (HeNe) laser operating at a power of $P = \SI{1}{\milli\watt}$. The laser emits red light with a photon energy $E_{\mathrm{ph}} = h\nu \approx \SI{2.0}{\electronvolt}$. The beam is emitted into a highly directional solid angle defined by diffraction as $\Omega = \lambda^2/A$, where $A$ is the area of the emitting aperture. We are asked to find the raw photon emission rate and the exact solid angle for a given area.
-
-Power is simply the rate of energy flow. Since light is quantised into discrete photons, the total power $P$ is the number of photons emitted per second, $\Phi$, multiplied by the exact energy of a single photon, $h\nu$. 
+\bigskip
+\textbf{\large Solution --- Question 1}
 
 \medskip
-\textbf{(a) Photon Emission Rate}\quad
-Let's first define the energy of a single photon in fundamental SI units (Joules). Since $1 \mathrm{ eV} = 1.6 \times 10^{-19} \mathrm{ J}$:
+\textbf{Part (a): Photon emission rate.}
+
+Each photon carries energy $h\nu$, so the power is the rate times the photon energy. Rearranging:
+
 \begin{equation*}
-  E_{\mathrm{ph}} = 2.0 \mathrm{ eV} \times \left(1.6 \times 10^{-19} \mathrm{ J/eV}\right) = 3.2 \times 10^{-19} \mathrm{ J}
-\end{equation*}
-The total power $P$ is the photon emission rate $\Phi$ times the photon energy:
-\begin{equation*}
-  P = \Phi E_{\mathrm{ph}}
-\end{equation*}
-Dividing both sides by $E_{\mathrm{ph}}$ to isolate the emission rate:
-\begin{equation*}
-  \Phi = \frac{P}{E_{\mathrm{ph}}} = \frac{1 \times 10^{-3} \mathrm{ W}}{3.2 \times 10^{-19} \mathrm{ J}}
-\end{equation*}
-\begin{equation*}
-  \boxed{\Phi = 3.125 \times 10^{15} \mathrm{ photons/s}}
+  P = \dot{N}\cdot h\nu
+  \quad\Longrightarrow\quad
+  \dot{N} = \frac{P}{h\nu} = \frac{1\times10^{-3}}{2.0\times1.602\times10^{-19}}
 \end{equation*}
 
-\medskip
-\textbf{(b) Solid Angle of Emission}\quad
-To find the solid angle $\Omega = \lambda^2/A$, we first need the wavelength $\lambda$. From the photon energy relation $E_{\mathrm{ph}} = hc/\lambda$:
 \begin{equation*}
-  \lambda = \frac{hc}{E_{\mathrm{ph}}} = \frac{6.626 \times 10^{-34} \mathrm{ J}\cdot\mathrm{s} \times 3 \times 10^8 \mathrm{ m/s}}{3.2 \times 10^{-19} \mathrm{ J}} \approx 6.21 \times 10^{-7} \mathrm{ m} = 621 \mathrm{ nm}
-\end{equation*}
-Now, we are given the aperture area $A = 80 \mathrm{ mm}^2 = 80 \times 10^{-6} \mathrm{ m}^2$. Substituting this into the diffraction-limited solid angle formula:
-\begin{equation*}
-  \Omega = \frac{\lambda^2}{A} = \frac{(6.21 \times 10^{-7} \mathrm{ m})^2}{80 \times 10^{-6} \mathrm{ m}^2}
-\end{equation*}
-\begin{equation*}
-  \Omega = \frac{3.86 \times 10^{-13}}{80 \times 10^{-6}} \approx 4.82 \times 10^{-9} \mathrm{ sr}
-\end{equation*}
-\begin{equation*}
-  \boxed{\Omega = 4.83 \times 10^{-9} \mathrm{ steradians}}
+  \boxed{\dot{N} = 3.12\times10^{15}\;\text{photons/s.}}
 \end{equation*}
 
-A standard 1 mW laser outputs roughly 3 thousand trillion photons every second, bunched into an incredibly narrow, diffraction-limited cone of just a few nano-steradians, highlighting the extreme directionality characteristic to laser physics.
+\textbf{Part (b): Solid angle with $A = 80\,\text{mm}^{2}$.}
+
+First recover the wavelength from the photon energy $h\nu = 2.0\,\text{eV}$:
+
+\begin{equation*}
+  \lambda = \frac{hc}{h\nu} = \frac{(6.626\times10^{-34})(3\times10^{8})}{2.0\times1.602\times10^{-19}} = 620\,\text{nm}.
+\end{equation*}
+
+Then the emission solid angle is:
+
+\begin{equation*}
+  \Omega = \frac{\lambda^{2}}{A} = \frac{(620\times10^{-9})^{2}}{80\times10^{-6}}
+\end{equation*}
+
+\begin{equation*}
+  \boxed{\Omega = 4.805\times10^{-9}\;\text{sr.}}
+\end{equation*}
+
+This extremely small solid angle is the hallmark of laser directionality: the diffraction limit $\lambda^2/A$ is orders of magnitude smaller than the $2\pi$\,sr of a typical LED.
 
 % ============================================================================
 
 \begin{question}[Question 2]Starting from the spectral energy density (J/m$^{3}$-Hz) of the black
 body, find an expression of the spectral intensity (watts/m$^{2}$-Hz) emitted by that body.
-Then find the photon flux density $\varphi_{\nu}$ (no.\ of photons/m$^{2}$-sec) emitted within
+Then find the photon flux density $\Phi$ (no.\ of photons/m$^{2}$-sec) emitted within
 a bandwidth $\Delta\nu$ at frequency $\nu$. Then calculate:
 
 \begin{enumerate}[label=(\alph*)]
@@ -72,77 +65,61 @@ a bandwidth $\Delta\nu$ at frequency $\nu$. Then calculate:
 \end{enumerate}
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 2}
-% ============================================================================
-
-We are transitioning from the energy density of a thermal blackbody cavity to calculating the specific directional emission in photons per second. We must derive the relationships between spectral energy density $\rho_\nu$, spectral intensity $I_\nu$, and photon flux $\varphi_\nu$, and then apply them to determine the temperature $T$ a thermal source would need to match the laser from Question 1.
-
-Recall from basic radiometry that the energy density inside an isotropic blackbody cavity is related to the intensity emerging from a small aperture. The flux of energy crossing a unit area in one direction is linked to the density by a factor of $c/4$.
+\bigskip
+\textbf{\large Solution --- Question 2}
 
 \medskip
-\textbf{Deriving the Expressions}\quad
-The spectral intensity $I_\nu$ (radiance integrated over a hemisphere, or outward flux) generated by an isotropic source of spectral energy density $\rho_\nu$ is given by the classic kinetic relation:
+\textbf{Spectral energy density and intensity.}
+
+The Planck spectral energy density (energy per unit volume per unit frequency) is:
+
 \begin{equation*}
-  I_\nu = \frac{c}{4} \rho_\nu \quad [\mathrm{W\,m^{-2}\,Hz^{-1}}]
-\end{equation*}
-To find the photon flux density $\varphi_\nu$ within a narrow bandwidth $\Delta\nu$, we multiply the spectral intensity by the bandwidth to get total intensity, and divide by the single photon energy $h\nu$:
-\begin{equation*}
-  \varphi_\nu = \frac{I_\nu \Delta\nu}{h\nu} = \frac{c}{4h\nu} \rho_\nu \Delta\nu \quad [\mathrm{photons\,m^{-2}\,s^{-1}}]
-\end{equation*}
-Notice that $I_\nu$ is the flux emitted over the \emph{entire} forward hemisphere ($2\pi$ steradians). If we want the flux directed strictly into a tiny specific solid angle $\Omega$, we must divide by the Lambertian emission footprint (which adds a factor of $\pi$). The directional intensity (Radiance, $L_\nu$) is $L_\nu = I_\nu/\pi$. Thus, the power emitted into solid angle $\Omega$ by area $A$ is:
-\begin{equation*}
-  \mathrm{Rate} = \frac{L_\nu \Delta\nu}{h\nu} A \Omega = \frac{c}{4\pi h\nu} \rho_\nu \Delta\nu A \Omega
+  \xi_\text{BB}(\nu) = \frac{8\pi h}{\lambda^{3}}\cdot\frac{1}{e^{h\nu/k_BT}-1}.
 \end{equation*}
 
-\medskip
-\textbf{(a) Photon Emission at 1000 K}\quad
-Substituting Planck's law for $\rho_\nu = \frac{8\pi h\nu^3}{c^3} \frac{1}{e^{h\nu/k_B T}-1}$ into our Rate equation:
+Each photon travels at speed $c$, so the spectral intensity (power flowing through unit area per unit frequency) is obtained by multiplying by $c$:
+
 \begin{equation*}
-  \mathrm{Rate} = \frac{c}{4\pi h\nu} \left( \frac{8\pi h\nu^3}{c^3} \frac{1}{e^{h\nu/k_B T}-1} \right) \Delta\nu A \left(\frac{\lambda^2}{A}\right)
-\end{equation*}
-Simplifying algebraically, noting that $A$ cancels out and $c/\nu = \lambda$:
-\begin{align*}
-  \mathrm{Rate} &= \frac{2\nu^2}{c^2} \frac{1}{e^{h\nu/k_B T}-1} \Delta\nu \lambda^2 \\
-  &= \frac{2}{\lambda^2} \frac{1}{e^{h\nu/k_B T}-1} \Delta\nu \lambda^2 \\
-  &= \frac{2\Delta\nu}{e^{h\nu/k_B T}-1} \tag{I}
-\end{align*}
-We are given $h\nu \approx \SI{2.0}{\electronvolt} = \SI{3.2e-19}{\joule}$. At $T=1000\mathrm{ K}$, thermal energy is $k_B T = (1.38 \times 10^{-23})(1000) = 1.38 \times 10^{-20} \mathrm{ J}$. 
-The exponent is:
-\begin{equation*}
-  \frac{h\nu}{k_B T} = \frac{3.2 \times 10^{-19}}{1.38 \times 10^{-20}} \approx 23.19
-\end{equation*}
-Applying this to equation (I) with $\Delta\nu = 10^4 \mathrm{ Hz}$:
-\begin{equation*}
-  \mathrm{Rate} = \frac{2(10^4)}{e^{23.19} - 1} = \frac{2 \times 10^4}{1.19 \times 10^{10}}
-\end{equation*}
-\begin{equation*}
-  \boxed{\mathrm{Rate}_{1000K} \approx 1.7 \times 10^{-6} \mathrm{ photons/s}}
+  \rho(\nu) = \xi_\text{BB}(\nu)\cdot c = \frac{8\pi hc}{\lambda^{3}}\cdot\frac{1}{e^{h\nu/k_BT}-1}.
 \end{equation*}
 
-\medskip
-\textbf{(b) Temperature to Match Laser}\quad
-We want the thermal rate to match the laser rate from Question 1 ($\Phi = 3.125 \times 10^{15} \mathrm{ photons/s}$). Because this number is vastly larger than $2\Delta\nu = 20,000$, the denominator $(e^{h\nu/k_B T}-1)$ must be extremely small, meaning the exponent must be tiny.
-From (I):
+Dividing by the photon energy $h\nu$ and multiplying by $\Delta\nu$ gives the photon flux density (photons per m$^{2}$ per second in bandwidth $\Delta\nu$). Using $c/(\lambda^{3}\nu) = 1/\lambda^{2}$:
+
 \begin{equation*}
-  e^{h\nu/k_B T} - 1 = \frac{2\Delta\nu}{\mathrm{Rate}} \approx \frac{2 \times 10^4}{3.125 \times 10^{15}} = 6.4 \times 10^{-12}
-\end{equation*}
-Since $e^x - 1 \approx x$ for $x \ll 1$, we can apply the Taylor expansion:
-\begin{equation*}
-  \frac{h\nu}{k_B T} \approx 6.4 \times 10^{-12}
-\end{equation*}
-Solving for the temperature $T$:
-\begin{equation*}
-  T = \frac{h\nu}{k_B(6.4 \times 10^{-12})} = \frac{3.2 \times 10^{-19}}{(1.38 \times 10^{-23})(6.4 \times 10^{-12})}
-\end{equation*}
-\begin{equation*}
-  T = \frac{3.2 \times 10^{-19}}{8.83 \times 10^{-35}} \approx 3.62 \times 10^{15} \mathrm{ K}
-\end{equation*}
-\begin{equation*}
-  \boxed{T \sim 3.6 \times 10^{15} \mathrm{ K}}
+  \boxed{\Phi_\nu = \frac{8\pi}{\lambda^{2}}\cdot\frac{\Delta\nu}{e^{h\nu/k_BT}-1}.}
 \end{equation*}
 
-A thermal source at $1000$ K is virtually dark in the single-mode red spectrum, emitting less than one photon per week. To match the directional spectral brightness of a standard 1 mW laser, a blackbody would need to be hotter than the core of a star, proving that laser amplification is fundamentally distinct from thermal emission.
+\textbf{Part (a): Photon rate from black body at $T = 1000$\,K.}
+
+The number of photons per second collected from an emitting area $A$ into solid angle $\Omega = \lambda^{2}/A$ in bandwidth $\Delta\nu = 10^{4}$\,Hz is $\dot{N} = A\cdot\Phi_\nu = (8\pi A/\lambda^{2})\cdot\Delta\nu/(e^{h\nu/k_BT}-1) = (8\pi/\Omega)\cdot\Delta\nu/(e^{h\nu/k_BT}-1)$. With $\Omega = 4.805\times10^{-9}$\,sr and $h\nu/k_BT = 2.0\times1.602\times10^{-19}/(1.381\times10^{-23}\times1000) = 23.2$:
+
+\begin{equation*}
+  \dot{N} = \frac{8\pi}{4.805\times10^{-9}}\times\frac{10^{4}}{e^{23.2}-1}
+\end{equation*}
+
+\begin{equation*}
+  \boxed{\dot{N} \approx 4355\;\text{photons/s.}}
+\end{equation*}
+
+This is eleven orders of magnitude smaller than the laser rate of $3.12\times10^{15}$\,photons/s, illustrating the enormous brightness advantage of coherent laser emission over thermal radiation.
+
+\textbf{Part (b): Temperature to match the laser.}
+
+Setting the same formula equal to $3.12\times10^{15}$\,photons/s and solving for $T$:
+
+\begin{equation*}
+  3.12\times10^{15} = \frac{8\pi}{4.805\times10^{-9}}\times\frac{10^{4}}{e^{2.0\,\text{eV}/k_BT}-1}
+  \quad\Longrightarrow\quad
+  e^{2.0\,\text{eV}/k_BT} - 1 \approx 1.67\times10^{-6}.
+\end{equation*}
+
+For such a small argument, $e^x - 1 \approx x$, so $2.0\,\text{eV}/k_BT \approx 1.67\times10^{-6}$, giving:
+
+\begin{equation*}
+  \boxed{T = \frac{2.0\,\text{eV}}{k_B\times1.67\times10^{-6}} \approx 1.396\times10^{6}\;\text{K.}}
+\end{equation*}
+
+No real material survives at such a temperature, which is why laser sources cannot be replicated by thermal means.
 
 % ============================================================================
 
@@ -151,42 +128,35 @@ broad-band light sources without the need to include the line-shape function. Wh
 line-shape function be incorporated?
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 3}
-% ============================================================================
-
-The Einstein light-matter interaction rates (stimulated emission and absorption) are mathematically driven by the spectral overlap between the incident radiation energy density $\rho_\nu$ and the atomic transition lineshape $g(\nu)$. We are asked to justify why we can drop $g(\nu)$ entirely for broadband light sources.
-
-The true, exact stimulated transition rate $W_{12}$ is defined as an integral over all frequencies because both the incident field and the atom possess spectral widths:
-\begin{equation*}
-  W_{12} = B_{12} \int_{-\infty}^{\infty} \rho(\nu) g(\nu) d\nu
-\end{equation*}
+\bigskip
+\textbf{\large Solution --- Question 3}
 
 \medskip
-\textbf{Executing the Broadband Limit}\quad
-For a broadband source (like a thermal incandescent lamp or an LED), the spectral radiation energy density $\rho(\nu)$ is essentially flat and constant over the extremely narrow frequency range where the atomic lineshape $g(\nu)$ is non-zero (typically a few GHz).
-Because $\rho(\nu)$ varies negligibly within the atomic bandwidth, we can approximate it as a constant $\rho_{\nu_o}$ evaluated at the atomic resonance center $\nu_o$, and pull it safely out of the integral:
-\begin{equation*}
-  W_{12} \approx B_{12} \rho_{\nu_o} \int_{-\infty}^{\infty} g(\nu) d\nu
-\end{equation*}
-By its probabilistic definition, the atomic lineshape function is normalized such that its total area is unity:
-\begin{equation*}
-  \int_{-\infty}^{\infty} g(\nu) d\nu = 1
-\end{equation*}
-Therefore, the interaction rate reduces mathematically strictly to:
-\begin{equation*}
-  \boxed{W_{12} = B_{12} \rho_{\nu_o}}
-\end{equation*}
-This effectively bypasses the lineshape function entirely, forming the classic, simplified Einstein model originally historically used for macroscopic thermal analysis.
+The Einstein transition rates involve an integral of the spectral energy density $\xi(\nu)$ weighted by the atomic line-shape function $g(\nu)$. For spontaneous emission (independent of the field) the rate per atom is simply $1/\tau_\text{spon}$. For absorption and stimulated emission:
 
-\medskip
-\textbf{When to incorporate the line-shape $g(\nu)$?}\quad
-The full integral (and thus the lineshape) \emph{must} be retained when the incident light source is \textbf{narrow-band} relative to the atomic transition. A prime example is probing an atom with a highly monochromatic laser. In this case, the radiation spectrum is mathematically closer to a Dirac delta function $\rho(\nu) \approx \rho_0 \delta(\nu-\nu_{L})$. Applying this shifts the integral to collapse onto the lineshape evaluated exclusively at the laser frequency:
 \begin{equation*}
-  W_{12} = B_{12} \rho_0 g(\nu_L)
+  \left.\frac{dN_2}{dt}\right|_\text{absorp}
+  = \int_\text{all}\frac{\lambda^{3}N_1}{8\pi h\tau_\text{spon}}\,\xi(\nu)\,g(\nu)\,d\nu.
 \end{equation*}
 
-If the light is broadband, it acts like a uniform bucket of energy over the atom, making the atom's internal spectral preference mathematically irrelevant. If the light is a laser, the atom's exact broadened lineshape dictates whether it "sees" the laser or not.
+For a \emph{broadband} source, $\xi(\nu)$ varies slowly over the narrow atomic linewidth $\Delta\nu$. It may therefore be factored outside the integral:
+
+\begin{equation*}
+  \left.\frac{dN_2}{dt}\right|_\text{absorp}
+  = \frac{\lambda^{3}N_1}{8\pi h\tau_\text{spon}}\,\xi(\nu)
+    \underbrace{\int_\text{all}g(\nu)\,d\nu}_{=\;1}
+  = \frac{\lambda^{3}N_1}{8\pi h\tau_\text{spon}}\,\xi(\nu).
+\end{equation*}
+
+Because $g(\nu)$ is normalised to unity, it drops out entirely:
+
+\begin{equation*}
+  \boxed{\left.\frac{dN_2}{dt}\right|_\text{absorp} = \frac{\lambda^{3}N_1}{8\pi h\tau_\text{spon}}\,\xi(\nu),
+  \qquad
+  \left.\frac{dN_2}{dt}\right|_\text{stim} = -\frac{\lambda^{3}N_2}{8\pi h\tau_\text{spon}}\,\xi(\nu).}
+\end{equation*}
+
+The same argument applies to stimulated emission. The line-shape function must be \emph{retained} for \textbf{narrowband (monochromatic) sources}, where $\xi(\nu)$ varies sharply over the linewidth and cannot be treated as constant inside the integral.
 
 % ============================================================================
 
@@ -208,59 +178,50 @@ Then find an expression of $\bar{g}(\nu)$ in the two limits
 $\lim_{\epsilon\to 0}\epsilon/(\epsilon^{2}+x^{2})=\pi\delta(x)$.
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 4}
-% ============================================================================
-
-Real laser lineshapes generally suffer from both homogeneous decay (Lorentzian $g_{\nu_o}(\nu)$) and inhomogeneous Maxwellian thermal velocity motion (Doppler shift probability $P(V)$). The result is the convoluted Voigt profile $\bar{g}(\nu)$. We are asked to find the two extreme mathematical limits of this integral.
-
-The Voigt profile convolves the shifted homogeneous lineshape (centered at $\nu_o(1+V/c)$ due to Doppler shifting) with the classical 1D velocity probability distribution:
-\begin{equation*}
-  \bar{g}(\nu)=\int_{-\infty}^{+\infty}g_{\nu_{o}}\!\left(\nu-\nu_{o}\frac{V}{c}\right)P(V)\,dV
-\end{equation*}
+\bigskip
+\textbf{\large Solution --- Question 4}
 
 \medskip
-\textbf{(1) Limit as $\sigma_V \to 0$ (No Thermal Motion)}\quad
-As the standard deviation of velocity approaches zero (gas temperature approaches absolute zero), the Maxwellian distribution peaks infinitely sharply at $V=0$. The hint reminds us that $\lim_{\sigma_{V}\to 0}P(V)=\delta(V)$. Substituting this into the convolution:
-\begin{equation*}
-  \bar{g}(\nu) = \int_{-\infty}^{+\infty}g_{\nu_{o}}\!\left(\nu-\nu_{o}\frac{V}{c}\right) \delta(V)\,dV
-\end{equation*}
-By the sifting property of the Dirac delta function, the integral collapses to the remaining integrand evaluated exactly at the spike $V=0$:
-\begin{equation*}
-  \boxed{\bar{g}(\nu) = g_{\nu_{o}}(\nu)}
-\end{equation*}
-Physically, taking thermal velocity away simply returns the pure homogeneous Lorentzian profile inherent to the stationary atoms.
+\textbf{Deriving the averaged line-shape.}
 
-\medskip
-\textbf{(2) Limit as $\Delta\nu \to 0$ (Negligible Homogeneous Broadening)}\quad
-If the intrinsic natural homogeneous linewidth $\Delta\nu$ is extremely small (which physically means very long lifetime), the Lorentzian lineshape $g_{\nu_o}$, which is centred at $\nu_o$, collapses to a delta function in its argument. Specifically, for a Lorentzian $g_{\nu_o}(\xi) = (\Delta\nu/2\pi)/((\xi-\nu_o)^2+(\Delta\nu/2)^2)$, using the hint $\lim_{\epsilon\to 0}\epsilon/(\epsilon^2+x^2)=\pi\delta(x)$:
+A photon at frequency $\nu'$ (lab frame) is seen by an atom moving at velocity $V$ (along the propagation direction) at frequency $\nu = \nu'(1 - V/c)$. The atom resonates when this Doppler-shifted frequency matches its resonance, i.e.\ its effective resonance in the lab frame is shifted to:
+
 \begin{equation*}
-  g_{\nu_o}(\xi) \;\xrightarrow{\Delta\nu\to 0}\; \delta(\xi - \nu_o).
-\end{equation*}
-Setting $\xi = \nu - \nu_o V/c$ (the argument in the Voigt integral), this becomes:
-\begin{equation*}
-  g_{\nu_o}\!\left(\nu - \nu_o \frac{V}{c}\right) \to \delta\!\left(\nu - \nu_o\frac{V}{c} - \nu_o\right)
-  = \delta\!\left(\nu - \nu_o\!\left(1+\frac{V}{c}\right)\right).
-\end{equation*}
-To evaluate the integral over $dV$, we use the scaling property $\delta(aV - b) = \frac{1}{|a|}\delta(V - b/a)$. Here the coefficient of $V$ inside the delta is $-\nu_o/c$:
-\begin{equation*}
-  \delta\!\left( -\frac{\nu_o}{c} V + (\nu - \nu_o) \right) = \frac{c}{\nu_o} \delta\!\left( V - c\frac{\nu-\nu_o}{\nu_o} \right)
-\end{equation*}
-We substitute this scaled Dirac delta back into the Voigt integral:
-\begin{equation*}
-  \bar{g}(\nu) = \int_{-\infty}^{+\infty} \frac{c}{\nu_o} \delta\!\left( V - c\frac{\nu-\nu_o}{\nu_o} \right) P(V) \,dV
-\end{equation*}
-Applying the sifting property, we evaluate the velocity distribution $P(V)$ at $V = c\frac{\nu-\nu_o}{\nu_o}$:
-\begin{align*}
-  \bar{g}(\nu) &= \frac{c}{\nu_o} P\left(c\frac{\nu-\nu_o}{\nu_o}\right) \\
-  &= \frac{c}{\nu_o} \frac{1}{\sqrt{2\pi\sigma_V^2}} \exp\left[ -\frac{\left(c \frac{\nu-\nu_o}{\nu_o}\right)^2}{2\sigma_V^2} \right]
-\end{align*}
-We define the Doppler spectral variance as $\sigma_D = \sigma_V \frac{\nu_o}{c}$. Substituting this into the amplitude footprint:
-\begin{equation*}
-  \boxed{\bar{g}(\nu) = \frac{1}{\sqrt{2\pi\sigma_D^2}} \exp\left[ -\frac{(\nu-\nu_o)^2}{2\sigma_D^2} \right]}
+  \nu'_o = \frac{\nu_o}{1 - V/c} \approx \nu_o\!\left(1 + \frac{V}{c}\right).
 \end{equation*}
 
-The Voigt convolution gracefully reduces to the purely homogeneous Lorentzian when atoms are "frozen" in place, and perfectly maps to the purely inhomogeneous Gaussian Doppler profile when natural line broadening is negligible.
+Each velocity class has a Lorentzian line-shape centred on $\nu'_o$:
+
+\begin{equation*}
+  g_{\nu'_o}(\nu) = g_{\nu_o}\!\left(\nu - \nu_o\frac{V}{c}\right).
+\end{equation*}
+
+Averaging over the Maxwell--Boltzmann velocity distribution $P(V)$:
+
+\begin{equation*}
+  \boxed{\bar{g}(\nu) = \int_{-\infty}^{+\infty} g_{\nu_o}\!\left(\nu - \nu_o\frac{V}{c}\right) P(V)\,dV.}
+\end{equation*}
+
+\textbf{Limit (1): $\sigma_V \to 0$.}
+
+As $\sigma_V \to 0$, $P(V) \to \delta(V)$. The integral collapses to a single velocity class at $V = 0$:
+
+\begin{equation*}
+  \bar{g}(\nu) = \int_{-\infty}^{+\infty} g_{\nu_o}\!\left(\nu - \nu_o\frac{V}{c}\right)\delta(V)\,dV = g_{\nu_o}(\nu).
+\end{equation*}
+
+When there is no thermal motion, the inhomogeneous average reduces to the single-atom homogeneous lineshape --- as expected.
+
+\textbf{Limit (2): $\Delta\nu \to 0$.}
+
+Substituting the Lorentzian $g_{\nu_o}\!\left(\nu - \nu_o V/c\right) = \frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_o - \nu_oV/c)^2}$ and changing variable $\nu_D = \nu - \nu_o V/c$, so $V = (c/\nu_o)(\nu - \nu_D)$ and the Gaussian becomes one over $\sigma_D = (\nu_o/c)\sigma_V$. As $\Delta\nu \to 0$ the Lorentzian becomes $\pi\delta(\nu_D - \nu)$ (by the hint), and the convolution integral yields a pure Gaussian:
+
+\begin{equation*}
+  \boxed{\bar{g}(\nu) = \frac{1}{\sqrt{2\pi}\,\sigma_D}\,
+    e^{-(\nu-\nu_o)^{2}/2\sigma_D^{2}}, \qquad \sigma_D = \frac{\nu_o}{c}\sigma_V.}
+\end{equation*}
+
+In this limit of vanishing homogeneous linewidth the measured line-shape is purely Gaussian, determined entirely by the velocity spread of the ensemble.
 
 % ============================================================================
 
@@ -281,73 +242,47 @@ given by
 \end{enumerate}
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 5}
-% ============================================================================
-
-We are working with the pure inhomogeneous Gaussian Doppler line-shape function for gas lasers. We need to algebraically derive the full-width at half-maximum (FWHM) of this exponential curve, and then plug in empirical parameters for the prominent red emission line of the internal Neon atoms inside a He-Ne laser tube.
-
-The FWHM represents the absolute frequency separation between the two points where the spectral intensity falls to exactly half of its peak central value.
+\bigskip
+\textbf{\large Solution --- Question 5}
 
 \medskip
-\textbf{(a) Mathematical Extraction of Doppler FWHM}\quad
-By inspection, the peak of the pure Gaussian lineshape occurs when the exponent goes to zero (at exact resonance $\nu = \nu_o$):
+\textbf{Part (a): FWHM of the Doppler lineshape.}
+
+The Gaussian lineshape peaks at $\nu = \nu_o$ with maximum value $\bar{g}_{\mathrm{max}} = 1/(\sqrt{2\pi}\,\sigma_D)$. The FWHM is the width between the two points where $\bar{g} = \bar{g}_{\mathrm{max}}/2$. Setting:
+
 \begin{equation*}
-  \bar{g}(\nu_o) = \frac{1}{\sqrt{2\pi}\sigma_D}
-\end{equation*}
-The FWHM points occur at the specific frequencies $\nu$ where the amplitude drops to half of this maximum:
-\begin{equation*}
-  \frac{1}{\sqrt{2\pi}\sigma_D} \exp\left[-\frac{(\nu-\nu_o)^2}{2\sigma_D^2}\right] = \frac{1}{2} \left[ \frac{1}{\sqrt{2\pi}\sigma_D} \right]
-\end{equation*}
-Canceling out the normalisation coefficient on both sides simplifies the expression immediately:
-\begin{equation*}
-  \exp\left[-\frac{(\nu-\nu_o)^2}{2\sigma_D^2}\right] = \frac{1}{2}
-\end{equation*}
-Taking the natural logarithm of both sides to isolate the quadratic distance:
-\begin{equation*}
-  -\frac{(\nu-\nu_o)^2}{2\sigma_D^2} = \ln(1/2) = -\ln(2)
-\end{equation*}
-Multiplying by $-2\sigma_D^2$ yields the exact algebraic footprint of the FWHM roots:
-\begin{equation*}
-  (\nu-\nu_o)^2 = 2\sigma_D^2 \ln(2)
-\end{equation*}
-Taking the square root grants two symmetric transition points bridging the line central frequency:
-\begin{equation*}
-  \nu - \nu_o = \pm \sigma_D \sqrt{2\ln(2)}
-\end{equation*}
-The full span of the width $\Delta\nu$ is the difference between these two bounding roots:
-\begin{equation*}
-  \Delta\nu = \left(\nu_o + \sigma_D\sqrt{2\ln 2}\right) - \left(\nu_o - \sigma_D\sqrt{2\ln 2}\right)
-\end{equation*}
-\begin{equation*}
-  \boxed{\Delta\nu = \sigma_D \sqrt{8\ln 2} \approx 2.355 \sigma_D}
+  \frac{1}{\sqrt{2\pi}\,\sigma_D}\,e^{-(\Delta\nu/2)^{2}/(2\sigma_D^{2})} = \frac{1}{2}\cdot\frac{1}{\sqrt{2\pi}\,\sigma_D}
+  \quad\Longrightarrow\quad
+  e^{-(\Delta\nu/2)^{2}/(2\sigma_D^{2})} = \frac{1}{2}.
 \end{equation*}
 
-\medskip
-\textbf{(b) Empirical Computation for Neon-20}\quad
-We are given an operating temperature $T=300\mathrm{ K}$, optical wavelength $\lambda_o = \SI{0.6328}{\micro\meter} = 6.328 \times 10^{-7}\mathrm{ m}$, and strict mass $M = 20(1.66 \times 10^{-27}\mathrm{ kg}) = 3.32 \times 10^{-26}\mathrm{ kg}$. The Boltzmann constant is $k_B = 1.38 \times 10^{-23}\mathrm{ J/K}$.
-First, we solve for the fundamental Doppler spectral deviation $\sigma_D$:
+Taking the natural log and solving:
+
 \begin{equation*}
-  \sigma_D = \frac{1}{\lambda_o} \sqrt{ \frac{k_B T}{M} }
-\end{equation*}
-Substituting our raw values:
-\begin{equation*}
-  \sigma_D = \frac{1}{6.328 \times 10^{-7}} \sqrt{ \frac{(1.38 \times 10^{-23})(300)}{3.32 \times 10^{-26}} }
-\end{equation*}
-\begin{align*}
-  \sigma_D &= \frac{1}{6.328 \times 10^{-7}} \sqrt{ \frac{4.14 \times 10^{-21}}{3.32 \times 10^{-26}} } \\
-  &= \frac{1}{6.328 \times 10^{-7}} \sqrt{ 1.247 \times 10^5 } \\
-  &= \frac{353.1}{6.328 \times 10^{-7}} \approx 5.58 \times 10^8 \mathrm{ Hz}
-\end{align*}
-Applying the FWHM relationship derived above:
-\begin{equation*}
-  \Delta\nu \approx 2.355 (5.58 \times 10^8 \mathrm{ Hz}) \approx 1.31 \times 10^9 \mathrm{ Hz}
-\end{equation*}
-\begin{equation*}
-  \boxed{\Delta\nu_{\mathrm{Doppler}} \approx 1.31 \mathrm{ GHz}}
+  \frac{(\Delta\nu/2)^{2}}{2\sigma_D^{2}} = \ln 2
+  \quad\Longrightarrow\quad
+  \Delta\nu = 2\sqrt{2\ln 2}\,\sigma_D
 \end{equation*}
 
-Thanks to thermodynamic velocity profiles, typical low-pressure gas lasers experience inhomogeneous line smearing on the order of gigahertz, making $\Delta\nu_{\mathrm{Doppler}}$ fundamentally wider than the natural homogeneous line lifetime broadening limit.
+\begin{equation*}
+  \boxed{\Delta\nu = \sqrt{8\ln 2}\,\sigma_D.}
+\end{equation*}
+
+\textbf{Part (b): He-Ne laser at $T = 300$\,K.}
+
+For the $\lambda_o = 0.6328\,\mu$m transition of Ne with $M = 20\times1.66\times10^{-27} = 3.32\times10^{-26}$\,kg:
+
+\begin{equation*}
+  \sigma_D = \frac{1}{\lambda_o}\sqrt{\frac{k_BT}{M}}
+  = \frac{1}{0.6328\times10^{-6}}\sqrt{\frac{1.381\times10^{-23}\times300}{3.32\times10^{-26}}}
+  = 5.58\times10^{8}\;\text{Hz}.
+\end{equation*}
+
+\begin{equation*}
+  \boxed{\Delta\nu = \sqrt{8\ln 2}\times5.58\times10^{8} \approx 1.314\;\text{GHz}.}
+\end{equation*}
+
+This GHz-scale linewidth is much wider than the natural (Lorentzian) linewidth, confirming that room-temperature He-Ne is dominated by inhomogeneous Doppler broadening.
 
 % ============================================================================
 
@@ -363,58 +298,55 @@ at the central (resonance) frequency $\nu_{o}\equiv(E_{2}-E_{1})/h$. Under which
 this absorption cross section maximum? Find an expression of this maximum.
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 6}
-% ============================================================================
-
-This question touches strictly on the foundational quantum uncertainty principle applied to photon emission. Atoms transition from Level 2 ($E_2$, lifetime $\tau_2$) to Level 1 ($E_1$, lifetime $\tau_1$). We must formally prove the energy linewidth $\Delta E_{\mathrm{ph}}$, dissect its implication, evaluate it against a true unbroken ground state, and finally extract the peak absorption cross-section condition.
-
-In fundamental quantum mechanics, it is fundamentally impossible to measure the exact energy of a state if that state only exists for a finite temporal lifetime $\tau$. Heisenberg’s famous relation dictates that $\Delta E \Delta t \ge h/4\pi$. Therefore, the absolute uncertainty in an electronic state’s energy is fundamentally tied exactly to how fast it decays.
+\bigskip
+\textbf{\large Solution --- Question 6}
 
 \medskip
-\textbf{1. Uncertainty in Photon Emission Energy}\quad
-By the uncertainty principle, the intrinsic energy uncertainty of any atomic state $i$ is constrained rigidly by its temporal lifetime $\tau_i$:
-\begin{equation*}
-  \Delta E_i = \frac{\hbar}{\tau_i} = \frac{h}{2\pi \tau_i}
-\end{equation*}
-When a transitional photon is emitted ($E_2 \to E_1$), the total photon energy uncertainty combines the independent energy uncertainties of both the upper and lower discrete levels:
-\begin{equation*}
-  \Delta E_{\mathrm{ph}} = \Delta E_1 + \Delta E_2
-\end{equation*}
-Substituting directly yields the exact natural linewidth equation:
-\begin{equation*}
-  \boxed{ \Delta E_{\mathrm{ph}} = \frac{h}{2\pi}\left( \frac{1}{\tau_1} + \frac{1}{\tau_2} \right) }
-\end{equation*}
-Dividing this entire equation by $h$ reveals the fundamental homogeneous spectral linewidth: $\Delta\nu = \frac{1}{2\pi}(1/\tau_1 + 1/\tau_2) = \frac{1}{2\pi\tau_1} + \frac{1}{2\pi\tau_2}$, i.e.\ the sum of the individual decay rates divided by $2\pi$. This conforms mathematically exactly with the uncertainty principle because the shorter the particle stays in a state, the blurrier its corresponding physical energy measurement must become.
+\textbf{Photon energy spread from energy-time uncertainty.}
 
-\medskip
-\textbf{2. Transition to Ground State}\quad
-If the lower level $E_1$ represents the absolute ground state, the electron lives there infinitely unless physically perturbed. By definition, $\tau_1 \to \infty$. Therefore, $1/\tau_1 \to 0$. The uncertainty collapses tightly to solely the variance inherent to the upper excited state:
+The energy-time form of the uncertainty principle states $\Delta E\cdot\tau \geq h/(2\pi)$. Each energy level $E_i$ has a finite lifetime $\tau_i$, giving it an energy uncertainty:
+
 \begin{equation*}
-  \boxed{\Delta E_{\mathrm{ph}} \to \frac{h}{2\pi \tau_2} }
+  \Delta E_2 = \frac{h}{2\pi\tau_2}, \qquad \Delta E_1 = \frac{h}{2\pi\tau_1}.
 \end{equation*}
 
-\medskip
-\textbf{3. Maximal Absorption Cross-Section}\quad
-The peak absorption cross-section fundamentally relates the macroscopic atomic transitions to the microscopic lineshape evaluated perfectly at resonance $\nu_o$. From the theoretical Einstein equations:
+The emitted photon energy spans from $E_{\mathrm{ph,min}} = (E_2 - \Delta E_2/2)-(E_1+\Delta E_1/2)$ to $E_{\mathrm{ph,max}} = (E_2+\Delta E_2/2)-(E_1-\Delta E_1/2)$, so the spread is:
+
 \begin{equation*}
-  \sigma(\nu_o) = A_{21} \frac{\lambda^2}{8\pi} g(\nu_o)
-\end{equation*}
-For a purely homogeneously broadened lifetime transition, the lineshape assumes a Lorentzian profile. Evaluated perfectly at resonance, $\max g(\nu) = 2/(\pi \Delta\nu)$. Substituting this in yields:
-\begin{equation*}
-  \sigma(\nu_o) = \frac{\lambda^2}{8\pi} A_{21} \frac{2}{\pi \Delta\nu} = \frac{\lambda^2}{4\pi^2} \frac{A_{21}}{\Delta\nu}
-\end{equation*}
-Under what conditions is this cross section an absolute mathematical maximum?
-The cross section maximizes when the total lineshape width $\Delta\nu$ is \emph{as narrow as physically possible}. This happens exclusively when the transition is \textbf{strictly homogeneously broadened by spontaneous emission only} (no Doppler broadening, no collisions, and no non-radiative decay mechanisms). In this perfect limit, the upper lifetime is purely radiative ($\tau_2 \to \tau_{\mathrm{rad}} = 1/A_{21}$), and the lower ground state has infinite life.
-Thus precisely, $\Delta\nu \to A_{21}/2\pi$. Substituting the strictly lowest frequency footprint back into the cross-section equation:
-\begin{equation*}
-  \sigma_{\mathrm{max}} = \frac{\lambda^2}{4\pi^2} \frac{A_{21}}{(A_{21}/2\pi)}
-\end{equation*}
-\begin{equation*}
-  \boxed{ \sigma_{\mathrm{max}} = \frac{\lambda^2}{2\pi} }
+  \boxed{\Delta E_{\mathrm{ph}} = \Delta E_2 + \Delta E_1 = \frac{h}{2\pi}\!\left(\frac{1}{\tau_1}+\frac{1}{\tau_2}\right).}
 \end{equation*}
 
-Ground state atoms feature theoretically limitless lifetime stability, narrowing their uncertainty limits massively. Subsequently, isolated purely-radiative absorbers exhibit a theoretical maximum light capture footprint fundamentally tied only to their squared operating wavelength!
+This is precisely the natural linewidth: the photon ``inherits'' the energy uncertainty of both levels involved in the transition, which is itself a statement of the energy-time uncertainty principle applied to the transition.
+
+\textbf{Ground-state lower level ($\tau_1 \to \infty$).}
+
+The ground state has infinite lifetime, $\Delta E_1 = 0$, so:
+
+\begin{equation*}
+  \Delta E_{\mathrm{ph}} = \frac{h}{2\pi\tau_2} \quad\Longrightarrow\quad \Delta\nu = \frac{1}{2\pi\tau_2}.
+\end{equation*}
+
+\textbf{Absorption cross section and its maximum.}
+
+At the resonance frequency $\nu_o = (E_2-E_1)/h$, the cross section is:
+
+\begin{equation*}
+  \sigma(\nu_o) = \frac{\lambda^{2}}{8\pi\tau}\,g_{\nu_o}(\nu_o).
+\end{equation*}
+
+For a Lorentzian with FWHM $\Delta\nu$, the peak value is $g_{\nu_o}(\nu_o) = 2/(\pi\Delta\nu)$, giving:
+
+\begin{equation*}
+  \sigma(\nu_o) = \frac{\lambda^{2}}{8\pi\tau}\cdot\frac{2}{\pi\Delta\nu} = \frac{\lambda^{2}}{4\pi^{2}\tau\Delta\nu}.
+\end{equation*}
+
+The cross section is maximised when the linewidth equals the natural linewidth $\Delta\nu = 1/(2\pi\tau)$:
+
+\begin{equation*}
+  \boxed{\sigma_{\mathrm{max}}(\nu_o) = \frac{\lambda^{2}}{4\pi^{2}\tau}\cdot 2\pi\tau = \frac{\lambda^{2}}{2\pi}.}
+\end{equation*}
+
+This ultimate limit is achieved only when no other broadening mechanism (Doppler, collisional) competes with the natural linewidth --- a condition met in cold, isolated atoms.
 
 % ============================================================================
 
@@ -428,55 +360,42 @@ $n=1.82$, and a FWHM $\Delta\nu=3\times10^{12}$\,Hz of the Lorentzian line-shape
 \end{enumerate}
 \end{question}
 
-% ============================================================================
-\subsection*{Solution to Question 7}
-% ============================================================================
-
-We are working with a homogeneous bulk medium possessing defined metrics: $\tau_r = \SI{230}{\micro\second}$, $\lambda_o = \SI{1.06}{\micro\meter}$, refractive index $n = 1.82$, and an isolated Lorentzian lineshape width $\Delta\nu = \SI{3e12}{\hertz}$. We are to calculate precisely the atomic cross-section at its resonant zenith, and then deduce how many atoms are required to form a massive $1.0\mathrm{ m}^{-1}$ macroscopic attenuation block.
-
-Absorption cross-section maps the "effective shadow area" an atom casts via the expression $\sigma(\nu_o) = \frac{\lambda^2}{8\pi n^2 \tau_r} g(\nu_o)$. The total macroscopic power attenuation parameter $\alpha$ is simply the individual atomic shadowy footprint geometrically scaled across the entire bulk atomic population difference $\Delta N$.
+\bigskip
+\textbf{\large Solution --- Question 7}
 
 \medskip
-\textbf{(a) Absorption Cross Section at $\lambda_o$}\quad
-A normalised Lorentzian profile peaks sharply exactly at resonant frequency $\nu_o$ yielding:
+\textbf{Part (a): Absorption cross section at resonance.}
+
+For a Lorentzian lineshape the cross section at the peak is $\sigma(\nu_o) = (\lambda^2/8\pi\tau_r)\,g_{\nu_o}(\nu_o)$ where $\lambda = \lambda_o/n$ is the in-medium wavelength and $g_{\nu_o}(\nu_o) = 2/(\pi\Delta\nu)$:
+
 \begin{equation*}
-  g(\nu_o) = \frac{2}{\pi \Delta\nu}
-\end{equation*}
-Applying our massive $3$ THz FWHM:
-\begin{equation*}
-  g(\nu_o) = \frac{2}{\pi (3 \times 10^{12} \mathrm{ Hz})} \approx 2.12 \times 10^{-13} \mathrm{ s}
-\end{equation*}
-Now, establishing the in-medium wavelength $\lambda = \lambda_o/n = 1.06/1.82 \approx 0.5824\,\mu\mathrm{m}$ and incorporating the exact cross-section equation:
-\begin{equation*}
-  \sigma(\nu_o) = \frac{\lambda^2}{8\pi\tau_r} g(\nu_o)
-\end{equation*}
-We aggressively substitute our entire operational stack of medium constraints:
-\begin{equation*}
-  \sigma(\nu_o) = \frac{(0.5824 \times 10^{-6})^2}{8\pi (230 \times 10^{-6})} \times (2.12 \times 10^{-13})
-\end{equation*}
-\begin{align*}
-  \sigma(\nu_o) &= \frac{3.39 \times 10^{-13}}{5.78 \times 10^{-3}} \times 2.12 \times 10^{-13} \\
-  &= (5.86 \times 10^{-11}) \times (2.12 \times 10^{-13})
-\end{align*}
-\begin{equation*}
-  \boxed{\sigma(\nu_o) \approx 1.24 \times 10^{-23} \mathrm{ m}^2}
+  \sigma(\nu_o) = \frac{3\lambda_o^{2}}{8\pi n^{2}\tau_r}\cdot\frac{2}{\pi\Delta\nu}
+  = \frac{3\lambda_o^{2}}{4\pi^{2}n^{2}\tau_r\Delta\nu}.
 \end{equation*}
 
-\medskip
-\textbf{(b) Total Required Population Density}\quad
-The macroscopic continuous loss $\alpha$ is defined formally as the cross-section interacting across the collective population pool $\Delta N$:
+Substituting $\lambda_o = 1.06\times10^{-6}$\,m, $n = 1.82$, $\tau_r = 230\times10^{-6}$\,s, $\Delta\nu = 3\times10^{12}$\,Hz:
+
 \begin{equation*}
-  \alpha(\nu_o) = \Delta N \cdot \sigma(\nu_o)
-\end{equation*}
-Rearranging strictly for density:
-\begin{equation*}
-  \Delta N = \frac{\alpha}{\sigma} = \frac{1.0 \mathrm{ m}^{-1}}{1.24 \times 10^{-23} \mathrm{ m}^2}
-\end{equation*}
-\begin{equation*}
-  \boxed{\Delta N \approx 8.06 \times 10^{22} \mathrm{ atoms/m}^3}
+  \sigma(\nu_o) = \frac{3\times(1.06\times10^{-6})^{2}}{4\pi^{2}\times(1.82)^{2}\times230\times10^{-6}\times3\times10^{12}}
 \end{equation*}
 
-The cross-section acts as the effective "capture net" each atom provides to sweeping photons. Generating a macroscopic 1.0 $\mathrm{m}^{-1}$ continuous signal drop requires densely packing roughly 80 trillion billion atoms specifically aligned with the lower state into every cubic meter block!
+\begin{equation*}
+  \boxed{\sigma(\nu_o) \approx 37.35\times10^{-24}\;\text{m}^{2} = 37.35\;\text{pm}^{2}.}
+\end{equation*}
+
+\textbf{Part (b): Required atomic density.}
+
+The Beer--Lambert attenuation constant relates to the cross section and atomic density by $\alpha = \sigma N_a$. Inverting:
+
+\begin{equation*}
+  N_a = \frac{\alpha}{\sigma} = \frac{1.0}{37.35\times10^{-24}}
+\end{equation*}
+
+\begin{equation*}
+  \boxed{N_a \approx 2.67\times10^{22}\;\text{m}^{-3}.}
+\end{equation*}
+
+For comparison, atmospheric gas densities are around $2.7\times10^{25}$\,m$^{-3}$, so only about 0.1\% of atoms need to be in this particular transition to produce 1\,m$^{-1}$ attenuation.
 
 % ============================================================================
 
@@ -494,78 +413,46 @@ of perfectly conducting metal.
 \end{enumerate}
 \end{question}
 
-% ============================================================================
-\subsection*{Formative Question -- Cavity Density of States}
-% ============================================================================
-
-We are mapping the massive theoretical density of trapped photon energy states $M(\nu)$ inherently locked inside a 3D resonant metal boundary cavity. Using zero-field metal boundary constraints, we trace acceptable spatial k-vectors, build a three-dimensional volume in geometric momentum space, extract spectral density, map it against probabilistic thermal mechanics (Bose-Einstein), and finally compress the entire process down to a 1D fiber-line waveguide parallel limit.
-
-In any standing wave cavity, waves cannot exist uniformly; rather, they form harmonic nodes precisely dictating that exactly an integer multiple of half-wavelengths must mathematically map across the specific dimensional bounds $L$. The number of modes $N$ within frequency $\nu$ equates exactly with the volumetric sphere mapped in continuous k-space.
+\bigskip
+\textbf{\large Solution --- Formative Question}
 
 \medskip
-\textbf{(a) 3D Optical Cavity Density of States}\quad
-For a simple standing cubic box of side limits $L$, the spatial electric field must fall continuously to 0 exactly upon the geometric walls. Consequently, allowed wavevectors are completely discretised:
+\textbf{Part (a): 3D density of states.}
+
+In a cubic cavity of side $L$, the conducting-wall boundary conditions enforce standing waves with integer half-wavelengths fitting along each axis: $k_x = n_x\pi/L$, $k_y = n_y\pi/L$, $k_z = n_z\pi/L$ with $n_x,n_y,n_z = 1,2,3,\ldots$\,. The dispersion relation $k = 2\pi\nu/c$ links the mode index magnitude $|\mathbf{n}| = kL/\pi = 2\nu L/c$ to the frequency. Counting all $(n_x,n_y,n_z)$ triples in the positive octant, and multiplying by 2 for the two electromagnetic polarisations:
+
 \begin{equation*}
-  k_x = m_1 \frac{\pi}{L}, \quad k_y = m_2 \frac{\pi}{L}, \quad k_z = m_3 \frac{\pi}{L}
-\end{equation*}
-where $m_1, m_2, m_3$ form exclusively positive integers.
-Because photons contain fundamentally two independent polarization spin directions per single mapped axial wavevector, we multiply the resultant geometric modal volumes by an exact factor of 2.
-The aggregate amount of states strictly inside a bounded spherical k-space radius $k$ scales rigidly with the total spherical volume encompassing one strict all-positive coordinate octant:
-\begin{equation*}
-  N(k) = 2 \times \left( \frac{1}{8} \cdot \frac{4\pi}{3} k^3 \right) \times \left(\frac{1}{(\pi/L)^3}\right)
-\end{equation*}
-Substituting exactly $k = 2\pi\nu/c$ mapping spatial vector into raw optical frequency domain:
-\begin{equation*}
-  N(\nu) = \frac{\pi}{3} \left( \frac{2\pi\nu}{c} \right)^3 \frac{L^3}{\pi^3} = \frac{\pi}{3} \frac{8\pi^3 \nu^3}{c^3} \frac{V}{\pi^3} = \frac{8\pi V}{3c^3} \nu^3
-\end{equation*}
-The raw "Density of States" $M(\nu)$ mathematically represents the absolute raw derivative of modes isolated strictly per discrete frequency band per unit geometric physical Volume ($V = L^3$):
-\begin{equation*}
-  M(\nu) = \frac{1}{V} \frac{dN(\nu)}{d\nu} = \frac{1}{V} \frac{d}{d\nu}\left[ \frac{8\pi V}{3c^3} \nu^3 \right]
-\end{equation*}
-\begin{equation*}
-  \boxed{ M(\nu) = \frac{8\pi \nu^2}{c^3} }
+  N(\nu) = 2\times\frac{1}{8}\times\frac{4\pi}{3}\left(\frac{2\nu L}{c}\right)^{\!3}
+  = \frac{8\pi\nu^{3}L^{3}}{3c^{3}}.
 \end{equation*}
 
-\medskip
-\textbf{(b) Radiant Energy Equation}\quad
-The total spatial energy density precisely incorporates: 
-1. Density of the structural modes isolated per unit frequency ($M(\nu)$).
-2. The fundamental probability expectation distribution representing how heavily packed these modes strictly are by photons ($f(\nu)$).
-3. The raw standalone discrete energy carried physically by one photon footprint ($h\nu$).
-\begin{equation*}
-  \rho_\nu = M(\nu) \cdot f(\nu) \cdot h\nu
-\end{equation*}
-Substituting perfectly the geometric states against the Bose-Einstein thermodynamic thermal statistic requirement:
-\begin{equation*}
-  \boxed{ \rho_\nu = \frac{8\pi \nu^2}{c^3} \left( \frac{1}{e^{h\nu/k_B T}-1} \right) h\nu = \frac{8\pi h \nu^3}{c^3} \frac{1}{e^{h\nu/k_B T}-1} }
-\end{equation*}
-This perfectly equates entirely to the historic Planck Blackbody mathematical law!
+Differentiating with respect to $\nu$ and dividing by the volume $L^3$:
 
-\medskip
-\textbf{(c) 1D Optical Cavity Limitation}\quad
-Compressing physics directly down to an elongated 1D bounded box parameter scale, allowed trapped vectors exist precisely against only a singular axis vector:
 \begin{equation*}
-  k = m_1 \frac{\pi}{L}
-\end{equation*}
-The full sum of modal integers occurring structurally beneath a set wavevector $k$ forms straightly:
-\begin{equation*}
-  N(k) = 2 \times \frac{k}{\pi/L}
-\end{equation*}
-Substituting $k = 2\pi\nu/c$:
-\begin{equation*}
-  N(\nu) = 2 \times \frac{2\pi\nu/c}{\pi/L} = \frac{4L\nu}{c}
-\end{equation*}
-The resultant 1D density metric evaluated isolated per strict 1D unit absolute length $L$ yields:
-\begin{equation*}
-  M_{1D}(\nu) = \frac{1}{L} \frac{dN(\nu)}{d\nu} = \frac{1}{L} \frac{d}{d\nu}\left[ \frac{4L\nu}{c} \right]
-\end{equation*}
-\begin{equation*}
-  \boxed{ M_{1D}(\nu) = \frac{4}{c} }
-\end{equation*}
-Notice beautifully that the 1D density limit operates entirely independent of raw spatial frequency mapping, compared against 3D which inherently mathematically swells proportionally against $\nu^2$. The respective 1D bounded line energy profile evaluates smoothly to:
-\begin{equation*}
-  \boxed{ \rho_{\nu,1D} = \frac{4h\nu}{c (e^{h\nu/k_B T}-1)} }
+  \boxed{M(\nu) = \frac{1}{L^3}\frac{dN}{d\nu} = \frac{8\pi\nu^{2}}{c^{3}}.}
 \end{equation*}
 
-Confining radiation spatially structures energy entirely uniquely; 3D open metal vacuums naturally mathematically construct Planck radiation footprints expanding with frequency variance, while rigid absolute localized 1D string confinements uniformly lock spectral trapping strictly to a constant base.
+\textbf{Part (b): Average energy density (3D).}
 
+Each mode holds on average $f(\nu) = 1/(e^{h\nu/k_BT}-1)$ photons of energy $h\nu$. The average energy per unit volume per unit frequency is:
+
+\begin{equation*}
+  \boxed{\xi(\nu) = M(\nu)\cdot h\nu\cdot f(\nu) = \frac{8\pi h\nu^{3}}{c^{3}}\cdot\frac{1}{e^{h\nu/k_BT}-1}.}
+\end{equation*}
+
+This is precisely the Planck blackbody spectral energy density, confirming that the mode-counting approach reproduces classical radiation theory.
+
+\textbf{Part (c): 1D cavity.}
+
+For a 1D cavity of length $L$, modes satisfy $k_n = n\pi/L$ with $n = 1,2,\ldots$\,. Since $k = 2\pi\nu/c$, the mode index is $n_\nu = 2\nu L/c$. Including two polarisations, the number of modes with frequency $<\nu$ is $N_{1\mathrm{D}}(\nu) = 2\times 2\nu L/c = 4\nu L/c$.
+
+\begin{equation*}
+  \boxed{M_{1\mathrm{D}}(\nu) = \frac{1}{L}\frac{dN_{1\mathrm{D}}}{d\nu} = \frac{4}{c}.}
+\end{equation*}
+
+The mode density is uniform in frequency --- a flat spectrum, unlike the $\nu^2$ growth in 3D. The corresponding energy density per unit length per unit frequency is:
+
+\begin{equation*}
+  \xi_{1\mathrm{D}}(\nu) = M_{1\mathrm{D}}(\nu)\cdot h\nu\cdot f(\nu)
+  = \frac{4h\nu}{c}\cdot\frac{1}{e^{h\nu/k_BT}-1}.
+\end{equation*}

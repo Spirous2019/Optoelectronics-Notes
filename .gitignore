@@ -42,6 +42,7 @@ Thumbs.db
 
 ## Ignore temporary plot outputs:
 Complete_Study_Notes/Plots/**/*.jpg
+Complete_Sheets_Solutions/Plots/**/*.jpg
 
 ## Ignore temporary workspace folders
 TEMP/

@@ -1315,34 +1315,34 @@ Let us define the operational parameters:
 
 Because the atom is moving relative to the incoming source wave, it perceives an inherent Doppler shift. The exact Doppler relation between the required source frequency ($\nu_{\text{res}}$) and the fixed atomic resonance ($\nu_0$) is:
 \begin{equation*}
-    \nu_{\text{res}} = \nu_0 \left(1 - \frac{V}{c_0}\right)^{-1}\!\left(1 - \frac{V^2}{c_0^2}\right)^{1/2}
+    \nu_{\text{res}} = \nu_0 \left(1 - \frac{V}{c}\right)^{-1}\!\left(1 - \frac{V^2}{c^2}\right)^{1/2}
 \end{equation*}
 
-Since thermal gas velocities are far below the speed of light ($V \ll c_0$), we simplify this exact formula using a first-order Taylor expansion in $x = V/c_0 \ll 1$. We treat the two factors separately:
+Since thermal gas velocities are far below the speed of light ($V \ll c$), we simplify this exact formula using a first-order Taylor expansion in $x = V/c \ll 1$. We treat the two factors separately:
 \begin{itemize}
-    \item \textbf{The first factor:} $\left(1 - V/c_0\right)^{-1}$ — applying the standard approximation $(1-x)^{-1} \approx 1 + x$ yields $1 + V/c_0$.
-    \item \textbf{The second factor:} $\left(1 - V^2/c_0^2\right)^{1/2}$ — the term $V^2/c_0^2$ is purely second-order. Therefore, to first order, this entire factor simply evaluates to $1$ and drops out.
+    \item \textbf{The first factor:} $\left(1 - V/c\right)^{-1}$ — applying the standard approximation $(1-x)^{-1} \approx 1 + x$ yields $1 + V/c$.
+    \item \textbf{The second factor:} $\left(1 - V^2/c^2\right)^{1/2}$ — the term $V^2/c^2$ is purely second-order. Therefore, to first order, this entire factor simply evaluates to $1$ and drops out.
 \end{itemize}
 
 Multiplying the two remaining factors back together:
 \begin{equation*}
-    \nu_{\text{res}} \approx \nu_0 \cdot \left[1 + \frac{V}{c_0}\right] \cdot [1]
+    \nu_{\text{res}} \approx \nu_0 \cdot \left[1 + \frac{V}{c}\right] \cdot [1]
 \end{equation*}
 
 This neatly isolates the final non-relativistic Doppler shift equation:
 
 \begin{keyresult}
 \begin{equation}
-    \nu_{\text{res}} = \nu_0\!\left(1 + \frac{V}{c_0}\right)
+    \nu_{\text{res}} = \nu_0\!\left(1 + \frac{V}{c}\right)
 \end{equation}
 \end{keyresult}
 
-The result $\nu_{\text{res}} = \nu_0(1 + V/c_0)$ has a direct physical reading. The correction factor $V/c_0$ specifies by exactly what fraction the source frequency must depart from $\nu_0$ to account for the atom's motion:
+The result $\nu_{\text{res}} = \nu_0(1 + V/c)$ has a direct physical reading. The correction factor $V/c$ specifies by exactly what fraction the source frequency must depart from $\nu_0$ to account for the atom's motion:
 \begin{itemize}
-    \item \textbf{$V > 0$ — atom moving away from the source:} The atom is fleeing the incoming wave, so the crests chase it and arrive at its location less frequently than they are emitted — the atom perceives a \textbf{red-shift}, a lower frequency than what the source emits. For the atom to still perceive exactly $\nu_0$ despite this downward distortion, the source must transmit at a frequency \emph{above} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c_0) > \nu_0$.
-    \item \textbf{$V < 0$ — atom moving toward the source:} The atom is running into the incoming wave, so the crests pile up and arrive more frequently — the atom perceives a \textbf{blue-shift}, a higher frequency than what the source emits. For the atom to perceive exactly $\nu_0$ despite this upward distortion, the source must transmit at a frequency \emph{below} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c_0) < \nu_0$.
+    \item \textbf{$V > 0$ — atom moving away from the source:} The atom is fleeing the incoming wave, so the crests chase it and arrive at its location less frequently than they are emitted — the atom perceives a \textbf{red-shift}, a lower frequency than what the source emits. For the atom to still perceive exactly $\nu_0$ despite this downward distortion, the source must transmit at a frequency \emph{above} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c) > \nu_0$.
+    \item \textbf{$V < 0$ — atom moving toward the source:} The atom is running into the incoming wave, so the crests pile up and arrive more frequently — the atom perceives a \textbf{blue-shift}, a higher frequency than what the source emits. For the atom to perceive exactly $\nu_0$ despite this upward distortion, the source must transmit at a frequency \emph{below} $\nu_0$. The formula confirms this: $\nu_{\text{res}} = \nu_0(1 + V/c) < \nu_0$.
 \end{itemize}
-In both cases, the factor $(1 + V/c_0)$ in the formula automatically encodes the required adjustment — it shifts the firing frequency by precisely the amount needed so that the atom, despite its kinematic frequency distortion, perceives exactly its resonance $\nu_0$.
+In both cases, the factor $(1 + V/c)$ in the formula automatically encodes the required adjustment — it shifts the firing frequency by precisely the amount needed so that the atom, despite its kinematic frequency distortion, perceives exactly its resonance $\nu_0$.
 
 \begin{figure}[H]
     \centering
@@ -1360,9 +1360,9 @@ A stationary, lifetime-limited atom exhibits a purely Lorentzian line shape cent
     g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\right)^2}
 \end{equation*}
 
-When the atom moves with velocity $V$, its perceived resonance centre shifts from $\nu_0$ to $\nu_{\text{res}} = \nu_0(1 + V/c_0)$, as we just derived. Crucially, the Lorentzian shape and its linewidth $\Delta\nu$ are completely unchanged by the motion — only the centre frequency relocates:
+When the atom moves with velocity $V$, its perceived resonance centre shifts from $\nu_0$ to $\nu_{\text{res}} = \nu_0(1 + V/c)$, as we just derived. Crucially, the Lorentzian shape and its linewidth $\Delta\nu$ are completely unchanged by the motion — only the centre frequency relocates:
 \begin{equation*}
-    g_{\nu_{\text{res}}}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1 + \dfrac{V}{c_0}\right]\right)^2}
+    g_{\nu_{\text{res}}}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1 + \dfrac{V}{c}\right]\right)^2}
 \end{equation*}
 
 This fully characterises the absorption profile of one atom moving at a fixed velocity $V$. In a real gas, however, no two atoms share the same velocity. Each atom has its own $V$, drawn from a thermal distribution, and therefore its own shifted Lorentzian centred at a slightly different frequency. The total absorption profile of the gas emerges from overlaying all of those shifted Lorentzians simultaneously — each one weighted by the probability that the gas actually hosts an atom moving at that particular velocity. Each atom's contribution to the total profile is therefore its shifted Lorentzian multiplied by the probability density of its velocity. The effective ensemble line shape $\bar{g}(\nu)$ is the continuous weighted average:
@@ -1398,7 +1398,7 @@ This distribution is perfectly normalised to unity ($\int_{-\infty}^{\infty} f_V
 
 We now substitute the explicit forms of both the shifted Lorentzian $g_{\nu_{\text{res}}}(\nu)$ and the thermal Gaussian $f_V(V)$ directly into the weighted average integral:
 \begin{equation}
-    \bar{g}(\nu) = \int_{-\infty}^{\infty} \left[ \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1+\dfrac{V}{c_0}\right]\right)^2} \right] \cdot \left[ \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) \right] dV \tag{I}
+    \bar{g}(\nu) = \int_{-\infty}^{\infty} \left[ \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0\!\left[1+\dfrac{V}{c}\right]\right)^2} \right] \cdot \left[ \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) \right] dV \tag{I}
 \end{equation}
 
 This integral represents the mathematical \textbf{convolution of a Lorentzian and a Gaussian}. The resulting distribution is known as a \textbf{Voigt profile}. 
@@ -1429,12 +1429,12 @@ Now let's consider the opposite extreme. When the temperature of the gas is very
 
 The mathematical condition defining this extreme regime is:
 \begin{equation*}
-    \frac{\nu_0}{c_0}\sigma_V \gg \Delta\nu
+    \frac{\nu_0}{c}\sigma_V \gg \Delta\nu
 \end{equation*}
 
 It is crucial to explicitly unpack what this inequality represents:
 \begin{itemize}
-    \item \textbf{Where it came from:} We established that an atomic velocity $V$ induces a Doppler frequency shift of $\nu_0 \frac{V}{c_0}$. Because the thermal velocities within the gas are statistically distributed with a standard deviation $\sigma_V$, the resulting Doppler shifts intrinsically inherit a standard deviation of $\frac{\nu_0}{c_0}\sigma_V$. The left side therefore quantifies the macroscopic Doppler frequency spread across the entire gas ensemble.
+    \item \textbf{Where it came from:} We established that an atomic velocity $V$ induces a Doppler frequency shift of $\nu_0 \frac{V}{c}$. Because the thermal velocities within the gas are statistically distributed with a standard deviation $\sigma_V$, the resulting Doppler shifts intrinsically inherit a standard deviation of $\frac{\nu_0}{c}\sigma_V$. The left side therefore quantifies the macroscopic Doppler frequency spread across the entire gas ensemble.
     \item \textbf{The Physical Meaning:} This inequality formally compares two fundamentally distinct broadening mechanisms: the macroscopic Doppler spread of the gas ensemble (left) and the intrinsic natural linewidth of a single atom (right). Enforcing this condition defines a high-temperature regime where the thermal velocity distribution completely dominates the absorption profile. In this limit, the underlying Lorentzian width of any individual atom is rendered physically negligible.
     \item \textbf{The Mathematical Target:} The general line shape is a complex Voigt convolution lacking a closed-form solution. This extreme condition rigorously justifies taking the limit $\Delta\nu \to 0$. Collapsing the underlying Lorentzian into a Dirac delta function allows the intractable integral to instantly evaluate into a simple, closed-form Gaussian formula.
 \end{itemize}
@@ -1448,21 +1448,21 @@ This identity tells us that when the width $\epsilon$ of a Lorentzian goes to ze
 To apply this, we first rewrite our single-atom Lorentzian $g_{\nu_\text{res}}(\nu)$ in a form that matches the left-hand side. We factor out $1/\pi$:
 \begin{equation*}
     g_{\nu_\text{res}}(\nu)
-    = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c_0}\right)^2}
-    = \frac{1}{\pi}\cdot\frac{\Delta\nu/2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c_0}\right)^2}
+    = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c}\right)^2}
+    = \frac{1}{\pi}\cdot\frac{\Delta\nu/2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\dfrac{V}{c}\right)^2}
 \end{equation*}
 
-We can now directly read off the correspondence with the Cauchy limit: set $\epsilon = \Delta\nu/2$ (the half-linewidth) and $x = \nu - \nu_0 - \nu_0 V/c_0$ (the frequency detuning from the atom's shifted resonance). Substituting these into the Cauchy limit as $\epsilon = \Delta\nu/2 \to 0$:
+We can now directly read off the correspondence with the Cauchy limit: set $\epsilon = \Delta\nu/2$ (the half-linewidth) and $x = \nu - \nu_0 - \nu_0 V/c$ (the frequency detuning from the atom's shifted resonance). Substituting these into the Cauchy limit as $\epsilon = \Delta\nu/2 \to 0$:
 \begin{equation*}
-    \lim_{\Delta\nu \to 0} g_{\nu_\text{res}}(\nu) = \frac{1}{\pi} \cdot \pi\,\delta(x) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
+    \lim_{\Delta\nu \to 0} g_{\nu_\text{res}}(\nu) = \frac{1}{\pi} \cdot \pi\,\delta(x) = \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c}\right)
 \end{equation*}
 
-This mathematical result perfectly encodes our high-temperature physical simplification. By forcing the internal natural linewidth to zero, we are mathematically modelling each individual atom as an idealized, infinitely selective receiver. An atom travelling at velocity $V$ will now absorb incoming light exclusively at its precise Doppler-shifted resonance, $\nu_0(1 + V/c_0)$, and will remain completely transparent to all other frequencies. Its absorption profile has effectively collapsed from a continuous smeared curve into one perfectly sharp, singular frequency spike.
+This mathematical result perfectly encodes our high-temperature physical simplification. By forcing the internal natural linewidth to zero, we are mathematically modelling each individual atom as an idealized, infinitely selective receiver. An atom travelling at velocity $V$ will now absorb incoming light exclusively at its precise Doppler-shifted resonance, $\nu_0(1 + V/c)$, and will remain completely transparent to all other frequencies. Its absorption profile has effectively collapsed from a continuous smeared curve into one perfectly sharp, singular frequency spike.
 
 We now substitute this delta function approximation back into our general ensemble integral \textup{(I)}, replacing the full Lorentzian with the spike:
 \begin{equation*}
     \bar{g}(\nu)
-    = \int_{-\infty}^{\infty} \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c_0}\right)
+    = \int_{-\infty}^{\infty} \delta\!\left(\nu - \nu_0 - \nu_0\frac{V}{c}\right)
     \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) dV
 \end{equation*}
 
@@ -1474,35 +1474,35 @@ The sifting (or sampling) property is the defining characteristic of the Dirac d
 Because the delta function is strictly zero everywhere except at exactly $x = x_0$, the integral destroys the entire continuum of $f(x)$ except for that one single point. It ``sifts'' through the function to pull out the exact target value $f(x_0)$, collapsing the integral into a simple algebraic substitution.
 \end{keyinsight}
 
-The delta function's argument in our integral currently contains the integration variable $V$ multiplied by a constant coefficient $\left(\frac{\nu_0}{c_0}\right)$. While the sifting property could technically be applied directly using the formal scaling identity $\delta(aV) = \frac{1}{|a|}\delta(V)$, it is mathematically cleaner to simply change variables to clear the coefficient. Let us define a new dummy integration variable $u$:
+The delta function's argument in our integral currently contains the integration variable $V$ multiplied by a constant coefficient $\left(\frac{\nu_0}{c}\right)$. While the sifting property could technically be applied directly using the formal scaling identity $\delta(aV) = \frac{1}{|a|}\delta(V)$, it is mathematically cleaner to simply change variables to clear the coefficient. Let us define a new dummy integration variable $u$:
 \begin{equation*}
-    u \equiv \frac{\nu_0}{c_0}\,V \quad\Longrightarrow\quad V = \frac{c_0}{\nu_0}\,u \quad\text{and}\quad dV = \frac{c_0}{\nu_0}\,du
+    u \equiv \frac{\nu_0}{c}\,V \quad\Longrightarrow\quad V = \frac{c}{\nu_0}\,u \quad\text{and}\quad dV = \frac{c}{\nu_0}\,du
 \end{equation*}
 
-Since $\nu_0$ and $c_0$ are strictly positive constants, the limits of integration are unchanged ($V: -\infty \to \infty$ maps cleanly to $u: -\infty \to \infty$). Substituting both $V = \frac{c_0}{\nu_0}u$ and $dV = \frac{c_0}{\nu_0}du$ into the integral yields:
+Since $\nu_0$ and $c$ are strictly positive constants, the limits of integration are unchanged ($V: -\infty \to \infty$ maps cleanly to $u: -\infty \to \infty$). Substituting both $V = \frac{c}{\nu_0}u$ and $dV = \frac{c}{\nu_0}du$ into the integral yields:
 \begin{equation*}
     \bar{g}(\nu)
     = \int_{-\infty}^{\infty} \delta(\nu - \nu_0 - u)
-    \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{u^2 c_0^2}{2\sigma_V^2\nu_0^2}\right) \frac{c_0}{\nu_0}\,du
+    \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{u^2 c^2}{2\sigma_V^2\nu_0^2}\right) \frac{c}{\nu_0}\,du
 \end{equation*}
 
 Because the delta function is perfectly symmetric ($\delta(-y) = \delta(y)$), our term $\delta(\nu - \nu_0 - u)$ is mathematically identical to $\delta(u - (\nu - \nu_0))$. It therefore acts as a pure sifting function triggering exactly at $u = \nu - \nu_0$. By applying the sifting property, we pick out precisely this corresponding value of $u$ from the remaining exponential integrand, causing the integral to structurally collapse:
 \begin{equation*}
-    \bar{g}(\nu) = \frac{c_0}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{(\nu-\nu_0)^2 c_0^2}{2\sigma_V^2\nu_0^2}\right)
+    \bar{g}(\nu) = \frac{c}{\nu_0} \cdot \frac{1}{\sqrt{2\pi}\,\sigma_V}\exp\!\left(-\frac{(\nu-\nu_0)^2 c^2}{2\sigma_V^2\nu_0^2}\right)
 \end{equation*}
 
-This expression already is a Gaussian, but it doesn't look like one yet because the constants are scattered. Let's group them. We pull the $c_0/\nu_0$ factor into the denominator under the square root:
+This expression already is a Gaussian, but it doesn't look like one yet because the constants are scattered. Let's group them. We pull the $c/\nu_0$ factor into the denominator under the square root:
 \begin{equation*}
     \bar{g}(\nu)
-    = \frac{1}{\sqrt{2\pi}\!\left(\dfrac{\nu_0}{c_0}\sigma_V\right)}
-    \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\!\left(\dfrac{\nu_0}{c_0}\sigma_V\right)^2}\right)
+    = \frac{1}{\sqrt{2\pi}\!\left(\dfrac{\nu_0}{c}\sigma_V\right)}
+    \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\!\left(\dfrac{\nu_0}{c}\sigma_V\right)^2}\right)
 \end{equation*}
 
-This equation is mathematically a perfect Gaussian, centered at $\nu_0$, whose standard deviation is exactly the grouped term $\frac{\nu_0}{c_0}\sigma_V$. We formally define this term as the \textbf{Doppler broadening parameter}, $\sigma_D$, allowing us to write the final ensemble line shape in its cleanest form:
+This equation is mathematically a perfect Gaussian, centered at $\nu_0$, whose standard deviation is exactly the grouped term $\frac{\nu_0}{c}\sigma_V$. We formally define this term as the \textbf{Doppler broadening parameter}, $\sigma_D$, allowing us to write the final ensemble line shape in its cleanest form:
 \begin{keyresult}
 \begin{gather}
     \bar{g}(\nu) = \frac{1}{\sqrt{2\pi}\,\sigma_D}\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right) \qquad \text{(Gaussian)} \\[1ex]
-    \sigma_D = \frac{\nu_0}{c_0}\,\sigma_V \nonumber
+    \sigma_D = \frac{\nu_0}{c}\,\sigma_V \nonumber
 \end{gather}
 \end{keyresult}
 where $\sigma_D$ operates as the standard deviation of the macroscopic absorption profile in frequency units. It quantifies how significantly the Doppler shifts spread the gas's overall absorption spectrum by scaling the previously defined underlying thermal velocity spread, $\sigma_V = \sqrt{k_BT/m}$.
