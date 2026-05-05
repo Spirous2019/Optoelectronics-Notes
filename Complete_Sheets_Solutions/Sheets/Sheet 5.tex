@@ -7,10 +7,8 @@
 Find an expression of electron and hole concentrations per unit energy $n(E)$ and $p(E)$ in bulk semiconductors. Sketch these concentrations as a function of energy. Derive an expression of the energies at which they attain their peak values in the case of non-degenerate semiconductors. Find the photon wavelength corresponding to radiative transition between these peaks in GaAs ($E_g = 1.42$ eV) at room temperature. Is this transition possible? Explain. Find the ratio of carrier concentration at $2K_BT$ from the band edge to the peak concentration.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 1}
 
-\medskip
 \textbf{Carrier concentrations per unit energy.}
 
 The density of states for electrons in the conduction band and holes in the valence band are given by:
@@ -105,10 +103,8 @@ The ratio of the carrier concentration at an energy $2k_B T$ from the band edge 
 When $E - E_f \gg k_B T$, the Fermi function $f(E)$ may be approximated by an exponential function (Boltzman distribution). Similarly, when $E_f - E \gg k_B T$, $1 - f(E)$ may be approximated by an exponential function. These conditions apply in non-degenerate semiconductors where the Fermi level lies within the bandgap, but away from its edges by an energy of at least several times $k_B T$ (at room temperature $k_B T = 0.026$ eV, whereas $E_g = 1.11$ eV in Si and 1.42 eV in GaAs). Using these approximations, which apply for both intrinsic and doped semiconductors, show that $n = \int_{E_c}^\infty n(E) dE$ and $p = \int_{-\infty}^{E_v} p(E) dE$ gives $n = N_c \exp\left(-\frac{E_c - E_f}{k_B T}\right)$, $p = N_v \exp\left(-\frac{E_f - E_v}{k_B T}\right)$, and $np = N_c N_v \exp\left(-\frac{E_g}{k_B T}\right)$ where $N_c = 2(2\pi m_e^* k_B T/h^2)^{3/2}$ and $N_v = 2(2\pi m_h^* k_B T/h^2)^{3/2}$. Verify that if $E_f$ is closer to the conduction band edge and $m_e^* = m_h^*$, then $n > p$ whereas if it is closer to the valence band edge, then $p > n$.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 2}
 
-\medskip
 \textbf{Total carrier concentrations.}
 
 The total electron concentration is the integral of the concentration per unit energy over the entire conduction band:
@@ -167,10 +163,8 @@ Given the expressions for the thermal equilibrium carrier concentrations in the 
 (Hint: $N_c = 2(2\pi m_e^* k_B T/h^2)^{3/2}$ and $N_v = 2(2\pi m_h^* k_B T/h^2)^{3/2}$ are the effective densities of states of the conduction and valence bands, respectively)
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 3}
 
-\medskip
 \textbf{(a) Intrinsic Fermi level.}
 
 For an intrinsic semiconductor, the electron and hole concentrations are perfectly balanced ($n = p$). Equating our derived expressions:
@@ -220,10 +214,8 @@ Taking the natural logarithm to extract the Fermi level:
 (b) Show that these equations are approximately applicable at an arbitrary temperature $T$ if $n$ and $p$ are sufficiently large so that $E_{fc} - E_c \gg k_B T$ and $E_v - E_{fv} \gg k_B T$, i.e., if the quasi-Fermi levels lie deeply within the conduction and valence bands.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 4}
 
-\medskip
 \textbf{(a) Quasi-Fermi levels at absolute zero.}
 
 In a heavily degenerate semiconductor at $T=0$\,K, the Fermi-Dirac integral reduces to a simple polynomial function since the occupation probability behaves as an abrupt step function. Using the formal relation from Question 2:
@@ -265,13 +257,11 @@ If the semiconductor is highly degenerate at an arbitrary temperature $T$, meani
   \centering
   \includegraphics[width=\linewidth]{../Figures/Sheet 5/q5.jpg}
 \end{wrapfigure}
-Consider the unlikely event of phonon-assisted emission in silicon. A photon is emitted by (a) absorbing or (b) emitting a longitudinal-acoustic (LA) phonon of energy 30 meV. Calculate the wavelength of the emitted photon and the momentum of the LA phonon in both cases (a) and (b). Calculate the difference between the wavelengths of the emitted photons in the two cases. Assume that the energy gap of silicon is $E_g = 1.1$ eV, the lattice constant $a = 5.43$ \AA, and that the minimum of the conduction band at the X point is approximately $(k_x = 2\pi/a, k_y = 0, k_z = 0)$.\par\vspace{2cm}
+Consider the unlikely event of phonon-assisted emission in silicon. A photon is emitted by (a) absorbing or (b) emitting a longitudinal-acoustic (LA) phonon of energy 30 meV. Calculate the wavelength of the emitted photon and the momentum of the LA phonon in both cases (a) and (b). Calculate the difference between the wavelengths of the emitted photons in the two cases. Assume that the energy gap of silicon is $E_g = 1.1$ eV, the lattice constant $a = 5.43$ \AA, and that the minimum of the conduction band at the X point is approximately $(k_x = 2\pi/a, k_y = 0, k_z = 0)$.\rule{0pt}{4cm}
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 5}
 
-\medskip
 \textbf{Energy and momentum balances.}
 
 In an indirect bandgap semiconductor like silicon, radiative transitions require the participation of a phonon to conserve momentum. The minimum of the conduction band sits at $k_x = 2\pi/a$, while the valence band maximum is at $k = 0$. The necessary momentum exchange with the lattice must be provided by the phonon:
@@ -337,10 +327,8 @@ The difference between the two emitted wavelengths represents the substantial sp
 (b) For a semiconductor in quasi-equilibrium ($E_{fc} \neq E_{fv}$), with radiative transitions occurring between a conduction-band state of energy $E_2$, and a valence-band state of energy $E_1$ with the same $k$, show that emission is more likely than absorption if the separation between the quasi-Fermi levels is larger than the photon energy, i.e., if $E_{fc} - E_{fv} > h\nu$. What does this condition imply about the locations of $E_{fc}$ relative to $E_c$, and $E_{fv}$ relative to $E_v$?
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 6}
 
-\medskip
 \textbf{(a) Thermal equilibrium limits.}
 
 The net gain probability function is the difference between the probability of emission and the probability of absorption. Under thermal equilibrium conditions ($E_{fc} = E_{fv} = E_f$):
@@ -395,10 +383,8 @@ Physically, this condition demands that the quasi-Fermi separation exceed the ba
 Determine the free-space wavelength $\lambda_p$, at which the band-to-band absorption coefficient of a semiconductor in thermal equilibrium is maximum. Calculate the value of $\lambda_p$, for GaAs. Assume that $\tau_r = 0.4$ ns, $n = 3.6$, $m_e^* = 0.07 m_o$, $m_h^* = 0.5 m_o$, and $E_g = 1.42$ eV. Note that this result applies only to absorption by direct band-to-band transitions.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 7}
 
-\medskip
 The absorption coefficient $\alpha(\nu)$ for direct band-to-band transitions is proportional to the joint density of states $\rho_j(\nu)$ and inversely proportional to the square of the optical frequency:
 
 \begin{equation*}
@@ -453,10 +439,8 @@ An important effect of heavy doping is the narrowing of the bandgap. This can ha
 where $T$ is the temperature in Kelvin. This expression gives reasonable agreement with experiments at low doping levels. At high doping levels it over-estimates the bandgap narrowing. However, due to its simplicity we may use it to get an estimate of the bandgap narrowing. Use this expression to find the maximum wavelength of the photons that may be absorbed by an N-type silicon at room temperature at a donor concentration of $10^{18}$ cm$^{-3}$, $10^{19}$ cm$^{-3}$, and $10^{20}$ cm$^{-3}$.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 8}
 
-\medskip
 At room temperature ($T = 300$\,K), the temperature-dependent factor simplifies to unity. The effective bandgap $E_g$ of the heavily doped silicon is the original undoped bandgap ($E_{g_o} \approx 1.10$\,eV for Si at 300\,K) minus the narrowing magnitude:
 
 \begin{equation*}
@@ -502,10 +486,8 @@ This demonstrates that heavier doping causes the absorption edge to shift signif
 (b) Consider an InGaAsP SOA with an energy gap, $E_g = 0.95$ eV, a refractive index, $n = 3.5$, and a spontaneous emission lifetime, $\tau_{sp} = 2.5$ ns, at room temperature ($T = 300$ K). Calculate the amplifier bandwidth (in nanometers) under steady-state excess-carrier concentration, $\Delta n = 1.8 \times 10^{18}$ cm$^{-3}$.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 9}
 
-\medskip
 \textbf{(a) Amplifier bandwidth expression.}
 
 The gain coefficient $\gamma(\nu)$ is positive only when the Fermi inversion factor $f_g(\nu)$ is positive. This requires the photon energy $h\nu$ to be smaller than the quasi-Fermi level separation (the Bernard-Duraffourg condition). Furthermore, band-to-band transitions only exist for photon energies above the bandgap. Therefore, the frequency range that experiences optical gain is bounded by:
@@ -594,10 +576,8 @@ Assume that electron-hole pairs are injected into n-type GaAs ($E_g = 1.42$ eV, 
 (d) The separation between the quasi-Fermi levels $E_{fc} - E_{fv}$, assuming that $T = 0$ K.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 10}
 
-\medskip
 \textbf{(a) Equilibrium hole concentration.}
 
 We first evaluate the effective density of states for both the conduction and valence bands. Utilizing the standard expressions and converting the effective masses to kilograms ($m_o = 9.1 \times 10^{-31}$\,kg):
@@ -692,10 +672,8 @@ r_{sp}(\nu_p) = \frac{2(m_r)^{3/2}}{\pi\hbar^2\tau_r} \sqrt{\frac{K_B T}{e}} \ex
 (d) Assuming that $\tau_r = 0.4$ ns, $m_e^* = 0.07 m_o$, $m_h^* = 0.5 m_o$, and $E_g = 1.42$ eV, find the peak rate in GaAs at T = 300 K.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 11}
 
-\medskip
 \textbf{(a) Peak spontaneous emission energy.}
 
 The spontaneous emission rate as a function of frequency is the product of the emission probability $f_e(\nu)$ and the joint density of states $\rho_j(\nu)$, scaled by the spontaneous lifetime:
@@ -798,10 +776,8 @@ r = \frac{\sqrt{2}\pi^{3/2}\hbar^3}{(m_e^* + m_h^*)^{3/2}} \frac{1}{(K_B T)^{3/2
 (d) Use the result in (c) to find the value of $r$, for GaAs at T = 300 K using $m_e^* = 0.07 m_o$, $m_h^* = 0.5 m_o$, and $\tau_r = 0.4$ ns.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 12}
 
-\medskip
 \textbf{(a) Integrated spontaneous emission rate.}
 
 We integrate the spontaneous emission rate function derived previously over all possible emission frequencies:
@@ -918,10 +894,8 @@ Converting this volumetric rate parameter to standard semiconductor units ($\tex
 Show that the average kinetic energy of electrons in non-degenerate semiconductors which obeys the classical Boltzman statistics at thermal equilibrium is $3K_B T/2$. Find their average and root-mean square electron velocities in this case. Use the uncertainty principle to get an expression for their corresponding De Broglie wavelength at room temperature. (Hint: $\int_0^\infty x^{3/2} e^{-x} dx = \frac{3}{2}\int_0^\infty x^{1/2} e^{-x} dx$)
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Formative Assignment}
 
-\medskip
 \textbf{1. Average Kinetic Energy}
 
 In a non-degenerate semiconductor, the electron distribution in the conduction band is well-described by the Maxwell-Boltzmann approximation. The average kinetic energy $\langle E_{kin} \rangle = \langle E - E_c \rangle$ is found by integrating the energy over the distribution of electrons, weighted by the density of states $\rho_c(E)$ and the Fermi-Dirac probability $f(E)$:

@@ -8,10 +8,8 @@
 (b) Consider an InGaAsP SOA with an energy gap, $E_g = 0.95$ eV, a refractive index, $n = 3.5$, and a spontaneous emission lifetime, $\tau_{sp} = 2.5$ ns, at room temperature ($T = 300$ K). Calculate the amplifier bandwidth (in nanometers) under steady-state excess-carrier concentration, $\Delta n = 1.8 \times 10^{18}$ cm$^{-3}$.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 1}
 
-\medskip
 \textbf{(a) Amplifier bandwidth expression.}
 
 The gain coefficient $\gamma(\nu)$ is positive only when the Fermi inversion factor $f_g(\nu)$ is positive. This requires the photon energy $h\nu$ to be smaller than the quasi-Fermi level separation (the Bernard-Duraffourg condition). Furthermore, band-to-band transitions only exist for photon energies above the bandgap. Therefore, the frequency range that experiences optical gain is bounded by:
@@ -90,10 +88,8 @@ The wavelength bandwidth $\Delta \lambda$ is the difference:
 A travelling wave (TW) GaAs semiconductor optical amplifier (SOA) has $W = 10$ \si{\micro\meter}, $L = 1000$ \si{\micro\meter}, and $d = 0.1$ \si{\micro\meter}. It amplifies light at a wavelength of 820 nm. Under specific injection conditions, the quasi-Fermi levels penetrate the conduction and valence bands of the active region by 150 meV and 23 meV, respectively. The radiative recombination lifetime is 20 ns, the internal quantum efficiency is 50\%, the confinement factor is 0.5. Calculate (1) The injected current in the active region, $I$, (2) The small-signal amplifier gain $G_o$ (in dB), (3) the input signal power that results in a gain $G$ of 5.0 dB if the saturation photon flux is $6 \times 10^{15}$ photons/sec, (4) What is the minimum wavelength of the signal that may be amplified with this amplifier?
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 2}
 
-\medskip
 \textbf{Part 1: Injected Current}
 
 We begin by establishing the carrier lifetime. The internal quantum efficiency $\eta_{\text{int}}$ links the total recombination lifetime $\tau$ to the radiative lifetime $\tau_r$:
@@ -130,7 +126,6 @@ The injected current required to sustain this carrier density in the active regi
   \boxed{I = 0.07926\,\text{A}}
 \end{equation*}
 
-\medskip
 \textbf{Part 2: Small-Signal Amplifier Gain}
 
 The small signal gain coefficient is defined by the product of the Fermi inversion factor and the joint density of states:
@@ -193,7 +188,6 @@ The small-signal amplifier gain $G_o$ follows the exponential amplification law:
   \boxed{G_o (\text{dB}) = 10 \log_{10}(47.465) = 16.76\,\text{dB}}
 \end{equation*}
 
-\medskip
 \textbf{Part 3: Input Signal Power for Specified Gain}
 
 When the SOA is saturated to a gain $G = 5.0$\,dB ($10^{0.5} = 3.162$), the input photon flux $\Phi_{\text{in}}$ relates to the small-signal gain via the transcendental saturation equation:
@@ -222,7 +216,6 @@ Therefore, the input photon flux is $\Phi_{\text{in}} = 1.253 \times (6 \times 1
   \boxed{P_{\text{in}} = 1.89\,\text{mW}}
 \end{equation*}
 
-\medskip
 \textbf{Part 4: Minimum Amplifiable Wavelength}
 
 Optical gain requires the Bernard-Duraffourg condition to be satisfied:
@@ -254,10 +247,8 @@ The handwritten solution uses a combined penetration of 166\,meV rather than the
 A travelling wave (TW) semiconductor optical amplifier (SOA) has the following parameters: $L = 1$ mm, $\alpha_s = 30$ cm$^{-1}$, a saturation power $P_s = 1.25$ mW, and a gain $G = 8$ dB at an input power of 1.0 mW. Calculate: (a) the small-signal single-pass gain, (b) the injection current density required to achieve this gain. Assume a peak small-signal gain coefficient, $\gamma_o = \eta(J - J_{tr})$, where $\eta = 0.35$ cm/A and $J_{tr} = 500$ A/cm$^2$. (c) Calculate the upper bound on the residual facet reflectivity to prevent lasing.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 3}
 
-\medskip
 \textbf{(a) Small-signal single-pass gain.}
 
 The saturated gain $G$ is linked to the unsaturated small-signal gain $G_o$ through the input optical power saturation model:
@@ -282,7 +273,6 @@ Solving for the small-signal gain $G_o$:
   \boxed{G_o (\text{dB}) = 10 \log_{10}(441.48) = 26.45\,\text{dB}}
 \end{equation*}
 
-\medskip
 \textbf{(b) Required injection current density.}
 
 Assuming an optical confinement factor of $\Gamma = 1$ (as none is provided), the small-signal single-pass gain $G_o$ is governed by the peak net gain coefficient over the length of the amplifier $L = 1\,\text{mm} = 0.1\,\text{cm}$:
@@ -307,7 +297,6 @@ This peak gain coefficient scales linearly with the injected current density bey
   \boxed{J = \frac{90.9}{0.35} + 500 = 759.7\,\text{A/cm}^2}
 \end{equation*}
 
-\medskip
 \textbf{(c) Residual facet reflectivity upper bound.}
 
 To prevent the traveling-wave SOA from functioning as a laser oscillator, the single-pass gain must not overcome the round-trip mirror losses. Assuming symmetric mirrors ($R_1 = R_2 = R_{\text{max}}$), the threshold condition places an upper bound on the reflectivity:
@@ -338,10 +327,8 @@ Substituting our known quantities:
 A Fabry-Perot (FP)-SOA has the following parameters: cavity length, $L = 500$ \si{\micro\meter}, refractive index, $n \approx 3.5$, a small-signal gain coefficient, $\gamma_o = 80$ cm$^{-1}$, optical confinement factor, $\Gamma = 0.8$, scattering loss coefficient, $\alpha_s = 50$ cm$^{-1}$. Calculate: (A) the small-signal single-pass gain, $G_o$ (B) the power reflection coefficient $R$ at the facet-air interface (C) the maximum and minimum amplifier gain, $G_{max}$ and $G_{min}$, (D) the gain ripple, $\rho \equiv G_{max}/G_{min}$, in dB (E) the 3-dB bandwidth around the gain maximum. ($\Gamma = 0.8$)
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 4}
 
-\medskip
 \textbf{(A) Small-signal single-pass gain.}
 
 The single-pass gain $G_o$ characterizes the exponential growth of the optical field traversing the amplifier length $L = 500\,\mu\text{m} = 0.05\,\text{cm}$ once, driven by the net modal gain:
@@ -358,7 +345,6 @@ The single-pass gain $G_o$ characterizes the exponential growth of the optical f
   \boxed{G_o = 2.014}
 \end{equation*}
 
-\medskip
 \textbf{(B) Facet reflection coefficient.}
 
 For an uncoated facet interfacing with air ($n_{\text{air}} \approx 1$), the Fresnel power reflection coefficient at normal incidence is determined solely by the refractive index mismatch:
@@ -371,7 +357,6 @@ For an uncoated facet interfacing with air ($n_{\text{air}} \approx 1$), the Fre
   \boxed{R = 30.86\%}
 \end{equation*}
 
-\medskip
 \textbf{(C) Maximum and minimum amplifier gain.}
 
 Because of the reflective facets, the FP-SOA behaves as a resonant cavity. The transmission spectrum features periodic resonant peaks (constructive interference) and anti-resonant troughs (destructive interference). Assuming symmetric mirrors ($R_1 = R_2 = R$), these extrema are:
@@ -392,7 +377,6 @@ Because of the reflective facets, the FP-SOA behaves as a resonant cavity. The t
   \boxed{G_{\text{min}} = 0.366}
 \end{equation*}
 
-\medskip
 \textbf{(D) Gain ripple.}
 
 The gain ripple evaluates the intensity contrast between the resonant peaks and anti-resonant troughs:
@@ -405,7 +389,6 @@ The gain ripple evaluates the intensity contrast between the resonant peaks and 
   \boxed{\rho (\text{dB}) = 10 \log_{10}(18.36) = 12.64\,\text{dB}}
 \end{equation*}
 
-\medskip
 \textbf{(E) 3-dB bandwidth around the gain maximum.}
 
 The spectral width of a transmission resonance, measured at half-maximum (3-dB down), is defined by the cavity length and the finesse of the active resonator:
@@ -432,10 +415,8 @@ Note that the speed of light within the cavity is $c_{\text{medium}} = c/n$. Sub
 A double heterostructure (DH) GaAs laser has an active layer thickness of 0.1 \si{\micro\meter} and a resonator loss coefficient of 25 cm$^{-1}$. Its peak gain coefficient, $\gamma_{peak} = \eta(J - J_t)$ (cm$^{-1}$) where $\eta = 0.35$ cm/A, and $J_t = 500$ A/cm$^2$. Calculate (1) its threshold current density, $J_{th}$ in A/cm$^2$ and (2) the excess carrier concentration in the active region (in cm$^{-3}$) under threshold conditions. Assume that the recombination lifetime is 1.0 ns.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 5}
 
-\medskip
 \textbf{Part 1: Threshold Current Density}
 
 Lasing occurs when the optical gain provided by the active medium completely offsets all cavity losses. At this threshold condition (and assuming $\Gamma = 1$ based on the prompt's provided variables), the peak gain coefficient equates to the resonator loss coefficient:
@@ -454,7 +435,6 @@ Substituting the given constants:
   \boxed{J_{th} = 571.43\,\text{A/cm}^2}
 \end{equation*}
 
-\medskip
 \textbf{Part 2: Threshold Excess Carrier Concentration}
 
 The steady-state excess carrier concentration $\Delta n_{th}$ is governed by the continuous injection of carriers across the active layer thickness $d = 0.1\,\mu\text{m} = 0.1 \times 10^{-4}\,\text{cm}$ and their subsequent depletion via recombination over the lifetime $\tau = 1.0\,\text{ns}$:
@@ -478,10 +458,8 @@ Evaluating this using consistent SI or CGS units:
 (b) It is required to use the laser in (B) as an FP-SOA to amplify signals at $\lambda_o$. (1) What are the maximum and minimum injection current densities $J_{max}$ and $J_{min}$ to achieve this goal? Calculate the maximum gain and 3dB bandwidth of this FP-SOA at $J = (J_{max} + J_{min})/2$. ($\Gamma = 0.6$)
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 6}
 
-\medskip
 \textbf{Part (a)(1): Threshold current density.}
 
 The given parameters are $L = 300\,\mu\text{m} = 0.03\,\text{cm}$, $\alpha_s = 20\,\text{cm}^{-1}$, $\Gamma = 0.6$, $\eta = 0.35\,\text{cm/A}$, and $J_t = 500\,\text{A/cm}^2$. Since no individual facet reflectivities are stated, we use the cleaved-facet value for GaAs: $n = 3.5$, so
@@ -514,12 +492,10 @@ At threshold, the modal gain $\Gamma\gamma_p$ equals the total resonator loss. U
   \boxed{J_{th} = 781.67\,\text{A/cm}^2}
 \end{equation*}
 
-\medskip
 \textbf{Part (a)(2): Number of lasing longitudinal modes.}
 
 A homogeneously broadened medium forces all atoms to share a single saturated gain, so once one cavity mode reaches threshold it suppresses all others through gain saturation. The homogeneous Lorentzian therefore supports only \textbf{1 lasing mode} at line centre.
 
-\medskip
 \textbf{Part (b)(1): Maximum and minimum current densities for FP-SOA operation.}
 
 To use this device as a Fabry-Perot SOA rather than a laser, the single-pass gain must be positive but the round-trip must not reach the oscillation threshold. The \emph{upper} bound is set by the laser threshold itself — any higher and the device lases:
@@ -542,7 +518,6 @@ The \emph{lower} bound is set by the transparency condition: the round-trip gain
   \boxed{J_{\min} = 595.24\,\text{A/cm}^2}
 \end{equation*}
 
-\medskip
 \textbf{Part (b)(2): Maximum gain and 3-dB bandwidth at $J = (J_{\max}+J_{\min})/2$.}
 
 The operating current is the arithmetic mean of the two bounds:
@@ -595,12 +570,10 @@ The 3-dB bandwidth of the resonant transmission peak is:
 A GaAs laser has the following characteristics: refractive index = 3.4, attenuation constant = 900 m$^{-1}$, cavity length = 0.6 mm. One mirror has a Lorentzian profile given by, $\gamma = \frac{\eta(J - J_t)}{1 + \left(\frac{\lambda - \lambda_o}{\Delta\lambda}\right)^2}$ m$^{-1}$ where $\lambda_o = 0.94$ mm and $\Delta\lambda = 25$ nm. (a) Calculate the mode spacing between the lasing modes (in nm) (b) What minimum value of the reflectivity of the second mirror is necessary to achieve lasing? (c) Assume for the rest of the problem that the reflectivity of the second mirror is 0.5. Estimate how many modes oscillate simultaneously. (d) What is the photon lifetime in this laser.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 7}
 
 The given parameters are $n = 3.4$, $\alpha_s = 900\,\text{m}^{-1}$, $L = 0.6\,\text{mm} = 6\times10^{-4}\,\text{m}$, $\lambda_o = 0.94\,\mu\text{m}$, $\Delta\lambda = 25\,\text{nm}$, and $R_1 = 1$ (perfectly reflecting first mirror as implied by the problem statement).
 
-\medskip
 \textbf{(a) Longitudinal mode spacing.}
 
 The longitudinal modes of a Fabry-Perot cavity are equally spaced in frequency by $\nu_f = c_o / 2nL$. Converting this frequency spacing into a wavelength spacing at the centre wavelength $\lambda_o$, we use $\Delta\lambda = \lambda^2 \nu_f / c_o$:
@@ -617,7 +590,6 @@ The longitudinal modes of a Fabry-Perot cavity are equally spaced in frequency b
   \boxed{\lambda_f = 0.2166\,\text{nm} \approx 0.217\,\text{nm}}
 \end{equation*}
 
-\medskip
 \textbf{(b) Minimum reflectivity of the second mirror for lasing.}
 
 At threshold, the peak gain coefficient (at line centre, where the Lorentzian equals $\gamma_p$) must exactly balance the total resonator loss. The resonator loss is:
@@ -642,12 +614,10 @@ To find the minimum $R_2$, we need the maximum achievable $\gamma_p$. Since $\ga
   \boxed{R_2 = e^{-2L(\gamma_p - \alpha_s)}}
 \end{equation*}
 
-\medskip
 \textbf{(c) Number of simultaneously oscillating modes with $R_2 = 0.5$.}
 
 Because this is a \emph{homogeneously} broadened Lorentzian medium, gain saturation means all emitters compete for the same gain pool. Once the dominant mode saturates the gain down to the threshold level, all other modes are suppressed. A homogeneously broadened laser therefore oscillates in \textbf{1 mode only}.
 
-\medskip
 \textbf{(d) Photon lifetime.}
 
 The photon lifetime $\tau_{ph}$ is defined as the time for a photon to decay to $1/e$ of its initial energy inside the passive cavity. It is the reciprocal of the total loss rate experienced by the photon travelling at the group velocity $c = c_o/n$:
@@ -678,12 +648,10 @@ With $R_2 = 0.5$ (and $R_1 = 1$), the resonator loss is:
 An inhomogeneously broadened Fabry-Perot semiconductor laser has a cavity length of 300 \si{\micro\meter}, a refractive index 3.4, a scattering loss coefficient of 1200 m$^{-1}$, and facet reflectivities of 0.5. The shape of the gain coefficient versus the free-space wavelength ($\lambda$) is Gaussian $\gamma(\lambda) = \gamma_o e^{-(\lambda - \lambda_o)^2 / 2\delta^2}$ with a center wavelength, $\lambda_o = 0.9$ \si{\micro\meter} and $\delta = 0.32$ nm. If the peak gain coefficient $\gamma_o$ changes linearly with the injected current density $J$ according to the relation, $\gamma_o = \eta(J - J_t)$, where $\eta = 0.35$ cm/A and $J_t = 500$ A/cm$^2$. (a) Calculate the resonator loss coefficient, $\alpha_r$. (b) Calculate the frequency spacing between the longitudinal modes of the laser cavity. (c) Calculate the finesse of the Fabry-Perot resonator. (d) Calculate the threshold current density $J_{th}$ assuming that all of the light is confined in the active region. (e) Calculate the number of longitudinal modes inside the laser cavity when $J = 900$ A/cm$^2$.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 8}
 
 The given parameters are $L = 300\,\mu\text{m} = 3\times10^{-4}\,\text{m}$, $n = 3.4$, $\alpha_s = 1200\,\text{m}^{-1}$, $R_1 = R_2 = 0.5$, $\lambda_o = 0.9\,\mu\text{m}$, $\delta = 0.32\,\text{nm}$, $\eta = 0.35\,\text{cm/A}$, and $J_t = 500\,\text{A/cm}^2$.
 
-\medskip
 \textbf{(a) Resonator loss coefficient.}
 
 The total resonator loss pools the distributed scattering loss with the mirror transmission loss at each facet. With symmetric mirrors ($R_1 = R_2 = R = 0.5$):
@@ -700,7 +668,6 @@ The total resonator loss pools the distributed scattering loss with the mirror t
   \boxed{\alpha_r = 3510.5\,\text{m}^{-1} = 35.1\,\text{cm}^{-1}}
 \end{equation*}
 
-\medskip
 \textbf{(b) Longitudinal mode frequency spacing.}
 
 Adjacent longitudinal modes are separated in frequency by the inverse of the round-trip travel time inside the cavity:
@@ -713,7 +680,6 @@ Adjacent longitudinal modes are separated in frequency by the inverse of the rou
   \boxed{\nu_f = 147.06\,\text{GHz}}
 \end{equation*}
 
-\medskip
 \textbf{(c) Finesse of the Fabry-Perot resonator.}
 
 The finesse $F$ characterises how sharply the cavity resolves its resonant modes. It equals the ratio of the mode spacing to the full-width at half-maximum of a single resonance, and can be related to the cavity loss as $F = \pi / (\alpha_r L)$:
@@ -726,7 +692,6 @@ The finesse $F$ characterises how sharply the cavity resolves its resonant modes
   \boxed{F = 2.983}
 \end{equation*}
 
-\medskip
 \textbf{(d) Threshold current density.}
 
 At threshold, the peak gain $\gamma_o$ (at line centre, where the Gaussian exponent vanishes) must equal the resonator loss. With $\Gamma = 1$ as stated:
@@ -745,7 +710,6 @@ Converting to consistent units ($\alpha_r = 35.1\,\text{cm}^{-1}$):
   \boxed{J_{th} = 600.3\,\text{A/cm}^2}
 \end{equation*}
 
-\medskip
 \textbf{(e) Number of simultaneously oscillating modes at $J = 900\,\text{A/cm}^2$.}
 
 Unlike a homogeneously broadened medium, an \emph{inhomogeneously} broadened laser allows multiple modes to oscillate simultaneously — each mode burns its own hole in the gain spectrum and does not suppress the others. The number of lasing modes is therefore set by how wide the Gaussian gain profile is above the loss line $\alpha_r$.
@@ -790,7 +754,6 @@ The number of modes that fit within the lasing bandwidth is:
 A GaAs laser has a cavity length of 250 \si{\micro\meter}, a refractive index of 3.4, a scattering loss coefficient of 1000 m$^{-1}$. The first mirror has a reflectivity of 0.95 while the reflectivity of the second mirror is unknown. The gain coefficient has a homogeneously broadened Lorentzian profile given by: $\gamma = \frac{\eta(J - J_t)}{1 + \left(\frac{\lambda - \lambda_o}{\Delta\lambda}\right)^2}$ (cm$^{-1}$), where $\lambda_o = 0.9$ \si{\micro\meter}, $\Delta\lambda = 25$ nm, $\eta = 0.35$ cm/A, and $J_t = 500$ A/cm$^2$. Calculate the reflectivity of the second mirror to achieve lasing at a threshold current density, $J_{th} = 570$ A/cm$^2$
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Question 9}
 
 The given parameters are $L = 250\,\mu\text{m} = 0.025\,\text{cm}$, $n = 3.4$, $\alpha_s = 1000\,\text{m}^{-1} = 10\,\text{cm}^{-1}$, $R_1 = 0.95$, $J_{th} = 570\,\text{A/cm}^2$, $\eta = 0.35\,\text{cm/A}$, and $J_t = 500\,\text{A/cm}^2$.
@@ -835,15 +798,12 @@ Expanding the resonator loss in terms of the two mirror reflectivities:
 The active region in a quantum well laser has a thickness which is less than the De Broglie wavelength. The expressions of the density of states for electrons or holes used in bulk semiconductors are no longer valid. Derive an expression of the density of states of electrons in a quantum well. Use this density of states to find an expression of the optical joint density of states. Then use the expression of the optical joint density of states to find an expression of the gain coefficient of the quantum well laser. Hint: Use the so-called infinite-well approximation.
 \end{question}
 
-\bigskip
 \textbf{\large Solution --- Formative Assignment: Quantum Well Density of States and Gain}
 
-\medskip
 \textbf{Step 1 — Why bulk expressions fail in a quantum well.}
 
 In a bulk semiconductor, an electron is free to move in all three spatial directions, and the density of states grows as $\sqrt{E - E_c}$. When the active layer thickness $L_z$ is reduced below the electron's de Broglie wavelength $\lambda_{dB} = h/\sqrt{2m^*k_BT}$, confinement along the growth direction $z$ is so strong that the energy spectrum along $z$ becomes discrete. The electron can no longer be treated as free in three dimensions; instead, it is free only in the two in-plane directions $x$ and $y$, while quantised in $z$. This requires a completely new density-of-states calculation.
 
-\medskip
 \textbf{Step 2 — Quantised energy levels from the infinite-well approximation.}
 
 We model the quantum well as an infinite square potential well of width $L_z$. The boundary conditions force the wavefunction to vanish at both walls, giving standing-wave solutions. The allowed wavevectors in the $z$-direction are:
@@ -866,7 +826,6 @@ where $m^*$ is the effective mass of the carrier. These $E_n$ are the energies o
 
 where $k_\parallel^2 = k_x^2 + k_y^2$ is the in-plane wavevector magnitude and $E_c$ is the conduction band edge of the well material. The last term describes the free, parabolic dispersion in the plane.
 
-\medskip
 \textbf{Step 3 — Two-dimensional density of states per subband.}
 
 For fixed subband $n$, the electron behaves as a 2D free particle. The allowed $k_\parallel$ states form a uniform grid in 2D $k$-space with one state per area $(2\pi)^2 / A$ (where $A = L_x L_y$ is the in-plane area). Counting states up to a circle of radius $k_\parallel$:
@@ -895,7 +854,6 @@ where $\Theta$ is the Heaviside step function — the density of states switches
 
 This is the famous \emph{staircase} density of states — completely flat within each subband, jumping by $m^*/(\pi\hbar^2 L_z)$ at every new subband onset. This is in sharp contrast to the $\sqrt{E}$ bulk result.
 
-\medskip
 \textbf{Step 4 — Optical joint density of states for the quantum well.}
 
 Optical transitions in a semiconductor laser are \emph{vertical} in $k$-space: a photon of energy $\hbar\omega$ induces a transition from a valence-band state at wavevector $k_\parallel$ to a conduction-band state at the \emph{same} $k_\parallel$. The photon energy must satisfy energy conservation:
@@ -918,7 +876,6 @@ The optical joint density of states counts the number of pairs of states (one el
 
 This is again a staircase: zero for photon energies below the subband pair threshold, and a constant $m_r^*/(\pi\hbar^2 L_z)$ above it. In a bulk laser, the corresponding joint density of states grows as $\sqrt{\hbar\omega - E_g}$, which means gain builds slowly above threshold. In a quantum well, the joint density of states jumps to its maximum value immediately at the threshold photon energy, making the quantum well laser intrinsically more efficient.
 
-\medskip
 \textbf{Step 5 — Gain coefficient of the quantum well laser.}
 
 The gain coefficient $\gamma(\hbar\omega)$ for stimulated emission is proportional to the optical joint density of states, weighted by the occupation probability difference between the conduction and valence subbands. Using the standard semiconductor gain formula:
