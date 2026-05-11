@@ -1,0 +1,402 @@
+% =========================================================
+%  Chapter 10 — Photodetectors and Noise
+%  Source: Dr. George's Lectures (Lecture 6)
+%  Style: student-voice notes matching the personal style guide
+% =========================================================
+
+% ------------------------------------------------------------------
+\section{The Other End of the Link}
+% ------------------------------------------------------------------
+
+Every photon that the laser diode generates, modulates, and launches into the fibre must eventually be converted back into an electrical signal. This conversion is the job of the photodetector — a reverse-biased semiconductor junction that absorbs incoming photons and generates a proportional electrical current. In a sense, the photodetector is the time-reverse of the LED: instead of injecting current to produce photons, we inject photons to produce current.
+
+The physics that governs absorption is the same band-structure physics we have been building throughout this sequence. An electron in the valence band can absorb a photon and be excited to the conduction band, leaving a hole behind — exactly the reverse of the radiative recombination process. The condition is the same: the photon energy must satisfy $h\nu \geq E_g$ to bridge the bandgap. Below this threshold, the semiconductor is transparent; above it, absorption occurs.
+
+% ------------------------------------------------------------------
+\section{Optical Absorption in a Photodetector}
+% ------------------------------------------------------------------
+
+Consider a photodetector whose absorbing region has length $L$ and absorption coefficient $\alpha(\lambda)$ (the same parameter that appears in Beer's law for optical attenuation). Accounting for the surface reflectivity $R$ at the semiconductor-air interface, the optical power actually entering the device after reflection loss is:
+\begin{equation*}
+    P_\text{in} = P_0(1 - R)
+\end{equation*}
+
+As this power propagates through the absorbing layer, it decays exponentially according to Beer's law:
+\begin{equation*}
+    P(z) = P_0(1 - R)\,e^{-\alpha z}
+\end{equation*}
+
+The power remaining after passing through the full active region of length $L$ is:
+\begin{equation*}
+    P_\text{out} = P_0(1-R)\,e^{-\alpha L}
+\end{equation*}
+
+The absorbed power — the useful quantity that drives photocurrent — is the difference:
+\begin{keyresult}
+\begin{equation}
+    P_\text{abs} = P_0(1 - R)\!\left(1 - e^{-\alpha L}\right)
+\end{equation}
+\end{keyresult}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/finite_absorbing_region_and_absorption_efficiency.jpg}
+    \caption{Finite Absorbing Region and Absorption Efficiency}
+    \label{fig:finite_absorbing_region_and_absorption_efficiency}
+\end{figure}
+
+This expression immediately tells us the two engineering levers for maximising absorption: reduce the surface reflectivity $R$ (using anti-reflection coatings) and increase $\alpha L$ (either by choosing a material with a high absorption coefficient at the operating wavelength, or by making the absorbing region thicker).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/absorption_coefficient.jpg}
+    \caption{Absorption Coefficient Versus Wavelength for Detector Materials}
+    \label{fig:absorption_coefficient}
+\end{figure}
+
+% ------------------------------------------------------------------
+\section{Quantum Efficiency and Responsivity}
+% ------------------------------------------------------------------
+
+\subsection{External Quantum Efficiency}
+
+Not every absorbed photon successfully delivers an electron to the external circuit. Some photogenerated carriers recombine inside the device before being swept out by the electric field. The \textbf{external quantum efficiency} $\eta$ captures the end-to-end conversion from incident photons to collected electrons:
+\begin{keyresult}
+\begin{equation}
+    \eta = \frac{\text{electrons collected per second}}{\text{photons incident per second}} = \frac{I/e}{P_\text{opt}/(h\nu)}
+\end{equation}
+\end{keyresult}
+
+Breaking this down into its three contributing factors — reflection loss, incomplete absorption, and imperfect internal carrier collection — gives:
+\begin{equation*}
+    \eta = (1 - R)\!\left(1 - e^{-\alpha L}\right)\eta_\text{int}
+\end{equation*}
+where $\eta_\text{int}$ is the internal collection efficiency: the fraction of photogenerated carriers that are successfully swept to the contacts before recombining.
+
+\subsection{Responsivity}
+
+The \textbf{responsivity} $\mathcal{R}$ is the practical figure of merit that relates the measurable output current to the incident optical power:
+\begin{equation*}
+    \mathcal{R} \equiv \frac{I}{P_\text{opt}}
+\end{equation*}
+
+Substituting the definition of $\eta$:
+\begin{keyresult}
+\begin{equation}
+    \mathcal{R} = \eta\,\frac{e}{h\nu} = \eta\,\frac{e\lambda}{hc} \quad [\text{A/W}]
+\end{equation}
+\end{keyresult}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 10/qe_and_responsivity.jpg}
+    \caption{Quantum Efficiency and Responsivity Versus Wavelength}
+    \label{fig:qe_and_responsivity}
+\end{figure}
+
+The wavelength dependence here is instructive: for fixed quantum efficiency, responsivity increases linearly with wavelength (longer wavelength photons carry less energy, so each watt of optical power represents more photons, generating more electrons). In practice, however, $\eta$ itself depends strongly on wavelength because the absorption coefficient $\alpha(\lambda)$ drops sharply below the bandgap — so there is always a long-wavelength cutoff at $\lambda_g = hc/E_g$ beyond which the material becomes transparent and the responsivity collapses to zero.
+
+% ------------------------------------------------------------------
+\section{PN Photodiode Operation}
+% ------------------------------------------------------------------
+
+A PN photodiode is operated under reverse bias, which establishes a strong electric field across the depletion region. When a photon is absorbed anywhere in the device, it creates an electron-hole pair. What happens next depends on exactly where that pair was created.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/pn_photodiode_collection_regions.jpg}
+    \caption{PN Photodiode Collection Regions}
+    \label{fig:pn_photodiode_collection_regions}
+\end{figure}
+
+\subsection{Drift Collection from the Depletion Region}
+
+Carriers generated \emph{inside} the depletion region immediately experience the strong built-in electric field, which rapidly sweeps electrons toward the n-side and holes toward the p-side. This drift process is fast — limited only by the carrier saturation velocity $v_d \approx 10^7\,\text{cm/s}$ in most III-V semiconductors — and is the dominant, efficient collection mechanism.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/driftdominated_collection_in_the_depletion_region.jpg}
+    \caption{Drift-Dominated Collection in the Depletion Region}
+    \label{fig:driftdominated_collection_in_the_depletion_region}
+\end{figure}
+
+\subsection{Diffusion Collection from the Neutral Regions}
+
+Carriers generated in the \emph{neutral} p or n regions outside the depletion layer do not immediately feel the field. They must first diffuse to the depletion edge before they can be swept across. If a carrier is generated close enough to the depletion edge (within roughly one diffusion length $L_e$ or $L_h$), it has a good chance of reaching the edge before recombining and contributes to the photocurrent. Carriers generated farther away are lost by recombination and do not contribute — they represent wasted absorption.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/diffusion_collection_from_the_neutral_region.jpg}
+    \caption{Diffusion Collection from the Neutral Region}
+    \label{fig:diffusion_collection_from_the_neutral_region}
+\end{figure}
+
+\subsection{Wavelength Dependence of Collection}
+
+The absorption depth at which photons are absorbed scales as $1/\alpha$: short-wavelength (high-energy) photons are absorbed very close to the surface (small $1/\alpha$), while long-wavelength photons penetrate deeper before being absorbed. This wavelength dependence creates a non-trivial spectral response:
+
+At short wavelengths, most absorption happens near the illuminated surface — often within the neutral region — where collection is diffusion-limited and therefore less efficient. At the optimal wavelength, absorption is centred in the depletion region and $\eta$ is maximised. At wavelengths approaching $\lambda_g$, the absorption coefficient drops and $\alpha L \ll 1$: the device becomes transparent and $\eta \to 0$. The responsivity spectrum therefore peaks at an intermediate wavelength and rolls off on both sides.
+
+% ------------------------------------------------------------------
+\section{The PIN Photodiode}
+% ------------------------------------------------------------------
+
+\subsection{The Problem with a Simple PN Junction}
+
+A standard PN photodiode has two fundamental limitations: the depletion region is thin (set by the doping levels) and its electric field is non-uniform (triangular profile). Both of these restrict absorption efficiency and carrier collection speed.
+
+\subsection{Adding an Intrinsic Layer}
+
+The PIN photodiode inserts an undoped (or lightly doped) \textbf{intrinsic} layer between the p and n regions. Under reverse bias, this intrinsic layer depletes completely and becomes the primary absorption region. The advantages over a plain PN structure are significant:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 10/pin_structure_and_field.jpg}
+    \caption{PIN Photodiode Structure, Charge, and Electric Field}
+    \label{fig:pin_structure_and_field}
+\end{figure}
+
+\textbf{Thicker absorption region:} By making the intrinsic layer as thick as required (typically $1$--$10\,\mu$m), we can choose $\alpha W_i \gg 1$ independently of the doping — something impossible in a PN diode where the depletion width is fixed by $W_0 \propto \sqrt{V_0}$.
+
+\textbf{Uniform electric field:} The intrinsic region contains almost no ionised dopants, so the net charge density is near zero throughout. Poisson's equation then gives a nearly flat electric field across the entire intrinsic layer — all photogenerated carriers experience the same, maximum field and are swept out at the same saturated drift velocity.
+
+\textbf{Lower capacitance:} The junction capacitance is $C_j = \epsilon_s A / W_i$. A thicker intrinsic layer reduces $C_j$, which lowers the RC time constant and improves bandwidth.
+
+\textbf{The trade-off:} Making $W_i$ too thick increases the carrier transit time $\tau_\text{drift} = W_i/v_d$ and ultimately limits bandwidth despite the lower capacitance. There is an optimal intrinsic layer thickness that balances these competing effects.
+
+\subsection{Heterojunction PIN: Separating Absorption from Incidence}
+
+A heterojunction PIN replaces the top (illuminated) layer with a wider-bandgap material. Since the wide-gap layer does not absorb photons below its bandgap, the incident light passes through it without loss and is absorbed only in the narrow-gap intrinsic region. This eliminates the surface-generated carrier problem of simple PN junctions. For InP/InGaAs receivers (the workhorse of $1.3$--$1.55\,\mu$m telecommunications), the InP window layer is transparent to the signal wavelengths while the InGaAs intrinsic region provides the efficient absorption — achieving near-ideal collection at both target wavelengths.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 10/heterojunction_pin_photodiode_and_spectral_windowing.jpg}
+    \caption{Heterojunction PIN Photodiode and Spectral Windowing}
+    \label{fig:heterojunction_pin_photodiode_and_spectral_windowing}
+\end{figure}
+
+% ------------------------------------------------------------------
+\section{Photocurrent and the Illuminated Diode Equation}
+% ------------------------------------------------------------------
+
+The dark current-voltage characteristic of a reverse-biased diode follows the standard Shockley equation:
+\begin{equation*}
+    I_D = I_s\!\left(e^{eV/k_BT} - 1\right)
+\end{equation*}
+
+Under illumination, the photogenerated current $I_p = \mathcal{R}\,P_\text{opt}$ flows in the opposite direction to the forward-bias convention (photons pull electrons from p to n, opposite to injection). The total device current is therefore:
+\begin{keyresult}
+\begin{equation}
+    I = I_s\!\left(e^{eV/k_BT} - 1\right) - I_p, \qquad I_p = \mathcal{R}\,P_\text{opt}
+\end{equation}
+\end{keyresult}
+
+Illumination shifts the entire $I$–$V$ curve downward by $I_p$. In the third quadrant (reverse bias, negative current), the device delivers a photocurrent $I \approx -I_p$ that is proportional to the optical power — this is the normal operating regime of a photodetector.
+
+\subsection{Current-to-Voltage Conversion: Load Resistor}
+
+The simplest readout circuit connects the photodiode in series with a load resistor $R_L$ and a bias supply $V_B$. Applying Kirchhoff's voltage law gives the load line equation:
+\begin{equation*}
+    V = -I R_L - V_B
+\end{equation*}
+
+The actual operating point is the intersection of this load line with the illuminated diode equation. The output voltage across $R_L$ is $V_\text{out} = I_p R_L$, which is proportional to $P_\text{opt}$ — the photodiode acts as a current source and the load resistor converts that current to a voltage.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/load_line_construction.jpg}
+    \caption{Current-to-Voltage Conversion with a Load Resistor}
+    \label{fig:load_line_construction}
+\end{figure}
+
+The load resistor choice is a speed-sensitivity trade-off: a larger $R_L$ gives a larger voltage swing for a given photocurrent (better sensitivity), but it also increases the RC time constant $\tau_{RC} = R_L C_j$ and reduces bandwidth.
+
+\subsection{The Transimpedance Amplifier}
+
+At high data rates, the simple load resistor is replaced by a \textbf{transimpedance amplifier} (TIA). A TIA uses a high-gain inverting amplifier with a feedback resistor $R_f$. The virtual ground at the amplifier input keeps the photodiode voltage nearly constant regardless of photocurrent, eliminating the bandwidth penalty of the junction capacitance. The effective transimpedance (output voltage per input current) is set by $R_f$, and the bandwidth is limited by the amplifier gain-bandwidth product rather than by $R_f C_j$. TIAs are the universal front-end choice for all high-speed optical receivers.
+
+% ------------------------------------------------------------------
+\section{Avalanche Photodiodes}
+% ------------------------------------------------------------------
+
+\subsection{Impact Ionisation and Avalanche Gain}
+
+A PIN photodiode converts one photon into one electron-hole pair — the maximum responsivity is limited to $\mathcal{R} = e\lambda/(hc)$ at $\eta = 1$. An \textbf{avalanche photodiode} (APD) overcomes this limit by amplifying the primary photocurrent through \textbf{impact ionisation}: carriers accelerated in a very high electric field acquire enough energy to ionise the crystal lattice, generating new electron-hole pairs. Each primary carrier triggers a cascade — an avalanche — and the total output current is $M$ times the primary photocurrent:
+\begin{keyresult}
+\begin{equation}
+    I = M\,I_0
+\end{equation}
+\end{keyresult}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 10/avalanche_photodiode_structure_and_multiplication.jpg}
+    \caption{Avalanche Photodiode Structure and Multiplication}
+    \label{fig:avalanche_photodiode_structure_and_multiplication}
+\end{figure}
+
+The effective responsivity is correspondingly amplified:
+\begin{equation*}
+    \mathcal{R}_\text{APD} = \bar{G}\,\eta\,\frac{e}{h\nu}
+\end{equation*}
+where $\bar{G}$ is the average avalanche gain. Values of $\bar{G} = 10$--$100$ are practical, giving a significant sensitivity advantage over PIN detectors — particularly important in low-power, long-haul links where every fraction of a dB of receiver sensitivity matters.
+
+\subsection{Cost: Excess Noise from Random Multiplication}
+
+Avalanche multiplication is a stochastic process — not every primary carrier triggers exactly the same number of secondary ionisations. The gain fluctuates from event to event, with variance $\sigma_G^2$. This randomness adds noise beyond the fundamental shot noise of the primary photocurrent. The \textbf{excess noise factor} quantifies the noise penalty:
+\begin{keyresult}
+\begin{equation}
+    F = \frac{\overline{G^2}}{\bar{G}^2} = 1 + \frac{\sigma_G^2}{\bar{G}^2} \geq 1
+\end{equation}
+\end{keyresult}
+
+The APD shot noise variance becomes:
+\begin{equation*}
+    \sigma_\text{APD}^2 = 2Be\,\bar{i}\,F\bar{G}^2
+\end{equation*}
+compared to $\sigma_\text{PIN}^2 = 2Be\,\bar{i}$ for a PIN diode. The excess noise factor $F$ always exceeds 1, and it grows with increasing gain — the avalanche noise grows faster than the signal. An APD therefore provides a net sensitivity advantage only when the gain-induced signal enhancement outweighs the excess noise penalty, which occurs in the presence of significant receiver thermal noise (from $R_L$ or the TIA).
+
+% ------------------------------------------------------------------
+\section{Speed Limits and Detector Bandwidth}
+% ------------------------------------------------------------------
+
+Four distinct physical mechanisms each contribute a time delay to the detector response:
+
+\textbf{1. Drift transit time:} Carriers generated in the depletion region must drift across its full width $W$ at the saturation velocity $v_d$:
+\begin{equation*}
+    \tau_\text{drift} = \frac{W}{v_d}
+\end{equation*}
+Making $W$ larger improves absorption but increases $\tau_\text{drift}$ — the first fundamental trade-off in PIN design.
+
+\textbf{2. Diffusion time:} Carriers generated in the neutral regions must diffuse into the depletion region before being swept out. The diffusion time across a length $L_e$ is:
+\begin{equation*}
+    \tau_\text{diff} = \frac{L_e^2}{2D_c}
+\end{equation*}
+Diffusion is slow ($\sim$10--100$\times$ slower than drift) and is one reason why absorption in the neutral regions is undesirable — those slow carriers limit bandwidth even if they are eventually collected.
+
+\textbf{3. RC time constant:} The junction capacitance $C_j = \epsilon_s A/W$ combined with the load resistance $R_L$ gives:
+\begin{equation*}
+    \tau_{RC} = R_L\,\frac{\epsilon_s A}{W}
+\end{equation*}
+A larger depletion width $W$ reduces $C_j$ and therefore $\tau_{RC}$, helping bandwidth — but at the cost of increasing $\tau_\text{drift}$. Again, an optimal $W$ exists.
+
+\textbf{4. Avalanche buildup time:} For an APD, the cascade of ionisations takes a finite time to complete. The avalanche delay scales with the gain:
+\begin{equation*}
+    \tau_A = \frac{M\,W_A}{v_d}
+\end{equation*}
+where $W_A$ is the width of the high-field avalanche region. Higher gain means longer avalanche time — this is why APD gain and bandwidth are inversely linked.
+
+Combining all four mechanisms in quadrature gives the total effective response time:
+\begin{keyresult}
+\begin{equation}
+    \tau_\text{eff} = \sqrt{\tau_\text{drift}^2 + \tau_\text{diff}^2 + \tau_{RC}^2 + \tau_A^2}
+\end{equation}
+\end{keyresult}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 10/detector_bandwidth_contributions.jpg}
+    \caption{Time-Constant Contributions to Detector Bandwidth}
+    \label{fig:detector_bandwidth_contributions}
+\end{figure}
+
+The corresponding 3\,dB bandwidth is:
+\begin{keyresult}
+\begin{equation}
+    \text{BW} \approx \frac{1}{2\pi\,\tau_\text{eff}}
+\end{equation}
+\end{keyresult}
+
+For APDs, the avalanche buildup time imposes a \textbf{gain-bandwidth product} limit:
+\begin{equation*}
+    M \cdot \text{BW} \approx \frac{v_d}{2\pi\,W_A}
+\end{equation*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 10/apd_gain_bandwidth.jpg}
+    \caption{APD Gain-Bandwidth Tradeoff}
+    \label{fig:apd_gain_bandwidth}
+\end{figure}
+
+This fundamental limit means that once $M$ is large enough that $\tau_A$ dominates, doubling the gain halves the bandwidth. APD design always lives at the edge of this trade-off.
+
+% ------------------------------------------------------------------
+\section{Noise in Photodetectors}
+% ------------------------------------------------------------------
+
+\subsection{Shot Noise: The Fundamental Floor}
+
+The fundamental noise mechanism in photodetection is \textbf{shot noise} — the statistical randomness in the arrival times of discrete photons and the resulting randomness in the generation of electron-hole pairs. Even if the optical power were perfectly constant, the photocurrent would fluctuate because photons arrive at random Poisson-distributed intervals. The mean-square shot noise current in a receiver bandwidth $B$ is:
+
+For a PIN photodiode:
+\begin{keyresult}
+\begin{equation}
+    \sigma_\text{PIN}^2 = 2Be\,\bar{i}
+\end{equation}
+\end{keyresult}
+
+For an APD, the avalanche process amplifies both the signal and its shot noise, then adds additional noise from the random multiplication:
+\begin{keyresult}
+\begin{equation}
+    \sigma_\text{APD}^2 = 2Be\,\bar{i}\,F\bar{G}^2
+\end{equation}
+\end{keyresult}
+
+An important subtlety: when a photon generates one electron-hole pair, the current that flows in the external circuit is only one electron charge $e$ — not $2e$. The electron and hole travel in opposite directions, but they form the two complementary halves of the same current loop. Both carriers are needed to complete the circuit, but together they deliver only $e$ of charge to the external terminal.
+
+\subsection{Thermal (Johnson) Noise}
+
+The load resistor $R_L$ also contributes thermal noise — random voltage fluctuations due to the thermal motion of electrons in the resistor. The mean-square Johnson noise current in bandwidth $B$ is:
+\begin{equation*}
+    \sigma_\text{thermal}^2 = \frac{4k_BT\,B}{R_L}
+\end{equation*}
+
+At high data rates where $R_L$ must be small to achieve the required bandwidth, thermal noise often dominates over shot noise. This is precisely the regime where APDs offer the most benefit: the internal avalanche gain boosts the signal-level shot noise above the thermal noise floor, improving the effective SNR. As $R_L$ increases (higher sensitivity designs), thermal noise diminishes relative to shot noise, and APDs provide less incremental advantage.
+
+\subsection{Signal-to-Noise Ratio}
+
+The received electrical SNR is:
+\begin{equation*}
+    \text{SNR} = \frac{\bar{i}^2}{\sigma_\text{shot}^2 + \sigma_\text{thermal}^2}
+\end{equation*}
+
+For a PIN receiver dominated by thermal noise:
+\begin{equation*}
+    \text{SNR}_\text{PIN} \approx \frac{(\mathcal{R}\,P_\text{opt})^2}{4k_BT B/R_L}
+\end{equation*}
+
+For an APD receiver:
+\begin{equation*}
+    \text{SNR}_\text{APD} \approx \frac{(\bar{G}\,\mathcal{R}\,P_\text{opt})^2}{2Be(\bar{G}\,\mathcal{R}\,P_\text{opt})\,F\bar{G}^2 + 4k_BTB/R_L}
+\end{equation*}
+
+Optimising the APD gain $\bar{G}$ to maximise SNR for a given operating condition gives the optimal gain point — beyond which additional multiplication adds more noise than signal benefit.
+
+% ------------------------------------------------------------------
+\section{Closing the Circle: What We Have Built}
+% ------------------------------------------------------------------
+
+We began this course with the simplest possible model of light-matter interaction — a single classical electron bound to a nucleus, oscillating in response to an electromagnetic wave. From that humble starting point, we have assembled the complete theoretical and practical framework of modern optoelectronics.
+
+\begin{keyinsight}[The Intellectual Arc of This Course]
+The ten chapters of these notes form a single, unbroken chain of physical reasoning:
+
+\textbf{Chapters 1--2} established the microscopic language of light-matter interaction: the classical electron oscillator and its lineshape, followed by Einstein's rate equation model that introduced the quantum of light and the possibility of stimulated emission.
+
+\textbf{Chapter 3} showed how stimulated emission, combined with population inversion, produces \emph{optical amplification} — the travelling-wave amplifier and gain saturation. Spontaneous emission emerged as the irreducible noise floor.
+
+\textbf{Chapter 4} closed the loop with optical feedback: the Fabry-Pérot cavity, the oscillation threshold, mode selection, and the laser oscillator. The FP amplifier connected the sub-threshold and above-threshold regimes continuously.
+
+\textbf{Chapters 5--6} rebuilt the gain medium from scratch using semiconductor physics: energy bands, density of states, Fermi-Dirac statistics, quasi-Fermi levels, and the Bernard-Duraffourg gain condition. The homojunction, the double heterostructure, and the optical confinement factor $\Gamma$ emerged as the solutions to the practical problem of achieving inversion at room temperature with reasonable currents.
+
+\textbf{Chapters 7--8} completed the device picture: material systems (AlGaAs, InGaAsP), three recombination mechanisms, the carrier rate equation, the LED, the SOA, and the full laser diode with its P--I characteristic and temperature dependence.
+
+\textbf{Chapter 9} revealed the dynamics: relaxation oscillations, modulation bandwidth, turn-on delay, and the transition from multi-mode Fabry-Pérot to single-frequency DFB and DBR architectures.
+
+\textbf{Chapter 10 (this chapter)} completed the receiver side: optical absorption, quantum efficiency, responsivity, PIN and APD photodetectors, bandwidth limits, and noise — closing the full transmitter-channel-receiver chain of an optical communications system.
+
+The remarkable fact is that every step in this chain followed inevitably from the previous one. The Kramers-Kronig causality relation that ties refractive index to the absorption spectrum — first encountered in the context of atomic dispersion — reappeared when explaining why the narrow-gap active layer in a DH laser automatically has a higher refractive index than its cladding, making it a waveguide by design rather than by accident. The gain saturation formula derived for the travelling-wave amplifier resurfaced as carrier clamping in the laser diode: above threshold, the photon field collapses any excess inversion back to the threshold value, exactly as the saturation intensity did in the homogeneously broadened amplifier. The photon lifetime, first defined as the decay rate of the passive cavity, reappeared as the denominator of the relaxation oscillation frequency and as the parameter connecting threshold gain to threshold current density. This is not coincidence — it is the deep internal consistency of electrodynamics applied to matter at different scales and in different regimes.
+\end{keyinsight}
+
+Modern optoelectronics extends well beyond the scope of these lectures — quantum well and quantum dot lasers exploit confinement in two and three dimensions for even lower thresholds and higher differential gain; vertical-cavity surface-emitting lasers (VCSELs) replace cleaved facets with epitaxial Bragg mirrors to enable two-dimensional arrays; silicon photonics integrates optical and electronic functions on a CMOS platform; and quantum key distribution uses single-photon sources and detectors to implement provably secure communications. But every one of these technologies rests on exactly the physical foundations laid in these ten chapters. The tools are in hand.

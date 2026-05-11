@@ -1,0 +1,338 @@
+% =========================================================
+%  Chapter 7 — Heterostructure Materials, Carrier Dynamics,
+%              and the Gain Rate Equation
+%  Source: Dr. George's Lectures (Lecture 3)
+%  Style: student-voice notes matching the personal style guide
+% =========================================================
+
+% ------------------------------------------------------------------
+\section{Completing the Heterostructure Picture}
+% ------------------------------------------------------------------
+
+The previous chapter established the double heterostructure as the engineering solution to the homojunction's two fundamental problems — a thick, unconfined gain region and a weak optical mode overlap. We saw that the narrow-gap active layer simultaneously traps carriers via band-edge discontinuities and guides photons via its higher refractive index. One key fact was stated but not yet fully explained: \emph{why} does a smaller bandgap automatically imply a higher refractive index? And once we accept the heterostructure architecture, how do we actually choose the right material system for a given target wavelength while guaranteeing that the crystal interfaces are defect-free? This chapter answers both questions before building the complete dynamical model of how carriers and photons interact inside the device.
+
+% ------------------------------------------------------------------
+\section{Why Smaller Bandgap Means Higher Refractive Index}
+% ------------------------------------------------------------------
+
+The link between bandgap and refractive index is not a coincidence — it is a direct consequence of the Kramers-Kronig relations, the same causality constraint that links the real and imaginary parts of any complex response function. The same principle that ties the real part of the atomic susceptibility to its imaginary (absorptive) part applies here, now to the complex refractive index $\tilde{n} = n + j\kappa$ of the semiconductor.
+
+The real refractive index $n(\omega)$ is related to the extinction coefficient $\kappa(\omega)$ (which describes absorption) through the Kramers-Kronig integral:
+\begin{keyresult}
+\begin{equation}
+    n(\omega) - 1 = \frac{2}{\pi}\,\mathcal{P}\int_0^{\infty}\frac{\omega'\,\kappa(\omega')}{\omega'^2 - \omega^2}\,d\omega'
+\end{equation}
+\end{keyresult}
+where $\mathcal{P}$ denotes the Cauchy principal value of the integral. Physically, this equation says that $n(\omega)$ at any given frequency is determined by the \emph{entire} absorption spectrum $\kappa(\omega')$ of the material. The key insight is in the weighting: the $1/(\omega'^2 - \omega^2)$ denominator gives the largest contributions from $\omega'$ close to $\omega$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/kramers_kronig.jpg}
+    \caption{Kramers–Kronig Relation: Real and Imaginary Refractive Index}
+    \label{fig:kramers_kronig}
+\end{figure}
+
+Now consider two materials: one with a small bandgap (like GaAs, $E_g \approx 1.42\,\text{eV}$) and one with a large bandgap (like AlAs, $E_g \approx 2.16\,\text{eV}$). The small-gap material begins absorbing photons at a much lower frequency — its $\kappa(\omega')$ has a nonzero contribution starting from $\omega' = E_g/\hbar$ which is comparatively small. When we integrate this contribution into the Kramers-Kronig formula, the lower-frequency onset of absorption dominates the integral at any optical operating frequency below the bandgap. The result: smaller-gap materials accumulate a larger integral, which yields a higher real refractive index $n$.
+
+This is precisely why the active layer of a double heterostructure — which must have the smallest bandgap in the stack to enable photon emission — automatically has a higher refractive index than its wider-gap cladding layers. \textbf{The carrier confinement and photon confinement functions of the heterostructure are not independent design choices: they both flow from the single constraint that the active material must have the smallest bandgap.}
+
+% ------------------------------------------------------------------
+\section{Materials Design for Heterojunctions}
+% ------------------------------------------------------------------
+
+\subsection{Binary Semiconductors: The Starting Point}
+
+The simplest III-V semiconductors are binary compounds — one Group-III element paired with one Group-V element. The most important property determining suitability for light emission is whether the bandgap is direct or indirect. Group-IV elemental semiconductors (Si, Ge) have indirect bandgaps: their conduction band minimum sits at a different crystal momentum than the valence band maximum, so any optical transition requires a phonon to supply the momentum difference, making radiative recombination a three-particle process that is enormously less probable. The III-V binaries frequently have direct gaps — conduction minimum and valence maximum at the same $k$-point — making them the foundation of all practical LED and laser technology.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/periodic_table_section.jpg}
+    \caption{III-V Binary Semiconductor Periodic Table Section}
+    \label{fig:periodic_table_section}
+\end{figure}
+
+Some key binary compounds at room temperature are:
+
+\begin{center}
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+\textbf{Material} & $E_g$ \textbf{(eV)} & $\lambda_g$ \textbf{($\mu$m)} & \textbf{Gap Type} \\
+\midrule
+GaAs & 1.42 & 0.87 & Direct \\
+InP  & 1.35 & 0.92 & Direct \\
+InAs & 0.36 & 3.5  & Direct \\
+GaSb & 0.73 & 1.70 & Direct \\
+AlAs & 2.16 & 0.57 & Indirect \\
+GaP  & 2.26 & 0.55 & Indirect \\
+Si   & 1.11 & 1.15 & Indirect \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/binary_semiconductor_connectivity_diagram.jpg}
+    \caption{Binary Semiconductor Connectivity Diagram (Zincblende)}
+    \label{fig:binary_semiconductor_connectivity_diagram}
+\end{figure}
+
+The bandgap is not a fixed constant — it shifts with temperature. For GaAs, the empirical Varshni formula gives:
+\begin{equation*}
+    E_g(\text{GaAs}) = 1.5216 - \frac{5.405 \times 10^{-4}\,T^2}{T + 204} \quad [\text{eV}]
+\end{equation*}
+and for InP:
+\begin{equation*}
+    E_g(\text{InP}) = 1.4206 - \frac{4.906 \times 10^{-4}\,T^2}{T + 327} \quad [\text{eV}]
+\end{equation*}
+
+The negative temperature coefficient means the bandgap shrinks as temperature rises — photon emission shifts to longer wavelengths at higher operating temperatures. This is one of the key reasons semiconductor laser output wavelength drifts with junction temperature, and it fundamentally couples thermal management to wavelength stability in practical devices.
+
+\subsection{Ternary Semiconductors: Tuning the Bandgap}
+
+No single binary compound can cover all the wavelength ranges required by applications. By mixing two Group-III elements with one Group-V element (or vice versa), we create ternary alloys whose bandgap and lattice constant can be continuously tuned by adjusting the composition fraction $x$.
+
+To first order, the alloy bandgap interpolates linearly between the two parent binaries (Vegard's law):
+\begin{equation*}
+    E_g\!\left(\text{Al}_x\text{Ga}_{1-x}\text{As}\right) \approx x\,E_g(\text{AlAs}) + (1-x)\,E_g(\text{GaAs})
+\end{equation*}
+giving approximately $E_g \approx 1.424 + 1.247x\,\text{eV}$ for the AlGaAs system. For more precise work, a small nonlinear bowing correction $-bx(1-x)$ is added, but the linear form is sufficient for engineering estimates.
+
+The critical engineering constraint is \textbf{lattice matching}. The crystal lattice constant $a$ must be nearly equal on both sides of every heterointerface — a mismatch greater than $\sim 0.1\%$ generates misfit dislocations that act as efficient non-radiative recombination centres, catastrophically reducing device efficiency and lifetime.
+
+AlGaAs is the ideal ternary for near-infrared devices because GaAs and AlAs happen to have nearly identical lattice constants (they differ by less than 0.15\%). This means Al$_x$Ga$_{1-x}$As is lattice-matched to GaAs for \emph{all} values of $x$ — the composition can be tuned freely across the full direct-gap range ($x \lesssim 0.45$) without any lattice mismatch concern. The resulting refractive index step between active and cladding layers is approximately:
+\begin{equation*}
+    n_\text{GaAs} - n_\text{AlGaAs} \approx 0.62x
+\end{equation*}
+which directly sets the waveguiding strength. Larger $x$ gives a bigger index step and stronger photon confinement, but also a larger bandgap discontinuity and stronger carrier confinement.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/lattice_bandgap_alloy_map.jpg}
+    \caption{Lattice Constant vs. Band Gap: Ternary Alloy Map}
+    \label{fig:lattice_bandgap_alloy_map}
+\end{figure}
+
+\subsection{Quaternary Semiconductors: Decoupling Bandgap from Lattice Constant}
+
+In a ternary alloy, adjusting $x$ to change the bandgap simultaneously changes the lattice constant. This limits design freedom: we can only choose compositions that are naturally lattice-matched to a given substrate. Quaternary alloys — using two Group-III and two Group-V elements — provide an extra degree of freedom that decouples the bandgap from the lattice constant. Both can be independently matched to a chosen substrate.
+
+The most important quaternary system is In$_{1-x}$Ga$_x$As$_{1-y}$P$_y$ grown on InP substrates. Its bandgap is approximated by:
+\begin{equation*}
+    E_g \approx (1-x)(1-y)\,E_g(\text{InAs}) + x(1-y)\,E_g(\text{GaAs}) + (1-x)y\,E_g(\text{InP}) + xy\,E_g(\text{GaP})
+\end{equation*}
+
+Lattice matching to InP imposes the approximate composition constraint:
+\begin{equation*}
+    y \approx 2.2x, \qquad x \lesssim 0.47
+\end{equation*}
+
+This leaves one free parameter (say $x$) for tuning the bandgap while automatically keeping the lattice matched to InP. This family of alloys covers the $1.3\,\mu$m and $1.55\,\mu$m telecommunications windows, making it the material basis of essentially all long-haul fibre-optic sources.
+
+% ------------------------------------------------------------------
+\section{Heterostructure Operation: Injection Efficiency and Confinement}
+% ------------------------------------------------------------------
+
+\subsection{Injection Efficiency at a Single Heterojunction}
+
+At a forward-biased single heterojunction, both electrons and holes are injected across the interface, but in general one carrier type dominates. The ratio of the electron current to the hole current depends on both the doping levels and the bandgap difference between the two sides:
+\begin{equation*}
+    \left|\frac{J_e}{J_h}\right| = \frac{D_e L_h}{D_h L_e}\cdot\frac{N_D}{N_A}\cdot\exp\!\left(\frac{E_{g,n} - E_{g,p}}{k_B T}\right)
+\end{equation*}
+where $E_{g,n}$ and $E_{g,p}$ are the bandgaps on the n- and p-sides respectively. The exponential factor dominates: even a modest bandgap difference of $\sim 0.1\,\text{eV}$ (compared to $k_BT \approx 26\,\text{meV}$ at room temperature) exponentially suppresses the unwanted carrier current. The \textbf{injection efficiency} — the fraction of total current carried by the desired carrier type — is:
+\begin{equation*}
+    \eta_j = \frac{J_e}{J_e + J_h}
+\end{equation*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/junction_current_components.jpg}
+    \caption{Current Components Across a p-n Junction}
+    \label{fig:junction_current_components}
+\end{figure}
+
+For a double heterostructure, injecting a wide-gap cladding on both sides of the narrow-gap active layer means that once carriers cross into the active region, the potential barriers on both sides prevent them from escaping. There is no longer a competing diffusion current flowing out into the bulk — all the injected current contributes to recombination within the active layer.
+
+\subsection{Carrier Density Enhancement in the DH Structure}
+
+We can quantify precisely how much better the DH structure is at building up carrier density for a given injected current. In a single junction, the minority carrier profile decays exponentially with the diffusion length $L_e = \sqrt{D_e\tau}$. For a thin DH active layer of thickness $d$, the steady-state continuity equation requires the current $J$ to supply carriers at the rate they recombine:
+\begin{equation*}
+    \frac{J}{ed} = \frac{\Delta N}{\tau}
+\end{equation*}
+
+For a comparable single junction with the same current, the relevant quantity is the surface excess carrier density $\Delta n(0) \approx JL_e/(eD_e)$. Taking the ratio:
+\begin{equation*}
+    \frac{\Delta N}{\Delta n(0)} = \frac{\tau D_e}{L_e d} = \frac{L_e}{d}
+\end{equation*}
+
+Since $L_e \sim 1\,\mu$m and $d \sim 0.1\,\mu$m for a well-designed DH laser, the carrier density in the active region is enhanced by a factor of $L_e/d \sim 10$ compared to a homojunction for the same injected current. This is the quantitative explanation for why DH lasers achieve much lower threshold currents.
+
+\subsection{Single-Mode Waveguide Condition}
+
+The active layer must also confine the optical mode. Treating the heterostructure as a symmetric slab waveguide with active-layer index $n_1 > n_2$ (cladding), the normalised frequency parameter is:
+\begin{keyresult}
+\begin{equation}
+    V = \frac{2\pi d}{\lambda_0}\sqrt{n_1^2 - n_2^2}
+\end{equation}
+\end{keyresult}
+
+For single-transverse-mode operation — which is essential for a coherent, well-collimated laser beam — we need:
+\begin{equation*}
+    V < \pi
+\end{equation*}
+
+This sets a maximum active-layer thickness for single-mode guidance:
+\begin{keyresult}
+\begin{equation}
+    d_\text{max} = \frac{\lambda_0}{2\sqrt{n_1^2 - n_2^2}}
+\end{equation}
+\end{keyresult}
+
+This reveals an important design trade-off: reducing $d$ below $d_\text{max}$ guarantees single-mode operation and also reduces the threshold current (higher carrier density for same $J$), but it simultaneously reduces the optical confinement factor $\Gamma$ — a thinner waveguide confines less of the mode power in the gain region. The modal gain $\gamma_\text{modal} = \Gamma\,\gamma_\text{med}$ therefore drops as $d$ decreases below a critical value, ultimately raising the threshold instead of lowering it. There is an optimal active layer thickness that minimises the threshold current density, and it is typically in the range $d \approx 50$--$200\,\text{nm}$ for GaAs-based DH lasers.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/confinement_vs_thickness.jpg}
+    \caption{Optical Confinement Factor vs. Active Layer Thickness}
+    \label{fig:confinement_vs_thickness}
+\end{figure}
+
+% ------------------------------------------------------------------
+\section{The Carrier Rate Equation}
+% ------------------------------------------------------------------
+
+\subsection{Generation: Current Injection}
+
+We now have all the ingredients to write down the complete dynamical equation governing the carrier population inside the active region. The rate of change of carrier density $N$ has three contributions: injection from the external current, spontaneous and non-radiative recombination, and stimulated emission consuming carriers to produce coherent photons.
+
+Starting from the charge continuity equation $\partial\rho/\partial t + \nabla\cdot\mathbf{J} = 0$ and approximating the current divergence in a thin active layer as $\nabla\cdot\mathbf{J} \approx J/d$ (where $J$ is the current density in A/m$^2$), the generation rate per unit volume is:
+\begin{equation*}
+    \left.\frac{dN}{dt}\right|_\text{gen} = \frac{J}{ed}
+\end{equation*}
+where $e$ is the elementary charge and $d$ is the active layer thickness. This term simply counts how many electron-hole pairs per unit volume per second are supplied by the external current.
+
+\subsection{Recombination: Three Mechanisms}
+
+Carriers are consumed by three physically distinct recombination processes, each with a different microscopic origin and a different dependence on carrier density $N$:
+
+\textbf{1. Shockley-Read-Hall (SRH) recombination} is a single-carrier, trap-assisted process. An electron or hole is captured by a mid-gap defect state (a lattice imperfection or impurity), which then captures the complementary carrier. No photon is emitted — the energy is released as heat (phonons). The rate scales linearly with carrier density:
+\begin{equation*}
+    R_\text{SRH} = AN
+\end{equation*}
+where $A$ (s$^{-1}$) is the SRH coefficient, proportional to the defect density. This is the dominant recombination channel in indirect-gap materials like silicon, where radiative transitions are phonon-assisted and therefore slow — $\tau_r \sim 10\,\text{ms}$ in Si compared to $\tau_r \sim 100\,\text{ns}$ in GaAs. Minimising $A$ through careful crystal growth and surface passivation is essential for high-efficiency LEDs.
+
+\textbf{2. Bimolecular (radiative) recombination} is the direct band-to-band process that produces a photon. An electron and a hole meet, annihilate, and emit a photon with energy close to $E_g$. This process requires \emph{both} an electron and a hole, so its rate scales as $N^2$ (assuming the electron and hole densities are equal, i.e., $n = p = N$ under equal injection):
+\begin{equation*}
+    R_\text{rad} = BN^2
+\end{equation*}
+where $B$ (m$^3$/s) is the bimolecular recombination coefficient. For GaAs, $B \approx 10^{-16}\,\text{m}^3/\text{s}$ at room temperature. This is the channel that drives LED emission and laser gain.
+
+\textbf{3. Auger recombination} is a three-particle process. An electron-hole pair recombines, but instead of emitting a photon, the released energy is transferred to a third carrier (either an electron or a hole) which is kicked to a higher energy state and subsequently thermalises back. The rate scales as $N^3$:
+\begin{equation*}
+    R_\text{Auger} = CN^3
+\end{equation*}
+where $C$ (m$^6$/s) is the Auger coefficient. Auger recombination is the dominant efficiency-limiting mechanism at high carrier densities and at elevated temperatures, and is a major challenge for long-wavelength lasers ($\lambda > 1.3\,\mu$m) where $C$ is large.
+
+The total volumetric recombination rate combining all three mechanisms is:
+\begin{keyresult}
+\begin{equation}
+    R = AN + BN^2 + CN^3
+\end{equation}
+\end{keyresult}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Figures/Chapter 7/carrier_recombination_mechanisms.jpg}
+    \caption{Carrier Recombination Mechanisms}
+    \label{fig:carrier_recombination_mechanisms}
+\end{figure}
+
+\subsection{Carrier Lifetime and Internal Quantum Efficiency}
+
+The total carrier lifetime $\tau$ is defined implicitly by $R = N/\tau$, and since the three recombination channels act in parallel (independently and simultaneously), their rates add:
+\begin{keyresult}
+\begin{equation}
+    \frac{1}{\tau} = \frac{1}{\tau_r} + \frac{1}{\tau_{nr}}
+\end{equation}
+\end{keyresult}
+where $\tau_r = 1/(BN)$ is the radiative lifetime (note it depends on $N$ because $R_\text{rad} \propto N^2$) and $\tau_{nr}$ groups the non-radiative SRH and Auger channels.
+
+The fraction of recombination events that produce a useful photon is the \textbf{internal quantum efficiency}:
+\begin{keyresult}
+\begin{equation}
+    \eta_\text{int} = \frac{1/\tau_r}{1/\tau} = \frac{\tau}{\tau_r}
+\end{equation}
+\end{keyresult}
+
+The contrast between GaAs and Si at room temperature with a trap concentration of $10^{15}\,\text{cm}^{-3}$ illustrates the importance of the direct/indirect distinction:
+
+\begin{center}
+\begin{tabular}{@{} l c c c @{}}
+\toprule
+\textbf{Material} & $\tau_r$ & $\tau_{nr}$ & $\eta_\text{int}$ \\
+\midrule
+Si   & $\sim 10\,\text{ms}$  & $\sim 100\,\text{ns}$ & $\approx 0.001\%$ \\
+GaAs & $\sim 100\,\text{ns}$ & $\sim 100\,\text{ns}$ & $\approx 50\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Silicon's radiative lifetime is ten million times longer than its non-radiative lifetime — almost every carrier recombines non-radiatively before it ever has the chance to emit a photon. GaAs, with comparable radiative and non-radiative rates, delivers $\sim 50\%$ internal efficiency from a simple unoptimised structure, and modern double heterostructures can push this well above 90\%.
+
+\subsection{The Full Carrier Rate Equation}
+
+Combining generation, spontaneous and non-radiative recombination, and stimulated emission (where $S$ is the photon density, $G$ is the stimulated emission rate per unit photon density, and $\Gamma$ is the optical confinement factor):
+\begin{keyresult}
+\begin{equation}
+    \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma\,G\,S
+\end{equation}
+\end{keyresult}
+
+Each term has a clear physical interpretation:
+\begin{itemize}
+    \item $J/(ed)$: the carrier generation rate from the external drive current — every milliamp of current injects a fixed number of electron-hole pairs per second into the active volume.
+    \item $N/\tau$: the total spontaneous and non-radiative recombination loss — carriers draining away as wasted heat or as spontaneous (incoherent) photons that do not contribute to the lasing mode.
+    \item $\Gamma\,G\,S$: the stimulated depletion — coherent photons in the lasing mode consuming carriers to generate more coherent photons. The $\Gamma$ factor accounts for the fact that only the fraction of the optical mode overlapping the active layer drives stimulated transitions.
+\end{itemize}
+
+\subsection{The Stimulated Emission Rate and Linear Gain Model}
+
+The stimulated emission rate $G$ tells us how fast one photon in the mode generates additional photons. A photon travelling through the gain medium with group velocity $v_g$ accumulates gain over a path length $dz = v_g\,dt$, growing at rate $dS = S\,\gamma_m\,dz$. Converting distance to time:
+\begin{keyresult}
+\begin{equation}
+    G = v_g\,\gamma_m
+\end{equation}
+\end{keyresult}
+where $\gamma_m$ is the material gain coefficient (m$^{-1}$) — the net stimulated emission rate per unit photon density per unit length, which we derived from the Fermi-Dirac occupation factors and the joint density of states in the previous chapter.
+
+Over the operating range of a practical laser, the material gain $\gamma_m$ varies roughly linearly with carrier density $N$ around a transparency point. At $N = N_\text{tr}$ (the \textbf{transparency carrier density}), gain exactly equals absorption and the material is neither amplifying nor absorbing. Below $N_\text{tr}$, the material absorbs; above it, the material amplifies. The linear approximation:
+\begin{keyresult}
+\begin{equation}
+    G \approx B(N - N_\text{tr})
+\end{equation}
+\end{keyresult}
+where $B$ (m$^3$/s) is the differential gain coefficient, captures this linear regime cleanly. This is the model that will be used in all subsequent rate equation analyses of LEDs and laser diodes. The key physical content is transparent: stimulated emission rate is proportional to the population inversion $(N - N_\text{tr})$, directly mirroring the classical $(N_2 - N_1)$ result from the Einstein rate equation model — more inversion means more stimulated transitions, and zero inversion at $N_\text{tr}$ means the material is transparent.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 7/gain_spectrum_and_linear_model.jpg}
+    \caption{Linear Gain Approximation: Gain vs. Carrier Density}
+    \label{fig:gain_spectrum_and_linear_model}
+\end{figure}
+
+% ------------------------------------------------------------------
+\section{From Dynamics to Devices}
+% ------------------------------------------------------------------
+
+With the carrier rate equation now fully established, we have a complete dynamical framework describing how carriers are injected, how they recombine through competing channels, and how they interact with the photon field. The rate equation $dN/dt = J/(ed) - N/\tau - \Gamma G S$ is the master equation from which all semiconductor device behaviour follows — LED output power, laser threshold, modulation bandwidth, and amplifier gain saturation are all consequences of solving this equation (and its companion photon rate equation) under different operating conditions.
+
+\begin{keyinsight}[The Distinction Between an LED and a Laser Diode]
+Both an LED and a laser diode use the same DH structure, the same material system, and the same current-injection principle. The fundamental difference lies in which term in the rate equation dominates the photon output.
+
+In an LED, the stimulated emission term $\Gamma G S$ is negligible — either because the photon density is low (no optical feedback) or because the carrier density never reaches the transparency point. All photons are produced by the $N/\tau_r$ spontaneous emission term. The output is incoherent, broad-spectrum, and proportional to current.
+
+In a laser diode, once the current exceeds the threshold value, stimulated emission dominates completely. The spontaneous term $N/\tau_r$ becomes negligible compared to $\Gamma G S$, and almost every carrier injected above threshold generates a coherent, in-mode photon. The output is coherent, narrow-spectrum, and rises linearly with current above threshold.
+
+Understanding this distinction — which is fundamentally about whether stimulated emission is negligible or dominant — is the starting point for all that follows.
+\end{keyinsight}
+
+The next chapter puts this rate equation to work: we will solve it under steady-state conditions for an LED to calculate its output power, spectral shape, and modulation bandwidth, and then extend the analysis to the semiconductor optical amplifier and the laser diode to derive the threshold condition, the characteristic P–I curve, and the coupled photon-carrier dynamics.

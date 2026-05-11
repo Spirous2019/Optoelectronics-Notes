@@ -802,22 +802,18 @@ This is exactly the passive finesse expression $\pi(R_1 R_2)^{1/4}e^{-\alpha_s L
 
 The active finesse exceeds the passive finesse whenever $G_0 > 1$, because the gain reduces the net round-trip loss experienced by a photon. As $RG_0\to 1$ — as we approach the oscillation threshold derived earlier in this chapter — the active finesse diverges and the resonance peaks become arbitrarily narrow. At that crossing, what was a sub-threshold amplifier becomes, precisely, the laser oscillator.
 
+% =============================================================
+\section{From General Theory to Semiconductor Realities}
+% =============================================================
 
+Throughout this chapter, we have built a rigorous macroscopic model of the laser oscillator. By introducing optical feedback via the Fabry-Pérot cavity, we successfully constructed a self-sustaining device that requires no external seed signal. We quantified the oscillation threshold, analysed the spatial modes determined by cavity mechanics, explored the mode competition driven by homogeneous versus inhomogeneous broadening, and finally calculated the steady-state output power derived from gain saturation.
 
-\section{Summary and Looking Ahead}
+However, a fundamental abstraction remains at the core of our oscillator model: \textbf{we have treated the gain medium as a generic collection of isolated atoms}. In reality, the most transformative and widely deployed lasers in the modern world — from the fibre-optic backbone of the internet to the barcode scanner — do not use isolated atoms floating in a gas. They use tightly packed crystal lattices where billions of atoms interact continuously. A generic atomic model cannot systematically explain how to inject carriers into these bands or how a simple electrical current produces optical gain.
 
-We have built the complete picture of the Fabry-Pérot resonator — both above and below the oscillation threshold. The chapter followed a deliberate pedagogical arc:
+\begin{keyinsight}[The Missing Physics: Solid-State Semiconductors]
+To transform our theoretical oscillator into the immensely practical, electrically driven devices that dominate modern optoelectronics, we must introduce \textbf{semiconductor physics}. 
 
-\textbf{Cavity mechanics (§2):} The round-trip self-consistency condition splits into two requirements. The \textbf{phase condition} $\nu_q = qc/(2L)$ selects discrete cold-resonator modes separated by the FSR $\nu_F = c/2L$. The \textbf{amplitude condition} defines the total loss coefficient $\alpha_r = \alpha_s + \frac{1}{2L}\ln(1/R_1 R_2)$ that the gain must overcome. The photon lifetime $\tau_\mathrm{ph} = 1/(\alpha_r v_g)$ and mode linewidth $\delta\nu = 1/(2\pi\tau_\mathrm{ph})$ follow directly from $\alpha_r$, and the finesse $\mathcal{F} = \nu_F/\delta\nu$ measures the cavity's frequency selectivity.
+If we replace the generic atomic gas with a semiconductor PN junction, the discrete energy levels blur into continuous energy bands. Instead of pumping isolated atoms with external light, we can directly inject massive populations of electrons and holes across the junction using a simple forward bias. By physically trapping these massive carrier populations in a confined region, we can achieve the necessary population inversion entirely through electrical means.
+\end{keyinsight}
 
-\textbf{Threshold (§3--§4):} The two mirror types set $R_1$, $R_2$. The threshold population inversion $N_{0,\mathrm{th}} = \alpha_r/\sigma(\nu_0)$ and threshold pump rate $R_\mathrm{th}$ determine the minimum excitation required for lasing.
-
-\textbf{Hot resonator (\S5):} The gain medium introduces a Kramers-Kronig phase shift $\Delta\beta = [(\nu-\nu_0)/\Delta\nu]\gamma$ that pulls all oscillating modes toward the atomic resonance $\nu_0$. The actual laser frequencies $\nu'_q$ (hot-resonator modes) differ measurably from the geometric cold-cavity modes $\nu_q$.
-
-\textbf{Mode selection (§6):} At turn-on, all modes with $\gamma_0(\nu_q) > \alpha_r$ compete. In homogeneously broadened media, global gain saturation selects a single surviving mode (with spatial hole burning as a practical exception). In inhomogeneously broadened media, independent spectral hole burning sustains multi-mode oscillation, with the IHB saturation law $\gamma_0/\sqrt{1+\Phi/\Phi_s}$ retaining more intracavity gain than the HB counterpart.
-
-\textbf{Output power (§7):} Gain clamping at $\gamma = \alpha_r$ gives the steady-state intracavity flux $\Phi = \Phi_s(\gamma_0/\alpha_r - 1)$. The optimal mirror transmissivity $T_\mathrm{opt} = \sqrt{g\ell} - \ell$ maximises output power $P_\mathrm{max} = \frac{P_s}{2}(\sqrt{g}-\sqrt{\ell})^2$.
-
-\textbf{FP amplifier (§8):} Below threshold, the same structure amplifies an external signal. The Airy function of the passive cavity gives the explicit finesse formula $\mathcal{F} \approx \pi(R_1 R_2)^{1/4}e^{-\alpha_s L/2}/(1-\sqrt{R_1 R_2}e^{-\alpha_s L}) \approx \pi/(\alpha_r L)$. The active FP amplifier gain $G = (1-R_1)(1-R_2)G_0/[(1-G_0\sqrt{R_1 R_2})^2 + 4G_0\sqrt{R_1 R_2}\sin^2(\beta L)]$ generalises the TWA ($R=0 \Rightarrow G = G_0$) and converges to the laser oscillator as $G_0\sqrt{R_1 R_2} \to 1$.
-
-The next natural step is to examine specific laser systems where the gain medium, the cavity, and the pumping mechanism take the concrete forms dictated by semiconductor physics.
+This conceptual leap from a generic atomic cavity to a solid-state, electrically driven diode is the ultimate transition into applied optoelectronics. The cavity mechanics we have mastered here — threshold conditions, mode spacing, and photon lifetimes — will now serve as the structural framework housing this new semiconductor gain medium. The next chapter will review exactly how this band-structure physics successfully powers the LED and the \textbf{semiconductor laser diode}.
