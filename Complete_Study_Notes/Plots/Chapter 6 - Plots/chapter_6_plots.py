@@ -11,14 +11,14 @@ import os
 WHITE    = "#ffffff"; AXES_CLR = "#2b2b2b"; GRID_CLR = "#d0d0d0"
 TEAL     = "#0d9b76"; CORAL    = "#d94452"; GOLD     = "#c28800"
 LAVENDER = "#7e57c2"; SKYBLUE  = "#1976d2"; MINT     = "#00897b"
-ORANGE   = "#e65100"
+ORANGE   = "#e65100"; PINK     = "#ad1457"
 
 plt.rcParams.update({
     "font.family": "serif", "mathtext.fontset": "cm",
     "axes.facecolor": WHITE, "figure.facecolor": WHITE,
     "axes.edgecolor": AXES_CLR, "axes.labelcolor": AXES_CLR,
     "xtick.color": AXES_CLR, "ytick.color": AXES_CLR, "text.color": AXES_CLR,
-    "axes.titlesize": 14, "axes.labelsize": 13,
+    "axes.titlesize": 15, "axes.labelsize": 13,
     "xtick.labelsize": 11, "ytick.labelsize": 11, "legend.fontsize": 11,
     "grid.color": GRID_CLR, "grid.linestyle": ":", "grid.linewidth": 0.6,
     "grid.alpha": 0.7, "lines.linewidth": 2.5,
@@ -183,7 +183,7 @@ def fig_02():
     ax.text(-0.01, Ec_p, r"$E_c$",    color=SKYBLUE, fontsize=11, ha="right", va="center")
     ax.text(-0.01, Ev_p, r"$E_v$",    color=CORAL,   fontsize=11, ha="right", va="center")
     ax.text(0.01, Efp, r"$E_{Fp}$", color=CORAL,   fontsize=11, ha="left", va="center")
-    ax.text(0.64, Efn, r"$E_{Fn}$", color=SKYBLUE, fontsize=11, ha="left", va="center")
+    ax.text(0.76, Efn+0.06, r"$E_{Fn}$", color=SKYBLUE, fontsize=11, ha="left", va="bottom")
 
     ax.text(0.17, -0.9, "p-region",        ha="center", color=CORAL,   fontsize=11)
     ax.text(0.50, -0.9, "Recombination region", ha="center", color=GOLD, fontsize=10)
@@ -287,7 +287,7 @@ def fig_03():
                     color=CORAL, alpha=0.15)
     ax.axhline(0, color=AXES_CLR, lw=0.8)
     ax.axhline(1, color=AXES_CLR, lw=0.8, ls="--")
-    ax.text(Wno*1.05, 1.0, r"$V_o$", color=CORAL, fontsize=11, va="center")
+    ax.text(Wno*0.88, 1.06, r"$V_o$", color=CORAL, fontsize=11, va="bottom", ha="center")
     ax.set_ylabel(r"$V(x) / V_o$", fontsize=12)
     ax.set_xlabel(r"Position $x$  (norm.)", fontsize=12)
     ax.set_ylim(-0.1, 1.3); ax.set_title("(C) Electrostatic Potential", pad=6)
@@ -311,7 +311,7 @@ def fig_04():
     fig, ax = plt.subplots(figsize=(7, 5))
 
     ax.fill_between(hnu, 0, rho, color=SKYBLUE, alpha=0.22)
-    ax.plot(hnu, rho, color=AXES_CLR, lw=2.5)
+    ax.plot(hnu, rho, color=TEAL, lw=2.5)
 
     # Onset at Eg
     ax.plot([Eg, Eg], [0, max(rho)*1.15], color=AXES_CLR, lw=1.2, ls="--")
@@ -488,16 +488,16 @@ def fig_07():
 
     # Depletion region shading
     ax.axvspan(-0.2, 0.2, color=LAVENDER, alpha=0.18)
-    ax.text(0, 0.5, "Depletion\nregion", ha="center", color=LAVENDER, fontsize=9.5)
+    ax.text(0, 0.78, "Depletion\nregion", ha="center", color=LAVENDER, fontsize=9.5)
 
-    # Diffusion length arrows
-    ax.annotate("", xy=(-Ln, 0.37), xytext=(0, 0.37),
+    # Diffusion length arrows — staggered vertically to avoid collision
+    ax.annotate("", xy=(-Ln, 0.50), xytext=(0, 0.50),
                 arrowprops=dict(arrowstyle="<->", color=SKYBLUE, lw=1.4))
-    ax.text(-Ln/2, 0.42, rf"$L_n = {Ln}\;\mu$m", ha="center", color=SKYBLUE, fontsize=10)
+    ax.text(-Ln/2, 0.54, rf"$L_n = {Ln}\;\mu$m", ha="center", color=SKYBLUE, fontsize=10)
 
-    ax.annotate("", xy=(Lp, 0.37), xytext=(0, 0.37),
+    ax.annotate("", xy=(Lp, 0.65), xytext=(0, 0.65),
                 arrowprops=dict(arrowstyle="<->", color=CORAL, lw=1.4))
-    ax.text(Lp/2, 0.42, rf"$L_p = {Lp}\;\mu$m", ha="center", color=CORAL, fontsize=10)
+    ax.text(Lp/2, 0.69, rf"$L_p = {Lp}\;\mu$m", ha="center", color=CORAL, fontsize=10)
 
     ax.set_xlabel(r"Position $x$  ($\mu$m)", fontsize=13)
     ax.set_ylabel("Normalized excess carrier density", fontsize=12)
@@ -581,7 +581,9 @@ def fig_08():
         ax.plot(z, mode, color=AXES_CLR, lw=2.5)
         for xd in [-d_act, d_act]:
             ax.axvline(xd, color=AXES_CLR, lw=0.9, ls="--")
-        ax.text(0, 0.85,
+        gamma_y = 0.50 if col == 0 else 0.45
+        gamma_x = 0 if col == 0 else 0.6
+        ax.text(gamma_x, gamma_y,
                 rf"$\Gamma \approx {gamma*100:.0f}\%$",
                 ha="center", color=TEAL, fontsize=11, fontweight="bold")
         ax.set_ylabel(r"$|\mathcal{E}|^2$  (norm.)", fontsize=12)
@@ -591,7 +593,7 @@ def fig_08():
         ax.grid(True)
 
     fig.suptitle("Optical Confinement: Homojunction vs. Double Heterojunction",
-                 fontsize=13, y=1.01)
+                 fontsize=14, y=1.02)
     fig.tight_layout()
     save(fig, "optical_confinement_comparison.jpg")
 
@@ -679,8 +681,8 @@ def fig_09():
         ax.plot(zi, Ev_here + 0.06, "o", mfc="white", mec=CORAL, ms=8, lw=1.5, zorder=5)
 
     # Labels
-    ax.text(d_lo + 0.01, Efn+0.04, r"$E_{Fn}$", color=SKYBLUE, fontsize=11, ha="left")
-    ax.text(d_lo + 0.01, Efp+0.04, r"$E_{Fp}$", color=CORAL,   fontsize=11, ha="left")
+    ax.text(0.50, Efn+0.08, r"$E_{Fn}$", color=SKYBLUE, fontsize=11, ha="center", va="bottom")
+    ax.text(0.50, Efp-0.08, r"$E_{Fp}$", color=CORAL,   fontsize=11, ha="center", va="top")
     ax.text(0.18, max(Ec_z)+0.15, r"P$^+$ cladding" "\n(e.g. AlGaAs)", ha="center",
             color=AXES_CLR, fontsize=9.5)
     ax.text(0.50, max(Ec_z)+0.15, "Active layer\n(e.g. GaAs)", ha="center",
@@ -756,14 +758,28 @@ def fig_10():
         mfc = AXES_CLR if direct else WHITE
         ax.plot(a, Eg, marker=mk, ms=ms, color=AXES_CLR,
                 mfc=mfc, mec=AXES_CLR, lw=1.5, zorder=5)
-        offset = (0.01, 0.04) if name not in ["InP", "GaSb"] else (-0.04, 0.04)
-        ax.text(a + offset[0], Eg + offset[1], name,
-                color=AXES_CLR, fontsize=10, ha="left", bbox=dict(facecolor=WHITE, edgecolor='none', pad=1.5), zorder=10)
+        # Per-compound label offsets to avoid collisions
+        label_offsets = {
+            "GaP":  (0.01,  0.06),
+            "AlAs": (0.02,  0.06),
+            "GaAs": (-0.06, -0.10),
+            "InP":  (0.02,  0.06),
+            "AlSb": (0.01,  0.06),
+            "GaSb": (-0.08, 0.06),
+            "InAs": (0.02,  0.06),
+        }
+        label_ha = {
+            "GaAs": "right", "GaSb": "right",
+        }
+        off = label_offsets.get(name, (0.01, 0.04))
+        ha_val = label_ha.get(name, "left")
+        ax.text(a + off[0], Eg + off[1], name,
+                color=AXES_CLR, fontsize=10, ha=ha_val, bbox=dict(facecolor=WHITE, edgecolor='none', pad=1.5), zorder=10)
 
     # Substrate lines
-    for (a_sub, lbl) in [(5.653, "GaAs substrate"), (5.869, "InP substrate")]:
+    for (a_sub, lbl, y_lbl) in [(5.653, "GaAs substrate", 0.55), (5.869, "InP substrate", 2.42)]:
         ax.axvline(a_sub, color=SKYBLUE, lw=1.3, ls="--")
-        ax.text(a_sub + 0.005, 2.42, lbl,
+        ax.text(a_sub + 0.005, y_lbl, lbl,
                 color=SKYBLUE, fontsize=9.5, rotation=90, va="top")
 
     # In0.53Ga0.47As star (lattice matched to InP, Eg~0.75 eV, 1.55 um)
@@ -823,7 +839,7 @@ def fig_11():
     gamma_homo = slope_homo * J + intcpt_homo
 
     # DH: steep slope (high confinement)
-    slope_dh = 50.0; intcpt_dh = -50.0
+    slope_dh = 30.0; intcpt_dh = -30.0
     gamma_dh = slope_dh * J + intcpt_dh
 
     alpha_th = 30.0   # threshold gain (cm^-1)
@@ -861,7 +877,8 @@ def fig_11():
     # ~20x reduction annotation
     ax.annotate("", xy=(Jth_dh, alpha_th+18), xytext=(Jth_homo, alpha_th+18),
                 arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.3))
-    ax.text((Jth_homo+Jth_dh)/2, alpha_th+22, r"$\sim 20\times$ reduction",
+    reduction = Jth_homo / Jth_dh
+    ax.text((Jth_homo+Jth_dh)/2, alpha_th+22, rf"$\sim {reduction:.0f}\times$ reduction",
             ha="center", color=AXES_CLR, fontsize=10)
 
     ax.set_xlabel(r"Current density $J$  (kA$\cdot$cm$^{-2}$)", fontsize=13)
