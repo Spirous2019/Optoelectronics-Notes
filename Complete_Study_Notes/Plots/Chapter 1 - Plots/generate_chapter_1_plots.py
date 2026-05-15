@@ -311,6 +311,9 @@ def plot_transmission_spectrum():
     ax.set_facecolor(WHITE)
     fig.patch.set_facecolor(WHITE)
 
+    # ── Transmission curve ───────────────────────────────────────────────────
+    ax.plot(nu, T, color=TEAL, linewidth=2.5, label="Transmission Spectrum")
+
     # ── FWHM Shading (drawn first so the curve sits on top) ─────────────────
     ax.axvspan(b1_lo, b1_hi, alpha=0.11, color=CORAL,
                label=r"Absorption Bandwidth ($\Delta\nu$ FWHM)")
@@ -320,9 +323,6 @@ def plot_transmission_spectrum():
     # Boundaries are exactly b1_hi and b2_lo so green starts precisely where red ends.
     ax.axvspan(b1_hi, b2_lo, alpha=0.06, color=TEAL,
                label="Transparency Window")
-
-    # ── Transmission curve ───────────────────────────────────────────────────
-    ax.plot(nu, T, color=TEAL, linewidth=2.5, label="Transmission Spectrum")
 
     # ── Axes cosmetics ───────────────────────────────────────────────────────
     ax.set_xlim(0.0, 11.0)
