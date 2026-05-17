@@ -131,19 +131,20 @@ def plot_narrow_vs_wide_source():
     # Common axis range
     x = np.linspace(-3, 3, 500)
 
+    # The atom's line shape MUST be identical in both plots!
+    # It is a property of the material, not the light.
+    g = lorentzian(x, x0=0, gamma=1.0)
+    g = g / np.max(g) * 0.8
+
     # ==========================================
     # PANEL 1: Narrow Light Source
     # ==========================================
-    # g(v) is wide, p(v) is narrow
-    g1 = lorentzian(x, x0=0, gamma=2.0)
-    # scale g1 just for visual balance
-    g1 = g1 / np.max(g1) * 0.8
-
-    # p(v) is narrow and slightly offset
+    # p(v) is a narrow spike compared to g(v)
     vs = -0.5
-    p1 = gaussian(x, x0=vs, sigma=0.1)
+    p1 = gaussian(x, x0=vs, sigma=0.08)
+    p1 = p1 / np.max(p1) * 0.9
 
-    ax1.plot(x, g1, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
+    ax1.plot(x, g, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
     ax1.plot(x, p1, color=CORAL, linewidth=2.5, label=r"$\rho(\nu)$ (Narrow Source)")
 
     # Formatting
@@ -159,15 +160,12 @@ def plot_narrow_vs_wide_source():
     # ==========================================
     # PANEL 2: Wide Light Source
     # ==========================================
-    # g(v) is narrow at center
-    g2 = lorentzian(x, x0=0, gamma=0.3)
-    g2 = g2 / np.max(g2)
-
-    # p(v) is very wide sweeping across
-    p2 = gaussian(x, x0=0, sigma=4.0)
+    # p(v) is wide — visibly curved as a gentle bell, but nearly flat across
+    # the atom's narrow line shape (sigma >> gamma), so the approximation is clear.
+    p2 = gaussian(x, x0=0, sigma=4.5)
     p2 = p2 / np.max(p2) * 0.6
 
-    ax2.plot(x, g2, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
+    ax2.plot(x, g, color=TEAL, linewidth=2.5, label=r"$g_{\nu_0}(\nu)$ (Line Shape)")
     ax2.plot(x, p2, color=CORAL, linewidth=2.5, label=r"$\rho(\nu)$ (Wide Source)")
 
     # Formatting

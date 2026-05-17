@@ -198,13 +198,13 @@ Collecting the $\rho(\nu)$ terms on one side:
 \end{equation*}
 
 Solving for $\rho(\nu)$:
-\begin{equation}
+\begin{equation*}
     \rho(\nu) = \frac{A\,N_2}{B_{12}\,N_1 - B_{21}\,N_2}
-\end{equation}
+\end{equation*}
 
 The physical takeaway is that thermal equilibrium requires the spontaneous and stimulated downward flows to perfectly balance the upward absorption flow. Setting this balance yields our exact expression for the necessary equilibrium photon field $\rho(\nu)$.
 
-This gives us $\rho(\nu)$ as a function of the populations and the Einstein coefficients. But we don't know the values of $B_{12}$ and $B_{21}$ yet, and we don't know the ratio $N_1/N_2$ in equilibrium without additional physics. We now bring in two separate pieces of known physics to evaluate both.
+This gives us $\rho(\nu)$ as a function of the populations and the Einstein coefficients. But we don't know the values of $B_{12}$ and $B_{21}$ yet, and we don't know the ratio $N_1/N_2$ in equilibrium without additional physics.
 
 \subsection{The Boltzmann Population Ratio}
 
@@ -225,7 +225,7 @@ Since $E_2 - E_1 = h\nu_0$:
     \frac{N_1}{N_2} = e^{h\nu_0/(k_B T)}
 \end{equation*}
 
-\begin{keyinsight}[The Iron Rule of Thermal Equilibrium]
+\begin{keyinsight}[Why Thermal Equilibrium Forbids Population Inversion]
 Because the photon energy $h\nu_0$ and thermal energy $k_B T$ are strictly positive, the exponent $h\nu_0/k_B T$ is always strictly positive. Therefore, the ratio $e^{h\nu_0/k_B T}$ is always strictly greater than 1. This mathematically guarantees that $\mathbf{N_1 > N_2}$ without exception — thermal equilibrium inherently forbids population inversion ($N_2 > N_1$). For typical optical frequencies ($h\nu_0 \approx 1{-}3\,\text{eV}$) at room temperature ($k_B T \approx 26\,\text{meV}$), this exponent is huge, making the population ratio $N_1/N_2$ astronomically large. The statistical reality establishes a brutal baseline: matter exponentially crowds the lowest available energy state ($N_1 \gg N_2$), leaving the upper level virtually empty. Overcoming this natural limit is the fundamental hurdle in building a laser.
 \end{keyinsight}
 
@@ -283,7 +283,7 @@ This is a remarkable result: \textbf{the absorption coefficient equals the stimu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/einstein_coefficients_symmetry.jpg}
+    \includegraphics[width=0.55\textwidth]{Figures/Chapter 2/einstein_coefficients_symmetry.jpg}
     \caption{Einstein Coefficients Symmetry: Highlighting the fundamental equivalence ($B_{12} = B_{21}$) between the rates of upward absorption and downward stimulated emission.}
 \end{figure}
 
@@ -330,7 +330,7 @@ Just as the $A$ coefficient defines the spontaneous lifetime $\tau_{sp} = 1/A$, 
     \qquad \text{and} \qquad
     \tau_{\text{stim}} = \frac{1}{B_{21}\,\rho(\nu)} = \frac{1}{B\,\rho(\nu)}
 \end{equation*}
-At the level of a single atom, the mathematical equality $B_{12} = B_{21}$ guarantees that $\tau_{\text{abs}} = \tau_{\text{stim}}$. The atom is perfectly agnostic: its inherent waiting time to absorb a photon from $E_1$ is identically equal to its waiting time to be stimulated down from $E_2$ by that same field. 
+At the level of a single atom, the mathematical equality $B_{12} = B_{21}$ guarantees that $\tau_{\text{abs}} = \tau_{\text{stim}}$. This means the atom shows no inherent preference between absorption and stimulated emission: an atom sitting in $E_1$ will, on average, take the exact same amount of time to be driven upward (absorption) by the optical field as an atom sitting in $E_2$ will take to be driven downward (stimulated emission) by that same field. 
 \end{keyinsight}
 
 \subsection{The Limitation of the Einstein Model}
@@ -339,7 +339,7 @@ We now have the exact equations governing the transition rates between our energ
 
 The problem lies in \textbf{broadening}. The Einstein model, as derived above, treats the atomic transition as an infinitely sharp occurrence—assuming that atoms only ever interact with light at the mathematically perfect resonance frequency $\nu_0$. 
 
-In reality, as we learned from the classical model, light-matter interactions are smeared across a frequency band, governed by the line shape function $g_{\nu_0}(\nu)$. Because the Einstein model lacks a $g_{\nu_0}(\nu)$ term in its rate equations, it is physically incomplete. Before we can step back to the macroscopic scale to compute real optical intensities or gain, we must first explicitly correct our model so it distributes its interactions over a realistic frequency spectrum.
+In reality, light-matter interactions are smeared across a frequency band, governed by the line shape function $g_{\nu_0}(\nu)$. Because the Einstein model lacks a $g_{\nu_0}(\nu)$ term in its rate equations, it is physically incomplete. Before we can compute real optical intensities or gain, we must first correct our model so it distributes its interactions over a realistic frequency spectrum.
 
 \section{Modification of the Einstein Model}
 
@@ -377,9 +377,9 @@ The statistical probability that an incoming photon of frequency $\nu$ successfu
 
 \subsection{Incorporating the Line Shape Function into the Rate Equations}
 
-To fix our theoretical gap, we must distribute the interaction probability across the physical frequency spectrum. We do this by redefining the transition probabilities for an infinitesimal frequency slice $d\nu$, multiplying by the line shape function $g_{\nu_0}(\nu)\,d\nu$.
+To fix our theoretical gap, we must distribute the interaction probability across the physical frequency spectrum. Mathematically, the line shape $g_{\nu_0}(\nu)$ acts exactly as a probability density function (PDF). This means we can no longer evaluate the interaction at a single, perfect frequency. Instead, we must calculate the expected value of the transition rate by taking the incident optical field at each infinitesimal frequency slice, $\rho(\nu)\,d\nu$, and weighting it by the atom's probability of interacting at that specific frequency, $g_{\nu_0}(\nu)$.
 
-The overall macroscopic transition rate is therefore the integral over all interaction frequencies:
+To find the overall macroscopic transition rate, we simply add up all these weighted slices by integrating over the entire frequency spectrum:
 \begin{align*}
     \left.\frac{dN_2}{dt}\right|_{sp} &= - \int_0^\infty A\,N_2\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
     \left.\frac{dN_2}{dt}\right|_{abs} &= \int_0^\infty B\,N_1\,\rho(\nu)\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
@@ -421,55 +421,51 @@ The evaluation splits into two extreme, mutually exclusive physical regimes:
     By doing so, the line shape function disappears entirely! Both rates perfectly collapse back to Einstein's original unbroadened formulas: $+B\,N_1\,\rho(\nu)$ for absorption and $-B\,N_2\,\rho(\nu)$ for stimulated emission — exactly as he first derived them.
 \end{itemize}
 
-What this mathematical split reveals is that the atom acts as a natural filter for the incoming light. If you bathe the atom in a broad, noisy thermal spectrum (Case 2), the line shape effectively vanishes, and we perfectly recover Einstein's original model. But if you drive the atom with a sharp, coherent laser (Case 1), the transition rate becomes fiercely dependent on exactly how well your laser frequency $\nu_s$ aligns with the atom's internal probability curve $g_{\nu_0}(\nu_s)$. 
+What this mathematical split reveals is that the atom acts as a natural filter for the incoming light. If you drive the atom with a sharp, coherent laser (Case 1), the transition rate becomes fiercely dependent on exactly how well your laser frequency $\nu_s$ aligns with the atom's internal probability curve $g_{\nu_0}(\nu_s)$. But if you bathe the atom in a broad, noisy thermal spectrum (Case 2), the line shape effectively vanishes, and we perfectly recover Einstein's original model.
 
 Because our ultimate goal is to engineer coherent lasers and optical amplifiers, we will discard the broad thermal model from this point forward. The remainder of our derivations will operate exclusively in the narrow-source laser regime.
 
-\subsection{Bridging Energy Density to Optical Intensity}
+\subsection{The Bridge from Energy Density to Photon Flux}
 
-In our laser-regime derivations, we successfully packaged the driving field into the integrated constant $\rho_\nu\, [\text{J/m}^3]$—the total physical electromagnetic energy stored within a unit volume of our material. However, energy density is a fundamentally static, locked-in-a-box concept. 
+In our laser-regime derivations, we successfully packaged the driving field into the integrated constant $\rho_\nu\, [\text{J/m}^3]$—the total electromagnetic energy stored within a unit volume of our material. However, $\rho_\nu$ is a fundamentally static, thermodynamic concept. It describes energy sitting stationary in a locked box. 
 
-To actively engineer a real optical amplifier, we do not just care about stored energy; we care about the \textbf{optical intensity} $I_\nu$ of a travelling wave. We need to know whether the physical power continuously streaming across our crystal is amplifying or attenuating. 
+To actively engineer a real optical amplifier, we are dealing with a beam of light physically travelling through a crystal, and atoms absorbing discrete photons from that beam. To make our rate equations practically usable, we must mathematically translate this abstract "stored energy" into a variable that accurately describes a moving stream of quantum particles.
 
-To link this static energy volume to a travelling intensity, consider a small material slab of cross-sectional area $A$ and thickness $\Delta z$. The total electromagnetic energy stored inside the slab is $\rho_\nu \cdot A \cdot \Delta z$. Since photons travel through the medium at the group velocity $V_g$, the time taken to traverse the slab is $\Delta t = \Delta z / V_g$, so the power streaming through area $A$ is:
+To do this, we must first convert the static energy density into a moving macroscopic power flow, known as the \textbf{optical intensity} $I_\nu$.
+
+Consider a small material slab of cross-sectional area $A$ and thickness $\Delta z$. The total electromagnetic energy stored inside the slab is $\rho_\nu \cdot A \cdot \Delta z$. Since photons travel through the medium at the group velocity $V_g$, the time taken to traverse the slab is $\Delta t = \Delta z / V_g$. The macroscopic power streaming through area $A$ is therefore:
 
 \begin{equation*}
-    \text{Power} = \frac{\text{Energy}}{\Delta t} = \frac{\rho_\nu \cdot A \cdot \Delta z}{\Delta t} = \rho_\nu \cdot A \cdot V_g
+    \text{Power} = \frac{\text{Energy}}{\Delta t} = \frac{\rho_\nu \cdot A \cdot \Delta z}{\Delta z / V_g} = \rho_\nu \cdot A \cdot V_g
 \end{equation*}
 
-Intensity is power per unit cross-sectional area, so dividing by $A$ immediately gives:
-\begin{equation}
+Intensity is simply power per unit cross-sectional area. Dividing by $A$ immediately gives:
+\begin{equation*}
     I_\nu = \rho_\nu\,V_g
-\end{equation}
-
-In a standard non-dispersive medium, photons travel precisely at the speed of light in that medium, meaning the group velocity is simply $V_g = c$. Therefore, navigating from intensity back to energy density mathematically reduces to:
-\begin{keyresult}
-\begin{equation*}
-    \rho_\nu = \frac{I_\nu}{c}
 \end{equation*}
-\end{keyresult}
 
-\subsection{The Photon Flux Density \texorpdfstring{$\Phi$}{Phi}}
+In a standard non-dispersive medium, photons travel precisely at the speed of light in that medium. Setting the group velocity to the speed of light ($V_g = c$) and rearranging the relation, we can explicitly express the original energy density $\rho_\nu$ in terms of the travelling optical intensity $I_\nu$:
+\begin{equation*}
+    I_\nu = \rho_\nu\,c \quad \implies \quad \rho_\nu = \frac{I_\nu}{c}
+\end{equation*}
 
-While calculating macroscopic power using the travelling intensity $I_\nu$ is practically useful for engineering, we must remember that interactions at the atomic level are purely discrete. An atom does not absorb a continuous stream of "power"; it only captures discrete, individual photons. Therefore, to rigorously model how frequently these microscopic energy transitions occur, we must physically translate our continuous wave intensity into a strict particle count—exactly how many individual photons traverse a single unit of cross-sectional area every second. We define this as the \textbf{photon flux density} $\Phi$.
+However, while calculating macroscopic power using the travelling intensity $I_\nu$ is practically useful for system engineering, interactions at the atomic level are purely quantum. An atom does not absorb a continuous stream of "watts"; it only captures discrete, individual photons. To rigorously model how frequently microscopic energy transitions occur, we must take our travelling intensity and physically translate it into a strict particle count—exactly how many individual photons traverse a single unit of cross-sectional area every second. We define this as the \textbf{photon flux density} $\Phi$.
 
-\begin{keyresult}
-\begin{equation}
+\begin{equation*}
     \Phi = \frac{\text{Number of incident photons}}{\text{sec} \cdot \text{m}^2}
-\end{equation}
-\end{keyresult}
+\end{equation*}
 
 Because each distinct photon carries an exact quantum of energy $E = h\nu$, the macroscopic intensity $I_\nu$ is simply the photon flux multiplied by the energy of a single photon:
 \begin{equation*}
     I_\nu = \Phi\,h\nu
 \end{equation*}
 
-This provides the final, complete mathematical bridge from our original abstract energy density $\rho_\nu$ all the way down to a discrete photon flux. Substituting this into our intensity relation gives:
+Substituting this into our intensity relation yields:
 \begin{equation*}
     \rho_\nu = \frac{I_\nu}{c} = \frac{h\nu}{c}\,\Phi
 \end{equation*}
 
-With this purely flux-based expression for the driving field, we are ready to assemble the final macroscopic rate equation. Recall from the narrow-source laser derivation that both the absorption and stimulated emission rates are fundamentally driven by the exact same field-coupling factor $B\,\rho_\nu\,g_{\nu_0}(\nu)$. Because the physics is identically symmetric, we can pick either process to perform our underlying algebra. Let's select the \textbf{stimulated emission} rate:
+Recall from the narrow-source laser derivation that both the absorption and stimulated emission rates are fundamentally driven by the exact same field-coupling factor $B\,\rho_\nu\,g_{\nu_0}(\nu)$. Because the physics is identically symmetric, we can pick either process to perform our underlying algebra. Let's select the \textbf{stimulated emission} rate:
 \begin{equation*}
     \left.\frac{dN_2}{dt}\right|_{stim} = -B\,N_2\,\rho_\nu\,g_{\nu_0}(\nu)
 \end{equation*}
@@ -484,11 +480,11 @@ To systematically simplify this, we group the constants, cancel the Planck const
     \left.\frac{dN_2}{dt}\right|_{stim} = -\frac{\lambda^3\,\nu\,h}{8\pi h\,\tau_{sp}\,c}\,N_2\,\Phi\,g_{\nu_0}(\nu) = -\frac{\lambda^3\,\nu}{8\pi\,\tau_{sp}\,(\lambda\nu)}\,N_2\,\Phi\,g_{\nu_0}(\nu) = -\frac{\lambda^2}{8\pi\,\tau_{sp}}\,N_2\,\Phi\,g_{\nu_0}(\nu)
 \end{equation*}
 
-Once the speed of light $c$ and the wave frequency $\nu$ cleanly cancel from the algebra, we are left with an elegantly compact mathematical multiplier attached to our photon flux $\Phi$. 
+Aside from the atomic population density $N_2$ and the driving photon flux $\Phi$, we are left with an elegantly compact mathematical multiplier: $\frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)$.
 
-But why is this specific multiplier physically meaningful? Consider the dimensional analysis: our photon flux $\Phi$ is measured in \textit{photons per second per square meter} ($1/(\text{s}\cdot\text{m}^2)$). For the equation to correctly resolve into a transition rate (events per second), this new multiplier must possess the exact SI units of \textbf{area} ($\text{m}^2$). 
+Why is this specific multiplier physically meaningful? Consider the dimensional analysis: our macroscopic population rate $\frac{dN_2}{dt}$ is measured in transitions per second per unit volume ($1/(\text{s}\cdot\text{m}^3)$), the population $N_2$ is an atomic volume density ($1/\text{m}^3$), and the photon flux $\Phi$ is a particle area rate ($1/(\text{s}\cdot\text{m}^2)$). For the entire equation to mathematically balance, this multiplier must possess the exact SI units of \textbf{area} ($\text{m}^2$). 
 
-Physically, this multiplier represents the effective "target size" that an individual atom presents to the incoming photon beam. If an incident photon passes through this microscopic interaction area, it successfully triggers a transition. Because of this powerful geometrical interpretation, we formally identify this term as the \textbf{stimulated emission cross-section} $\sigma(\nu)$!
+Physically, this area represents the effective "target size" that an individual atom presents to the incoming photon beam. If an incident photon passes through this microscopic interaction area, it successfully triggers a transition. Because the underlying physics is perfectly symmetric for both upward and downward driven transitions, we formally identify this universal multiplier as both the \textbf{stimulated emission} and \textbf{absorption cross-section}, denoted simply as $\sigma(\nu)$!
 
 \begin{keyresult}
 \begin{equation}
@@ -496,7 +492,7 @@ Physically, this multiplier represents the effective "target size" that an indiv
 \end{equation}
 \end{keyresult}
 
-Notice a critical structural distinction. The quantum Einstein cross-section differs from the classical oscillator cross-section $\left(\sigma_{classical} = \frac{3\lambda^2}{8\pi\tau_r}g(\nu)\right)$ by exactly a factor of 3. That factor of 3 is not accidental—our quantum derivation automatically accounted for the directional degeneracy of the photon polarisation states in 3D space, something the crude 1D classical spring model fundamentally cannot do. The Einstein expression is the correct one.
+Notice a critical structural distinction. The quantum Einstein cross-section differs from the classical oscillator cross-section $\left(\sigma(\nu)_{classical} = \frac{3\lambda^2}{8\pi\tau_r}g(\nu)\right)$ by exactly a factor of 3. That factor of 3 is not accidental—our quantum derivation automatically accounted for the directional degeneracy of the photon polarisation states in 3D space, something the crude 1D classical spring model fundamentally cannot do. The Einstein expression is the correct one.
 
 \subsection{The Master Rate Equations}
 
@@ -504,11 +500,13 @@ Because absorption and stimulated emission share the exact same physical couplin
 
 Combining these two field-driven rates with our spontaneous decay term, we can now assemble the final, master forms of all three macroscopic population rate equations acting on the excited state $N_2$:
 
-\begin{align*}
+\begin{keyresult}
+\begin{align}
     &\textbf{Spontaneous emission:} & \left.\frac{dN_2}{dt}\right|_{sp} &= -\frac{N_2}{\tau_{sp}} \\[8pt]
     &\textbf{Absorption:} & \left.\frac{dN_2}{dt}\right|_{abs} &= \sigma(\nu)\,\Phi\,N_1 \\[8pt]
     &\textbf{Stimulated emission:} & \left.\frac{dN_2}{dt}\right|_{stim} &= -\sigma(\nu)\,\Phi\,N_2
-\end{align*}
+\end{align}
+\end{keyresult}
 
 Notice that exactly the same field-coupling factor, $\sigma(\nu)\,\Phi$, governs both field-driven interactions. Recall our earlier definition of the field-driven lifetimes. Because the transition cross-section completely encapsulates the interaction physics, we can now express the \textbf{absorption lifetime} $\tau_{abs}$ and \textbf{stimulated lifetime} $\tau_{stim}$ directly in terms of the driving photon flux:
 \begin{equation*}
@@ -552,10 +550,9 @@ Through simple particle accounting, the physical change in the number of travell
 \end{equation*}
 
 We can immediately divide out the cross-sectional $\text{Area}$ from both sides. By isolating the terms and taking the mathematical limit as our slice thickness shrinks to zero ($\Delta z \to 0$), the discrete finite difference elegantly collapses into a continuous spatial differential equation:
-\begin{align*}
-    \frac{\Phi(z + \Delta z) - \Phi(z)}{\Delta z} &= \sigma(\nu)\,(N_2 - N_1)\,\Phi \\[8pt]
-    \frac{d\Phi}{dz} &= \sigma(\nu)\,(N_2 - N_1)\,\Phi
-\end{align*}
+\begin{equation*}
+    \frac{\Phi(z + \Delta z) - \Phi(z)}{\Delta z} = \sigma(\nu)\,(N_2 - N_1)\,\Phi \quad \xrightarrow{\Delta z \to 0} \quad \frac{d\Phi}{dz} = \sigma(\nu)\,(N_2 - N_1)\,\Phi
+\end{equation*}
 
 We can see that the spatial rate of change of the photon flux is directly proportional to the flux itself, scaled by a constant material factor. We formally group this material factor $\sigma(\nu)(N_2 - N_1)$ into a single macroscopic parameter called the \textbf{gain coefficient} $\gamma(\nu)$.
 
