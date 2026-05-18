@@ -14,7 +14,6 @@ To master optical devices, we must first understand how light interacts with mat
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/transparency_vs_absorption.jpg}
     \caption{Transparency vs. Absorption: Interaction depends on the photon energy relative to the band gap.}
-    \label{fig:ch1_transparency_absorption}
 \end{figure}
 
 This chapter develops the first and most foundational of these frameworks — the classical electron oscillator. Before we begin, it helps to realize that no single model tells the whole story. To truly understand modern optoelectronics—and specifically the mechanisms that make a laser possible—we must move through three progressive levels of description:
@@ -63,7 +62,6 @@ where $k_s$ is the effective "spring constant" of the atom, $x$ is the displacem
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/mechanical_atom_model.jpg}
     \caption{The Mechanical Atom Schematic: A bound electron modeled as a mass-spring system with a restoring force.}
-    \label{fig:ch1_mechanical_atom}
 \end{figure}
 
 Now, applying Newton's second law ($F = m a$, where acceleration $a = \frac{d^2x}{dt^2}$) to this motion, we substitute our force to get our natural, unforced impulse response equation:
@@ -152,7 +150,6 @@ The behavior of the system depends entirely on the value inside this square root
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/three_damping_regimes.jpg}
     \caption{The Three Damping Regimes: Comparison of the displacement decay for overdamped, critically damped, and underdamped oscillators.}
-    \label{fig:ch1_three_damping_regimes}
 \end{figure}
 
 Since we are dealing with optical phenomena where damping is relatively small, we always assume the \textbf{Underdamped} case. Thus, our solution becomes an exponentially decaying oscillation:
@@ -168,7 +165,6 @@ where $\omega_d$ is the damped natural frequency, defined as:
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/underdamped_oscillation.jpg}
     \caption{Underdamped Oscillation: The electron's displacement oscillates inside an exponentially decaying envelope.}
-    \label{fig:ch1_underdamped_oscillation}
 \end{figure}
 
 \begin{keyinsight}[Justifying the Underdamped Assumption]
@@ -204,7 +200,6 @@ We now define a critical metric called the \textbf{Total Lifetime ($\tau_t$)}—
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/energy_decay_profile.jpg}
     \caption{Energy Decay Profile: Total energy decays exponentially, with the lifetime $\tau_t$ marking the $1/e$ point.}
-    \label{fig:ch1_energy_decay}
 \end{figure}
 
 In general, the atom has multiple ways to "relax" and lose this energy. We distinguish two primary relaxation channels. Because these events occur independently, their rates add together. The fastest relaxation method always dominates the total lifetime:
@@ -224,7 +219,6 @@ We fully explore both channels below:
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/relaxation_paths.jpg}
     \caption{Relaxation Paths: An excited atom can decay purely via radiative mechanisms (photon emission) or non-radiative multi-phonon mechanisms (lattice heating).}
-    \label{fig:ch1_relaxation_paths}
 \end{figure}
 
 The physical takeaway here is that the friction parameter $\eta$ governs the total lifetime $\tau_t$ of the atom's excited state, combining both radiative light-emitting effects and non-radiative collisional effects.
@@ -344,7 +338,6 @@ We must explicitly consider the resonance cases:
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/resonance_amplitude_phase.jpg}
     \caption{Resonance Effects: Amplitude and phase shift of the electron's displacement as a function of the external driving frequency.}
-    \label{fig:ch1_resonance_effects}
 \end{figure}
 
 \begin{keyinsight}[Physical Meaning of Phase and Energy Absorption]
@@ -431,7 +424,6 @@ where:
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/microscopic_to_macroscopic.jpg}
     \caption{From Microscopic to Macroscopic: Integrating $N_A$ microscopic atomic dipoles per unit volume yields the macroscopic polarization vector $\mathbf{P}$.}
-    \label{fig:ch1_macroscopic_polarization}
 \end{figure}
 
 Ultimately, each atom's displaced electron cloud creates a tiny dipole $p_0$, and stacking $N_A$ of these per unit volume gives the macroscopic polarization $P_0 = -N_A e\,x_0$. This is the quantity that links the microscopic atomic world to Maxwell's macroscopic equations.
@@ -576,7 +568,6 @@ To strip away the math for a second, $\delta$ is the single number that encodes 
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/susceptibility_profiles.jpg}
     \caption{The Susceptibility Profiles: The dispersive real part ($\chi'$) and the Lorentzian imaginary part ($\chi''$) strictly govern refraction and absorption.}
-    \label{fig:ch1_susceptibility_lineshapes}
 \end{figure}
 
 Now let's extract the physical implications embedded within the susceptibility profiles shown above. This visualization provides us with a rigorous mathematical map of the atom's optical response, simultaneously encoding the exact behaviour of both its internal friction (manifesting as absorption) and its physical inertia (manifesting as dispersion) as it interacts with the light.
@@ -848,7 +839,6 @@ Because $\chi''$ is inherently negative in our sign convention (absorption corre
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/Chapter 1/power_decay_lossy_medium.jpg}
     \caption{Power Decay in a Lossy Medium: A strictly positive attenuation coefficient ($\alpha > 0$) causes the wave's power to decay exponentially with distance.}
-    \label{fig:ch1_power_decay}
 \end{figure}
 
 The imaginary part of the susceptibility $\chi''$ directly controls how fast power decays (or grows) through the material, via $\alpha = -k_0\chi''/n_b$. Together, $n$ and $\alpha$ completely describe a wave's journey through any linear optical medium. Now let's understand how $n$ varies across the frequency spectrum.
@@ -863,7 +853,6 @@ However, very close to the resonance frequency $\omega_0$, something unusual hap
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/anomalous_dispersion_single.jpg}
     \caption{Normal vs Anomalous Dispersion (Single Resonance): The localized anomalous dispersion dip temporarily interrupts the fundamental trend of normal dispersion.}
-    \label{fig:ch1_single_dispersion}
 \end{figure}
 
 \begin{keyinsight}[Normal Dispersion vs.\ Our Formula: The Apparent Contradiction]
@@ -886,7 +875,6 @@ As we sweep across the entire electromagnetic spectrum, the refractive index $n$
     \centering
     \includegraphics[width=0.75\textwidth]{Figures/Chapter 1/broadband_refractive_index.jpg}
     \caption{Broadband Refractive Index: Normal dispersion occurs between resonance peaks, while localized anomalous dispersion sharply dips exactly at each atomic resonance.}
-    \label{fig:ch1_broadband_dispersion}
 \end{figure}
 
 Real materials possess multiple atomic and molecular resonances spread widely across the electromagnetic spectrum. The overall broadband refractive index $n(\omega)$ that we measure in the laboratory is the continuous cumulative result of all of them perfectly overlapping, with each distinct resonance contributing its own dedicated absorption band and highly localised anomalous dispersion dip. At this point, we have built a complete, powerful toolkit strictly from the classical model: the susceptibility $\chi$, the complex refractive index $\tilde{n}$, and the macroscopic attenuation coefficient $\alpha$. Now let's confidently use these foundational tools to dissect the exact spectral profile of absorption — the line shape function.
@@ -921,7 +909,6 @@ Real atoms and molecules are complex. They do not have just two energy levels; t
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/output_transmission_spectrum.jpg}
     \caption{The Output Transmission Spectrum: The baseline transmission remains high, but drops sharply at the specific atomic resonance frequencies, carving out characteristic absorption shadows in the spectrum.}
-    \label{fig:ch1_transmission_spectrum}
 \end{figure}
 
 At this point, if we take the mathematical idealisation strictly at face value, the output intensity spectrum seems conceptually straightforward: it is essentially a completely flat baseline curve suddenly punctuated by several infinitely thin, perfectly vertical, sharp dark dips situated at exactly the atomic resonances $\nu_0$. However, as we are about to rigorously discover through the lens of decay dynamics, this highly simplified picture is fundamentally physically impossible. Atomic energy transitions are never perfectly sharp, and they must inherently occupy a continuous, finite spectral bandwidth.
@@ -940,7 +927,6 @@ Consequently, if a photon arrives with a frequency $\nu$ slightly off $\nu_0$, t
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/delta_vs_real_absorption.jpg}
     \caption{Delta Function vs. Real Absorption: Mathematical idealisation of an infinitely sharp line compared to the physically smeared Lorentzian bandwidth.}
-    \label{fig:ch1_delta_vs_lorentzian}
 \end{figure}
 
 To model this smeared probability mathematically, we define the \textbf{line shape function} $g_{\nu_0}(\nu)$ — a continuous probability density representing the chance that a photon of frequency $\nu$ will be absorbed by an atomic transition centred at resonance frequency $\nu_0$. Because $g_{\nu_0}(\nu)$ is a true probability density function, the total area under the curve must equal exactly 1.
@@ -1072,10 +1058,10 @@ Here, $\lambda_0$ is the resonance wavelength in vacuum. Inside the background m
     \alpha = \left[ \frac{3N_A\,\lambda^2}{8\pi\,\tau_r} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
 
-Now we have exactly what we came for. Every piece of the prefactor ($\lambda$, $\tau_r$, $N_A$) is a directly measurable macroscopic property of the material, and the geometry of the frequency fraction perfectly matches our targeted distribution. We can now officially declare our final, macroscopic expressions for both $\alpha(\nu)$ and the line shape function $g_{\nu_0}(\nu)$ side-by-side:
+Now we have exactly what we came for. Every piece of the prefactor ($\lambda$, $\tau_r$, $N_A$) is a directly measurable macroscopic property of the material, and the geometry of the frequency fraction perfectly matches our targeted distribution. We can now officially declare our final, macroscopic expressions for both $\alpha$ and the line shape function $g_{\nu_0}(\nu)$ side-by-side:
 \begin{keyresult}
 \begin{gather}
-    \alpha(\nu) = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu) \\[2ex]
+    \alpha = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu) \\[2ex]
     g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{gather}
 \end{keyresult}
@@ -1152,7 +1138,6 @@ At precisely $\nu = \nu_0 \pm \Delta\nu/2$, the Lorentzian has fallen to exactly
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/lineshape_function_lorentzian.jpg}
     \caption{The Line Shape Function: The Lorentzian distribution normalised to unity, explicitly marking the peak amplitude $g_{\max} = 2/\pi\Delta\nu$ and the Full Width at Half Maximum $\Delta\nu$.}
-    \label{fig:ch1_line_shape_fwhm}
 \end{figure}
 
 Having proven what $\Delta\nu$ represents geometrically, we now ask what sets its actual size physically. The resonance bandwidth is fundamentally fixed by the total radiation lifetime of the excited state: $\Delta\nu = 1/(2\pi\tau_t)$. 
@@ -1171,59 +1156,58 @@ With the line shape fully characterised, we can now connect $g_{\nu_0}(\nu)$ to 
 
 \subsection{Definition and Physical Picture}
 
-The \textbf{absorption cross section} $\sigma(\nu)$ is a quantity that tells us how strongly a single molecule (or equivalently, for our purposes, a single atom in a gas) interacts with light at frequency $\nu$. In the geometric picture used here, it is represented as an \emph{effective interaction area}: if the path of the light intersects that area, the event is counted as absorption. It is therefore not the literal physical size of the atom, but a compact way to describe the absorption strength of one atom at a given frequency.
+The \textbf{absorption cross section} $\sigma$ is a quantity that tells us how strongly a single molecule (or equivalently, for our purposes, a single atom in a gas) interacts with light at frequency $\nu$. In the geometric picture used here, it is represented as an \emph{effective interaction area}: if the path of the light intersects that area, the event is counted as absorption. It is therefore not the literal physical size of the atom, but a compact way to describe the absorption strength of one atom at a given frequency.
 
-Think of it this way. We have a large material through which light is passing. Inside that material, each atom contributes its own effective area $\sigma(\nu)$. The total absorption in the material is then the cumulative effect of all these microscopic interaction areas distributed throughout the medium. This allows us to represent a complicated distributed medium as a collection of discrete absorbers, each characterised by the same per-atom cross section at that frequency.
+Think of it this way. We have a large material through which light is passing. Inside that material, each atom contributes its own effective area $\sigma$. The total absorption in the material is then the cumulative effect of all these microscopic interaction areas distributed throughout the medium. This allows us to represent a complicated distributed medium as a collection of discrete absorbers, each characterised by the same per-atom cross section at that frequency.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/absorption_cross_section.jpg}
-    \caption{The Absorption Cross Section: a conceptual picture in which each atom contributes the same effective interaction area $\sigma(\nu)$; paths that intersect this area are absorbed, while paths that miss all such areas are transmitted.}
-    \label{fig:ch1_cross_section_concept}
+    \caption{The Absorption Cross Section: a conceptual picture in which each atom contributes the same effective interaction area $\sigma$; paths that intersect this area are absorbed, while paths that miss all such areas are transmitted.}
 \end{figure}
 
-The term we use is $\sigma(\nu)$, and its unit is area (e.g., $\text{m}^2$ or $\text{cm}^2$). We can extract the exact mathematical formula for this cross section directly from the macroscopic absorption coefficient we derived earlier.
+The term we use is $\sigma$, and its unit is area (e.g., $\text{m}^2$ or $\text{cm}^2$). We can extract the exact mathematical formula for this cross section directly from the macroscopic absorption coefficient we derived earlier.
 
-\subsection{Deriving the Explicit Formula for \texorpdfstring{$\sigma(\nu)$}{sigma(nu)}}
+\subsection{Deriving the Explicit Formula for \texorpdfstring{$\sigma$}{sigma(nu)}}
 
 The macroscopic absorption coefficient naturally takes the form:
 \begin{equation*}
-    \alpha(\nu) = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)
+    \alpha = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)
 \end{equation*}
 
 This formula cleanly factors into the atomic number density $N_A$ explicitly scaled by a purely frequency-dependent per-atom term. We can physically group it as:
 \begin{equation*}
-    \alpha(\nu) = N_A \cdot \left[ \frac{3\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu) \right]
+    \alpha = N_A \cdot \left[ \frac{3\lambda^2}{8\pi\tau_r}\,g_{\nu_0}(\nu) \right]
 \end{equation*}
 
 We formally define this isolated per-atom factor as the \textbf{absorption cross section}:
 
 \begin{keyresult}
 \begin{equation}
-    \sigma(\nu) = \frac{3\lambda^2}{8\pi\tau_r}\cdot g_{\nu_0}(\nu)
+    \sigma = \frac{3\lambda^2}{8\pi\tau_r}\cdot g_{\nu_0}(\nu)
 \end{equation}
 \end{keyresult}
 
 And therefore, the macroscopic absorption coefficient directly relates to the microscopic cross section simply as:
 \begin{keyresult}
 \begin{equation}
-    \alpha = N_A\,\sigma(\nu)
+    \alpha = N_A\,\sigma
 \end{equation}
 \end{keyresult}
 
-The absorption cross section $\sigma(\nu)$ is the per-atom absorption strength at frequency $\nu$. It carries two independent pieces of information encoded together: the \emph{spectral shape}, which comes entirely from $g_{\nu_0}(\nu)$ and tells us how the absorption is distributed across frequencies, and the \emph{overall magnitude}, which is fixed by $\lambda^2/\tau_r$ and tells us how strongly one atom interacts with the field in the first place.
+The absorption cross section $\sigma$ is the per-atom absorption strength at frequency $\nu$. It carries two independent pieces of information encoded together: the \emph{spectral shape}, which comes entirely from $g_{\nu_0}(\nu)$ and tells us how the absorption is distributed across frequencies, and the \emph{overall magnitude}, which is fixed by $\lambda^2/\tau_r$ and tells us how strongly one atom interacts with the field in the first place.
 
 The $\tau_r$ in the denominator reflects the core physical principle that emission and absorption are reciprocal processes. An atom with a short $\tau_r$ is strongly coupled to the field — it emits quickly, and equally, it absorbs efficiently — so its cross section is large. An atom with a long $\tau_r$ barely interacts with the field at all, so even though it is nominally resonant, it captures very little of the incoming light.
 
 \begin{keyinsight}[Limiting Case: $\tau_r \to \infty$]
-If the radiative lifetime were infinite, the atom would have zero coupling to the electromagnetic field — it would never emit, and by the same token, never absorb. The formula correctly captures this: $\sigma(\nu) \to 0$ as $\tau_r \to \infty$. This is not a breakdown of the physics; it is exactly what we expect from a perfectly stable state with no field interaction whatsoever.
+If the radiative lifetime were infinite, the atom would have zero coupling to the electromagnetic field — it would never emit, and by the same token, never absorb. The formula correctly captures this: $\sigma \to 0$ as $\tau_r \to \infty$. This is not a breakdown of the physics; it is exactly what we expect from a perfectly stable state with no field interaction whatsoever.
 \end{keyinsight}
 
-Through $\alpha = N_A\,\sigma(\nu)$, the per-atom cross section scales up to the macroscopic absorption coefficient. Let us now confirm physically why this product correctly maps to the fractional intensity decay we observe experimentally.
+Through $\alpha = N_A\,\sigma$, the per-atom cross section scales up to the macroscopic absorption coefficient. Let us now confirm physically why this product correctly maps to the fractional intensity decay we observe experimentally.
 
 \subsection{Relating Intensity Change to the Cross Section}
 
-Now that we have explicitly derived $\alpha = N_A\,\sigma(\nu)$, let us verify that this mathematical separation makes physical sense by looking at how light intensity decays. Fundamentally, light intensity decays exponentially as it travels through a uniformly absorbing medium:
+Now that we have explicitly derived $\alpha = N_A\,\sigma$, let us verify that this mathematical separation makes physical sense by looking at how light intensity decays. Fundamentally, light intensity decays exponentially as it travels through a uniformly absorbing medium:
 \begin{equation*}
     I(z) = I_0\, e^{-\alpha z} \qquad (\text{intensity at position } z)
 \end{equation*}
@@ -1237,7 +1221,6 @@ This is the intensity that exits the material slab of thickness $\Delta z$.
     \centering
     \includegraphics[width=0.5\textwidth]{Figures/Chapter 1/fractional_intensity_decay.jpg}
     \caption{Fractional Intensity Decay: Tracking the drop in wave intensity precisely across a differential material slice of thickness $\Delta z$.}
-    \label{fig:ch1_intensity_decay_slab}
 \end{figure}
 
 The fractional change in intensity across this slab is:
@@ -1251,9 +1234,9 @@ Now we apply the Taylor approximation $e^{-\alpha\Delta z} \approx 1 - \alpha\De
     \frac{\Delta I}{I} = (1 - \alpha\Delta z) - 1 = -\alpha\Delta z
 \end{equation*}
 
-Since we just firmly established that $\alpha = N_A\,\sigma(\nu)$, we can seamlessly substitute this into the differential decay equation:
+Since we just firmly established that $\alpha = N_A\,\sigma$, we can seamlessly substitute this into the differential decay equation:
 \begin{equation*}
-    \frac{\Delta I}{I} = -N_A\,\sigma(\nu)\,\Delta z
+    \frac{\Delta I}{I} = -N_A\,\sigma\,\Delta z
 \end{equation*}
 
 Now, $N_A$ is the number of atoms per unit volume (number density). We can write:
@@ -1262,22 +1245,22 @@ Now, $N_A$ is the number of atoms per unit volume (number density). We can write
 \end{equation*}
 Substituting this expression:
 \begin{gather*}
-    \frac{\Delta I}{I} = -\frac{\text{number of atoms}}{\text{area} \times \Delta z} \cdot \sigma(\nu) \cdot \Delta z \notag \\
-    = -\frac{\text{number of atoms}}{\text{area}} \cdot \sigma(\nu)
+    \frac{\Delta I}{I} = -\frac{\text{number of atoms}}{\text{area} \times \Delta z} \cdot \sigma \cdot \Delta z \notag \\
+    = -\frac{\text{number of atoms}}{\text{area}} \cdot \sigma
 \end{gather*}
 
 Therefore:
 \begin{keyresult}
 \begin{equation}
-    \frac{\Delta I}{I} = -\frac{\text{number of atoms}}{\text{area}} \cdot \sigma(\nu)
+    \frac{\Delta I}{I} = -\frac{\text{number of atoms}}{\text{area}} \cdot \sigma
 \end{equation}
 \end{keyresult}
 
-This result is dimensionless (as it must be, since $\Delta I/I$ is a ratio), which perfectly confirms that our mathematical formulation of $\sigma(\nu)$ must indeed have units of area. This completes the physical picture: $\sigma(\nu)$ represents a true macroscopic \emph{cross section}.
+This result is dimensionless (as it must be, since $\Delta I/I$ is a ratio), which perfectly confirms that our mathematical formulation of $\sigma$ must indeed have units of area. This completes the physical picture: $\sigma$ represents a true macroscopic \emph{cross section}.
 
 \textbf{Interpretation for a single atom:} If there is exactly one atom in the cross-sectional area, then:
 \begin{equation*}
-    \frac{\Delta I}{I} = -\frac{\sigma(\nu)}{\text{area}}
+    \frac{\Delta I}{I} = -\frac{\sigma}{\text{area}}
 \end{equation*}
 This tells us that a single atom reduces the incident intensity by a fraction equal to its cross section divided by the total beam area.
 
@@ -1348,7 +1331,6 @@ In both cases, the factor $(1 + V/c)$ in the formula automatically encodes the r
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/doppler_effect_gases.jpg}
     \caption{The Doppler Effect in Gases: Moving atoms perceive the incoming waves at shifted frequencies depending on whether they run away from (red-shift) or toward (blue-shift) the photon source.}
-    \label{fig:ch1_doppler_effect}
 \end{figure}
 
 In isolation, a single atom with velocity $V$ is completely characterised by this shift. The complication arises when every atom in the gas has a different $V$ drawn from a thermal distribution — and we must now build the collective picture.
@@ -1393,7 +1375,6 @@ This distribution is perfectly normalised to unity ($\int_{-\infty}^{\infty} f_V
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/velocity_distribution.jpg}
     \caption{Velocity Distribution: The Maxwell-Boltzmann Gaussian PDF governing the thermal speeds of gas atoms along a single axis.}
-    \label{fig:ch1_velocity_pdf}
 \end{figure}
 
 We now substitute the explicit forms of both the shifted Lorentzian $g_{\nu_{\text{res}}}(\nu)$ and the thermal Gaussian $f_V(V)$ directly into the weighted average integral:
@@ -1542,7 +1523,6 @@ Physically, this mathematically confirms the core mechanism of \textbf{inhomogen
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/inhomogeneous_broadening.jpg}
     \caption{Inhomogeneous Broadening: Each individual atom contributes a narrow Doppler-shifted Lorentzian at its own resonance frequency. Their collective superposition constructs a broad Gaussian ensemble profile.}
-    \label{fig:ch1_inhomogeneous_limit}
 \end{figure}
 
 \newpage
@@ -1575,7 +1555,6 @@ Every single factor here is strictly positive: $N_A$, $e^2$, $\varepsilon_0$, $m
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 1/loss_vs_gain.jpg}
     \caption{Loss vs. Gain: The classical electron oscillator inherently enforces energy decay ($\alpha > 0$), mathematically forbidding the exponential amplification ($\alpha < 0$) required for lasers.}
-    \label{fig:ch1_loss_vs_gain}
 \end{figure}
 
 This is precisely why we must now move to the next level of description. The models ahead — starting with Einstein's rate equation model — will show us how to flip $\alpha$ to a negative value (gain instead of loss), leading ultimately to a complete understanding of how a laser works. All the phenomena we studied classically — the line shape, the cross section, the broadening — will reappear in those models, but now enriched with the mechanisms that allow both absorption \emph{and} amplification.

@@ -139,7 +139,7 @@ term in the rate equations.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 3/three_level_pumping_architecture.jpg}
+    \includegraphics[width=0.5\textwidth]{Figures/Chapter 3/three_level_pumping_architecture.jpg}
     \caption{System Architecture: Physical realization of a 3-level optical pumping scheme, showcasing the rapid non-radiative decay $\tau_{32}$ creating the population inversion bottleneck at $E_2$.}
 \end{figure}
 
@@ -150,7 +150,7 @@ We first ask: what population inversion can the pump establish \emph{before} any
 For the pump level $E_3$, there are two governing processes:
 \begin{enumerate}
     \item \textbf{Pump Arrival:} Atoms are forced into $E_3$ from the ground state at a rate $+R$.
-    \item \textbf{Thermal Cascade (Decay):} Atoms spontaneously drop from $E_3$ down to $E_2$ via non-radiative decay at a rate $-\frac{N_3}{\tau_{32}}$.
+    \item \textbf{Thermal Cascade (Decay):} Atoms rapidly drop from $E_3$ down to $E_2$ via non-radiative decay at a rate $-\frac{N_3}{\tau_{32}}$.
 \end{enumerate}
 
 Combining these, the differential rate equation for $N_3$ is:
@@ -289,7 +289,7 @@ Divide to explicitly solve for $N$, then multiply numerator and denominator by $
     N = \frac{R - \dfrac{N_a}{2\tau_{21}}}{\dfrac{1}{2\tau_{21}} + \sigma\Phi} \quad \Longrightarrow \quad N = \frac{2R\tau_{21} - N_a}{1 + 2\sigma\Phi\tau_{21}}
 \end{equation*}
 
-We immediately recognise the numerator as $N_0 = 2R\tau_{21} - N_a$ --- exactly the \textbf{small-signal population inversion} we derived in Case 1. To express the denominator in the standard normalized form, we group the fundamental physical constants scaling the signal $\Phi$ and formally define them as the inverse of the \textbf{saturation photon flux density}:
+To mold this expression into the universal saturation format ($N = \frac{N_0}{1 + \Phi/\Phi_s}$), we mathematically isolate its undisturbed ceiling by temporarily setting the signal $\Phi = 0$, which gives us the \textbf{small-signal population inversion} $N_0 = 2R\tau_{21} - N_a$. This perfectly matches the baseline inversion we derived manually in Case 1, which is physically expected since both cases rely on the exact same constant pumping mechanism $R$. Now, looking at the denominator, we group the fundamental physical constants scaling the signal $\Phi$ and formally define them as the inverse of the \textbf{saturation photon flux density}:
 \begin{equation*}
     \Phi_s \equiv \frac{1}{2\sigma\tau_{21}}
 \end{equation*}
@@ -393,7 +393,7 @@ Divide to explicitly solve for the macroscopic population inversion $N$:
     N = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21} + 2\sigma\Phi\tau_{21}}
 \end{equation*}
 
-We calculate the general \textbf{population inversion} $N$ first, then evaluate its undisturbed ceiling by assuming there is no signal present ($\Phi = 0$). This establishes the baseline \textbf{small-signal population inversion} $N_0$:
+To mold this expression into the universal saturation format ($N = \frac{N_0}{1 + \Phi/\Phi_s}$), we mathematically isolate its undisturbed ceiling by temporarily setting the signal $\Phi = 0$, which gives us the \textbf{small-signal population inversion} $N_0$ specifically for this realistic optical pump:
 \begin{keyresult}
 \begin{equation}
     N_0 = N_a\,\frac{\sigma_p\Phi_p\tau_{21} - 1}{1 + \sigma_p\Phi_p\tau_{21}}
@@ -473,15 +473,15 @@ Several important physical observations follow directly from this comparison:
 \section{Travelling-Wave Amplifier (TWA)}
 % =============================================================
 
-Everything we have derived so far assumes a \textbf{Travelling-Wave Amplifier (TWA)}: an amplifier with Anti-Reflection (AR) coatings on both entry and exit facets so that the signal travels through the gain medium in a strict single pass — no boundary reflections, no feedback. Light enters at $P_\text{in}$, gets amplified over a length $L$ of inverted medium, and exits as $P_\text{out}$.
+Everything we have derived so far describes \emph{local} atomic kinetics, which now prepares us to study our first macroscopic device: the \textbf{Travelling-Wave Amplifier (TWA)}. A TWA is an amplifier with Anti-Reflection (AR) coatings on both entry and exit facets so the signal travels through the gain medium in a strict single pass — no boundary reflections, no feedback. Light enters with an initial power $P_\text{in}$, gets amplified over a length $L$, and exits with a final power $P_\text{out}$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\textwidth]{Figures/Chapter 3/twa_concept.jpg}
+    \includegraphics[width=0.3\textwidth]{Figures/Chapter 3/twa_concept.jpg}
     \caption{The Travelling-Wave Amplifier (TWA): Single-pass signal amplification through an AR-coated gain medium of length $L$.}
 \end{figure}
 
-With this model in place, the TWA is characterised by three fundamental parameters: \textbf{gain} $G$, \textbf{bandwidth} $\Delta\nu$, and \textbf{noise performance}. We derive each in the subsections below.
+With this model in place, the TWA is characterised by three fundamental parameters: \textbf{gain} $G$, \textbf{bandwidth} $\Delta\nu$, and \textbf{noise performance}.
 
 % ------- GAIN -------------------------------------------------
 \subsection{Gain}
@@ -589,20 +589,20 @@ There is a very important distinction to keep in mind: $\gamma$ (or $\gamma_0$) 
 % ------- BANDWIDTH --------------------------------------------
 \subsection{Bandwidth \texorpdfstring{$\Delta\nu$}{Delta-nu}}
 
-The bandwidth of the TWA is found by asking where the power gain $G_0(\nu)$ falls to half its peak value. The key subtlety is that there are \emph{two} distinct quantities whose frequency dependence we must track: the \textbf{gain coefficient} $\gamma(\nu)$ and the \textbf{power gain} $G_0(\nu) = e^{\gamma_0(\nu)L}$. They do not have the same spectral shape, and confusing them is a common source of error.
+The bandwidth of the TWA is found by asking where the power gain $G_0$ falls to half its peak value. The key subtlety is that there are \emph{two} distinct quantities whose frequency dependence we must track: the \textbf{gain coefficient} $\gamma$ and the \textbf{power gain} $G_0 = e^{\gamma_0 L}$. They do not have the same spectral shape, and confusing them is a common source of error.
 
-\subsubsection*{Shape of \texorpdfstring{$\gamma(\nu)$}{gamma(nu)}}
+\subsubsection*{Shape of \texorpdfstring{$\gamma$}{gamma}}
 
-We know from our fundamental interaction limits that the gain coefficient is directly proportional to both the population inversion $N$ and the absorption cross-section $\sigma(\nu)$:
+From our earlier rate-equation analysis, we know the gain coefficient is directly proportional to both the population inversion $N$ and the stimulated emission cross-section $\sigma$:
 \begin{equation*}
-    \gamma(\nu) = \sigma(\nu)\,N
+    \gamma = \sigma\,N
 \end{equation*}
-But the cross-section itself is governed entirely by the atomic lineshape function $g_{\nu_0}(\nu)$ via $\sigma(\nu) = (\lambda^2 / 8\pi\tau_{sp}) g_{\nu_0}(\nu)$. This means:
+But the cross-section itself is governed entirely by the atomic lineshape function $g_{\nu_0}(\nu)$ via $\sigma = (\lambda^2 / 8\pi\tau_{sp}) g_{\nu_0}(\nu)$. This means:
 \begin{equation*}
-    \gamma(\nu) = \left[N \frac{\lambda^2}{8\pi\tau_{sp}}\right] g_{\nu_0}(\nu)
+    \gamma = \left[N \frac{\lambda^2}{8\pi\tau_{sp}}\right] g_{\nu_0}(\nu)
 \end{equation*}
 
-Because all the terms in the first bracket are frequency-independent constants, the gain coefficient $\gamma(\nu)$ inherits the exact same spectral profile as the atomic transition. 
+Because all the terms in the first bracket are frequency-independent constants, the gain coefficient $\gamma$ inherits the exact same spectral profile as the atomic transition. 
 
 For \textbf{homogeneous broadening}, the lineshape $g_{\nu_0}(\nu)$ was derived in Chapter 1 as a \textbf{Lorentzian} centered at $\nu_0$:
 \begin{equation*}
@@ -617,24 +617,23 @@ where $\Delta\nu$ is the FWHM of the atomic transition (the \textbf{atomic linew
 \end{equation*}
 Substituting this algebraically rearranged lineshape back into our gain equation:
 \begin{equation*}
-    \gamma(\nu) = \left[N \frac{\lambda^2}{8\pi\tau_{sp}}\right] \left[ \frac{2}{\pi \Delta\nu} \frac{1}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2} \right]
+    \gamma = \left[N \frac{\lambda^2}{8\pi\tau_{sp}}\right] \left[ \frac{2}{\pi \Delta\nu} \frac{1}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2} \right]
 \end{equation*}
 Now we group all the frequency-independent factors together into a single scalar peak value:
 \begin{equation*}
-    \gamma(\nu) = \underbrace{\left[ N \frac{\lambda^2}{4\pi^2 \tau_{sp} \Delta\nu} \right]}_{\gamma_{\max}} \frac{1}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2}
+    \gamma = \underbrace{\left[ N \frac{\lambda^2}{4\pi^2 \tau_{sp} \Delta\nu} \right]}_{\gamma_{\max}} \frac{1}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2}
 \end{equation*}
 This explicitly defines the peak gain coefficient $\gamma_{\max}$ and gives us the final geometric shape:
 \begin{keyresult}
 \begin{equation}
-    \gamma(\nu)
-    = \frac{\gamma_{\max}}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2}
+    \gamma = \frac{\gamma_{\max}}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2}, \qquad \gamma_{\max} = N \frac{\lambda^2}{4\pi^2 \tau_{sp} \Delta\nu}
 \end{equation}
 \end{keyresult}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 3/gain_coefficient_profile.jpg}
-    \caption{Gain Coefficient Profile: A standard Lorentzian lineshape $\gamma(\nu)$ resulting from homogeneous broadening, with peak value $\gamma_{\text{max}}$ and atomic linewidth FWHM $\Delta\nu$.}
+    \caption{Gain Coefficient Profile: A standard Lorentzian lineshape $\gamma$ resulting from homogeneous broadening, with peak value $\gamma_{\text{max}}$ and atomic linewidth FWHM $\Delta\nu$.}
 \end{figure}
 
 Similarly, for \textbf{inhomogeneous (Doppler) broadening}, the lineshape derived in Chapter 1 is a normalised \textbf{Gaussian}:
@@ -643,45 +642,48 @@ Similarly, for \textbf{inhomogeneous (Doppler) broadening}, the lineshape derive
 \end{equation*}
 Substituting this explicit lineshape directly into the gain equation:
 \begin{equation*}
-    \gamma(\nu) = \left[ N \frac{\lambda^2}{8\pi\tau_{sp}} \right] \left[ \frac{1}{\sigma_D \sqrt{2\pi}} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right) \right]
+    \gamma = \left[ N \frac{\lambda^2}{8\pi\tau_{sp}} \right] \left[ \frac{1}{\sigma_D \sqrt{2\pi}} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right) \right]
 \end{equation*}
 Once again, grouping the frequency-independent constants into a peak scalar value gives us the final geometric shape:
 \begin{equation*}
-    \gamma(\nu) = \underbrace{\left[ N \frac{\lambda^2}{8\pi\tau_{sp}\sigma_D\sqrt{2\pi}} \right]}_{\gamma_{\max}} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right)
+    \gamma = \underbrace{\left[ N \frac{\lambda^2}{8\pi\tau_{sp}\sigma_D\sqrt{2\pi}} \right]}_{\gamma_{\max}} \exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right)
 \end{equation*}
 \begin{keyresult}
 \begin{equation}
-    \gamma(\nu)
-    = \gamma_{\max}\,\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right)
+    \gamma = \gamma_{\max}\,\exp\!\left(-\frac{(\nu-\nu_0)^2}{2\sigma_D^2}\right), \qquad \gamma_{\max} = N \frac{\lambda^2}{8\pi\tau_{sp}\sigma_D\sqrt{2\pi}}
 \end{equation}
 \end{keyresult}
 where $\sigma_D$ is the Doppler width parameter and the FWHM bandwidth is exactly defined as $\Delta\nu_D = \sqrt{8\ln 2}\,\sigma_D$.
 
-\subsubsection*{Shape of \texorpdfstring{$G_0(\nu)$}{G\_0(nu)}}
+\subsubsection*{Shape of \texorpdfstring{$G_0$}{G\_0}}
 
-Now here is the important point: the small-signal power gain is $G_0(\nu) = e^{\gamma_0(\nu)\,L}$. Because the exponential function is nonlinear, $G_0(\nu)$ is \emph{not} the same shape as $\gamma_0(\nu)$. If $\gamma_0(\nu)$ is Lorentzian, $e^{\gamma_0(\nu)L}$ is not Lorentzian. If $\gamma_0(\nu)$ is Gaussian, $e^{\gamma_0(\nu)L}$ is not Gaussian either.
+Now here is the important point: the small-signal power gain is $G_0 = e^{\gamma_0 L}$. Because the exponential function is nonlinear, $G_0$ is \emph{not} the same shape as $\gamma_0$. If $\gamma_0$ is Lorentzian, $e^{\gamma_0 L}$ is not Lorentzian. If $\gamma_0$ is Gaussian, $e^{\gamma_0 L}$ is not Gaussian either.
 
-This has a very important practical consequence: the \textbf{bandwidth of $G_0$} (call it $\Delta\nu_{G_0}$) is strictly \emph{narrower} than the atomic linewidth $\Delta\nu$ — a phenomenon called \textbf{bandwidth narrowing} — provided that the peak amplifier gain is sufficiently large (specifically, $G_{0,\max} > 4$).
+This nonlinear transformation has a profound practical consequence: the amplifier's functional bandwidth (call it $\Delta\nu_{G_0}$) will inherently differ from the raw atomic linewidth ($\Delta\nu$). 
 
-Let us now derive the precise formula for the FWHM bandwidth $\Delta\nu_{G_0}$ of a homogeneously broadened (Lorentzian) amplifier.
+Let us now derive the precise formula for this power gain bandwidth $\Delta\nu_{G_0}$, assuming a homogeneously broadened (Lorentzian) medium, to discover exactly how they relate.
 
 We start by defining the absolute peak small-signal gain right at line centre:
 \begin{equation}
-    G_{0,\max} \equiv G_0(\nu_0) = e^{\gamma_{0,\max} L} \tag{I}
+    G_{0,\max} \equiv \left. G_0 \right|_{\nu=\nu_0} = e^{\gamma_{0,\max} L} \tag{I}
 \end{equation}
 By definition, the FWHM bandwidth $\Delta\nu_{G_0}$ of our amplifier is the frequency separation across which the power gain falls to exactly half its peak value. Setting the evaluation point to $\nu = \nu_0 + \Delta\nu_{G_0}/2$:
 \begin{equation*}
-    G_0\!\left(\nu_0 + \frac{\Delta\nu_{G_0}}{2}\right) = \frac{G_{0,\max}}{2}
+    \left. G_0 \right|_{\nu = \nu_0 + \frac{\Delta\nu_{G_0}}{2}} = \frac{G_{0,\max}}{2}
     \quad\implies\quad
-    e^{\gamma_0(\nu_0 + \Delta\nu_{G_0}/2)\,L} = \frac{G_{0,\max}}{2}
+    \exp\!\left( \left. \gamma_0 \right|_{\nu = \nu_0 + \frac{\Delta\nu_{G_0}}{2}} L \right) = \frac{G_{0,\max}}{2}
 \end{equation*}
 Taking the natural logarithm of both sides to extract the exponent:
 \begin{equation}
-    \gamma_0\!\left(\nu_0 + \frac{\Delta\nu_{G_0}}{2}\right)\cdot L = \ln\!\left(\frac{G_{0,\max}}{2}\right) \tag{II}
+    \left. \gamma_0 \right|_{\nu = \nu_0 + \frac{\Delta\nu_{G_0}}{2}} L = \ln\!\left(\frac{G_{0,\max}}{2}\right) \tag{II}
 \end{equation}
-We now explicitly substitute our Lorentzian small-signal gain coefficient $\gamma_0(\nu)$ into the left-hand side, evaluating it at the half-power detuning $\nu - \nu_0 = \Delta\nu_{G_0}/2$:
+Recall the geometric formula for the Lorentzian small-signal gain coefficient derived earlier:
 \begin{equation*}
-    \left[ \frac{\gamma_{0,\max}}{1 + \left(\dfrac{2(\Delta\nu_{G_0}/2)}{\Delta\nu}\right)^2} \right] L
+    \gamma_0 = \frac{\gamma_{0,\max}}{1 + \left(\dfrac{2(\nu-\nu_0)}{\Delta\nu}\right)^2}
+\end{equation*}
+Evaluating this at $\nu - \nu_0 = \frac{\Delta\nu_{G_0}}{2}$ and substituting into \textup{(II)} yields:
+\begin{equation*}
+    \left[ \frac{\gamma_{0,\max}}{1 + \left(\dfrac{2\left(\frac{\Delta\nu_{G_0}}{2}\right)}{\Delta\nu}\right)^2} \right] L
     = \ln\!\left(\frac{G_{0,\max}}{2}\right)
     \quad\implies\quad
     \frac{\gamma_{0,\max} L}{1 + \left(\dfrac{\Delta\nu_{G_0}}{\Delta\nu}\right)^2}
@@ -697,7 +699,7 @@ Moving the $+1$ to the right-hand side isolates the squared bandwidth ratio:
 \begin{equation*}
     \left(\frac{\Delta\nu_{G_0}}{\Delta\nu}\right)^2 = \frac{\ln(G_{0,\max})}{\ln(G_{0,\max}/2)} - 1
 \end{equation*}
-Taking the positive square root and subsequently multiplying by $\Delta\nu$ finally yields the narrowed amplifier bandwidth:
+Taking the positive square root and subsequently multiplying by $\Delta\nu$ finally yields the analytical formula for the amplifier bandwidth:
 \begin{keyresult}
 \begin{equation}
     \Delta\nu_{G_0}
@@ -707,20 +709,22 @@ Taking the positive square root and subsequently multiplying by $\Delta\nu$ fina
 
 where:
 \begin{itemize}
-    \item $\Delta\nu_{G_0}$: FWHM bandwidth of the amplifier power gain $G_0(\nu)$
-    \item $\Delta\nu$: FWHM of the underlying atomic lineshape (bandwidth of $\gamma_0(\nu)$)
+    \item $\Delta\nu_{G_0}$: FWHM bandwidth of the amplifier power gain $G_0$
+    \item $\Delta\nu$: FWHM of the underlying atomic lineshape (bandwidth of $\gamma_0$)
     \item $G_{0,\max} = e^{\gamma_{0,\max}L}$: peak small-signal gain
 \end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 3/gain_power_profile.jpg}
-    \caption{Power Gain Profile: The sharply compressed spectral shape of $G_0(\nu) = e^{\gamma_0(\nu)L}$. Notice the amplified peak $G_{0,\max}$ and the resulting narrower amplifier FWHM $\Delta\nu_{G_0}$.}
+    \caption{Power Gain Profile: The spectral shape of the small-signal power gain $G_0 = e^{\gamma_0 L}$. Notice how the exponential transformation aggressively magnifies the peak $G_{0,\max}$, inherently altering the resulting functional bandwidth $\Delta\nu_{G_0}$.}
 \end{figure}
 
 \subsubsection*{The Bandwidth-Narrowing Condition}
 
-Now let us formally prove the threshold at which the amplifier bandwidth $\Delta\nu_{G_0}$ strictly becomes less than the underlying atomic bandwidth $\Delta\nu$. By rearranging our derived FWHM formula, we isolate the bandwidth-narrowing ratio:
+Because the amplifier's functional bandwidth $\Delta\nu_{G_0}$ is dictated by a nonlinear exponential, it is not guaranteed to equal the native atomic linewidth $\Delta\nu$. If the amplifier is pumped hard enough, the output spectrum will strictly compress—a phenomenon known as \textbf{bandwidth narrowing}. 
+
+To determine exactly when this narrowing physically occurs, we must find the operational threshold where $\Delta\nu_{G_0} < \Delta\nu$. By rearranging our derived FWHM formula, we can explicitly isolate this bandwidth ratio:
 \begin{equation*}
     \frac{\Delta\nu_{G_0}}{\Delta\nu} = \sqrt{\frac{\ln(G_{0,\max})}{\ln(G_{0,\max}/2)} - 1}
 \end{equation*}
@@ -748,10 +752,10 @@ Dividing both sides by $G_{0,\max}$ cleanly isolates the necessary operating thr
 
 To understand why this derivation matters, we must consider how optical amplifiers are actually used. In practice, a very wide operating bandwidth is highly desirable.
 
-The fundamental problem is that the amplifier's power gain scales exponentially: $G_0(\nu) = e^{\gamma_0(\nu)L}$. 
+The fundamental problem is that the amplifier's power gain scales exponentially: $G_0 = e^{\gamma_0 L}$. 
 The exponential function aggressively magnifies differences. The frequency exactly at the line centre ($\nu_0$) gets amplified astronomically more than frequencies even slightly off-centre.
 
-We can clearly see this by looking at what happens at the atomic half-power points, $\nu_0 \pm \Delta\nu/2$. At these frequencies, the atomic gain coefficient $\gamma_0(\nu)$ has dropped to exactly half its peak value ($\gamma_{0,\max}/2$). If we plug this into our power gain equation, the gain at these points is:
+We can clearly see this by looking at what happens at the atomic half-power points, $\nu_0 \pm \Delta\nu/2$. At these frequencies, the atomic gain coefficient $\gamma_0$ has dropped to exactly half its peak value ($\gamma_{0,\max}/2$). If we plug this into our power gain equation, the gain at these points is:
 \begin{equation*}
     G_0\!\left(\nu_0 \pm \frac{\Delta\nu}{2}\right)
     = e^{(\gamma_{0,\max}/2)L}
@@ -771,7 +775,7 @@ However, the theoretical definition of the amplifier's FWHM bandwidth ($\Delta\n
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 3/bandwidth_narrowing_cases.jpg}
-    \caption{Bandwidth Narrowing Profile Overlay: Comparing the normalised power gain $G_0(\nu) / G_{0,\max}$ across three operating regimes. The boundary case ($G_{0,\max}=4$) is explicitly marked, precisely intersecting the half-power threshold exactly on the native atomic limits. Pursuing massive gain ($G_{0,\max}=100$) severely compresses the functional bandwidth inside those boundaries.}
+    \caption{Bandwidth Narrowing Overlay: Normalised power gain profiles ($G_0 / G_{0,\max}$) for varying peak gains. The mathematical boundary case ($G_{0,\max}=4$) perfectly intersects the half-power threshold exactly at the native atomic limits ($\nu_0 \pm \Delta\nu/2$). Conversely, pumping the amplifier to achieve practical high gain ($G_{0,\max}=100$) severely compresses the functional bandwidth well inside these native boundaries.}
 \end{figure}
 
 \textbf{The Fundamental Trade-off}: Because exponential amplification structurally suppresses the edges of a spectrum under useful operating regimes, an engineer faces an unavoidable physical conflict. Pumping the amplifier harder to achieve a massive peak gain will severely sharpen the profile, fundamentally destroying the usable bandwidth. You cannot have both massive amplification and a wide bandwidth simultaneously.
@@ -779,21 +783,13 @@ However, the theoretical definition of the amplifier's FWHM bandwidth ($\Delta\n
 % ------- NOISE -----------------------------------------------
 \subsection{Noise Performance}
 
-The noise performance is the third fundamental parameter of an optical amplifier.  In
-an optical amplifier, the dominant noise source is \textbf{amplified spontaneous
-emission (ASE)}: spontaneous emission photons emitted into the signal mode get
-amplified along with the signal, adding a fluctuating background that degrades the
-signal quality.  We now derive the ASE power and the optical signal-to-noise ratio
-from first principles.
+The noise performance is the third fundamental parameter of an optical amplifier. But why is spontaneous emission specifically the dominant source of noise in these systems?
 
-\subsubsection*{Why Spontaneous Emission Is the Dominant Noise Source}
+When an amplifier is pumped to create population inversion, spontaneous emission inevitably occurs. These spontaneous photons are emitted randomly in all directions, with random polarisations, and at random frequencies. While most of this light scatters harmlessly away, a tiny fraction of these photons happen to be emitted perfectly into the \emph{same spatial mode} and \emph{polarisation} as our incoming signal. 
 
-Spontaneous emission occurs randomly in all directions, with random polarisation, and at random frequencies within the atomic linewidth.
-Only a fraction of these spontaneous photons happen to be emitted into the
-\emph{same spatial mode} as the signal, and only half of those share the same
-\emph{polarisation}.  Those two fractions are what get amplified by the gain medium
-and added to the signal — everything else is noise in the wrong direction or wrong
-polarisation, and is either lost or filtered out.
+Because they share the exact same path, these spontaneous photons are indistinguishable from the signal. Consequently, they get exponentially amplified by the gain medium alongside the signal, creating a fluctuating background known as \textbf{amplified spontaneous emission (ASE)}. Everything else is simply noise in the wrong direction or polarisation, and is easily filtered out.
+
+To understand exactly how much this ASE degrades our signal quality, we will now mathematically derive the ASE power and the optical signal-to-noise ratio from first principles.
 
 \begin{figure}[H]
     \centering
@@ -801,161 +797,126 @@ polarisation, and is either lost or filtered out.
     \caption{ASE Noise: Visualizing spontaneous emission creating uncorrelated broadband noise photons ($\text{ASE}^{+}$ and $\text{ASE}^{-}$) travelling collinearly with the amplified signal.}
 \end{figure}
 
-\subsubsection*{Step 1: Spontaneous Emission Rate Into a Volume Element}
+To quantify this noise rigorously, we start by considering a thin slab of gain medium of cross-sectional area $A$ and finite thickness $\Delta z$. 
 
-We start by considering a thin slab of gain medium of cross-sectional area $A$
-and thickness $\delta z$.  The rate of spontaneous emission from $N_2$ atoms per
-unit volume per unit time per unit frequency interval is:
+We know that the total rate of spontaneous emission per unit volume is simply $N_2/\tau_{sp}$. However, this emission is naturally spread across the entire atomic spectrum according to the lineshape function $g_{\nu_0}(\nu)$. Because we are only concerned with the noise that actually overlaps with our signal, we do not integrate over the whole spectrum. Instead, we assume the signal will eventually pass through an external optical filter of bandwidth $B_0$. We strictly restrict our noise tracking to this specific filter bandwidth.
+
+The spontaneous emission rate per unit volume \emph{restricted to this filter bandwidth} is the spectral density multiplied by $B_0$:
 \begin{equation*}
-    \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot \delta\nu,
+    \text{Rate per unit volume} = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0.
 \end{equation*}
-where $\tau_{sp}$ is the spontaneous emission lifetime, $g_{\nu_0}(\nu)$ is the
-normalised lineshape function, and $\delta\nu$ is the frequency bandwidth we are
-tracking.  The total spontaneous emission rate (photons per second) from the volume
-$A \cdot \delta z$ into bandwidth $\delta\nu$ is therefore:
+To find the total absolute rate (the number of photons generated per second) from our physical slab, we simply multiply this by the volume $A\,\Delta z$:
 \begin{equation*}
-    \text{Rate} = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot \delta\nu
-    \cdot A \cdot \delta z.
+    \text{Total Rate} = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0 \cdot A\,\Delta z.
 \end{equation*}
 
-\subsubsection*{Step 2: Fraction Coupled Into the Signal Mode}
+However, these spontaneous photons are emitted isotropically into a total solid angle of $4\pi$ steradians. To find the fraction that are emitted into the \emph{laser beam direction} (i.e., into the signal spatial mode), we use the concept of the \textbf{laser solid angle}.
 
-These spontaneous photons are emitted isotropically into a total solid angle
-of $4\pi$ steradians.  To find the fraction that are emitted into the
-\emph{laser beam direction} (i.e., into the signal spatial mode), we use the
-concept of the \textbf{laser solid angle}.
-
-The solid angle element in spherical coordinates is:
-\begin{equation*}
-    d\Omega = \sin\theta\,d\theta\,d\phi,
-\end{equation*}
-and the total solid angle of a full sphere is:
+By integrating the solid angle element $d\Omega = \sin\theta\,d\theta\,d\phi$ over a full sphere, we find the total solid angle for isotropic emission:
 \begin{equation*}
     \Omega_\text{total} = \int_0^{2\pi}\int_0^{\pi} \sin\theta\,d\theta\,d\phi = 4\pi.
 \end{equation*}
 
-For a beam of wavelength $\lambda$ propagating through a medium of cross-sectional
-area $A$, diffraction theory tells us that the beam subtends a solid angle:
+For a beam of wavelength $\lambda$ propagating through a medium of cross-sectional area $A$, diffraction theory tells us that the beam subtends a solid angle:
 \begin{equation*}
     d\Omega_\text{laser} = \frac{\lambda^2}{A}.
 \end{equation*}
-This is the \textbf{laser solid angle} — the solid angle subtended by the single
-spatial mode of the laser beam.
+This is the \textbf{laser solid angle} — the solid angle subtended by the single spatial mode of the laser beam.
 
-The fraction of spontaneous emission coupled into the laser mode is therefore:
+The fraction of spontaneous emission physically coupled into the laser mode is therefore a pure geometric probability. Because spontaneous emission is completely isotropic (meaning a photon is equally likely to be emitted in any random direction), the probability that a photon lands inside the specific laser beam is simply the size of the laser's directional cone divided by the total 3D spherical space:
 \begin{equation*}
     \frac{d\Omega_\text{laser}}{\Omega_\text{total}} = \frac{\lambda^2/A}{4\pi}
     = \frac{\lambda^2}{4\pi A}.
 \end{equation*}
 
-\subsubsection*{Step 3: Accounting for Polarisation}
-
-The signal beam has a definite polarisation.  Spontaneous emission is equally
-likely to be in any polarisation — on average, only half the spontaneously emitted
-power is in the same polarisation as the signal.  This introduces an additional
-factor of $1/2$.
-
-To see this more formally: the electric field of a spontaneously emitted photon
-can be decomposed into two orthogonal polarisations, $E_x = E_0\cos\theta$ and
-$E_y = E_0\sin\theta$, where $\theta$ is uniformly distributed over $[0, 2\pi)$.
-The average intensity in the $x$-polarisation is:
+Beyond directionality, we must also account for polarisation. The signal beam has a definite polarisation, whereas spontaneous emission is entirely unpolarised (randomly distributed). If we decompose the randomly oriented electric field of a spontaneous photon into two orthogonal polarisations ($E_x = E_0\cos\theta$ and $E_y = E_0\sin\theta$, with $\theta$ uniformly distributed), the average intensity coupled into the signal's specific polarisation is:
 \begin{equation*}
-    \langle I_x \rangle = E_0^2 \langle \cos^2\theta \rangle
-    = E_0^2 \cdot \frac{1}{2\pi}\int_0^{2\pi}\cos^2\theta\,d\theta
-    = \frac{E_0^2}{2} = \frac{I}{2}.
+    \langle I_x \rangle = E_0^2 \langle \cos^2\theta \rangle = \frac{E_0^2}{2\pi}\int_0^{2\pi}\cos^2\theta\,d\theta = \frac{I}{2}.
 \end{equation*}
-So only half the intensity is in the signal's polarisation — this factor of $1/2$
-is sometimes called the \textbf{Stokes factor}.
+This mathematically demonstrates that only half of the spontaneously emitted power aligns with the signal. This mandatory $1/2$ reduction is sometimes referred to as the \textbf{Stokes factor}.
 
-\subsubsection*{Step 4: Spontaneous Emission Power Coupled to Signal}
+Applying the spatial ($\lambda^2 / 4\pi A$) and polarisation ($1/2$) fractions to the raw emission rate gives the rate of spontaneous photons successfully coupled into the signal mode:
+\begin{equation*}
+    \text{Coupled Rate}
+    = \underbrace{\left( \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0 \cdot A\,\Delta z \right)}_{\text{Total Raw Rate}} 
+    \cdot \underbrace{\left( \frac{\lambda^2}{4\pi A} \cdot \frac{1}{2} \right)}_{\text{Coupling Fractions}}
+    = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0 \cdot \frac{\lambda^2}{8\pi} \cdot \Delta z.
+\end{equation*}
 
-Combining steps 1–3, the spontaneous emission power coupled into the signal mode
-(same direction and same polarisation) from the volume element $A \cdot \delta z$
-within bandwidth $\delta\nu$ is:
+To convert this coupled rate (photons/second) into actual optical \emph{power} (Watts), we multiply by the single-photon energy, $h\nu$. The spontaneous emission power added by the slab is therefore:
 \begin{equation*}
-    dP_\text{sp-coupled}
-    = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot \delta\nu
-    \cdot A \cdot \delta z \cdot h\nu
-    \cdot \frac{\lambda^2}{4\pi A} \cdot \frac{1}{2}.
+    \Delta P_\text{ASE}
+    = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0 \cdot h\nu
+    \cdot \frac{\lambda^2}{8\pi} \cdot \Delta z.
 \end{equation*}
-Simplifying (the area $A$ cancels):
+Dividing by $\Delta z$ to get the spontaneous emission power added per unit length, and taking the continuous limit ($\Delta z \to 0$) to form the spatial derivative:
 \begin{equation*}
-    dP_\text{sp-coupled}
-    = \frac{N_2}{\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot \delta\nu \cdot h\nu
-    \cdot \frac{\lambda^2}{8\pi} \cdot \delta z.
+    \frac{\Delta P_\text{ASE}}{\Delta z}
+    = \frac{N_2 h\nu\,\lambda^2}{8\pi\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0
+    \quad \xrightarrow{\Delta z \to 0} \quad
+    \frac{dP_\text{ASE}}{dz}
+    = \frac{N_2 h\nu\,\lambda^2}{8\pi\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot B_0.
 \end{equation*}
-Dividing by $\delta z$ to get the spontaneous emission power added per unit length:
+
+We can simplify this by identifying the stimulated emission cross-section $\sigma = \frac{\lambda^2}{8\pi\tau_{sp}}\,g_{\nu_0}(\nu)$ within the constants. Substituting this yields:
 \begin{equation*}
     \frac{dP_\text{ASE}}{dz}
-    = \frac{N_2 h\nu\,\lambda^2}{8\pi\tau_{sp}} \cdot g_{\nu_0}(\nu) \cdot \delta\nu.
-\end{equation*}
-
-\subsubsection*{Step 5: Introducing the Spontaneous Emission Factor \texorpdfstring{$n_{sp}$}{n\_sp}}
-
-Using $\sigma(\nu) = \frac{\lambda^2}{8\pi\tau_{sp}}\,g_{\nu_0}(\nu)$ and $\gamma = \sigma(N_2 - N_1)$, we can write:
-\begin{equation*}
-    \frac{dP_\text{ASE}}{dz}
-    = h\nu\,\delta\nu \cdot \sigma(\nu) \cdot N_2.
+    = h\nu\,B_0 \cdot \sigma \cdot N_2.
 \end{equation*}
 Multiplying and dividing by $(N_2 - N_1)$ to expose $\gamma = \sigma(N_2 - N_1)$ explicitly:
 \begin{equation*}
     \frac{dP_\text{ASE}}{dz}
-    = h\nu\,\delta\nu \cdot \underbrace{\sigma(\nu)(N_2 - N_1)}_{\gamma}
+    = h\nu\,B_0 \cdot \underbrace{\sigma(N_2 - N_1)}_{\gamma}
     \cdot \frac{N_2}{N_2 - N_1}.
 \end{equation*}
-We define the \textbf{spontaneous emission factor} (also called the \textbf{population
-inversion factor}):
+We define the \textbf{spontaneous emission factor}:
 \begin{keyresult}
 \begin{equation}
-    n_{sp} = \frac{N_2}{N_2 - N_1}
+    n_{sp} = \frac{N_2}{N_2 - N_1} \quad \longleftarrow \frac{\text{Spontaneous Emission Rate}}{\text{Net Stimulated Emission Rate}}
 \end{equation}
 \end{keyresult}
 
-where $n_{sp}$ is always $\geq 1$ (since $N_2 \geq N_2 - N_1$ whenever $N_1 \geq 0$),
-and approaches 1 only in the limit of complete inversion ($N_1 \to 0$).  It is a
-direct measure of how noisy the amplifier is: $n_{sp} = 1$ is the ideal (quantum
-noise limited) case, while $n_{sp} \gg 1$ indicates significant noise.
+Because $N_1 \geq 0$, $n_{sp}$ is always $\geq 1$. It approaches 1 only in the limit of complete inversion ($N_1 \to 0$). It is a direct measure of how noisy the amplifier is: $n_{sp} = 1$ is the ideal (quantum noise limited) case, while $n_{sp} \gg 1$ indicates significant noise.
 
-After passing through an optical bandpass filter of bandwidth $B_0$ (which selects
-only the frequency band of interest around the signal), the ASE power per unit
-length becomes:
-\begin{keyresult}
-\begin{equation}
+This equation also offers a profound physical insight. While the upper-state population $N_2$ is responsible for both spontaneous and stimulated emission, the raw spontaneous emission rate depends \emph{only} on $N_2$. In contrast, the net useful stimulated emission (the gain) depends on the population difference $(N_2 - N_1)$. Therefore, $n_{sp}$ fundamentally represents the ratio of noise-generation to signal-amplification.
+
+Substituting $n_{sp}$ back into our differential equation yields the final expression for the ASE noise power added to the signal beam \emph{per unit length of amplifier}:
+\begin{equation*}
     \frac{dP_\text{ASE}}{dz} = \gamma\,n_{sp}\,h\nu\,B_0
-\end{equation}
-\end{keyresult}
+\end{equation*}
 
-This is the ASE noise power added to the signal beam \emph{per unit length of
-amplifier}, after spatial and polarisation filtering.
-
-\subsubsection*{Step 6: Total Power Propagation Equation}
-
-Now we write the total power change equation. The signal power $P$ increases due
-to stimulated emission (gain) and is augmented by ASE noise:
-\begin{equation}
+With the noise contribution fully characterised, we can finally construct the total power propagation equation for the amplifier. The signal power $P$ increases due to stimulated emission (gain) and is augmented by ASE noise:
+\begin{equation*}
     \frac{dP}{dz} = \underbrace{\gamma\,P}_{\text{signal gain}}
-    + \underbrace{\gamma\,n_{sp}\,h\nu\,B_0}_{\text{ASE noise}}. \tag{I}
-\end{equation}
+    + \underbrace{\gamma\,n_{sp}\,h\nu\,B_0}_{\text{ASE noise}}.
+\end{equation*}
 
-Assuming the small-signal regime where $\gamma = \gamma_0$ is constant, we factor the right-hand side of \textup{(I)}:
+In general, $\gamma = \sigma(N_2 - N_1)$ is position-dependent, because a strong signal progressively depletes the population inversion as it propagates. To obtain a closed-form solution, we invoke the \textbf{small-signal regime}: the input signal is weak enough that it does not significantly saturate the gain, so $\gamma \approx \gamma_0$ remains constant along $z$. This allows us to factor the right-hand side:
 \begin{equation*}
     \frac{dP}{dz} = \gamma_0\!\left(P + n_{sp}\,h\nu\,B_0\right).
 \end{equation*}
-This is a separable ODE — we separate variables and integrate directly:
+This is a separable ODE, so we separate variables, integrate both sides:
 \begin{equation*}
-    \frac{dP}{P + n_{sp}\,h\nu\,B_0} = \gamma_0\,dz.
+    \frac{dP}{P + n_{sp}\,h\nu\,B_0} = \gamma_0\,dz
+    \;\implies\;
+    \int_{P_\text{in}}^{P(L)} \frac{dP}{P + n_{sp}\,h\nu\,B_0} = \int_0^L \gamma_0\,dz = \gamma_0 L.
 \end{equation*}
-Integrating the left side from $P_\text{in}$ to $P(L)$ and the right side from $0$ to $L$:
+Solving the integral yields:
 \begin{equation*}
-    \int_{P_\text{in}}^{P(L)} \frac{dP}{P + n_{sp}\,h\nu\,B_0} = \int_0^L \gamma_0\,dz
-    \quad\implies\quad
-    \ln\!\left(\frac{P(L) + n_{sp}\,h\nu\,B_0}{P_\text{in} + n_{sp}\,h\nu\,B_0}\right) = \gamma_0\,L
+    \ln\!\left(\frac{P(L) + n_{sp}\,h\nu\,B_0}{P_\text{in} + n_{sp}\,h\nu\,B_0}\right) = \gamma_0\,L.
 \end{equation*}
 Exponentiating both sides:
 \begin{equation*}
-    P(L) + n_{sp}\,h\nu\,B_0 = \left(P_\text{in} + n_{sp}\,h\nu\,B_0\right)e^{\gamma_0 L}
+    \frac{P(L) + n_{sp}\,h\nu\,B_0}{P_\text{in} + n_{sp}\,h\nu\,B_0} = e^{\gamma_0 L}
+    \;\implies\;
+    P(L) + n_{sp}\,h\nu\,B_0 = \left(P_\text{in} + n_{sp}\,h\nu\,B_0\right)e^{\gamma_0 L}.
 \end{equation*}
-Isolating $P(L)$ and substituting $G_0 = e^{\gamma_0 L}$:
+Isolating $P(L)$ and expanding:
+\begin{equation*}
+    P(L) = P_\text{in}\,e^{\gamma_0 L} + n_{sp}\,h\nu\,B_0\,e^{\gamma_0 L} - n_{sp}\,h\nu\,B_0
+         = P_\text{in}\,e^{\gamma_0 L} + n_{sp}\,h\nu\,B_0\!\left(e^{\gamma_0 L} - 1\right).
+\end{equation*}
+Substituting $G_0 = e^{\gamma_0 L}$:
 \begin{keyresult}
 \begin{equation}
     P(L) = G_0\,P_\text{in} + n_{sp}\,h\nu\,B_0\,(G_0 - 1)
@@ -968,15 +929,11 @@ The output power has two distinct terms:
     \item $n_{sp}\,h\nu\,B_0\,(G_0 - 1)$: the ASE noise added by the amplifier. This term vanishes when $G_0 = 1$ (no gain), and grows with $G_0$ — more gain always means more noise.
 \end{itemize}
 
-\subsubsection*{Step 7: Optical Signal-to-Noise Ratio}
-
-The \textbf{optical signal-to-noise ratio (OSNR)} of the amplifier output is
-defined as the ratio of amplified signal power to ASE noise power:
+To quantify how severely this noise degrades the signal, we evaluate the \textbf{optical signal-to-noise ratio (OSNR)} of the amplifier output, defined as the ratio of amplified signal power to ASE noise power:
 \begin{equation*}
     \text{OSNR} = \frac{G_0\,P_\text{in}}{n_{sp}\,h\nu\,B_0\,(G_0 - 1)}.
 \end{equation*}
-In the practically relevant limit of high gain ($G_0 \gg 1$, so $G_0 - 1 \approx
-G_0$):
+In the practically relevant limit of high gain ($G_0 \gg 1$, so $G_0 - 1 \approx G_0$):
 \begin{keyresult}
 \begin{equation}
     \text{OSNR} \approx \frac{P_\text{in}}{n_{sp}\,h\nu\,B_0}
@@ -987,7 +944,7 @@ The OSNR is \emph{independent of the gain} $G_0$ in the high-gain limit — a pr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 3/osnr_asymptote.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 3/osnr_asymptote.jpg}
     \caption{OSNR Asymptote: The fundamental noise limit of optical amplifiers at high linear gain values.}
 \end{figure}
 % =============================================================

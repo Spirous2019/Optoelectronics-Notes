@@ -108,21 +108,21 @@ def plot_gain_compression():
 
     # ── Saturation threshold: P_in = P_s ──────────────────────────────────────
     ax.axvline(x=1.0, color=GOLD, linewidth=1.6, linestyle="--")
-    ax.text(1.08, 1.3, r"$P_\mathrm{in} = P_s$",
-            color=GOLD, fontsize=11, va="bottom", ha="left")
 
     # ── Unity floor — the hard limit G → 1 ───────────────────────────────────
     ax.axhline(y=1.0, color=CORAL, linewidth=1.2, linestyle=":")
-    ax.text(0.011, 1.25, r"$G = 1$  (unity)",
-            color=CORAL, fontsize=10, va="bottom", ha="left")
-
-    # ── G_0 annotation at the small-signal plateau ────────────────────────────
-    ax.text(0.011, G0 * 0.97, r"$G_0$",
-            color=AXES_CLR, fontsize=11, va="top", ha="left")
 
     # ── Axes ──────────────────────────────────────────────────────────────────
     ax.set_xlim(1e-3, 1e3)
     ax.set_ylim(0.0, G0 * 1.20)
+    
+    # Customise y-ticks to only show important physical values
+    ax.set_yticks([0, 1.0, G0])
+    ax.set_yticklabels(["0", "1", r"$G_0$"], fontsize=13)
+    
+    # Add the threshold label near the top of the line so it doesn't collide with axes
+    ax.text(1.2, G0 * 1.1, r"$P_\mathrm{in} = P_s$", color=GOLD, fontsize=12, va="center", ha="left")
+    
     ax.set_xlabel(r"Normalised Input Power $P_\mathrm{in}\,/\,P_s$", fontsize=13)
     ax.set_ylabel(r"Power Gain $G$  (dimensionless)", fontsize=13)
     ax.set_title("Gain Compression in the Travelling-Wave Amplifier", fontsize=15, pad=12)
@@ -151,7 +151,7 @@ def plot_gain_coefficient_profile():
     fig, ax = plt.subplots(figsize=(8, 5))
     
     # ── Main Lorentzian curve ────────────────────────────────────────────────
-    ax.plot(nu, gamma, color=TEAL, linewidth=2.5, label=r"Lorentzian Lineshape $\gamma(\nu)$")
+    ax.plot(nu, gamma, color=TEAL, linewidth=2.5, label=r"Lorentzian Lineshape $\gamma$")
     
     # ── Peak Annotation ──────────────────────────────────────────────────────
     ax.plot(nu0, gamma_max, 'o', color=TEAL, markersize=6)
@@ -186,7 +186,7 @@ def plot_gain_coefficient_profile():
     ax.set_yticklabels(["0", r"$\frac{1}{2}\gamma_{\max}$", r"$\gamma_{\max}$"], fontsize=13)
     
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Gain Coefficient $\gamma(\nu)$", fontsize=13)
+    ax.set_ylabel(r"Gain Coefficient $\gamma$", fontsize=13)
     ax.set_title("Homogeneous Broadening: Lorentzian Gain Profile", fontsize=15, pad=12)
     ax.grid(True)
     
@@ -221,7 +221,7 @@ def plot_gain_gaussian_profile():
     fig, ax = plt.subplots(figsize=(8, 5))
     
     # ── Main Gaussian curve ──────────────────────────────────────────────────
-    ax.plot(nu, gamma, color=TEAL, linewidth=2.5, label=r"Gaussian Lineshape $\gamma(\nu)$")
+    ax.plot(nu, gamma, color=TEAL, linewidth=2.5, label=r"Gaussian Lineshape $\gamma$")
     
     # ── Peak Annotation ──────────────────────────────────────────────────────
     ax.plot(nu0, gamma_max, 'o', color=TEAL, markersize=6)
@@ -252,7 +252,7 @@ def plot_gain_gaussian_profile():
     ax.set_yticklabels(["0", r"$\frac{1}{2}\gamma_{\max}$", r"$\gamma_{\max}$"], fontsize=13)
     
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Gain Coefficient $\gamma(\nu)$", fontsize=13)
+    ax.set_ylabel(r"Gain Coefficient $\gamma$", fontsize=13)
     ax.set_title("Inhomogeneous Broadening: Gaussian Gain Profile", fontsize=15, pad=12)
     ax.grid(True)
     
@@ -286,7 +286,7 @@ def plot_gain_power_profile():
     fig, ax = plt.subplots(figsize=(8, 5))
     
     # ── Main G0 curve ────────────────────────────────────────────────────────
-    ax.plot(nu, G0, color=TEAL, linewidth=2.5, label=r"Power Gain Profile $G_0(\nu)$")
+    ax.plot(nu, G0, color=TEAL, linewidth=2.5, label=r"Power Gain Profile $G_0$")
     
     # ── Peak Annotation ──────────────────────────────────────────────────────
     ax.plot(nu0, G0_max, 'o', color=TEAL, markersize=6)
@@ -322,7 +322,7 @@ def plot_gain_power_profile():
     ax.set_yticklabels(["1", r"$\frac{1}{2}G_{0,\max}$", r"$G_{0,\max}$"], fontsize=13)
     
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Small-Signal Power Gain $G_0(\nu)$", fontsize=13)
+    ax.set_ylabel(r"Small-Signal Power Gain $G_0$", fontsize=13)
     ax.set_title("Amplifier Bandwidth: Power Gain Profile", fontsize=15, pad=12)
     ax.grid(True)
     
@@ -376,13 +376,14 @@ def plot_bandwidth_narrowing_cases():
     
     ax.set_title("Bandwidth Narrowing: Amplifier Power Gain Profiles", fontsize=15, pad=12)
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Normalised Amplifier Power Gain", fontsize=14)
+    ax.set_ylabel(r"Normalised Power Gain $G_0 / G_{0,\max}$", fontsize=14)
     
     # Mark atomic limits firmly in the x-axis tick labels
     ax.set_xticks([nu_left, nu0, nu_right])
     ax.set_xticklabels([r"$\nu_0 - \frac{\Delta\nu}{2}$", r"$\nu_0$", r"$\nu_0 + \frac{\Delta\nu}{2}$"], fontsize=14)
     
-    ax.set_yticks([0, 0.25, 0.5, 0.75, 1.0])
+    ax.set_yticks([0, 0.5, 1.0])
+    ax.set_yticklabels(["0", "0.5", "1.0"], fontsize=13)
     ax.set_xlim(nu0 - 18, nu0 + 18)
     ax.set_ylim(-0.02, 1.1)
     ax.grid(True)
@@ -396,9 +397,81 @@ def plot_bandwidth_narrowing_cases():
     print(f"Saved: {out_path}")
     plt.close(fig)
 
+# ── Plot: OSNR Asymptote ─────────────────────────────────────────────────────
+def plot_osnr_asymptote():
+    """
+    Plots the exact OSNR = G0*P_in / [n_sp*h*nu*B_0*(G0-1)] vs linear gain G0,
+    together with its high-gain asymptote OSNR_inf = P_in / (n_sp*h*nu*B_0).
+
+    Physical values:
+      h*nu  = 1.28e-19 J  (photon at 1550 nm)
+      B_0   = 12.5 GHz    (100 GHz WDM channel / 8 subcarrier slots)
+      n_sp  = 1.5          (realistic incomplete inversion)
+      P_in  = 1e-6 W      (-30 dBm, typical launched power)
+    """
+    h_nu  = 1.28e-19   # J,  E = hc/lambda, lambda=1550 nm
+    B0    = 12.5e9     # Hz, representative optical filter bandwidth
+    n_sp  = 1.5        # spontaneous emission factor
+    P_in  = 1e-6       # W,  -30 dBm input signal power
+
+    # Asymptote value
+    OSNR_inf = P_in / (n_sp * h_nu * B0)
+
+    # Gain sweep: G0 from 2 to 10000 (log scale to capture the full saturation)
+    G0 = np.logspace(np.log10(2), 4, 1200)
+    OSNR = G0 * P_in / (n_sp * h_nu * B0 * (G0 - 1))
+
+    fig, ax = plt.subplots(figsize=(9, 5.5))
+
+    # ── Exact OSNR curve ──────────────────────────────────────────────────────
+    ax.semilogx(G0, OSNR, color=TEAL, linewidth=2.5,
+                label=r"Exact OSNR$(G_0)$")
+
+    # ── Asymptote line ────────────────────────────────────────────────────────
+    ax.axhline(OSNR_inf, color=CORAL, linewidth=1.8, linestyle="--",
+               label=r"High-gain limit: $\frac{P_\mathrm{in}}{n_{sp}\,h\nu\,B_0}$")
+
+    # ── Shaded convergence region (G0 > 100) ─────────────────────────────────
+    ax.axvspan(100, G0[-1], color=CORAL, alpha=0.07)
+
+    # ── Axes ──────────────────────────────────────────────────────────────────
+    y_max = OSNR[0] * 1.5
+    ax.set_xlim(G0[0], G0[-1])
+    ax.set_ylim(0, y_max)
+
+    # Clean y-ticks: 0, asymptote, and the starting value
+    ax.set_yticks([0, OSNR_inf])
+    ax.set_yticklabels(["0", r"$\dfrac{P_\mathrm{in}}{n_{sp}\,h\nu\,B_0}$"], fontsize=12)
+
+    ax.set_xlabel(r"Small-Signal Gain $G_0$  (linear)", fontsize=13)
+    ax.set_ylabel(r"Optical SNR  (OSNR)", fontsize=13)
+    ax.set_title("OSNR Saturation: The Fundamental Noise Limit of Optical Amplifiers",
+                 fontsize=15, pad=12)
+    ax.grid(True)
+
+    # ── Legend ───────────────────────────────────────────────────────────────
+    import matplotlib.patches as mpatches
+    high_gain_patch = mpatches.Patch(
+        facecolor=CORAL, alpha=0.15, edgecolor="none",
+        label=r"High-Gain Limit ($G_0 \gg 1$)")
+    
+    handles, labels_list = ax.get_legend_handles_labels()
+    handles.append(high_gain_patch)
+
+    ax.legend(handles=handles, loc="upper right", framealpha=1,
+              facecolor="#f5f5f5", edgecolor="#cccccc", labelcolor=AXES_CLR)
+
+    fig.tight_layout()
+    out_path = os.path.join(FIG_DIR, "osnr_asymptote.jpg")
+    fig.savefig(out_path, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out_path}")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     plot_gain_compression()
     plot_gain_coefficient_profile()
     plot_gain_gaussian_profile()
     plot_gain_power_profile()
     plot_bandwidth_narrowing_cases()
+    plot_osnr_asymptote()

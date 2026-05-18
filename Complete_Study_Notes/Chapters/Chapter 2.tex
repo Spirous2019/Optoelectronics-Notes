@@ -484,33 +484,33 @@ Aside from the atomic population density $N_2$ and the driving photon flux $\Phi
 
 Why is this specific multiplier physically meaningful? Consider the dimensional analysis: our macroscopic population rate $\frac{dN_2}{dt}$ is measured in transitions per second per unit volume ($1/(\text{s}\cdot\text{m}^3)$), the population $N_2$ is an atomic volume density ($1/\text{m}^3$), and the photon flux $\Phi$ is a particle area rate ($1/(\text{s}\cdot\text{m}^2)$). For the entire equation to mathematically balance, this multiplier must possess the exact SI units of \textbf{area} ($\text{m}^2$). 
 
-Physically, this area represents the effective "target size" that an individual atom presents to the incoming photon beam. If an incident photon passes through this microscopic interaction area, it successfully triggers a transition. Because the underlying physics is perfectly symmetric for both upward and downward driven transitions, we formally identify this universal multiplier as both the \textbf{stimulated emission} and \textbf{absorption cross-section}, denoted simply as $\sigma(\nu)$!
+Physically, this area represents the effective "target size" that an individual atom presents to the incoming photon beam. If an incident photon passes through this microscopic interaction area, it successfully triggers a transition. Because the underlying physics is perfectly symmetric for both upward and downward driven transitions, we formally identify this universal multiplier as both the \textbf{stimulated emission} and \textbf{absorption cross-section}, denoted simply as $\sigma$!
 
 \begin{keyresult}
 \begin{equation}
-    \sigma(\nu) = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
+    \sigma = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
 \end{equation}
 \end{keyresult}
 
-Notice a critical structural distinction. The quantum Einstein cross-section differs from the classical oscillator cross-section $\left(\sigma(\nu)_{classical} = \frac{3\lambda^2}{8\pi\tau_r}g(\nu)\right)$ by exactly a factor of 3. That factor of 3 is not accidental—our quantum derivation automatically accounted for the directional degeneracy of the photon polarisation states in 3D space, something the crude 1D classical spring model fundamentally cannot do. The Einstein expression is the correct one.
+Notice a critical structural distinction. The quantum Einstein cross-section differs from the classical oscillator cross-section $\left(\sigma_{classical} = \frac{3\lambda^2}{8\pi\tau_r}g(\nu)\right)$ by exactly a factor of 3. That factor of 3 is not accidental—our quantum derivation automatically accounted for the directional degeneracy of the photon polarisation states in 3D space, something the crude 1D classical spring model fundamentally cannot do. The Einstein expression is the correct one.
 
 \subsection{The Master Rate Equations}
 
-Because absorption and stimulated emission share the exact same physical coupling, applying our $\sigma(\nu)$ algebraic result to both reveals that they possess identically symmetric per-atom transition rates.
+Because absorption and stimulated emission share the exact same physical coupling, applying our $\sigma$ algebraic result to both reveals that they possess identically symmetric per-atom transition rates.
 
 Combining these two field-driven rates with our spontaneous decay term, we can now assemble the final, master forms of all three macroscopic population rate equations acting on the excited state $N_2$:
 
 \begin{keyresult}
 \begin{align}
     &\textbf{Spontaneous emission:} & \left.\frac{dN_2}{dt}\right|_{sp} &= -\frac{N_2}{\tau_{sp}} \\[8pt]
-    &\textbf{Absorption:} & \left.\frac{dN_2}{dt}\right|_{abs} &= \sigma(\nu)\,\Phi\,N_1 \\[8pt]
-    &\textbf{Stimulated emission:} & \left.\frac{dN_2}{dt}\right|_{stim} &= -\sigma(\nu)\,\Phi\,N_2
+    &\textbf{Absorption:} & \left.\frac{dN_2}{dt}\right|_{abs} &= \sigma\,\Phi\,N_1 \\[8pt]
+    &\textbf{Stimulated emission:} & \left.\frac{dN_2}{dt}\right|_{stim} &= -\sigma\,\Phi\,N_2
 \end{align}
 \end{keyresult}
 
-Notice that exactly the same field-coupling factor, $\sigma(\nu)\,\Phi$, governs both field-driven interactions. Recall our earlier definition of the field-driven lifetimes. Because the transition cross-section completely encapsulates the interaction physics, we can now express the \textbf{absorption lifetime} $\tau_{abs}$ and \textbf{stimulated lifetime} $\tau_{stim}$ directly in terms of the driving photon flux:
+Notice that exactly the same field-coupling factor, $\sigma\,\Phi$, governs both field-driven interactions. Recall our earlier definition of the field-driven lifetimes. Because the transition cross-section completely encapsulates the interaction physics, we can now express the \textbf{absorption lifetime} $\tau_{abs}$ and \textbf{stimulated lifetime} $\tau_{stim}$ directly in terms of the driving photon flux:
 \begin{equation*}
-    \frac{1}{\tau_{abs}} = \frac{1}{\tau_{stim}} \equiv \sigma(\nu)\,\Phi
+    \frac{1}{\tau_{abs}} = \frac{1}{\tau_{stim}} \equiv \sigma\,\Phi
 \end{equation*}
 
 Because the laser field is equally effective at driving atoms upward as it is at driving them downward, the final outcome of the interaction is purely a numbers game. The net flow of optical power depends entirely on which population reservoir is larger. If the ground state holds more atoms ($N_1 > N_2$), those atoms act as a sink, and the material will net-absorb the beam. But if we can somehow artificially force more atoms into the excited state ($N_2 > N_1$), the material will net-amplify the incoming beam through stimulated emission.
@@ -528,8 +528,8 @@ Because the laser field is equally effective at driving atoms upward as it is at
 \textbf{Process} & \textbf{Rate coefficient} & \textbf{Direction of $N_2$} & \textbf{Requires external field?} \\
 \midrule
 Spontaneous emission & $A = 1/\tau_{sp}$ & Decreases (-) & No \\
-Absorption & $\sigma(\nu)\Phi = 1/\tau_{abs}$ & Increases (+) & Yes \\
-Stimulated emission & $\sigma(\nu)\Phi = 1/\tau_{stim}$ & Decreases (-) & Yes \\
+Absorption & $\sigma\Phi = 1/\tau_{abs}$ & Increases (+) & Yes \\
+Stimulated emission & $\sigma\Phi = 1/\tau_{stim}$ & Decreases (-) & Yes \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -546,37 +546,37 @@ But wait, why isn't spontaneous emission included in this spatial equation? Beca
 
 Through simple particle accounting, the physical change in the number of travelling photons exiting the slice per second must perfectly equal the rate of new photons created by stimulated emission minus the rate of photons destroyed by absorption inside that volume:
 \begin{equation*}
-    \text{Area} \cdot \big(\Phi(z + \Delta z) - \Phi(z)\big) = \big(\sigma(\nu)\,\Phi\,N_2 - \sigma(\nu)\,\Phi\,N_1\big) \times (\text{Area} \cdot \Delta z)
+    \text{Area} \cdot \big(\Phi(z + \Delta z) - \Phi(z)\big) = \big(\sigma\,\Phi\,N_2 - \sigma\,\Phi\,N_1\big) \times (\text{Area} \cdot \Delta z)
 \end{equation*}
 
 We can immediately divide out the cross-sectional $\text{Area}$ from both sides. By isolating the terms and taking the mathematical limit as our slice thickness shrinks to zero ($\Delta z \to 0$), the discrete finite difference elegantly collapses into a continuous spatial differential equation:
 \begin{equation*}
-    \frac{\Phi(z + \Delta z) - \Phi(z)}{\Delta z} = \sigma(\nu)\,(N_2 - N_1)\,\Phi \quad \xrightarrow{\Delta z \to 0} \quad \frac{d\Phi}{dz} = \sigma(\nu)\,(N_2 - N_1)\,\Phi
+    \frac{\Phi(z + \Delta z) - \Phi(z)}{\Delta z} = \sigma\,(N_2 - N_1)\,\Phi \quad \xrightarrow{\Delta z \to 0} \quad \frac{d\Phi}{dz} = \sigma\,(N_2 - N_1)\,\Phi
 \end{equation*}
 
-We can see that the spatial rate of change of the photon flux is directly proportional to the flux itself, scaled by a constant material factor. We formally group this material factor $\sigma(\nu)(N_2 - N_1)$ into a single macroscopic parameter called the \textbf{gain coefficient} $\gamma(\nu)$.
+We can see that the spatial rate of change of the photon flux is directly proportional to the flux itself, scaled by a constant material factor. We formally group this material factor $\sigma(N_2 - N_1)$ into a single macroscopic parameter called the \textbf{gain coefficient} $\gamma$.
 
 \begin{keyresult}
 \begin{equation}
-    \gamma(\nu) = \sigma(\nu)(N_2 - N_1)
+    \gamma = \sigma(N_2 - N_1)
 \end{equation}
 \end{keyresult}
 
 Replacing this into our differential equation yields the beautiful, compact spatial propagation law:
 \begin{equation*}
-    \frac{d\Phi}{dz} = \gamma(\nu)\,\Phi
+    \frac{d\Phi}{dz} = \gamma\,\Phi
 \end{equation*}
 
 This is a classic first-order linear differential equation. If we assume the beam enters the material at $z=0$ with an initial flux $\Phi(0)$, solving the differential equation reveals a harsh, exponential spatial profile:
 \begin{equation*}
-    \Phi(z) = \Phi(0)\,e^{\gamma(\nu) z}
+    \Phi(z) = \Phi(0)\,e^{\gamma z}
 \end{equation*}
 
 \begin{keyinsight}[The Possibility of Gain]
-This singular exponential equation dictates the entire macroscopic fate of the optical beam. The physics is completely controlled by the algebraic sign of the gain coefficient $\gamma(\nu)$, driving two spectacularly distinct physical regimes:
+This singular exponential equation dictates the entire macroscopic fate of the optical beam. The physics is completely controlled by the algebraic sign of the gain coefficient $\gamma$, driving two spectacularly distinct physical regimes:
 \begin{itemize}
-    \item \textbf{Case 1: Optical Loss.} Under normal thermodynamic conditions governed by Boltzmann statistics, the ground state is always significantly more populated than the excited state ($N_1 > N_2$). The term $(N_2 - N_1)$ is mathematically negative, making the gain coefficient $\gamma$ negative. The resulting profile $\Phi(z) = \Phi(0)e^{-|\gamma(\nu)| z}$ describes classic \textbf{exponential decay}. The bulk material acts as an optical absorber.
+    \item \textbf{Case 1: Optical Loss.} Under normal thermodynamic conditions governed by Boltzmann statistics, the ground state is always significantly more populated than the excited state ($N_1 > N_2$). The term $(N_2 - N_1)$ is mathematically negative, making the gain coefficient $\gamma$ negative. The resulting profile $\Phi(z) = \Phi(0)e^{-|\gamma| z}$ describes classic \textbf{exponential decay}. The bulk material acts as an optical absorber.
     
-    \item \textbf{Case 2: Optical Amplification.} If we aggressively pump the material with external energy, we can artificially force more atoms into the higher energy state. When we cross the threshold of $N_2 > N_1$, we achieve a \textbf{population inversion}. The term $(N_2 - N_1)$ explicitly flips positive, making $\gamma$ positive. The resulting profile $\Phi(z) = \Phi(0)e^{+\gamma(\nu) z}$ now describes explosive \textbf{exponential growth}. The material has successfully become an optical amplifier, providing the very "gain" necessary to build a laser!
+    \item \textbf{Case 2: Optical Amplification.} If we aggressively pump the material with external energy, we can artificially force more atoms into the higher energy state. When we cross the threshold of $N_2 > N_1$, we achieve a \textbf{population inversion}. The term $(N_2 - N_1)$ explicitly flips positive, making $\gamma$ positive. The resulting profile $\Phi(z) = \Phi(0)e^{+\gamma z}$ now describes explosive \textbf{exponential growth}. The material has successfully become an optical amplifier, providing the very "gain" necessary to build a laser!
 \end{itemize}
 \end{keyinsight}
