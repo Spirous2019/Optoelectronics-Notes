@@ -16,11 +16,10 @@ The two most fundamental changes from the classical picture are:
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/classical_vs_quantum_medium.jpg}
     \caption{Classical vs. Quantum Material: The classical continuous medium compared to the discrete quantum energy states of the Einstein model.}
-    
 \end{figure}
 
 \begin{motivation}[Why the Einstein Model Works Where the Classical One Fails]
-The classical model built a powerful toolkit — susceptibility, complex refractive index, line shape, absorption cross section — but ran into a hard wall: every factor in $\alpha$ is strictly positive, making optical amplification physically impossible. The Einstein model breaks this wall by replacing the continuous medium with a material governed by \textbf{discrete quantum energy levels}. Instead of a driven spring, we now picture a two-level atom with a ground state $E_1$ and an excited state $E_2$. The critical insight is that the population balance between $N_1$ and $N_2$ will control the sign of gain — and by artificially inverting that balance ($N_2 > N_1$, population inversion), we will finally achieve amplification.
+    The classical model built a powerful toolkit — susceptibility, complex refractive index, line shape, absorption cross section — but ran into a hard wall: every factor in $\alpha$ is strictly positive, making optical amplification physically impossible. The Einstein model breaks this wall by replacing the continuous medium with a material governed by \textbf{discrete quantum energy levels}. Instead of a driven spring, we now picture a two-level atom with a ground state $E_1$ and an excited state $E_2$. The critical insight is that the population balance between $N_1$ and $N_2$ will control the sign of gain — and by artificially inverting that balance ($N_2 > N_1$, population inversion), we will finally achieve amplification.
 \end{motivation}
 
 \subsection{Energy Level Populations}
@@ -37,14 +36,13 @@ We will work with a \textbf{two-level system}, which is the simplest non-trivial
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/two_level_system.jpg}
     \caption{The Two-Level System: Depicting the lower and upper energy levels ($E_1$ and $E_2$), their respective populations ($N_1$ and $N_2$), and the required transition photon energy.}
-    
 \end{figure}
 
 The energy difference between the two levels determines the photon frequency at which the atom can interact with light:
 \begin{keyresult}
-\begin{equation}
-    E_{\text{photon}} = E_2 - E_1 = h\nu_0
-\end{equation}
+    \begin{equation}
+        E_{\text{photon}} = E_2 - E_1 = h\nu_0
+    \end{equation}
 \end{keyresult}
 where:
 \begin{itemize}
@@ -73,7 +71,6 @@ In an \textbf{indirect band gap semiconductor}, the electron and hole do not hav
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 2/direct_vs_indirect_bandgap.jpg}
     \caption{Direct vs. Indirect Band Gap: Comparing the purely vertical transition of a direct gap emitter to the phonon-assisted diagonal transition of an indirect gap emitter.}
-    
 \end{figure}
 
 Now, let's return to the main thread and look at the three fundamental processes by which atoms in the Einstein model interact with light.
@@ -97,7 +94,6 @@ Critically, the photon produced by spontaneous emission has a completely \textbf
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/spontaneous_emission.jpg}
     \caption{Spontaneous Emission: An atom in the excited state ($E_2$) decays spontaneously to the ground state ($E_1$), emitting a photon with random phase and direction.}
-    
 \end{figure}
 
 To describe this process mathematically, we track the rate of change of the upper-level population $N_2$ with time. Since spontaneous emission removes atoms \emph{from} $E_2$, it causes $N_2$ to decrease. Now, how fast does this depletion happen? We characterise each atom's tendency to decay by the \textbf{spontaneous emission lifetime} $\tau_{sp}$ — the \emph{average} time a single atom spends sitting in $E_2$ before it spontaneously falls down to $E_1$. If an atom \emph{on average} waits a time $\tau_{sp}$ before decaying, then the probability that it decays in any small time interval $dt$ is simply $dt/\tau_{sp}$. In other words, the \textbf{decay probability per unit time for a single atom} is the \textbf{Einstein A coefficient} ($A = 1/\tau_{sp}$). We have $N_2$ atoms per unit volume all independently undergoing this same process, so the total rate at which the $E_2$ population decreases is just this per-atom rate multiplied by the number of atoms available:
@@ -121,7 +117,6 @@ What happens to the atom after the absorption is irrelevant to this process — 
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/photon_absorption.jpg}
     \caption{Absorption: An incoming photon interacts with an atom in the ground state ($E_1$), transferring its energy to promote the atom to the excited state ($E_2$).}
-    
 \end{figure}
 
 Mathematically, absorption takes atoms \emph{into} $E_2$ from $E_1$, increasing $N_2$. Unlike spontaneous emission, this process is not self-driven — it requires an incoming photon. The rate therefore depends on both how many atoms are sitting in $E_1$ available to absorb ($N_1$) and how dense the photon field is at the resonance frequency (the energy spectral density $\rho(\nu)$). We capture this through the \textbf{Einstein $B_{12}$ coefficient}, where the subscript ``12'' encodes the direction of the transition (from level 1 to level 2):
@@ -147,12 +142,11 @@ The remarkable thing is the nature of the emitted photon: it is an \textbf{exact
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 2/stimulated_emission.jpg}
     \caption{Stimulated Emission: An incoming photon triggers an excited atom ($E_2$) to decay. Crucially, the process yields two perfectly identical, coherent photons.}
-    
 \end{figure}
 
 
 \begin{keyinsight}[Why the Emitted Photon is an Exact Clone]
-Stimulated emission can be understood as the physical time-reverse of absorption. Maxwell's equations are time-reversal invariant — running an electromagnetic interaction backwards in time yields an equally valid physical process. Absorption takes \textbf{one photon in} and \textbf{zero photons out} (the photon is destroyed, the atom jumps up). Its time-reverse must therefore take \textbf{one photon in} and produce \textbf{two photons out}: the original triggering photon plus a newly emitted one. That two-photon output is precisely stimulated emission. This is why the emitted photon must be an exact clone of the incident one — time-reversal symmetry leaves no freedom to choose its frequency, phase, or direction independently.
+    Stimulated emission can be understood as the physical time-reverse of absorption. Maxwell's equations are time-reversal invariant — running an electromagnetic interaction backwards in time yields an equally valid physical process. Absorption takes \textbf{one photon in} and \textbf{zero photons out} (the photon is destroyed, the atom jumps up). Its time-reverse must therefore take \textbf{one photon in} and produce \textbf{two photons out}: the original triggering photon plus a newly emitted one. That two-photon output is precisely stimulated emission. This is why the emitted photon must be an exact clone of the incident one — time-reversal symmetry leaves no freedom to choose its frequency, phase, or direction independently.
 \end{keyinsight}
 
 To quantify this, the rate of stimulated emission must depend on the number of atoms available to be stimulated ($N_2$) and on the density of the incoming triggering photons ($\rho(\nu)$). We capture this through the \textbf{Einstein $B_{21}$ coefficient}, where the subscript ``21'' encodes the downward direction of the transition:
@@ -164,7 +158,7 @@ To quantify this, the rate of stimulated emission must depend on the number of a
 where $B_{21}$ is the stimulated emission rate per atom per unit energy spectral density (same units as $B_{12}$).
 
 \begin{keyinsight}[Three Processes and Their Signs]
-It is worth pausing here to collect the signs and confirm they are all physically consistent. Spontaneous emission removes atoms from $E_2$ on its own ($-AN_2$). Absorption adds atoms to $E_2$ by taking them from $E_1$ ($+B_{12}\,\rho(\nu) N_1$). Stimulated emission removes atoms from $E_2$ with the help of an incident photon ($-B_{21}\,\rho(\nu) N_2$). All three are rates of change of $N_2$ and all three signs make physical sense.
+    It is worth pausing here to collect the signs and confirm they are all physically consistent. Spontaneous emission removes atoms from $E_2$ on its own ($-AN_2$). Absorption adds atoms to $E_2$ by taking them from $E_1$ ($+B_{12}\,\rho(\nu) N_1$). Stimulated emission removes atoms from $E_2$ with the help of an incident photon ($-B_{21}\,\rho(\nu) N_2$). All three are rates of change of $N_2$ and all three signs make physical sense.
 \end{keyinsight}
 
 \subsection{An Important Note on Probability}
@@ -226,14 +220,13 @@ Since $E_2 - E_1 = h\nu_0$:
 \end{equation*}
 
 \begin{keyinsight}[Why Thermal Equilibrium Forbids Population Inversion]
-Because the photon energy $h\nu_0$ and thermal energy $k_B T$ are strictly positive, the exponent $h\nu_0/k_B T$ is always strictly positive. Therefore, the ratio $e^{h\nu_0/k_B T}$ is always strictly greater than 1. This mathematically guarantees that $\mathbf{N_1 > N_2}$ without exception — thermal equilibrium inherently forbids population inversion ($N_2 > N_1$). For typical optical frequencies ($h\nu_0 \approx 1{-}3\,\text{eV}$) at room temperature ($k_B T \approx 26\,\text{meV}$), this exponent is huge, making the population ratio $N_1/N_2$ astronomically large. The statistical reality establishes a brutal baseline: matter exponentially crowds the lowest available energy state ($N_1 \gg N_2$), leaving the upper level virtually empty. Overcoming this natural limit is the fundamental hurdle in building a laser.
+    Because the photon energy $h\nu_0$ and thermal energy $k_B T$ are strictly positive, the exponent $h\nu_0/k_B T$ is always strictly positive. Therefore, the ratio $e^{h\nu_0/k_B T}$ is always strictly greater than 1. This mathematically guarantees that $\mathbf{N_1 > N_2}$ without exception — thermal equilibrium inherently forbids population inversion ($N_2 > N_1$). For typical optical frequencies ($h\nu_0 \approx 1{-}3\,\text{eV}$) at room temperature ($k_B T \approx 26\,\text{meV}$), this exponent is huge, making the population ratio $N_1/N_2$ astronomically large. The statistical reality establishes a brutal baseline: matter exponentially crowds the lowest available energy state ($N_1 \gg N_2$), leaving the upper level virtually empty. Overcoming this natural limit is the fundamental hurdle in building a laser.
 \end{keyinsight}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{Figures/Chapter 2/boltzmann_distribution.jpg}
     \caption{Boltzmann Population Distribution: The exponential decay curve illustrates why the lower energy state inherently sustains a vastly larger population than the upper state in thermal equilibrium.}
-    
 \end{figure}
 
 \subsection{Substituting the Boltzmann Ratio into \texorpdfstring{$\rho(\nu)$}{E(nu)}}
@@ -261,7 +254,7 @@ To solve for the unknowns, we imagine our two-level atoms sitting inside a compl
 
 The \textbf{energy spectral density of black-body radiation} is a continuous function of frequency $\nu$, yielding the well-known result from physics:
 \begin{equation*}
-     \rho_{BB}(\nu) = \frac{8\pi h\nu^3}{c^3} \cdot \frac{1}{e^{h\nu/(k_BT)} - 1}
+    \rho_{BB}(\nu) = \frac{8\pi h\nu^3}{c^3} \cdot \frac{1}{e^{h\nu/(k_BT)} - 1}
 \end{equation*}
 
 This formula describes the energy distribution of radiation in a cavity at thermal equilibrium — which is exactly the same physical situation we have been computing with the Einstein model. Therefore, our derived equilibrium energy density $\rho(\nu)$ for the transition must perfectly match the thermal black-body spectrum at the specific resonance frequency $\nu_0$. Equating $\rho(\nu_0) =  \rho_{BB}(\nu_0)$ yields:
@@ -309,35 +302,35 @@ Using the in-medium speed of light $c = \lambda\nu_0$, we substitute $c^3 = \lam
 
 Inverting and dividing by $\tau_{sp}$ fully isolates $B$:
 \begin{keyresult}
-\begin{equation}
-    B = B_{12} = B_{21} = \frac{\lambda^3}{8\pi h\,\tau_{sp}}
-\end{equation}
+    \begin{equation}
+        B = B_{12} = B_{21} = \frac{\lambda^3}{8\pi h\,\tau_{sp}}
+    \end{equation}
 \end{keyresult}
 
 And the spontaneous emission rate is determined by the same chain:
 \begin{keyresult}
-\begin{equation}
-    A = \frac{1}{\tau_{sp}} = \frac{8\pi h}{\lambda^3}\,B
-\end{equation}
+    \begin{equation}
+        A = \frac{1}{\tau_{sp}} = \frac{8\pi h}{\lambda^3}\,B
+    \end{equation}
 \end{keyresult}
 
 These are the Einstein coefficients. The $A$ coefficient governs how quickly atoms spontaneously release energy from $E_2$; the $B$ coefficient (which is the same for absorption and stimulated emission) governs how strongly the atom responds to an external photon field.
 
 \begin{keyinsight}[Symmetry of Absorption and Stimulated Emission]
-Just as the $A$ coefficient defines the spontaneous lifetime $\tau_{sp} = 1/A$, the $B$ coefficient defines the \textbf{field-driven lifetimes} corresponding to absorption and stimulated emission against an applied photon field $\rho(\nu)$:
-\begin{equation*}
-    \tau_{\text{abs}} = \frac{1}{B_{12}\,\rho(\nu)} = \frac{1}{B\,\rho(\nu)}
-    \qquad \text{and} \qquad
-    \tau_{\text{stim}} = \frac{1}{B_{21}\,\rho(\nu)} = \frac{1}{B\,\rho(\nu)}
-\end{equation*}
-At the level of a single atom, the mathematical equality $B_{12} = B_{21}$ guarantees that $\tau_{\text{abs}} = \tau_{\text{stim}}$. This means the atom shows no inherent preference between absorption and stimulated emission: an atom sitting in $E_1$ will, on average, take the exact same amount of time to be driven upward (absorption) by the optical field as an atom sitting in $E_2$ will take to be driven downward (stimulated emission) by that same field. 
+    Just as the $A$ coefficient defines the spontaneous lifetime $\tau_{sp} = 1/A$, the $B$ coefficient defines the \textbf{field-driven lifetimes} corresponding to absorption and stimulated emission against an applied photon field $\rho(\nu)$:
+    \begin{equation*}
+        \tau_{\text{abs}} = \frac{1}{B_{12}\,\rho(\nu)} = \frac{1}{B\,\rho(\nu)}
+        \qquad \text{and} \qquad
+        \tau_{\text{stim}} = \frac{1}{B_{21}\,\rho(\nu)} = \frac{1}{B\,\rho(\nu)}
+    \end{equation*}
+    At the level of a single atom, the mathematical equality $B_{12} = B_{21}$ guarantees that $\tau_{\text{abs}} = \tau_{\text{stim}}$. This means the atom shows no inherent preference between absorption and stimulated emission: an atom sitting in $E_1$ will, on average, take the exact same amount of time to be driven upward (absorption) by the optical field as an atom sitting in $E_2$ will take to be driven downward (stimulated emission) by that same field.
 \end{keyinsight}
 
 \subsection{The Limitation of the Einstein Model}
 
 We now have the exact equations governing the transition rates between our energy levels. However, if we tried to immediately use these equations to calculate how a real optical beam's intensity grows or decays, our calculations would fail.
 
-The problem lies in \textbf{broadening}. The Einstein model, as derived above, treats the atomic transition as an infinitely sharp occurrence—assuming that atoms only ever interact with light at the mathematically perfect resonance frequency $\nu_0$. 
+The problem lies in \textbf{broadening}. The Einstein model, as derived above, treats the atomic transition as an infinitely sharp occurrence—assuming that atoms only ever interact with light at the mathematically perfect resonance frequency $\nu_0$.
 
 In reality, light-matter interactions are smeared across a frequency band, governed by the line shape function $g_{\nu_0}(\nu)$. Because the Einstein model lacks a $g_{\nu_0}(\nu)$ term in its rate equations, it is physically incomplete. Before we can compute real optical intensities or gain, we must first correct our model so it distributes its interactions over a realistic frequency spectrum.
 
@@ -345,14 +338,14 @@ In reality, light-matter interactions are smeared across a frequency band, gover
 
 \subsection{The Physical Motivation: Uncertainty and Energy Level Spread}
 
-In the classical oscillator model (Chapter 1), we explained line broadening phenomenologically through the damping friction $\eta$. How does broadening emerge in the quantum atomic model naturally, if an electron is simply jumping between two distinct, quantized energy levels? 
+In the classical oscillator model (Chapter 1), we explained line broadening phenomenologically through the damping friction $\eta$. How does broadening emerge in the quantum atomic model naturally, if an electron is simply jumping between two distinct, quantized energy levels?
 
 The fundamental quantum explanation is the \textbf{Heisenberg Uncertainty Principle}:
 \begin{equation*}
     \Delta E \cdot \Delta t \gtrsim \hbar
 \end{equation*}
 
-If an atom spends a finite, statistically predictable lifetime $\Delta t$ in the excited state $E_2$ before decaying, its exact energy while stored in that state cannot be known with infinite precision. There is an inherent, inescapable spread $\Delta E$ in its energy level. 
+If an atom spends a finite, statistically predictable lifetime $\Delta t$ in the excited state $E_2$ before decaying, its exact energy while stored in that state cannot be known with infinite precision. There is an inherent, inescapable spread $\Delta E$ in its energy level.
 
 Because the energy level is "smeared" by $\Delta E$, the energy required to bridge the transition is no longer a perfectly sharp single value. According to $E = h\nu$, this energy uncertainty translates directly into a frequency uncertainty:
 \begin{equation*}
@@ -381,9 +374,9 @@ To fix our theoretical gap, we must distribute the interaction probability acros
 
 To find the overall macroscopic transition rate, we simply add up all these weighted slices by integrating over the entire frequency spectrum:
 \begin{align*}
-    \left.\frac{dN_2}{dt}\right|_{sp} &= - \int_0^\infty A\,N_2\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
-    \left.\frac{dN_2}{dt}\right|_{abs} &= \int_0^\infty B\,N_1\,\rho(\nu)\,g_{\nu_0}(\nu)\,d\nu \\[8pt]
-    \left.\frac{dN_2}{dt}\right|_{stim} &= - \int_0^\infty B\,N_2\,\rho(\nu)\,g_{\nu_0}(\nu)\,d\nu
+    \left.\frac{dN_2}{dt}\right|_{sp}   & = - \int_0^\infty A\,N_2\,g_{\nu_0}(\nu)\,d\nu            \\[8pt]
+    \left.\frac{dN_2}{dt}\right|_{abs}  & = \int_0^\infty B\,N_1\,\rho(\nu)\,g_{\nu_0}(\nu)\,d\nu   \\[8pt]
+    \left.\frac{dN_2}{dt}\right|_{stim} & = - \int_0^\infty B\,N_2\,\rho(\nu)\,g_{\nu_0}(\nu)\,d\nu
 \end{align*}
 
 Notice a mathematical sanity check on the spontaneous emission integral. Because it does not depend on the external field $\rho(\nu)$, we can pull the constants out and use the normalisation $\int_0^\infty g_{\nu_0}(\nu)\,d\nu = 1$ directly. The integral instantly recovers the original unbroadened macroscopic rate $-A\,N_2 = -N_2/\tau_{sp}$, exactly as Einstein wrote it. The modification does not change spontaneous emission—it only reshapes how the atom couples to the incoming field.
@@ -401,24 +394,24 @@ The practical question is how to actually evaluate the integral $\int_0^\infty \
 The evaluation splits into two extreme, mutually exclusive physical regimes:
 
 \begin{itemize}
-    \item \textbf{Case 1: The Narrow Light Source (e.g., a Laser).} 
-    If the incident light is highly monochromatic (like a coherent laser), its energy density is razor-thin compared to the atom's acceptance line shape. We geometrically model this field as a Dirac delta function centered at the laser's frequency $\nu_s$: $\rho(\nu) \simeq \rho_\nu\,\delta(\nu - \nu_s)$. Here, $\rho_\nu$ is a scaling constant representing the \textbf{total integrated energy density} of the laser beam.
-    
-    Applying this to both the absorption and stimulated emission integrals, the delta function cleanly samples the line shape at exactly the laser's frequency $\nu_s$:
-    \begin{align*}
-        \left.\frac{dN_2}{dt}\right|_{abs} &= B\,N_1 \int_0^\infty \rho_\nu\,\delta(\nu - \nu_s)\, g_{\nu_0}(\nu)\,d\nu = B\,N_1\,\rho_\nu\, g_{\nu_0}(\nu_s) \\[8pt]
-        \left.\frac{dN_2}{dt}\right|_{stim} &= -B\,N_2 \int_0^\infty \rho_\nu\,\delta(\nu - \nu_s)\, g_{\nu_0}(\nu)\,d\nu = -B\,N_2\,\rho_\nu\, g_{\nu_0}(\nu_s)
-    \end{align*}
-    Both rates are controlled by the exact same factor $\rho_\nu\,g_{\nu_0}(\nu_s)$—the atom's acceptance probability evaluated at the laser's specific driving frequency. The only difference between them is the population reservoir they draw from ($N_1$ for absorption, $N_2$ for stimulated emission).
+    \item \textbf{Case 1: The Narrow Light Source (e.g., a Laser).}
+          If the incident light is highly monochromatic (like a coherent laser), its energy density is razor-thin compared to the atom's acceptance line shape. We geometrically model this field as a Dirac delta function centered at the laser's frequency $\nu_s$: $\rho(\nu) \simeq \rho_\nu\,\delta(\nu - \nu_s)$. Here, $\rho_\nu$ is a scaling constant representing the \textbf{total integrated energy density} of the laser beam.
 
-    \item \textbf{Case 2: The Wide Black-Body Source (Thermal Equilibrium).} 
-    Conversely, if the atom is bathed in a broad thermal source (like a hot cavity), the incident energy density $\rho(\nu)$ is incredibly wide and flat. Relative to the sharp atomic transition $g_{\nu_0}(\nu)$, $\rho(\nu)$ is effectively a slowly varying constant. 
-    
-    Because it barely changes over the interaction bandwidth, we can safely pull $\rho(\nu)$ outside the integral entirely:
-    \begin{equation*}
-        \int_0^\infty \rho(\nu) g_{\nu_0}(\nu)\,d\nu \approx \rho(\nu) \int_0^\infty g_{\nu_0}(\nu)\,d\nu = \rho(\nu) \cdot (1) = \rho(\nu)
-    \end{equation*}
-    By doing so, the line shape function disappears entirely! Both rates perfectly collapse back to Einstein's original unbroadened formulas: $+B\,N_1\,\rho(\nu)$ for absorption and $-B\,N_2\,\rho(\nu)$ for stimulated emission — exactly as he first derived them.
+          Applying this to both the absorption and stimulated emission integrals, the delta function cleanly samples the line shape at exactly the laser's frequency $\nu_s$:
+          \begin{align*}
+              \left.\frac{dN_2}{dt}\right|_{abs}  & = B\,N_1 \int_0^\infty \rho_\nu\,\delta(\nu - \nu_s)\, g_{\nu_0}(\nu)\,d\nu = B\,N_1\,\rho_\nu\, g_{\nu_0}(\nu_s)   \\[8pt]
+              \left.\frac{dN_2}{dt}\right|_{stim} & = -B\,N_2 \int_0^\infty \rho_\nu\,\delta(\nu - \nu_s)\, g_{\nu_0}(\nu)\,d\nu = -B\,N_2\,\rho_\nu\, g_{\nu_0}(\nu_s)
+          \end{align*}
+          Both rates are controlled by the exact same factor $\rho_\nu\,g_{\nu_0}(\nu_s)$—the atom's acceptance probability evaluated at the laser's specific driving frequency. The only difference between them is the population reservoir they draw from ($N_1$ for absorption, $N_2$ for stimulated emission).
+
+    \item \textbf{Case 2: The Wide Black-Body Source (Thermal Equilibrium).}
+          Conversely, if the atom is bathed in a broad thermal source (like a hot cavity), the incident energy density $\rho(\nu)$ is incredibly wide and flat. Relative to the sharp atomic transition $g_{\nu_0}(\nu)$, $\rho(\nu)$ is effectively a slowly varying constant.
+
+          Because it barely changes over the interaction bandwidth, we can safely pull $\rho(\nu)$ outside the integral entirely:
+          \begin{equation*}
+              \int_0^\infty \rho(\nu) g_{\nu_0}(\nu)\,d\nu \approx \rho(\nu) \int_0^\infty g_{\nu_0}(\nu)\,d\nu = \rho(\nu) \cdot (1) = \rho(\nu)
+          \end{equation*}
+          By doing so, the line shape function disappears entirely! Both rates perfectly collapse back to Einstein's original unbroadened formulas: $+B\,N_1\,\rho(\nu)$ for absorption and $-B\,N_2\,\rho(\nu)$ for stimulated emission — exactly as he first derived them.
 \end{itemize}
 
 What this mathematical split reveals is that the atom acts as a natural filter for the incoming light. If you drive the atom with a sharp, coherent laser (Case 1), the transition rate becomes fiercely dependent on exactly how well your laser frequency $\nu_s$ aligns with the atom's internal probability curve $g_{\nu_0}(\nu_s)$. But if you bathe the atom in a broad, noisy thermal spectrum (Case 2), the line shape effectively vanishes, and we perfectly recover Einstein's original model.
@@ -427,7 +420,7 @@ Because our ultimate goal is to engineer coherent lasers and optical amplifiers,
 
 \subsection{The Bridge from Energy Density to Photon Flux}
 
-In our laser-regime derivations, we successfully packaged the driving field into the integrated constant $\rho_\nu\, [\text{J/m}^3]$—the total electromagnetic energy stored within a unit volume of our material. However, $\rho_\nu$ is a fundamentally static, thermodynamic concept. It describes energy sitting stationary in a locked box. 
+In our laser-regime derivations, we successfully packaged the driving field into the integrated constant $\rho_\nu\, [\text{J/m}^3]$—the total electromagnetic energy stored within a unit volume of our material. However, $\rho_\nu$ is a fundamentally static, thermodynamic concept. It describes energy sitting stationary in a locked box.
 
 To actively engineer a real optical amplifier, we are dealing with a beam of light physically travelling through a crystal, and atoms absorbing discrete photons from that beam. To make our rate equations practically usable, we must mathematically translate this abstract "stored energy" into a variable that accurately describes a moving stream of quantum particles.
 
@@ -472,7 +465,7 @@ Recall from the narrow-source laser derivation that both the absorption and stim
 
 Substitute our flux-based $\rho_\nu$ alongside the Einstein in-medium $B$ coefficient $\left(B = \dfrac{\lambda^3}{8\pi h\,\tau_{sp}}\right)$ explicitly into this rate equation:
 \begin{align*}
-    \left.\frac{dN_2}{dt}\right|_{stim} &= -\left( \frac{\lambda^3}{8\pi h\,\tau_{sp}} \right) N_2 \left( \frac{h\nu}{c}\,\Phi \right) g_{\nu_0}(\nu)
+    \left.\frac{dN_2}{dt}\right|_{stim} & = -\left( \frac{\lambda^3}{8\pi h\,\tau_{sp}} \right) N_2 \left( \frac{h\nu}{c}\,\Phi \right) g_{\nu_0}(\nu)
 \end{align*}
 
 To systematically simplify this, we group the constants, cancel the Planck constant $h$, and substitute the standard in-medium speed of light identity $c = \lambda\nu$:
@@ -482,14 +475,14 @@ To systematically simplify this, we group the constants, cancel the Planck const
 
 Aside from the atomic population density $N_2$ and the driving photon flux $\Phi$, we are left with an elegantly compact mathematical multiplier: $\frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)$.
 
-Why is this specific multiplier physically meaningful? Consider the dimensional analysis: our macroscopic population rate $\frac{dN_2}{dt}$ is measured in transitions per second per unit volume ($1/(\text{s}\cdot\text{m}^3)$), the population $N_2$ is an atomic volume density ($1/\text{m}^3$), and the photon flux $\Phi$ is a particle area rate ($1/(\text{s}\cdot\text{m}^2)$). For the entire equation to mathematically balance, this multiplier must possess the exact SI units of \textbf{area} ($\text{m}^2$). 
+Why is this specific multiplier physically meaningful? Consider the dimensional analysis: our macroscopic population rate $\frac{dN_2}{dt}$ is measured in transitions per second per unit volume ($1/(\text{s}\cdot\text{m}^3)$), the population $N_2$ is an atomic volume density ($1/\text{m}^3$), and the photon flux $\Phi$ is a particle area rate ($1/(\text{s}\cdot\text{m}^2)$). For the entire equation to mathematically balance, this multiplier must possess the exact SI units of \textbf{area} ($\text{m}^2$).
 
 Physically, this area represents the effective "target size" that an individual atom presents to the incoming photon beam. If an incident photon passes through this microscopic interaction area, it successfully triggers a transition. Because the underlying physics is perfectly symmetric for both upward and downward driven transitions, we formally identify this universal multiplier as both the \textbf{stimulated emission} and \textbf{absorption cross-section}, denoted simply as $\sigma$!
 
 \begin{keyresult}
-\begin{equation}
-    \sigma = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
-\end{equation}
+    \begin{equation}
+        \sigma = \frac{\lambda^2}{8\pi\,\tau_{sp}}\,g_{\nu_0}(\nu)
+    \end{equation}
 \end{keyresult}
 
 Notice a critical structural distinction. The quantum Einstein cross-section differs from the classical oscillator cross-section $\left(\sigma_{classical} = \frac{3\lambda^2}{8\pi\tau_r}g(\nu)\right)$ by exactly a factor of 3. That factor of 3 is not accidental—our quantum derivation automatically accounted for the directional degeneracy of the photon polarisation states in 3D space, something the crude 1D classical spring model fundamentally cannot do. The Einstein expression is the correct one.
@@ -501,11 +494,11 @@ Because absorption and stimulated emission share the exact same physical couplin
 Combining these two field-driven rates with our spontaneous decay term, we can now assemble the final, master forms of all three macroscopic population rate equations acting on the excited state $N_2$:
 
 \begin{keyresult}
-\begin{align}
-    &\textbf{Spontaneous emission:} & \left.\frac{dN_2}{dt}\right|_{sp} &= -\frac{N_2}{\tau_{sp}} \\[8pt]
-    &\textbf{Absorption:} & \left.\frac{dN_2}{dt}\right|_{abs} &= \sigma\,\Phi\,N_1 \\[8pt]
-    &\textbf{Stimulated emission:} & \left.\frac{dN_2}{dt}\right|_{stim} &= -\sigma\,\Phi\,N_2
-\end{align}
+    \begin{align}
+         & \textbf{Spontaneous emission:} & \left.\frac{dN_2}{dt}\right|_{sp}   & = -\frac{N_2}{\tau_{sp}} \\[8pt]
+         & \textbf{Absorption:}           & \left.\frac{dN_2}{dt}\right|_{abs}  & = \sigma\,\Phi\,N_1      \\[8pt]
+         & \textbf{Stimulated emission:}  & \left.\frac{dN_2}{dt}\right|_{stim} & = -\sigma\,\Phi\,N_2
+    \end{align}
 \end{keyresult}
 
 Notice that exactly the same field-coupling factor, $\sigma\,\Phi$, governs both field-driven interactions. Recall our earlier definition of the field-driven lifetimes. Because the transition cross-section completely encapsulates the interaction physics, we can now express the \textbf{absorption lifetime} $\tau_{abs}$ and \textbf{stimulated lifetime} $\tau_{stim}$ directly in terms of the driving photon flux:
@@ -522,16 +515,16 @@ Because the laser field is equally effective at driving atoms upward as it is at
 \end{figure}
 
 \begin{table}[H]
-\centering
-\begin{tabular}{@{}llll@{}}
-\toprule
-\textbf{Process} & \textbf{Rate coefficient} & \textbf{Direction of $N_2$} & \textbf{Requires external field?} \\
-\midrule
-Spontaneous emission & $A = 1/\tau_{sp}$ & Decreases (-) & No \\
-Absorption & $\sigma\Phi = 1/\tau_{abs}$ & Increases (+) & Yes \\
-Stimulated emission & $\sigma\Phi = 1/\tau_{stim}$ & Decreases (-) & Yes \\
-\bottomrule
-\end{tabular}
+    \centering
+    \begin{tabular}{@{}llll@{}}
+        \toprule
+        \textbf{Process}     & \textbf{Rate coefficient}    & \textbf{Direction of $N_2$} & \textbf{Requires external field?} \\
+        \midrule
+        Spontaneous emission & $A = 1/\tau_{sp}$            & Decreases (-)               & No                                \\
+        Absorption           & $\sigma\Phi = 1/\tau_{abs}$  & Increases (+)               & Yes                               \\
+        Stimulated emission  & $\sigma\Phi = 1/\tau_{stim}$ & Decreases (-)               & Yes                               \\
+        \bottomrule
+    \end{tabular}
 \end{table}
 
 \section{Macroscopic Propagation: The Gain Coefficient}
@@ -540,7 +533,7 @@ We have successfully established how atomic populations act on an incident optic
 
 To answer this, we establish a simple one-dimensional control volume. Imagine an optical beam with cross-sectional $\text{Area}$ traveling along the $z$-axis. It enters a tiny slice of the material at position $z$, and exits at position $z + \Delta z$. The total volume of this physical slice is $V = \text{Area} \cdot \Delta z$.
 
-Inside this bounded volume, the macroscopic beam interacts with the microscopic atomic populations. The beam loses photons when atoms jump to $E_2$ (absorption), and gains perfectly aligned "clone" photons when atoms are stimulated down to $E_1$ (stimulated emission). 
+Inside this bounded volume, the macroscopic beam interacts with the microscopic atomic populations. The beam loses photons when atoms jump to $E_2$ (absorption), and gains perfectly aligned "clone" photons when atoms are stimulated down to $E_1$ (stimulated emission).
 
 But wait, why isn't spontaneous emission included in this spatial equation? Because spontaneous emission ejects photons completely randomly across all directions in 3D space, the vast majority of those photons simply shoot out the sides of our control volume and escape. They do not join our strict $z$-axis beam path. Therefore, from the perspective of our perfectly directed traveling flux $\Phi(z)$, spontaneous emission is considered entirely lost.
 
@@ -557,9 +550,9 @@ We can immediately divide out the cross-sectional $\text{Area}$ from both sides.
 We can see that the spatial rate of change of the photon flux is directly proportional to the flux itself, scaled by a constant material factor. We formally group this material factor $\sigma(N_2 - N_1)$ into a single macroscopic parameter called the \textbf{gain coefficient} $\gamma$.
 
 \begin{keyresult}
-\begin{equation}
-    \gamma = \sigma(N_2 - N_1)
-\end{equation}
+    \begin{equation}
+        \gamma = \sigma(N_2 - N_1)
+    \end{equation}
 \end{keyresult}
 
 Replacing this into our differential equation yields the beautiful, compact spatial propagation law:
@@ -573,10 +566,10 @@ This is a classic first-order linear differential equation. If we assume the bea
 \end{equation*}
 
 \begin{keyinsight}[The Possibility of Gain]
-This singular exponential equation dictates the entire macroscopic fate of the optical beam. The physics is completely controlled by the algebraic sign of the gain coefficient $\gamma$, driving two spectacularly distinct physical regimes:
-\begin{itemize}
-    \item \textbf{Case 1: Optical Loss.} Under normal thermodynamic conditions governed by Boltzmann statistics, the ground state is always significantly more populated than the excited state ($N_1 > N_2$). The term $(N_2 - N_1)$ is mathematically negative, making the gain coefficient $\gamma$ negative. The resulting profile $\Phi(z) = \Phi(0)e^{-|\gamma| z}$ describes classic \textbf{exponential decay}. The bulk material acts as an optical absorber.
-    
-    \item \textbf{Case 2: Optical Amplification.} If we aggressively pump the material with external energy, we can artificially force more atoms into the higher energy state. When we cross the threshold of $N_2 > N_1$, we achieve a \textbf{population inversion}. The term $(N_2 - N_1)$ explicitly flips positive, making $\gamma$ positive. The resulting profile $\Phi(z) = \Phi(0)e^{+\gamma z}$ now describes explosive \textbf{exponential growth}. The material has successfully become an optical amplifier, providing the very "gain" necessary to build a laser!
-\end{itemize}
+    This singular exponential equation dictates the entire macroscopic fate of the optical beam. The physics is completely controlled by the algebraic sign of the gain coefficient $\gamma$, driving two spectacularly distinct physical regimes:
+    \begin{itemize}
+        \item \textbf{Case 1: Optical Loss.} Under normal thermodynamic conditions governed by Boltzmann statistics, the ground state is always significantly more populated than the excited state ($N_1 > N_2$). The term $(N_2 - N_1)$ is mathematically negative, making the gain coefficient $\gamma$ negative. The resulting profile $\Phi(z) = \Phi(0)e^{-|\gamma| z}$ describes classic \textbf{exponential decay}. The bulk material acts as an optical absorber.
+
+        \item \textbf{Case 2: Optical Amplification.} If we aggressively pump the material with external energy, we can artificially force more atoms into the higher energy state. When we cross the threshold of $N_2 > N_1$, we achieve a \textbf{population inversion}. The term $(N_2 - N_1)$ explicitly flips positive, making $\gamma$ positive. The resulting profile $\Phi(z) = \Phi(0)e^{+\gamma z}$ now describes explosive \textbf{exponential growth}. The material has successfully become an optical amplifier, providing the very "gain" necessary to build a laser!
+    \end{itemize}
 \end{keyinsight}

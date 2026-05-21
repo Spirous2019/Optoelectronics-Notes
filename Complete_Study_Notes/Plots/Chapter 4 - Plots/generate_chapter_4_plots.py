@@ -1039,6 +1039,175 @@ def plot_hb_vs_ihb_mode_spectrum():
     plt.close(fig)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Plot 12: Frequency Pulling Diagram
+# Concept: Two-panel figure.
+# Top: Lorentzian gain profile + cold resonator mode comb (dashed) and hot
+#      resonator comb (solid lavender), both overlaid with the loss line.
+# Bottom: Pulling arrows showing the direction and magnitude of each mode's
+#         shift from nu_q toward nu_0 via the formula nu'_q=(nu_q+P*nu0)/(1+P).
+# ─────────────────────────────────────────────────────────────────────────────
+def plot_frequency_pulling_diagram():
+    nu0      = 0.0
+    delta_nu = 30.0
+    gamma0   = 1.0
+    alpha_r  = 0.25
+    nu_F     = 8.0
+    P        = 0.35   # dimensionless pulling parameter c*gamma/(2*pi*Delta_nu)
+
+    nu   = np.linspace(-50, 50, 3000)
+    gain = lorentzian(nu, nu0, delta_nu, peak=gamma0)
+
+    cold_modes = np.arange(-40, 41, nu_F)
+    hot_modes  = (cold_modes + P * nu0) / (1.0 + P)
+
+    fig, (ax_top, ax_bot) = plt.subplots(
+        2, 1, figsize=(9, 7),
+        gridspec_kw={"height_ratios": [1.6, 1]},
+        sharex=True)
+    fig.subplots_adjust(hspace=0.08)
+
+    # -- Top panel --
+    ax_top.plot(nu, gain, color=TEAL, linewidth=2.5, zorder=3,
+                label=r"Gain profile $\gamma_0(\nu)$")
+    ax_top.axhline(alpha_r, color=CORAL, linewidth=1.8, linestyle="--", zorder=2,
+                   label=r"Cavity loss $\alpha_r$")
+    ax_top.axvline(nu0, color=GOLD, linewidth=1.2, linestyle=":", zorder=1)
+    ax_top.text(nu0 + 0.8, gamma0 * 1.05, r"$\nu_0$", color=GOLD, fontsize=12)
+
+    for m in cold_modes:
+        g = lorentzian(m, nu0, delta_nu, peak=gamma0)
+        ax_top.plot([m, m], [0, g], color=AXES_CLR, linewidth=1.4,
+                    linestyle="--", alpha=0.5, zorder=2)
+
+    for m_h, m_c in zip(hot_modes, cold_modes):
+        g = lorentzian(m_c, nu0, delta_nu, peak=gamma0)
+        ax_top.plot([m_h, m_h], [0, g], color=LAVENDER, linewidth=2.0, zorder=3)
+
+    import matplotlib.lines as mlines
+    cold_line = mlines.Line2D([], [], color=AXES_CLR, linewidth=1.4,
+                               linestyle="--", alpha=0.6, label=r"Cold modes $\nu_q$")
+    hot_line  = mlines.Line2D([], [], color=LAVENDER, linewidth=2.0,
+                               label=r"Hot modes $\nu'_q$")
+    handles, _ = ax_top.get_legend_handles_labels()
+    ax_top.legend(handles=handles + [cold_line, hot_line],
+                  loc="upper right", framealpha=1,
+                  facecolor="#f5f5f5", edgecolor="#cccccc", fontsize=10)
+
+    ax_top.set_ylim(-0.04, gamma0 * 1.30)
+    ax_top.set_yticks([0, alpha_r, gamma0])
+    ax_top.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0$"], fontsize=11)
+    ax_top.set_ylabel(r"Gain / Loss", fontsize=13)
+    ax_top.set_title("Frequency Pulling: Cold vs Hot Resonator Modes",
+                     fontsize=15, pad=12)
+    ax_top.grid(True)
+
+    # -- Bottom panel: pulling arrows --
+    ax_bot.axhline(0, color=AXES_CLR, linewidth=1.0, linestyle=":")
+    ax_bot.axvline(nu0, color=GOLD, linewidth=1.2, linestyle=":", zorder=1)
+
+    for m_c, m_h in zip(cold_modes, hot_modes):
+        if abs(m_h - m_c) > 0.05:
+            ax_bot.annotate("", xy=(m_h, 0), xytext=(m_c, 0),
+                            arrowprops=dict(arrowstyle="->", color=LAVENDER,
+                                            lw=1.8, mutation_scale=12))
+        ax_bot.plot(m_c, 0, 'o', color=AXES_CLR, markersize=5, alpha=0.5, zorder=4)
+        ax_bot.plot(m_h, 0, 'o', color=LAVENDER, markersize=6, zorder=5)
+
+    ax_bot.set_xlim(-44, 44)
+    ax_bot.set_ylim(-0.5, 0.5)
+    ax_bot.set_yticks([])
+    ax_bot.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+    ax_bot.set_ylabel(r"Pulling", fontsize=12)
+    ax_bot.text(nu0 + 1, 0.35, r"Modes pulled toward $\nu_0$",
+                color=LAVENDER, fontsize=10, ha="left")
+    ax_bot.grid(False)
+
+    fig.tight_layout()
+    out = os.path.join(FIG_DIR, "frequency_pulling_diagram.jpg")
+    fig.savefig(out, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}")
+    plt.close(fig)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Plot 13: Frequency Chirping — Direct Laser Modulation
+# Concept: Two stacked panels sharing the time axis.
+# Top:    Output power follows a 1-0-1-1 square-wave bit pattern.
+# Bottom: Instantaneous frequency deviation delta_nu(t) — NOT constant.
+#         It swings positive on rising edges and negative on falling edges,
+#         following ~ d(ln P)/dt (transient chirp) plus a small adiabatic term.
+# ─────────────────────────────────────────────────────────────────────────────
+def plot_frequency_chirping():
+    t = np.linspace(0, 4, 4000)
+    P_high, P_low, rise = 1.0, 0.25, 0.05
+
+    def smooth_pulse(t, t0, t1):
+        return (P_low + (P_high - P_low) *
+                (0.5 * np.tanh((t - t0) / rise) - 0.5 * np.tanh((t - t1) / rise)))
+
+    # Bit pattern: 1, 0, 1, 1
+    P_out = smooth_pulse(t, 0.0, 1.0) + smooth_pulse(t, 2.0, 4.0)
+    P_out = np.clip(P_out, P_low, P_high)
+
+    # Transient chirp ~ d(ln P)/dt; adiabatic chirp ~ P
+    dln_P_dt = np.gradient(np.log(P_out + 1e-6), t)
+    adiabatic = 0.03 * (P_out - P_low) / (P_high - P_low)
+    nu_inst = 0.22 * dln_P_dt + adiabatic
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 6),
+                                    sharex=True,
+                                    gridspec_kw={"hspace": 0.08})
+
+    # -- Top: power --
+    ax1.plot(t, P_out, color=TEAL, linewidth=2.5, zorder=3)
+    ax1.fill_between(t, P_low, P_out, color=TEAL, alpha=0.10)
+    ax1.axhline(P_high, color=AXES_CLR, linewidth=1.0, linestyle=":", alpha=0.5)
+    ax1.axhline(P_low,  color=AXES_CLR, linewidth=1.0, linestyle=":", alpha=0.5)
+    ax1.text(0.04, P_high + 0.05, r"$P_\mathrm{high}$  (Logic 1)",
+             color=TEAL, fontsize=10)
+    ax1.text(0.04, P_low  - 0.08, r"$P_\mathrm{low}$  (Logic 0)",
+             color=TEAL, fontsize=10)
+    ax1.set_ylabel(r"Output Power", fontsize=13)
+    ax1.set_ylim(-0.1, 1.35)
+    ax1.set_yticks([P_low, P_high])
+    ax1.set_yticklabels([r"$P_\mathrm{low}$", r"$P_\mathrm{high}$"], fontsize=10)
+    ax1.set_title("Direct Laser Modulation and Frequency Chirping",
+                  fontsize=15, pad=12)
+    ax1.grid(True)
+
+    # -- Bottom: instantaneous frequency deviation --
+    ax2.plot(t, nu_inst, color=CORAL, linewidth=2.5, zorder=3)
+    ax2.fill_between(t, 0, nu_inst, where=(nu_inst > 0), color=CORAL,   alpha=0.10)
+    ax2.fill_between(t, 0, nu_inst, where=(nu_inst < 0), color=LAVENDER, alpha=0.10)
+    ax2.axhline(0, color=AXES_CLR, linewidth=1.2, linestyle="--", alpha=0.7)
+
+    ax2.text(0.42,  0.14, "Rising edge:\n" + r"$\nu$ swings up",
+             color=CORAL, fontsize=9, ha="center")
+    ax2.text(1.08, -0.15, "Falling edge:\n" + r"$\nu$ swings down",
+             color=LAVENDER, fontsize=9, ha="center")
+
+    ax2.set_ylabel(r"Frequency Deviation $\delta\nu(t)$", fontsize=13)
+    ax2.set_xlabel(r"Time (bit periods)", fontsize=13)
+    ax2.set_xlim(0, 4)
+    ax2.set_ylim(-0.45, 0.45)
+    ax2.set_yticks([-0.3, 0, 0.3])
+    ax2.set_yticklabels(
+        [r"$-\delta\nu_\mathrm{max}$", "0", r"$+\delta\nu_\mathrm{max}$"],
+        fontsize=10)
+    ax2.set_xticks([0, 1, 2, 3, 4])
+    ax2.set_xticklabels(
+        [r"$0$", r"$T_b$", r"$2T_b$", r"$3T_b$", r"$4T_b$"],
+        fontsize=11)
+    ax2.grid(True)
+
+    fig.tight_layout()
+    out = os.path.join(FIG_DIR, "frequency_chirping.jpg")
+    fig.savefig(out, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}")
+    plt.close(fig)
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     # Original 5
@@ -1047,10 +1216,13 @@ if __name__ == "__main__":
     plot_ihb_spectral_hole_burning()
     plot_hb_vs_ihb_saturation_law()
     plot_output_power_vs_transmission()
-    # New 6
+    # Physics-derivation figures
     plot_fp_cavity_round_trip()
     plot_airy_function_spectrum()
     plot_gain_saturation_curve()
     plot_lamb_dip()
     plot_fp_gain_ripple_spectrum()
     plot_hb_vs_ihb_mode_spectrum()
+    # Hot resonator figures
+    plot_frequency_pulling_diagram()
+    plot_frequency_chirping()

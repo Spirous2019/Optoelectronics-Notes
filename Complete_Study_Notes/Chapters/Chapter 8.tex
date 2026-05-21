@@ -31,9 +31,9 @@ The photon generation rate per unit volume is the radiative fraction of the tota
 
 Multiplying by the photon energy $h\nu$ and the active volume $V = A \cdot d$ (where $A$ is the device area) converts the volumetric photon rate into total internal optical power:
 \begin{keyresult}
-\begin{equation}
-    P_\text{int} = \eta_\text{int}\,\frac{h\nu}{e}\,I
-\end{equation}
+    \begin{equation}
+        P_\text{int} = \eta_\text{int}\,\frac{h\nu}{e}\,I
+    \end{equation}
 \end{keyresult}
 
 This result has a clean physical interpretation: every electron injected has a probability $\eta_\text{int} = \tau/\tau_r$ of producing a photon, and each photon carries energy $h\nu$. The internal power scales linearly with current, limited only by the internal quantum efficiency.
@@ -69,9 +69,9 @@ For small $\theta_c$, $1 - \cos\theta_c \approx \theta_c^2/2 \approx \sin^2\thet
 \end{equation*}
 which gives the closed-form result:
 \begin{keyresult}
-\begin{equation}
-    \eta_\text{ext} \approx \frac{n_a^3}{n_s(n_a + n_s)^2}
-\end{equation}
+    \begin{equation}
+        \eta_\text{ext} \approx \frac{n_a^3}{n_s(n_a + n_s)^2}
+    \end{equation}
 \end{keyresult}
 
 \begin{figure}[H]
@@ -91,9 +91,9 @@ Combining both efficiencies, the total output power is:
 \end{equation*}
 where the \textbf{LED responsivity} is:
 \begin{keyresult}
-\begin{equation}
-    R_\text{LED} = \eta_\text{ext}\,\eta_\text{int}\,\frac{h\nu}{e} \quad [\text{W/A}]
-\end{equation}
+    \begin{equation}
+        R_\text{LED} = \eta_\text{ext}\,\eta_\text{int}\,\frac{h\nu}{e} \quad [\text{W/A}]
+    \end{equation}
 \end{keyresult}
 
 \begin{figure}[H]
@@ -114,9 +114,9 @@ Under weak injection (where the quasi-Fermi levels remain within the bandgap and
 
 This lineshape — a square-root rise above $E_g$ multiplied by a decaying exponential — peaks at:
 \begin{keyresult}
-\begin{equation}
-    h\nu_\text{max} = E_g + \frac{k_BT}{2}
-\end{equation}
+    \begin{equation}
+        h\nu_\text{max} = E_g + \frac{k_BT}{2}
+    \end{equation}
 \end{keyresult}
 
 The peak sits exactly $k_BT/2$ above the bandgap. The FWHM of the spectrum in frequency is:
@@ -142,9 +142,9 @@ To use an LED in a communications link, we need to know how fast it can be switc
 
 Since the optical output is proportional to $N$, the 3\,dB modulation bandwidth — the frequency at which the photon modulation drops to half its low-frequency value — is:
 \begin{keyresult}
-\begin{equation}
-    f_{3\text{dB}} = \frac{1}{2\pi\tau}
-\end{equation}
+    \begin{equation}
+        f_{3\text{dB}} = \frac{1}{2\pi\tau}
+    \end{equation}
 \end{keyresult}
 
 This reveals a fundamental trade-off: a short carrier lifetime $\tau$ gives high modulation bandwidth, but it also means faster non-radiative recombination ($\tau_{nr}$ is shorter), which reduces $\eta_\text{int}$. Maximising efficiency and maximising bandwidth pull in opposite directions — one of the core design tensions in LED engineering.
@@ -198,9 +198,9 @@ When the input power is large enough that the photon density $S$ becomes compara
 \end{equation*}
 The saturated material gain coefficient therefore becomes:
 \begin{keyresult}
-\begin{equation}
-    g = \frac{g_0}{1 + P/P_s}, \qquad P_s = \frac{v_g h\nu A}{\Gamma B \tau}
-\end{equation}
+    \begin{equation}
+        g = \frac{g_0}{1 + P/P_s}, \qquad P_s = \frac{v_g h\nu A}{\Gamma B \tau}
+    \end{equation}
 \end{keyresult}
 
 This homogeneous saturation form — gain compressing inversely with optical power — is the universal behaviour of any gain medium where stimulated emission depletes the inversion that feeds it. Integrating the propagation equation $dP/dz = g\,P$ through the device gives the transcendental implicit equation:
@@ -226,9 +226,9 @@ Any amplifier that adds spontaneous emission to the signal degrades its signal-t
 
 For an SOA with internal loss $\alpha_\text{int}$ per unit length and total intensity gain $\mathcal{G}$:
 \begin{keyresult}
-\begin{equation}
-    F_n = 2\!\left(\frac{N}{N - N_\text{tr}}\right)\!\left(\frac{\mathcal{G}}{\mathcal{G} - \alpha_\text{int}L}\right)
-\end{equation}
+    \begin{equation}
+        F_n = 2\!\left(\frac{N}{N - N_\text{tr}}\right)\!\left(\frac{\mathcal{G}}{\mathcal{G} - \alpha_\text{int}L}\right)
+    \end{equation}
 \end{keyresult}
 
 In the high-gain limit ($\mathcal{G} \gg 1$) with negligible internal loss, the noise figure approaches $F_n \to 2$ (equivalently, 3\,dB). This quantum-limited noise floor is set by amplified spontaneous emission (ASE): even with perfect population inversion, every amplification event is accompanied by some probability of spontaneous emission into the signal mode, adding shot noise. This 3\,dB quantum limit is fundamental and cannot be beaten by any linear optical amplifier — it is the optical analogue of the $kT$ thermal noise floor in electronic amplifiers.
@@ -272,9 +272,9 @@ A laser diode is an SOA placed inside a Fabry-Pérot cavity formed by the cleave
 
 The \textbf{gain (amplitude) condition} requires the round-trip gain to exactly compensate the round-trip losses:
 \begin{keyresult}
-\begin{equation}
-    \Gamma\,g_\text{th} = \alpha + \alpha_m, \qquad \alpha_m = -\frac{1}{2L}\ln(R_1 R_2)
-\end{equation}
+    \begin{equation}
+        \Gamma\,g_\text{th} = \alpha + \alpha_m, \qquad \alpha_m = -\frac{1}{2L}\ln(R_1 R_2)
+    \end{equation}
 \end{keyresult}
 where $\alpha$ is the distributed internal loss per unit length (free-carrier absorption, scattering) and $\alpha_m$ is the effective mirror loss — the distributed loss equivalent of the power that leaks out through the facets each round trip.
 
@@ -296,9 +296,9 @@ These two conditions are structurally identical to the general laser oscillator 
 
 The photon lifetime $\tau_{ph}$ quantifies the average time a photon survives inside the cavity before being lost to either internal absorption or mirror transmission. It follows from the round-trip loss analysis: after one round-trip time $\tau_{rt} = 2L/v_g$, the photon density is reduced by the factor $R_1 R_2 e^{-2\alpha L}$. Expanding for small fractional loss per round trip, the exponential decay rate is:
 \begin{keyresult}
-\begin{equation}
-    \frac{1}{\tau_{ph}} = v_g(\alpha + \alpha_m)
-\end{equation}
+    \begin{equation}
+        \frac{1}{\tau_{ph}} = v_g(\alpha + \alpha_m)
+    \end{equation}
 \end{keyresult}
 
 The mirror loss $\alpha_m = -\ln(R_1 R_2)/(2L)$ contributes on equal footing with the internal loss — every photon has some probability of escaping through the facets on each round trip, and $\alpha_m$ quantifies that probability per unit length.
@@ -307,16 +307,16 @@ The mirror loss $\alpha_m = -\ln(R_1 R_2)/(2L)$ contributes on equal footing wit
 
 Using the linear gain model $g = B(N - N_\text{tr})$, the gain condition at threshold gives:
 \begin{keyresult}
-\begin{equation}
-    N_\text{th} = N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}
-\end{equation}
+    \begin{equation}
+        N_\text{th} = N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}
+    \end{equation}
 \end{keyresult}
 
 Below threshold, the photon density is negligible and the carrier rate equation gives $N = J\tau/(ed)$. Setting $N = N_\text{th}$ determines the threshold current density:
 \begin{keyresult}
-\begin{equation}
-    J_\text{th} = \frac{ed}{\tau}\,N_\text{th} = \frac{ed}{\tau}\!\left(N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}\right)
-\end{equation}
+    \begin{equation}
+        J_\text{th} = \frac{ed}{\tau}\,N_\text{th} = \frac{ed}{\tau}\!\left(N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}\right)
+    \end{equation}
 \end{keyresult}
 
 Every term in this expression has a physical handle: making $d$ smaller reduces the threshold current (less volume to invert), making $\Gamma$ larger reduces it (better mode-gain overlap), making $\tau_{ph}$ longer reduces it (lower loss cavity), and making $B$ larger reduces it (higher differential gain from the material).
@@ -346,9 +346,9 @@ Above threshold, stimulated emission takes over. Any additional carriers injecte
 
 Substituting $N = N_\text{th}$ into the steady-state photon rate equation ($dS/dt = 0$) and solving for $S$:
 \begin{keyresult}
-\begin{equation}
-    S = \frac{\tau_{ph}}{ed}(J - J_\text{th}) + \beta\,\frac{\tau_{ph}}{\tau_r}\,N_\text{th}
-\end{equation}
+    \begin{equation}
+        S = \frac{\tau_{ph}}{ed}(J - J_\text{th}) + \beta\,\frac{\tau_{ph}}{\tau_r}\,N_\text{th}
+    \end{equation}
 \end{keyresult}
 
 The first term is the dominant above-threshold contribution — every increment of current above $J_\text{th}$ goes directly into the photon field. The second term is the small spontaneous emission seeding the lasing mode (characterised by the spontaneous emission coupling factor $\beta$), which is usually negligible in edge-emitting laser diodes where $\beta \ll 1$.
@@ -366,9 +366,9 @@ The output power through facet $R_1$ is proportional to the mirror loss fraction
 \end{equation*}
 where the \textbf{slope efficiency} (or differential efficiency) is:
 \begin{keyresult}
-\begin{equation}
-    \eta_d = \frac{1}{2L}\ln\!\frac{1}{R_1}\cdot\frac{h\nu v_g \tau_{ph}}{e}
-\end{equation}
+    \begin{equation}
+        \eta_d = \frac{1}{2L}\ln\!\frac{1}{R_1}\cdot\frac{h\nu v_g \tau_{ph}}{e}
+    \end{equation}
 \end{keyresult}
 
 \begin{figure}[H]
@@ -406,13 +406,13 @@ where $T_0$ (the characteristic temperature) quantifies threshold sensitivity to
 The DC picture of the laser diode we have built here — threshold, carrier clamping, and the linear P--I curve — explains the static behaviour beautifully. However, a laser diode used in a communications system is never just sitting at DC. The data stream modulates the drive current at gigabit-per-second rates, and the laser must respond faithfully to every current fluctuation.
 
 \begin{keyinsight}[The Limitation of Static Analysis]
-The DC analysis treats the coupled carrier-photon system as if it were always in steady state. This works perfectly for calculating threshold currents and slope efficiencies, but it completely misses two critical dynamic effects:
+    The DC analysis treats the coupled carrier-photon system as if it were always in steady state. This works perfectly for calculating threshold currents and slope efficiencies, but it completely misses two critical dynamic effects:
 
-First, the laser cannot respond instantaneously to a current step — there is a \textbf{turn-on delay} while the carrier density builds from its initial value up to the threshold. This limits how quickly the device can be switched.
+    First, the laser cannot respond instantaneously to a current step — there is a \textbf{turn-on delay} while the carrier density builds from its initial value up to the threshold. This limits how quickly the device can be switched.
 
-Second, after turn-on, the carrier and photon densities do not immediately settle to their new steady-state values. They overshoot, undershoot, and ring at a characteristic frequency before equilibrating. These \textbf{relaxation oscillations} limit the modulation bandwidth and introduce pattern-dependent distortion in high-speed data links.
+    Second, after turn-on, the carrier and photon densities do not immediately settle to their new steady-state values. They overshoot, undershoot, and ring at a characteristic frequency before equilibrating. These \textbf{relaxation oscillations} limit the modulation bandwidth and introduce pattern-dependent distortion in high-speed data links.
 
-Both phenomena are invisible to the DC rate equation but emerge naturally from the coupled carrier-photon dynamics when we solve the full time-dependent system.
+    Both phenomena are invisible to the DC rate equation but emerge naturally from the coupled carrier-photon dynamics when we solve the full time-dependent system.
 \end{keyinsight}
 
 The next chapter will linearise the coupled rate equations around the above-threshold bias point, derive the small-signal modulation transfer function, extract the relaxation oscillation frequency and the damping factor, and then analyse the large-signal turn-on delay — completing the dynamic picture of the laser diode and connecting it to single-frequency architectures like the DFB and DBR laser.

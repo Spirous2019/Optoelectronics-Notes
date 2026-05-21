@@ -38,10 +38,7 @@ def save(fig, name):
     print(f"Saved: {path}")
 
 
-# ==============================================================================
-#  FIG-L1-01  E-k Band Structure: Direct vs. Indirect Bandgap
-# ==============================================================================
-def fig_l1_01():
+:
     k = np.linspace(-1, 1, 400)
     fig, axes = plt.subplots(1, 2, figsize=(10, 5.5))
 
@@ -157,7 +154,7 @@ def fig_l1_02():
     ax.text(0.83, Ef+0.04, r"$E_F$", color=GOLD,  fontsize=11)
     ax.set_xlim(0, 1.0); ax.set_ylim(-1.4, 2.9)
     ax.set_xticks([]); ax.set_yticks([])
-    ax.set_title("(a) Band Diagram", pad=8)
+    ax.set_title("Band Diagram", pad=8)
     ax.set_ylabel(r"Energy $E$  (a.u.)", fontsize=12)
     ax.grid(False)
 
@@ -171,8 +168,8 @@ def fig_l1_02():
     ax.text(0.05, Ev-0.70, r"$g_v(E)\propto\sqrt{E_v-E}$", color=CORAL, fontsize=9.5)
     ax.text(0.88, Ec+0.04, r"$E_c$", color=TEAL,  fontsize=11)
     ax.text(0.88, Ev+0.04, r"$E_v$", color=CORAL, fontsize=11)
-    ax.set_xlim(-0.05, 1.15); ax.set_xticks([])
-    ax.set_title(r"(b) Density of States $g(E)$", pad=8)
+    ax.set_xlim(0, 1.15); ax.set_xticks([])
+    ax.set_title(r"Density of States $g(E)$", pad=8)
     ax.grid(True)
 
     # (c) f(E) and 1-f(E)
@@ -184,38 +181,24 @@ def fig_l1_02():
     ax.axvline(0.5, color=AXES_CLR, lw=0.8, ls=":")
     ax.legend(loc="upper right", framealpha=0.9,
               facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.set_xlim(-0.05, 1.05); ax.set_xticks([0, 1])
-    ax.set_xticklabels(["0", "1"])
+    ax.set_xlim(-0.05, 1.05); ax.set_xticks([0, 0.5, 1])
+    ax.set_xticklabels(["0", "0.5", "1"])
     ax.set_xlabel("Occupation probability", fontsize=11)
-    ax.set_title(r"(c) Fermi-Dirac $f(E)$", pad=8)
+    ax.set_title(r"Fermi-Dirac $f(E)$", pad=8)
     ax.grid(True)
 
     # (d) n_E and p_E
     ax = axes[3]
-    ax.fill_betweenx(E_cb, 0, n_E, color=TEAL,  alpha=0.35)
+    ax.fill_betweenx(E_cb, 0, n_E, color=TEAL,  alpha=0.35, label=r"$n$ (Electrons)")
     ax.plot(n_E, E_cb, color=TEAL,  lw=2.5)
-    ax.fill_betweenx(E_vb, 0, p_E, color=CORAL, alpha=0.35)
+    ax.fill_betweenx(E_vb, 0, p_E, color=CORAL, alpha=0.35, label=r"$p$ (Holes)")
     ax.plot(p_E, E_vb, color=CORAL, lw=2.5)
     ax.axhline(Ec, color=TEAL,  lw=1.2, ls="--")
     ax.axhline(Ev, color=CORAL, lw=1.2, ls="--")
     mx = max(float(np.max(n_E)), float(np.max(p_E)))
-    # Labels in white space with arrows into the shaded fill
-    pk_n = int(np.argmax(n_E))
-    pk_p = int(np.argmax(p_E))
-    ax.annotate(r"Area $= n$",
-                xy=(float(n_E[pk_n])*0.45, float(E_cb[pk_n])),
-                xytext=(mx*1.35, Ec+0.55),
-                arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.2,
-                                connectionstyle="arc3,rad=-0.15"),
-                color=TEAL, fontsize=10, ha="center")
-    ax.annotate(r"Area $= p$",
-                xy=(float(p_E[pk_p])*0.45, float(E_vb[pk_p])),
-                xytext=(mx*1.35, Ev-0.55),
-                arrowprops=dict(arrowstyle="->", color=CORAL, lw=1.2,
-                                connectionstyle="arc3,rad=0.15"),
-                color=CORAL, fontsize=10, ha="center")
+    ax.legend(loc="upper right", framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
     ax.set_xlim(0, mx*1.8); ax.set_xticks([])
-    ax.set_title(r"(d) Carrier Distributions $n_E,\,p_E$", pad=8)
+    ax.set_title(r"Carrier Distributions $n_E,\,p_E$", pad=8)
     ax.grid(True)
 
     fig.tight_layout(pad=1.5)
@@ -470,3 +453,4 @@ def fig_l1_05():
 
 
 fig_l1_05()
+

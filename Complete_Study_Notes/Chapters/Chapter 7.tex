@@ -19,9 +19,9 @@ The link between bandgap and refractive index is not a coincidence — it is a d
 
 The real refractive index $n(\omega)$ is related to the extinction coefficient $\kappa(\omega)$ (which describes absorption) through the Kramers-Kronig integral:
 \begin{keyresult}
-\begin{equation}
-    n(\omega) - 1 = \frac{2}{\pi}\,\mathcal{P}\int_0^{\infty}\frac{\omega'\,\kappa(\omega')}{\omega'^2 - \omega^2}\,d\omega'
-\end{equation}
+    \begin{equation}
+        n(\omega) - 1 = \frac{2}{\pi}\,\mathcal{P}\int_0^{\infty}\frac{\omega'\,\kappa(\omega')}{\omega'^2 - \omega^2}\,d\omega'
+    \end{equation}
 \end{keyresult}
 where $\mathcal{P}$ denotes the Cauchy principal value of the integral. Physically, this equation says that $n(\omega)$ at any given frequency is determined by the \emph{entire} absorption spectrum $\kappa(\omega')$ of the material. The key insight is in the weighting: the $1/(\omega'^2 - \omega^2)$ denominator gives the largest contributions from $\omega'$ close to $\omega$.
 
@@ -54,19 +54,19 @@ The simplest III-V semiconductors are binary compounds — one Group-III element
 Some key binary compounds at room temperature are:
 
 \begin{center}
-\begin{tabular}{@{} l c c c @{}}
-\toprule
-\textbf{Material} & $E_g$ \textbf{(eV)} & $\lambda_g$ \textbf{($\mu$m)} & \textbf{Gap Type} \\
-\midrule
-GaAs & 1.42 & 0.87 & Direct \\
-InP  & 1.35 & 0.92 & Direct \\
-InAs & 0.36 & 3.5  & Direct \\
-GaSb & 0.73 & 1.70 & Direct \\
-AlAs & 2.16 & 0.57 & Indirect \\
-GaP  & 2.26 & 0.55 & Indirect \\
-Si   & 1.11 & 1.15 & Indirect \\
-\bottomrule
-\end{tabular}
+    \begin{tabular}{@{} l c c c @{}}
+        \toprule
+        \textbf{Material} & $E_g$ \textbf{(eV)} & $\lambda_g$ \textbf{($\mu$m)} & \textbf{Gap Type} \\
+        \midrule
+        GaAs              & 1.42                & 0.87                          & Direct            \\
+        InP               & 1.35                & 0.92                          & Direct            \\
+        InAs              & 0.36                & 3.5                           & Direct            \\
+        GaSb              & 0.73                & 1.70                          & Direct            \\
+        AlAs              & 2.16                & 0.57                          & Indirect          \\
+        GaP               & 2.26                & 0.55                          & Indirect          \\
+        Si                & 1.11                & 1.15                          & Indirect          \\
+        \bottomrule
+    \end{tabular}
 \end{center}
 
 \begin{figure}[H]
@@ -134,14 +134,69 @@ This leaves one free parameter (say $x$) for tuning the bandgap while automatica
 
 \subsection{Injection Efficiency at a Single Heterojunction}
 
-At a forward-biased single heterojunction, both electrons and holes are injected across the interface, but in general one carrier type dominates. The ratio of the electron current to the hole current depends on both the doping levels and the bandgap difference between the two sides:
+When we forward-bias a p-n junction to inject carriers into our active region, we want to inject carriers of one type (say, electrons) as efficiently as possible while suppressing the counter-injection of the opposite carrier type (holes). The parameter that measures our success in doing this is the injection efficiency, which represents the fraction of the total junction current carried by the desired carrier type:
+\begin{keyresult}
+    \begin{equation}
+        \eta_j = \frac{J_e}{J_e + J_h}
+    \end{equation}
+\end{keyresult}
+where:
+$\eta_j$: injection efficiency of the junction
+$J_e$: electron current density injected across the junction
+$J_h$: hole current density counter-injected across the junction
+
+If we want the injection efficiency to approach unity, we must make the ratio of the unwanted hole current to the desired electron current as close to zero as possible. To see how this works, we can rearrange this expression by dividing both the numerator and the denominator by the electron current density:
 \begin{equation*}
-    \left|\frac{J_e}{J_h}\right| = \frac{D_e L_h}{D_h L_e}\cdot\frac{N_D}{N_A}\cdot\exp\!\left(\frac{E_{g,n} - E_{g,p}}{k_B T}\right)
+    \eta_j = \frac{\dfrac{J_e}{J_e}}{\dfrac{J_e}{J_e} + \dfrac{J_h}{J_e}}
 \end{equation*}
-where $E_{g,n}$ and $E_{g,p}$ are the bandgaps on the n- and p-sides respectively. The exponential factor dominates: even a modest bandgap difference of $\sim 0.1\,\text{eV}$ (compared to $k_BT \approx 26\,\text{meV}$ at room temperature) exponentially suppresses the unwanted carrier current. The \textbf{injection efficiency} — the fraction of total current carried by the desired carrier type — is:
+which simplifies directly to our working relation:
+\begin{equation}
+    \eta_j = \frac{1}{1 + \dfrac{J_h}{J_e}} \tag{I}
+\end{equation}
+
+This shows that minimizing the current ratio $J_h / J_e$ is the absolute key to maximizing our injection efficiency. Let's analyze the two types of junctions to see how they perform.
+
+In a traditional homojunction, both sides are made of the same semiconductor material, meaning they share the same bandgap. The ratio of the minority carrier diffusion currents crossing the depletion region is determined entirely by the doping levels and diffusion parameters of the material:
 \begin{equation*}
-    \eta_j = \frac{J_e}{J_e + J_h}
+    \left(\frac{J_h}{J_e}\right)_{\text{homo}} = \frac{D_h}{D_e} \cdot \frac{L_e}{L_h} \cdot \frac{N_A}{N_D}
 \end{equation*}
+where:
+$D_h$: hole diffusion coefficient on the n-side
+$D_e$: electron diffusion coefficient on the p-side
+$L_h$: hole diffusion length on the n-side
+$L_e$: electron diffusion length on the p-side
+$N_A$: acceptor doping concentration on the p-side
+$N_D$: donor doping concentration on the n-side
+
+Substituting this ratio into our general efficiency equation \textup{(I)} yields the homojunction injection efficiency:
+\begin{equation*}
+    \eta_{j,\text{homo}} = \frac{1}{1 + \dfrac{D_h L_e N_A}{D_e L_h N_D}}
+\end{equation*}
+Under ordinary conditions, the diffusion coefficients and lengths are fixed by the material quality, leaving us with only the doping ratio $N_A / N_D$ as an active design handle. To make the ratio $J_h / J_e$ small (and thus $\eta_j \approx 1$), we are forced to dope the n-side far more heavily than the p-side ($N_D \gg N_A$). This imposes a severe constraint on device design: extremely high doping levels introduce non-radiative defects, cause bandgap narrowing, and increase free-carrier absorption, which degrades performance.
+
+Now let's see how a single heterojunction — where we join a wide-bandgap n-type semiconductor (the emitter) to a narrow-bandgap p-type semiconductor (the active region) — completely breaks this bottleneck. The difference in bandgaps, $\Delta E_g = E_{g,\text{wide}} - E_{g,\text{narrow}}$, introduces an asymmetric energy barrier at the junction interface. This barrier selectively opposes hole injection into the n-side while promoting electron injection. The ratio of the current densities now becomes:
+\begin{keyresult}
+    \begin{equation}
+        \left(\frac{J_h}{J_e}\right)_{\text{hetero}} = \frac{D_h}{D_e} \cdot \frac{L_e}{L_h} \cdot \frac{N_A}{N_D} \cdot \exp\!\left(-\frac{\Delta E_g}{k_B T}\right)
+    \end{equation}
+\end{keyresult}
+where:
+$\Delta E_g$: bandgap difference between the wider cladding layer and the narrower active layer ($E_{g,\text{wide}} - E_{g,\text{narrow}}$)
+$k_B$: Boltzmann constant
+$T$: absolute temperature
+
+The addition of the exponential factor $\exp(-\Delta E_g / k_B T)$ is an absolute game-changer. Let's look at a concrete example to see just how dominant this factor is. Suppose we have a bandgap difference of $\Delta E_g = 0.3\text{ eV}$ (which is easily achieved in the GaAs/Al$_x$Ga$_{1-x}$As system). At room temperature ($T = 300\text{ K}$), the thermal voltage is $k_B T \approx 0.0259\text{ eV}$. Plugging these values into the exponential factor:
+\begin{equation*}
+    \exp\!\left(-\frac{\Delta E_g}{k_B T}\right) = \exp\!\left(-\frac{0.3}{0.0259}\right) \approx 9.3 \times 10^{-6}
+\end{equation*}
+This means that the unwanted hole injection is suppressed by more than five orders of magnitude! Because of this massive exponential suppression, the ratio $J_h / J_e$ becomes negligible, forcing the heterojunction injection efficiency $\eta_j$ to approach virtually 100\%:
+\begin{equation*}
+    \eta_j \approx 1
+\end{equation*}
+
+The physical takeaway here is that the heterojunction introduces the bandgap difference $\Delta E_g$ as a completely new thermodynamic degree of freedom. We no longer have to rely on highly asymmetric doping ($N_D \gg N_A$) to get efficient injection. In fact, we can now choose the doping levels to optimize other properties — such as minimizing the series resistance or reducing free-carrier absorption — while still maintaining nearly perfect injection efficiency. This simple design freedom is the primary reason why heterostructure devices are so incredibly efficient.
+
+The current components across a typical p-n junction are shown in the sketch below. Notice how the electron flow from the wider-gap n-side dominates the total carrier transport across the interface.
 
 \begin{figure}[H]
     \centering
@@ -170,9 +225,9 @@ Since $L_e \sim 1\,\mu$m and $d \sim 0.1\,\mu$m for a well-designed DH laser, th
 
 The active layer must also confine the optical mode. Treating the heterostructure as a symmetric slab waveguide with active-layer index $n_1 > n_2$ (cladding), the normalised frequency parameter is:
 \begin{keyresult}
-\begin{equation}
-    V = \frac{2\pi d}{\lambda_0}\sqrt{n_1^2 - n_2^2}
-\end{equation}
+    \begin{equation}
+        V = \frac{2\pi d}{\lambda_0}\sqrt{n_1^2 - n_2^2}
+    \end{equation}
 \end{keyresult}
 
 For single-transverse-mode operation — which is essential for a coherent, well-collimated laser beam — we need:
@@ -182,9 +237,9 @@ For single-transverse-mode operation — which is essential for a coherent, well
 
 This sets a maximum active-layer thickness for single-mode guidance:
 \begin{keyresult}
-\begin{equation}
-    d_\text{max} = \frac{\lambda_0}{2\sqrt{n_1^2 - n_2^2}}
-\end{equation}
+    \begin{equation}
+        d_\text{max} = \frac{\lambda_0}{2\sqrt{n_1^2 - n_2^2}}
+    \end{equation}
 \end{keyresult}
 
 This reveals an important design trade-off: reducing $d$ below $d_\text{max}$ guarantees single-mode operation and also reduces the threshold current (higher carrier density for same $J$), but it simultaneously reduces the optical confinement factor $\Gamma$ — a thinner waveguide confines less of the mode power in the gain region. The modal gain $\gamma_\text{modal} = \Gamma\,\gamma_\text{med}$ therefore drops as $d$ decreases below a critical value, ultimately raising the threshold instead of lowering it. There is an optimal active layer thickness that minimises the threshold current density, and it is typically in the range $d \approx 50$--$200\,\text{nm}$ for GaAs-based DH lasers.
@@ -234,9 +289,9 @@ where $C$ (m$^6$/s) is the Auger coefficient. Auger recombination is the dominan
 
 The total volumetric recombination rate combining all three mechanisms is:
 \begin{keyresult}
-\begin{equation}
-    R = AN + BN^2 + CN^3
-\end{equation}
+    \begin{equation}
+        R = AN + BN^2 + CN^3
+    \end{equation}
 \end{keyresult}
 
 \begin{figure}[H]
@@ -250,65 +305,127 @@ The total volumetric recombination rate combining all three mechanisms is:
 
 The total carrier lifetime $\tau$ is defined implicitly by $R = N/\tau$, and since the three recombination channels act in parallel (independently and simultaneously), their rates add:
 \begin{keyresult}
-\begin{equation}
-    \frac{1}{\tau} = \frac{1}{\tau_r} + \frac{1}{\tau_{nr}}
-\end{equation}
+    \begin{equation}
+        \frac{1}{\tau} = \frac{1}{\tau_r} + \frac{1}{\tau_{nr}}
+    \end{equation}
 \end{keyresult}
 where $\tau_r = 1/(BN)$ is the radiative lifetime (note it depends on $N$ because $R_\text{rad} \propto N^2$) and $\tau_{nr}$ groups the non-radiative SRH and Auger channels.
 
 The fraction of recombination events that produce a useful photon is the \textbf{internal quantum efficiency}:
 \begin{keyresult}
-\begin{equation}
-    \eta_\text{int} = \frac{1/\tau_r}{1/\tau} = \frac{\tau}{\tau_r}
-\end{equation}
+    \begin{equation}
+        \eta_\text{int} = \frac{1/\tau_r}{1/\tau} = \frac{\tau}{\tau_r}
+    \end{equation}
 \end{keyresult}
 
 The contrast between GaAs and Si at room temperature with a trap concentration of $10^{15}\,\text{cm}^{-3}$ illustrates the importance of the direct/indirect distinction:
 
 \begin{center}
-\begin{tabular}{@{} l c c c @{}}
-\toprule
-\textbf{Material} & $\tau_r$ & $\tau_{nr}$ & $\eta_\text{int}$ \\
-\midrule
-Si   & $\sim 10\,\text{ms}$  & $\sim 100\,\text{ns}$ & $\approx 0.001\%$ \\
-GaAs & $\sim 100\,\text{ns}$ & $\sim 100\,\text{ns}$ & $\approx 50\%$ \\
-\bottomrule
-\end{tabular}
+    \begin{tabular}{@{} l c c c @{}}
+        \toprule
+        \textbf{Material} & $\tau_r$              & $\tau_{nr}$           & $\eta_\text{int}$ \\
+        \midrule
+        Si                & $\sim 10\,\text{ms}$  & $\sim 100\,\text{ns}$ & $\approx 0.001\%$ \\
+        GaAs              & $\sim 100\,\text{ns}$ & $\sim 100\,\text{ns}$ & $\approx 50\%$    \\
+        \bottomrule
+    \end{tabular}
 \end{center}
 
 Silicon's radiative lifetime is ten million times longer than its non-radiative lifetime — almost every carrier recombines non-radiatively before it ever has the chance to emit a photon. GaAs, with comparable radiative and non-radiative rates, delivers $\sim 50\%$ internal efficiency from a simple unoptimised structure, and modern double heterostructures can push this well above 90\%.
 
 \subsection{The Full Carrier Rate Equation}
 
-Combining generation, spontaneous and non-radiative recombination, and stimulated emission (where $S$ is the photon density, $G$ is the stimulated emission rate per unit photon density, and $\Gamma$ is the optical confinement factor):
+Now we'll assemble all our individual generation and recombination terms into a single, master dynamical equation. By combining carrier generation from external current injection, spontaneous and non-radiative recombination losses, and the carrier consumption driven by stimulated emission, we obtain the complete carrier rate equation:
 \begin{keyresult}
-\begin{equation}
-    \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma\,G\,S
-\end{equation}
+    \begin{equation}
+        \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma\,G\,S
+    \end{equation}
 \end{keyresult}
+where:
+$N$: carrier density in the active region
+$J$: injected current density
+$e$: elementary charge
+$d$: thickness of the active layer
+$\tau$: total carrier lifetime, representing spontaneous and non-radiative recombination
+$\Gamma$: optical confinement factor
+$G$: stimulated emission rate per unit photon density
+$S$: photon density in the cavity mode
 
-Each term has a clear physical interpretation:
+Each term in this master equation represents a physically distinct flow of charge carriers:
 \begin{itemize}
-    \item $J/(ed)$: the carrier generation rate from the external drive current — every milliamp of current injects a fixed number of electron-hole pairs per second into the active volume.
-    \item $N/\tau$: the total spontaneous and non-radiative recombination loss — carriers draining away as wasted heat or as spontaneous (incoherent) photons that do not contribute to the lasing mode.
-    \item $\Gamma\,G\,S$: the stimulated depletion — coherent photons in the lasing mode consuming carriers to generate more coherent photons. The $\Gamma$ factor accounts for the fact that only the fraction of the optical mode overlapping the active layer drives stimulated transitions.
+    \item $\dfrac{J}{ed}$: the carrier generation rate from the external drive current. Every milliamp of current injected into the device supplies a constant, steady stream of electron-hole pairs per unit volume into the active layer.
+    \item $\dfrac{N}{\tau}$: the spontaneous loss rate. This accounts for carriers draining away through parallel non-radiative (SRH, Auger) and radiative spontaneous recombination channels, releasing energy as heat or as incoherent photons that escape in random directions.
+    \item $\Gamma\,G\,S$: the stimulated depletion rate. This represents carriers that are actively stimulated to recombine by the coherent photon field, directly contributing to the growth of the lasing mode. The confinement factor $\Gamma$ accounts for the spatial overlap, recognizing that only the fraction of the optical mode residing within the active layer can interact with the carrier population.
 \end{itemize}
+
+To make this carrier-photon interaction perfectly intuitive, let's visualize the entire dynamic coupling scheme as a set of interconnected reservoirs and flow channels. As the flow chart below illustrates, the carrier population inside the active region is filled by the external current and drained by competing parallel pathways, with the stimulated emission channel serving as the coherent bridge to the photon reservoir. Notice also that a tiny fraction $\beta$ of the spontaneous emission couples directly into the lasing mode, providing the crucial seed of noise required to start laser oscillation.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[
+        >=stealth,
+        reservoir/.style={draw=navyDark, fill=navyMedium!5, rectangle, rounded corners=6pt, minimum width=2.6cm, minimum height=1.2cm, align=center, thick},
+        loss/.style={draw=misconceptionColor, fill=misconceptionBg, rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=1.0cm, align=center, thick, font=\small},
+        output/.style={draw=insightColor, fill=insightBg, rectangle, rounded corners=4pt, minimum width=2.0cm, minimum height=1.0cm, align=center, thick, font=\small},
+        arrow/.style={->, >=stealth, thick, color=navyDark},
+        dashedarrow/.style={->, >=stealth, dashed, thick, color=navyDark}
+    ]
+        % Main Reservoirs
+        \node[reservoir] (carrier) at (0,0) {Carrier Reservoir\\$N$};
+        \node[reservoir] (photon) at (6,0) {Photon Reservoir\\$S$};
+        
+        % Carrier Inflow
+        \node[align=center, font=\small] (inflow) at (-4.2,0) {Current Injection\\[0.5ex]$\dfrac{J}{ed}$};
+        \draw[arrow] (inflow) -- (carrier.west);
+        
+        % Carrier Recombination Sinks
+        \node[loss] (srh) at (-1.8,2.5) {SRH Defects\\[0.5ex]$AN$};
+        \node[loss] (auger) at (1.8,2.5) {Auger Loss\\[0.5ex]$CN^3$};
+        
+        \draw[arrow] (carrier.120) |- (srh.west);
+        \draw[arrow] (carrier.60) |- (auger.east);
+        
+        % Spontaneous Emission Box
+        \node[reservoir, minimum width=2.2cm, minimum height=1.0cm] (spont) at (0,-2.5) {Spontaneous\\[0.5ex]$BN^2$};
+        \draw[arrow] (carrier.south) -- node[right, font=\small] {Radiative} (spont.north);
+        
+        % Spontaneous Sinks
+        \node[loss] (spontloss) at (0,-4.5) {Incoherent Light\\[0.5ex]$(1-\beta)BN^2$};
+        \draw[arrow] (spont.south) -- (spontloss.north);
+        
+        % Spontaneous coupling to Photons
+        \draw[dashedarrow] (spont.east) -| node[above, pos=0.75, font=\small] {$\beta B N^2$} (photon.south);
+        
+        % Stimulated Coupling
+        \draw[arrow] (carrier.east) -- node[above, font=\small] {Stimulated Emission} node[below, font=\small] {$\Gamma G S$} (photon.west);
+        
+        % Photon Sinks and Outputs
+        \node[loss] (internal) at (6,2.5) {Internal Loss\\[0.5ex]$\alpha_i v_g S$};
+        \node[output] (useful) at (9.8,0) {Laser Output\\[0.5ex]$\alpha_m v_g S$};
+        
+        \draw[arrow] (photon.north) -- (internal.south);
+        \draw[arrow] (photon.east) -- (useful.west);
+        
+    \end{tikzpicture}
+    \caption{Carrier-Photon Coupling Scheme in a Double Heterostructure Laser}
+    \label{fig:carrier_photon_coupling}
+\end{figure}
 
 \subsection{The Stimulated Emission Rate and Linear Gain Model}
 
 The stimulated emission rate $G$ tells us how fast one photon in the mode generates additional photons. A photon travelling through the gain medium with group velocity $v_g$ accumulates gain over a path length $dz = v_g\,dt$, growing at rate $dS = S\,\gamma_m\,dz$. Converting distance to time:
 \begin{keyresult}
-\begin{equation}
-    G = v_g\,\gamma_m
-\end{equation}
+    \begin{equation}
+        G = v_g\,\gamma_m
+    \end{equation}
 \end{keyresult}
 where $\gamma_m$ is the material gain coefficient (m$^{-1}$) — the net stimulated emission rate per unit photon density per unit length, which we derived from the Fermi-Dirac occupation factors and the joint density of states in the previous chapter.
 
 Over the operating range of a practical laser, the material gain $\gamma_m$ varies roughly linearly with carrier density $N$ around a transparency point. At $N = N_\text{tr}$ (the \textbf{transparency carrier density}), gain exactly equals absorption and the material is neither amplifying nor absorbing. Below $N_\text{tr}$, the material absorbs; above it, the material amplifies. The linear approximation:
 \begin{keyresult}
-\begin{equation}
-    G \approx B(N - N_\text{tr})
-\end{equation}
+    \begin{equation}
+        G \approx B(N - N_\text{tr})
+    \end{equation}
 \end{keyresult}
 where $B$ (m$^3$/s) is the differential gain coefficient, captures this linear regime cleanly. This is the model that will be used in all subsequent rate equation analyses of LEDs and laser diodes. The key physical content is transparent: stimulated emission rate is proportional to the population inversion $(N - N_\text{tr})$, directly mirroring the classical $(N_2 - N_1)$ result from the Einstein rate equation model — more inversion means more stimulated transitions, and zero inversion at $N_\text{tr}$ means the material is transparent.
 
@@ -326,13 +443,13 @@ where $B$ (m$^3$/s) is the differential gain coefficient, captures this linear r
 With the carrier rate equation now fully established, we have a complete dynamical framework describing how carriers are injected, how they recombine through competing channels, and how they interact with the photon field. The rate equation $dN/dt = J/(ed) - N/\tau - \Gamma G S$ is the master equation from which all semiconductor device behaviour follows — LED output power, laser threshold, modulation bandwidth, and amplifier gain saturation are all consequences of solving this equation (and its companion photon rate equation) under different operating conditions.
 
 \begin{keyinsight}[The Distinction Between an LED and a Laser Diode]
-Both an LED and a laser diode use the same DH structure, the same material system, and the same current-injection principle. The fundamental difference lies in which term in the rate equation dominates the photon output.
+    Both an LED and a laser diode use the same DH structure, the same material system, and the same current-injection principle. The fundamental difference lies in which term in the rate equation dominates the photon output.
 
-In an LED, the stimulated emission term $\Gamma G S$ is negligible — either because the photon density is low (no optical feedback) or because the carrier density never reaches the transparency point. All photons are produced by the $N/\tau_r$ spontaneous emission term. The output is incoherent, broad-spectrum, and proportional to current.
+    In an LED, the stimulated emission term $\Gamma G S$ is negligible — either because the photon density is low (no optical feedback) or because the carrier density never reaches the transparency point. All photons are produced by the $N/\tau_r$ spontaneous emission term. The output is incoherent, broad-spectrum, and proportional to current.
 
-In a laser diode, once the current exceeds the threshold value, stimulated emission dominates completely. The spontaneous term $N/\tau_r$ becomes negligible compared to $\Gamma G S$, and almost every carrier injected above threshold generates a coherent, in-mode photon. The output is coherent, narrow-spectrum, and rises linearly with current above threshold.
+    In a laser diode, once the current exceeds the threshold value, stimulated emission dominates completely. The spontaneous term $N/\tau_r$ becomes negligible compared to $\Gamma G S$, and almost every carrier injected above threshold generates a coherent, in-mode photon. The output is coherent, narrow-spectrum, and rises linearly with current above threshold.
 
-Understanding this distinction — which is fundamentally about whether stimulated emission is negligible or dominant — is the starting point for all that follows.
+    Understanding this distinction — which is fundamentally about whether stimulated emission is negligible or dominant — is the starting point for all that follows.
 \end{keyinsight}
 
 The next chapter puts this rate equation to work: we will solve it under steady-state conditions for an LED to calculate its output power, spectral shape, and modulation bandwidth, and then extend the analysis to the semiconductor optical amplifier and the laser diode to derive the threshold condition, the characteristic P–I curve, and the coupled photon-carrier dynamics.
