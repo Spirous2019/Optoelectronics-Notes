@@ -18,8 +18,8 @@ Figures produced:
                                           labels at each stage of one round trip.
   - airy_function_spectrum.jpg          : Intracavity intensity vs frequency (Airy
                                           function) - resonance peaks, FSR, FWHM, finesse.
-  - gain_saturation_curve.jpg           : Saturated vs unsaturated gain as a function of
-                                          pump level, locking to alpha_r at steady state.
+  - steady_state_inversion_and_flux.jpg : Saturated steady-state inversion and photon flux
+                                          as a function of the pump level N0.
   - lamb_dip.jpg                        : Output power vs mode frequency in a Doppler-
                                           broadened medium showing the central Lamb dip.
   - fp_gain_ripple_spectrum.jpg         : FP amplifier gain G(nu) for sub-threshold G0,
@@ -111,11 +111,11 @@ def plot_mode_selection_at_turnon():
     fig, ax = plt.subplots(figsize=(9, 5.5))
 
     # Gain curve
-    ax.plot(nu, gain, color=TEAL, linewidth=2.5, label=r"Small-signal gain $\gamma_0(\nu)$", zorder=3)
+    gain_line, = ax.plot(nu, gain, color=TEAL, linewidth=2.5, label=r"Small-signal gain $\gamma_0$", zorder=3)
 
     # Loss line
-    ax.axhline(alpha_r, color=CORAL, linewidth=2.0, linestyle="--",
-               label=r"Total cavity loss $\alpha_r$", zorder=2)
+    loss_line = ax.axhline(alpha_r, color=CORAL, linewidth=2.0, linestyle="--",
+                           label=r"Total cavity loss $\alpha_r$", zorder=2)
 
     # Shade the bandwidth B where gain > loss
     gain_above = np.where(gain > alpha_r, gain, np.nan)
@@ -135,24 +135,27 @@ def plot_mode_selection_at_turnon():
     cross = np.where(np.diff(np.sign(gain - alpha_r)))[0]
     nu_lo = nu[cross[0]]
     nu_hi = nu[cross[-1]]
-    ax.annotate("", xy=(nu_lo, alpha_r + 0.09), xytext=(nu_hi, alpha_r + 0.09),
+    
+    # Place B arrow above the gain peak to avoid collision with mode comb
+    y_B_arrow = gamma0 * 1.15
+    ax.annotate("", xy=(nu_lo, y_B_arrow), xytext=(nu_hi, y_B_arrow),
                 arrowprops=dict(arrowstyle="<->", color=GOLD, lw=2.0))
-    ax.text(nu0, alpha_r + 0.12, r"Gain Bandwidth $B$",
+    # Draw vertical dashed lines to show the projection of B down to the curve
+    ax.plot([nu_lo, nu_lo], [alpha_r, y_B_arrow], color=GOLD, linestyle=":", lw=1.5, zorder=1)
+    ax.plot([nu_hi, nu_hi], [alpha_r, y_B_arrow], color=GOLD, linestyle=":", lw=1.5, zorder=1)
+    
+    ax.text(nu0, y_B_arrow + 0.03, r"Gain Bandwidth $B$",
             color=GOLD, fontsize=11, ha="center", va="bottom")
 
-    # alpha_r label
-    ax.text(35.5, alpha_r + 0.025, r"$\alpha_r$",
-            color=CORAL, fontsize=12, ha="left", va="bottom")
-
     ax.set_xlim(-42, 42)
-    ax.set_ylim(-0.05, gamma0 * 1.35)
+    ax.set_ylim(0, gamma0 * 1.40)  # Set origin exactly at 0
     ax.set_xticks([nu0])
     ax.set_xticklabels([r"$\nu_0$"], fontsize=13)
     ax.set_yticks([0, alpha_r, gamma0])
-    ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\,\max}$"], fontsize=11)
+    ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0$"], fontsize=11)
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
     ax.set_ylabel(r"Gain / Loss Coefficient", fontsize=13)
-    ax.set_title("Mode Selection at Laser Turn-On", fontsize=15, pad=12)
+    ax.set_title("Available Gain Bandwidth and Allowed Modes", fontsize=15, pad=12)
     ax.grid(True)
 
     # Legend
@@ -160,13 +163,14 @@ def plot_mode_selection_at_turnon():
                                label=r"Surviving modes ($\gamma_0 > \alpha_r$)")
     dead      = mlines.Line2D([], [], color=AXES_CLR, linewidth=1.8,
                                alpha=0.35, label=r"Suppressed modes")
-    handles, _ = ax.get_legend_handles_labels()
-    ax.legend(handles=handles + [surviving, dead],
+    
+    ordered_handles = [gain_line, surviving, dead, loss_line]
+    ax.legend(handles=ordered_handles,
               loc="upper right", framealpha=1,
               facecolor="#f5f5f5", edgecolor="#cccccc")
 
     fig.tight_layout()
-    out = os.path.join(FIG_DIR, "mode_selection_at_turnon.jpg")
+    out = os.path.join(FIG_DIR, "available_gain_bandwidth_modes.jpg")
     fig.savefig(out, dpi=200, bbox_inches="tight")
     print(f"Saved: {out}")
     plt.close(fig)
@@ -195,7 +199,7 @@ def plot_homogeneous_global_saturation():
     colors = [TEAL, SKYBLUE, CORAL]
     labels = [
         r"Unsaturated  $\Phi/\Phi_s = 0$",
-        r"Partially saturated  $\Phi/\Phi_s = 0.8$",
+        r"Partially saturated",
         r"Steady state  $\gamma = \alpha_r$ at $\nu_0$",
     ]
 
@@ -209,33 +213,21 @@ def plot_homogeneous_global_saturation():
     ax.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--", zorder=2,
                label=r"Cavity loss $\alpha_r$")
 
-    # Mark the single surviving lasing frequency.
-    # At nu=nu0: g0(nu0) = gamma0; sat_factor_lock = alpha_r/gamma0
-    # => g0(nu0) * sat_factor_lock = alpha_r  — the dot sits exactly on the loss line.
     ax.plot(nu0, alpha_r, 'o', color=CORAL, markersize=9, zorder=6)
-    ax.annotate(r"Single lasing mode at $\nu_q \approx \nu_0$",
-                xy=(nu0, alpha_r), xytext=(13, alpha_r + 0.22),
-                fontsize=10, color=CORAL,
-                arrowprops=dict(arrowstyle="->", color=CORAL, lw=1.5,
-                                connectionstyle="arc3,rad=-0.25"))
 
     # Shade the "dead zone" where steady-state gain < alpha_r
     g_ss = g0 / (1.0 + x_lock)
-    ax.fill_between(nu, g_ss, alpha_r,
-                    where=(g_ss < alpha_r), color=CORAL, alpha=0.07, zorder=1)
-
-    # Label inside the dead zone (below alpha_r)
-    ax.text(28, alpha_r * 0.55, r"Modes die here",
-            color=CORAL, fontsize=9.5, ha="left", va="center", alpha=0.8)
+    ax.fill_between(nu, 0, alpha_r,
+                    color=CORAL, alpha=0.07, zorder=1, label="Modes die here")
 
     ax.set_xlim(-42, 42)
-    ax.set_ylim(-0.04, gamma0 * 1.25)
+    ax.set_ylim(0, gamma0 * 1.05)
     ax.set_xticks([nu0])
     ax.set_xticklabels([r"$\nu_0$"], fontsize=13)
     ax.set_yticks([0, alpha_r, gamma0])
-    ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\,\max}$"], fontsize=11)
+    ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0$"], fontsize=11)
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Gain Coefficient $\gamma(\nu,\,\Phi)$", fontsize=13)
+    ax.set_ylabel(r"Gain Coefficient $\gamma$", fontsize=13)
     ax.set_title("Homogeneous Broadening: Global Gain Saturation", fontsize=15, pad=12)
     ax.grid(True)
     ax.legend(loc="upper right", framealpha=1,
@@ -265,8 +257,6 @@ def plot_ihb_spectral_hole_burning():
     g_ihb = gaussian(nu, nu0, sigma_D, peak=gamma0)
 
     # Three lasing modes equally spaced inside the bandwidth.
-    # Hole depth at each mode: the burned profile floor sits exactly at alpha_r.
-    # hole_amp = g_ihb(nu_q) - alpha_r  (depth so minimum = alpha_r)
     mode_freqs = [-12.0, 0.0, 12.0]
 
     g_burned = g_ihb.copy()
@@ -278,52 +268,86 @@ def plot_ihb_spectral_hole_burning():
 
     g_burned = np.clip(g_burned, 0, None)  # guard against numerical overshoot
 
-    fig, ax = plt.subplots(figsize=(9, 5.5))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5.5))
 
-    ax.plot(nu, g_ihb,    color=TEAL,    linewidth=2.5, linestyle="--",
-            label=r"Unsaturated gain envelope $\gamma_0(\nu)$", zorder=2)
-    ax.plot(nu, g_burned, color=SKYBLUE, linewidth=2.5,
+    # ── Panel 1: Origin of IHB (Sub-groups) ──
+    l_env1, = ax1.plot(nu, g_ihb, color=TEAL, linewidth=2.5, linestyle="--", zorder=4,
+             label=r"Unsaturated gain envelope $\gamma_0$")
+    l_loss1 = ax1.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--", zorder=2,
+                label=r"Cavity loss $\alpha_r$")
+
+    shifts = np.arange(-36.0, 36.1, 3.0)
+    added_bg = False
+    added_active = False
+    
+    l_lasing1_leg = None
+    l_indep1_leg = None
+
+    for nu_res in shifts:
+        weight = gaussian(nu_res, nu0, sigma_D, peak=gamma0)
+        L = lorentzian(nu, nu_res, delta_H, peak=weight)
+        
+        is_mode = any(np.isclose(nu_res, m) for m in mode_freqs)
+        
+        if is_mode:
+            lbl = "Lasing sub-groups" if not added_active else None
+            l, = ax1.plot(nu, L, color=CORAL, linewidth=2.0, alpha=0.9, zorder=3, label=lbl)
+            if not added_active:
+                l_lasing1_leg = l
+            ax1.fill_between(nu, 0, L, color=CORAL, alpha=0.2, zorder=2)
+            added_active = True
+        else:
+            lbl = "Independent atom sub-groups" if not added_bg else None
+            l, = ax1.plot(nu, L, color=LAVENDER, linewidth=1.2, alpha=0.6, zorder=1, label=lbl)
+            if not added_bg:
+                l_indep1_leg = l
+            added_bg = True
+
+    ax1.set_xlim(-45, 45)
+    ax1.set_ylim(0, gamma0 * 1.35)
+    ax1.set_xticks(mode_freqs)
+    ax1.set_xticklabels([r"$\nu_{q-1}$", r"$\nu_q$", r"$\nu_{q+1}$"], fontsize=12)
+    ax1.set_yticks([0, alpha_r, gamma0])
+    ax1.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0$"], fontsize=12)
+    ax1.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+    ax1.set_ylabel(r"Gain Coefficient $\bar{\gamma}$", fontsize=13)
+    ax1.set_title("1. Inhomogeneous Sub-Groups", fontsize=14, pad=10)
+    ax1.grid(True, zorder=-1)
+    ax1.legend(handles=[l_env1, l_indep1_leg, l_lasing1_leg, l_loss1], loc="upper right", framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc")
+
+    # ── Panel 2: Hole Burning ──
+    l_env2, = ax2.plot(nu, g_ihb, color=TEAL, linewidth=2.5, linestyle="--",
+            label=r"Unsaturated gain envelope $\gamma_0$", zorder=2)
+    l_burn2, = ax2.plot(nu, g_burned, color=CORAL, linewidth=2.5,
             label=r"Hole-burned gain profile", zorder=3)
 
-    # Loss line
-    ax.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--",
+    l_loss2 = ax2.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--",
                zorder=2, label=r"Cavity loss $\alpha_r$")
 
-    # Mark the exact bottom of each hole (which sits at alpha_r)
     for nu_q in mode_freqs:
-        ax.plot(nu_q, alpha_r, 'o', color=CORAL, markersize=7, zorder=5)
+        ax2.plot(nu_q, alpha_r, 'o', color=CORAL, markersize=8, zorder=5)
 
-    # Shade hole regions
-    ax.fill_between(nu, g_burned, g_ihb,
+    import matplotlib.patches as mpatches
+    ax2.fill_between(nu, g_burned, g_ihb,
                     where=(g_burned < g_ihb), color=LAVENDER, alpha=0.12, zorder=1)
+    shade_proxy2 = mpatches.Patch(color=LAVENDER, alpha=0.12, label="Burned spectral holes")
 
-    # Mode frequency labels: placed just above the alpha_r line at each mode centre
-    label_y = alpha_r + 0.04
-    ax.text(-12, label_y, r"$\nu_{q-1}$", color=CORAL, fontsize=11, ha="center")
-    ax.text(  0, label_y, r"$\nu_q$",     color=CORAL, fontsize=11, ha="center")
-    ax.text( 12, label_y, r"$\nu_{q+1}$", color=CORAL, fontsize=11, ha="center")
-
-    # Annotate gain intact between holes
-    ax.annotate("Gain intact\nbetween holes",
-                xy=(6, gaussian(6, nu0, sigma_D, peak=gamma0) - 0.04),
-                xytext=(22, 0.72),
-                fontsize=9.5, color=TEAL, ha="center",
-                arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.4,
-                                connectionstyle="arc3,rad=0.2"))
-
-    ax.set_xlim(-45, 45)
-    ax.set_ylim(-0.04, gamma0 * 1.25)
-    ax.set_xticks([nu0])
-    ax.set_xticklabels([r"$\nu_0$"], fontsize=13)
-    ax.set_yticks([0, alpha_r, gamma0])
-    ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\,\max}$"], fontsize=11)
-    ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Gain Coefficient $\bar{\gamma}(\nu)$", fontsize=13)
-    ax.set_title("Inhomogeneous Broadening: Spectral Hole Burning", fontsize=15, pad=12)
-    ax.grid(True)
-    ax.legend(loc="upper right", framealpha=1,
+    ax2.set_xlim(-45, 45)
+    ax2.set_ylim(0, gamma0 * 1.35)
+    
+    ax2.set_xticks(mode_freqs)
+    ax2.set_xticklabels([r"$\nu_{q-1}$", r"$\nu_q$", r"$\nu_{q+1}$"], fontsize=12)
+    
+    ax2.set_yticks([])
+    
+    ax2.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+    ax2.set_title("2. Selective Depletion", fontsize=14, pad=10)
+    ax2.grid(True, zorder=-1)
+    
+    ax2.legend(handles=[l_env2, shade_proxy2, l_burn2, l_loss2], loc="upper right", framealpha=1,
               facecolor="#f5f5f5", edgecolor="#cccccc")
 
+    fig.suptitle("Inhomogeneous Broadening and Spectral Hole Burning", fontsize=16, y=1.02)
     fig.tight_layout()
     out = os.path.join(FIG_DIR, "ihb_spectral_hole_burning.jpg")
     fig.savefig(out, dpi=200, bbox_inches="tight")
@@ -347,10 +371,10 @@ def plot_hb_vs_ihb_saturation_law():
 
     fig, ax = plt.subplots(figsize=(8.5, 5.5))
 
-    ax.plot(x, sat_HB,  color=TEAL,  linewidth=2.5,
-            label=r"HB (Homogeneous): $\;\dfrac{1}{1+\Phi/\Phi_s}$")
-    ax.plot(x, sat_IHB, color=CORAL, linewidth=2.5,
-            label=r"IHB (Inhomogeneous): $\;\dfrac{1}{\sqrt{1+\Phi/\Phi_s}}$")
+    line1, = ax.plot(x, sat_HB,  color=TEAL,  linewidth=2.5,
+                     label=r"HB (Homogeneous): $\;\dfrac{1}{1+\Phi/\Phi_s}$")
+    line2, = ax.plot(x, sat_IHB, color=CORAL, linewidth=2.5,
+                     label=r"IHB (Inhomogeneous): $\;\dfrac{1}{\sqrt{1+\Phi/\Phi_s}}$")
 
     # Mark the saturation point x=1 (Phi = Phi_s) for each curve
     y_HB_at1  = 1.0 / (1.0 + 1.0)
@@ -358,23 +382,29 @@ def plot_hb_vs_ihb_saturation_law():
 
     ax.plot(1.0, y_HB_at1, 'o',  color=TEAL,  markersize=8, zorder=5)
     ax.plot(1.0, y_IHB_at1, 'o', color=CORAL, markersize=8, zorder=5)
-    ax.axvline(1.0, color=GOLD, linewidth=1.4, linestyle=":", zorder=1)
-    ax.text(1.06, 0.92, r"$\Phi = \Phi_s$",
-            color=GOLD, fontsize=11, va="top")
+    
+    sat_line = ax.axvline(1.0, color=GOLD, linewidth=1.4, linestyle=":", zorder=1, label=r"Saturation Intensity $\Phi = \Phi_s$")
 
-    # Shade the gap between the two curves (IHB advantage region)
-    ax.fill_between(x, sat_HB, sat_IHB, color=LAVENDER, alpha=0.10, zorder=0)
-    ax.text(5.5, 0.50, r"IHB retains more gain",
-            color=LAVENDER, fontsize=10, ha="center", va="center",
-            style="italic")
+    # Horizontal guide lines connecting points reading to the y-axis
+    ax.plot([0, 1.0], [y_HB_at1, y_HB_at1], color=TEAL, linewidth=1.2, linestyle=":", zorder=1)
+    ax.plot([0, 1.0], [y_IHB_at1, y_IHB_at1], color=CORAL, linewidth=1.2, linestyle=":", zorder=1)
 
     ax.set_xlim(0, 10)
-    ax.set_ylim(0, 1.10)
-    ax.set_xlabel(r"Normalised Photon Flux $\Phi\,/\,\Phi_s$", fontsize=13)
-    ax.set_ylabel(r"Saturation Factor (normalised gain)", fontsize=13)
+    ax.set_ylim(0, 1.05)
+    
+    # Meaningful Ticks Only
+    ax.set_xticks([0, 1.0])
+    ax.set_xticklabels(["0", r"$\Phi_s$"], fontsize=12)
+    
+    ax.set_yticks([y_HB_at1, y_IHB_at1, 1.0])
+    ax.set_yticklabels([r"$\frac{1}{2}$", r"$\frac{1}{\sqrt{2}}$", "1"], fontsize=12)
+    
+    ax.set_xlabel(r"Photon Flux $\Phi$", fontsize=13)
+    ax.set_ylabel(r"Saturation Factor (Normalised Gain)", fontsize=13)
     ax.set_title("HB vs. IHB: Gain Saturation Laws Compared", fontsize=15, pad=12)
-    ax.grid(True)
-    ax.legend(loc="upper right", framealpha=1,
+    ax.grid(True, zorder=-1)
+    
+    ax.legend(handles=[line1, line2, sat_line], loc="upper right", framealpha=1,
               facecolor="#f5f5f5", edgecolor="#cccccc")
 
     fig.tight_layout()
@@ -398,49 +428,48 @@ def plot_output_power_vs_transmission():
     T_opt = np.sqrt(g * l) - l
     P_max_norm = (np.sqrt(g) - np.sqrt(l)) ** 2   # P_max / (P_s/2)
 
-    T = np.linspace(0.001, g - l - 0.001, 1200)   # T must keep g > l+T
+    T = np.linspace(0.001, g - l, 1200)   # T must keep g > l+T
     P_norm = T * (g / (l + T) - 1.0)              # P_out / (P_s/2)
 
     fig, ax = plt.subplots(figsize=(8.5, 5.5))
 
-    ax.plot(T, P_norm, color=TEAL, linewidth=2.5, zorder=3)
+    line1, = ax.plot(T, P_norm, color=TEAL, linewidth=2.5, zorder=3,
+                     label=r"Output Power $P_\mathrm{out}$")
 
     # Mark the optimum
-    ax.plot(T_opt, P_max_norm, 'o', color=CORAL, markersize=10, zorder=6,
-            label=r"$T_\mathrm{opt} = \sqrt{g\ell} - \ell$")
+    line2, = ax.plot(T_opt, P_max_norm, 'o', color=CORAL, markersize=8, zorder=6,
+                     label=r"$T_\mathrm{opt} = \sqrt{g\ell} - \ell \quad ; \quad P_{\mathrm{max}} = \frac{P_s}{2}\!\left(\sqrt{g} - \sqrt{\ell}\right)^{\!2}$")
     ax.axvline(T_opt, color=CORAL, linewidth=1.4, linestyle=":", zorder=2)
     ax.axhline(P_max_norm, color=CORAL, linewidth=1.4, linestyle=":", zorder=2)
 
     # Shade "under-coupling" (T < T_opt) and "over-coupling" (T > T_opt)
-    ax.axvspan(T[0], T_opt,  color=TEAL,  alpha=0.07, zorder=0)
-    ax.axvspan(T_opt, T[-1], color=CORAL, alpha=0.07, zorder=0)
+    import matplotlib.patches as mpatches
+    shade1 = ax.axvspan(0, T_opt, color=TEAL, alpha=0.07, zorder=0)
+    shade_proxy1 = mpatches.Patch(color=TEAL, alpha=0.07, label="Under-coupling (light trapped)")
+    
+    shade2 = ax.axvspan(T_opt, g - l, color=CORAL, alpha=0.07, zorder=0)
+    shade_proxy2 = mpatches.Patch(color=CORAL, alpha=0.07, label="Over-coupling (threshold too high)")
 
-    ax.text(T_opt / 2, P_max_norm * 0.45,
-            "Under-coupling\n(light trapped inside)",
-            color=TEAL, fontsize=9.5, ha="center", va="center")
-    ax.text((T_opt + T[-1]) / 2, P_max_norm * 0.45,
-            "Over-coupling\n(threshold too high)",
-            color=CORAL, fontsize=9.5, ha="center", va="center")
-
-    # T_opt annotation
-    ax.annotate(rf"$T_\mathrm{{opt}} = {T_opt:.3f}$",
-                xy=(T_opt, 0.005), xytext=(T_opt + 0.015, P_max_norm * 0.18),
-                fontsize=10, color=CORAL,
-                arrowprops=dict(arrowstyle="->", color=CORAL, lw=1.4,
-                                connectionstyle="arc3,rad=-0.2"))
-
-    # P_max annotation
-    ax.text(0.002, P_max_norm + 0.003,
-            r"$P_\mathrm{max} \propto (\sqrt{g}-\sqrt{\ell})^2$",
-            color=CORAL, fontsize=10, va="bottom")
-
-    ax.set_xlim(0, T[-1] + 0.005)
-    ax.set_ylim(0, P_max_norm * 1.30)
+    ax.set_xlim(0, g - l)
+    ax.set_ylim(0, P_max_norm * 1.05)
+    
     ax.set_xlabel(r"Mirror Transmissivity $T = 1 - R$", fontsize=13)
-    ax.set_ylabel(r"Output Power $P_\mathrm{out}\;/\;(P_s/2)$", fontsize=13)
+    ax.set_ylabel(r"Output Power $P_\mathrm{out}$", fontsize=13)
+    
+    # Meaningful Ticks Only
+    ax.set_xticks([0, T_opt, g - l])
+    ax.set_xticklabels(["0", r"$T_\mathrm{opt}$", r"$g-\ell$"], fontsize=12)
+    
+    ax.set_yticks([P_max_norm])
+    ax.set_yticklabels([r"$P_\mathrm{max}$"], fontsize=12)
+
     ax.set_title("Optimal Mirror Transmissivity for Maximum Output Power", fontsize=15, pad=12)
-    ax.grid(True)
-    ax.legend(loc="upper left", framealpha=1,
+    ax.grid(True, zorder=-1)
+    
+    handles = [line1, line2, shade_proxy1, shade_proxy2]
+    labels = [h.get_label() for h in handles]
+
+    ax.legend(handles, labels, loc="upper right", framealpha=1,
               facecolor="#f5f5f5", edgecolor="#cccccc")
 
     fig.tight_layout()
@@ -450,9 +479,91 @@ def plot_output_power_vs_transmission():
     plt.close(fig)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Plot 5b: Mode Alignment Cases at Turn-On
+# Concept: Three cases for how the atomic line centre aligns with the FSR mode comb:
+# Case 1: Exact resonance (nu0 = nu_q)
+# Case 2: Off-resonance (nu0 between modes)
+# Case 3: Symmetric/Degenerate (nu0 exactly halfway between modes)
+# ─────────────────────────────────────────────────────────────────────────────
+def plot_mode_alignment_cases():
+    nu0      = 0.0
+    delta_nu = 20.0
+    gamma0   = 1.0
+    alpha_r  = 0.42
+    nu_F     = 8.0  # Make FSR wider for visual clarity
+
+    nu = np.linspace(-30, 30, 1000)
+    gain = lorentzian(nu, nu0, delta_nu, peak=gamma0)
+
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+
+    # Case 1: exact resonance
+    modes1 = np.arange(-24, 25, nu_F)
+    # Case 2: offset by 0.3 * nu_F
+    modes2 = np.arange(-24, 25, nu_F) + 0.3 * nu_F
+    # Case 3: offset by 0.5 * nu_F
+    modes3 = np.arange(-24, 25, nu_F) + 0.5 * nu_F
+
+    titles = ["Case 1: Exact Resonance", "Case 2: Off-Resonance", "Case 3: Symmetric (Degenerate)"]
+    mode_lists = [modes1, modes2, modes3]
+
+    for ax, modes, title in zip(axes, mode_lists, titles):
+        ax.plot(nu, gain, color=TEAL, linewidth=2.5, zorder=3)
+        ax.axhline(alpha_r, color=CORAL, linewidth=2.0, linestyle="--", zorder=2)
+
+        mode_gains = lorentzian(modes, nu0, delta_nu, peak=gamma0)
+        lasing = mode_gains > alpha_r
+        max_g = np.max(mode_gains)
+        is_dominant = np.isclose(mode_gains, max_g)
+
+        for m, g, alive, dom in zip(modes, mode_gains, lasing, is_dominant):
+            if dom:
+                col = "#dc2626"  # Red for dominant mode
+                alpha_bar = 1.0
+                msize = 8
+                lw = 2.5
+                z = 6
+            else:
+                col  = TEAL if alive else AXES_CLR
+                alpha_bar = 0.85 if alive else 0.25
+                msize = 6 if alive else 4
+                lw = 1.8
+                z = 5
+                
+            ax.plot([m, m], [0, g], color=col, linewidth=lw, alpha=alpha_bar, zorder=z-1)
+            ax.plot(m, g, 'o', color=col, markersize=msize, alpha=alpha_bar, zorder=z)
+
+        ax.set_xlim(-25, 25)
+        ax.set_ylim(0, gamma0 * 1.35)
+        ax.set_xticks([nu0])
+        ax.set_xticklabels([r"$\nu_0$"], fontsize=13)
+        ax.set_yticks([0, alpha_r, gamma0])
+        ax.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\,\max}$"], fontsize=11)
+        ax.set_title(title, fontsize=14, pad=10)
+        ax.grid(True)
+        ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+
+    axes[0].set_ylabel(r"Gain / Loss Coefficient", fontsize=13)
+
+    # Add legend to the first subplot to explain the red dot
+    import matplotlib.lines as mlines
+    dom_handle = mlines.Line2D([], [], color="#dc2626", marker='o', markersize=8, 
+                               linestyle='-', linewidth=2.5, label="Dominant mode(s)")
+    axes[0].legend(handles=[dom_handle], loc="upper right", fontsize=11, 
+                   framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc")
+
+    fig.tight_layout()
+    out = os.path.join(FIG_DIR, "mode_alignment_cases.jpg")
+    fig.savefig(out, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}")
+    plt.close(fig)
+
+
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     plot_mode_selection_at_turnon()
+    plot_mode_alignment_cases()
     plot_homogeneous_global_saturation()
     plot_ihb_spectral_hole_burning()
     plot_hb_vs_ihb_saturation_law()
@@ -483,16 +594,17 @@ def plot_fp_cavity_round_trip():
                 ha="center", va="bottom", fontsize=11, color=AXES_CLR)
 
     # ── Gain medium rectangle ─────────────────────────────────────────────────
-    gm_x0, gm_x1 = 3.0, 7.0
+    gm_x0, gm_x1 = m1_x + 0.05, m2_x - 0.05
     gm_y0, gm_y1 = 1.2, 3.6
     rect = mpatches.FancyBboxPatch((gm_x0, gm_y0), gm_x1 - gm_x0, gm_y1 - gm_y0,
                                    boxstyle="round,pad=0.05",
                                    facecolor=TEAL, alpha=0.12,
                                    edgecolor=TEAL, linewidth=1.8, zorder=2)
     ax.add_patch(rect)
-    ax.text((gm_x0 + gm_x1) / 2, 2.8,
-            r"Gain Medium $\quad (\gamma,\;\alpha_s)$",
-            ha="center", va="center", fontsize=12, color=TEAL)
+    # Label placed above the box, centred horizontally
+    ax.text((gm_x0 + gm_x1) / 2, gm_y1 + 0.1,
+            r"Gain Medium $\;(\gamma,\;\alpha_s)$",
+            ha="center", va="bottom", fontsize=11, color=TEAL)
 
     # ── Path parameters ───────────────────────────────────────────────────────
     y1, y2, y3 = 3.2, 2.4, 1.6
@@ -511,50 +623,49 @@ def plot_fp_cavity_round_trip():
                     fontsize=11, color=color)
 
     # ── Stage 1: E1 → rightward → E2 (at M2) ────────────────────────────────
-    draw_path(m1_x, m2_x - R, y1, TEAL,
+    draw_path(m1_x, m2_x, y1, TEAL,
               r"$\times\;e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}$", label_above=True)
     
+    # Start and end dots for Ray 1
     ax.plot(m1_x, y1, 'o', color=TEAL, markersize=6, zorder=5)
-    ax.text(m1_x + 0.1, y1 + 0.12, r"$E_1$", ha="left", va="bottom", fontsize=12, color=TEAL)
+    ax.plot(m2_x, y1, 'o', color=TEAL, markersize=6, zorder=5)
+    
+    ax.text(m1_x + 0.15, y1 + 0.15, r"$E_1$", ha="left", va="bottom", fontsize=12, color=TEAL)
+    ax.text(m2_x - 0.15, y1 + 0.15, r"$E_2$", ha="right", va="bottom", fontsize=12, color=TEAL)
 
     # ── Stage 2: reflection off M2 → E3 ─────────────────────────────────────
-    arc_right_top = mpatches.Arc((m2_x - R, (y1 + y2) / 2), 2*R, y1 - y2,
-                                 angle=0, theta1=0, theta2=90,
-                                 color=TEAL, lw=2.2, zorder=3)
-    arc_right_bot = mpatches.Arc((m2_x - R, (y1 + y2) / 2), 2*R, y1 - y2,
-                                 angle=0, theta1=-90, theta2=0,
-                                 color=CORAL, lw=2.2, zorder=3)
-    ax.add_patch(arc_right_top)
-    ax.add_patch(arc_right_bot)
-    
-    # Dot and labels at the apex touching M2
-    ax.plot(m2_x, (y1 + y2) / 2, 'o', color=TEAL, markersize=6, zorder=5)
-    ax.text(m2_x - 0.1, (y1 + y2) / 2 + 0.2, r"$E_2$", ha="right", va="center", fontsize=12, color=TEAL)
-    ax.text(m2_x - 0.1, (y1 + y2) / 2 - 0.2, r"$E_3$", ha="right", va="center", fontsize=12, color=CORAL)
-    ax.text(m2_x - R / 2, (y1 + y2) / 2, r"$\times\,r_2$", ha="center", va="center", fontsize=11, color=CORAL)
+    # Placed outside the mirror M2
+    ax.text(m2_x + 0.2, (y1 + y2) / 2, r"$\times\,r_2$", ha="left", va="center", fontsize=12, color=CORAL)
 
     # ── Stage 3: E3 → leftward → E4 (at M1) ────────────────────────────────
-    draw_path(m2_x - R, m1_x + R, y2, CORAL,
-              r"$\times\;e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}$", label_above=False)
+    draw_path(m2_x, m1_x, y2, CORAL,
+              r"$\times\;e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}$", label_above=True)
+              
+    # Start and end dots for Ray 2
+    ax.plot(m2_x, y2, 'o', color=CORAL, markersize=6, zorder=5)
+    ax.plot(m1_x, y2, 'o', color=CORAL, markersize=6, zorder=5)
+    
+    ax.text(m2_x - 0.15, y2 + 0.15, r"$E_3$", ha="right", va="bottom", fontsize=12, color=CORAL)
+    ax.text(m1_x + 0.15, y2 + 0.15, r"$E_4$", ha="left", va="bottom", fontsize=12, color=CORAL)
 
     # ── Stage 4: reflection off M1 → E5 ─────────────────────────────────────
-    arc_left_top = mpatches.Arc((m1_x + R, (y2 + y3) / 2), 2*R, y2 - y3,
-                                angle=0, theta1=90, theta2=180,
-                                color=CORAL, lw=2.2, zorder=3)
-    arc_left_bot = mpatches.Arc((m1_x + R, (y2 + y3) / 2), 2*R, y2 - y3,
-                                angle=0, theta1=180, theta2=270,
-                                color=LAVENDER, lw=2.2, zorder=3)
-    ax.add_patch(arc_left_top)
-    ax.add_patch(arc_left_bot)
-    
-    # Dot and labels at the apex touching M1
-    ax.plot(m1_x, (y2 + y3) / 2, 'o', color=CORAL, markersize=6, zorder=5)
-    ax.text(m1_x + 0.1, (y2 + y3) / 2 + 0.2, r"$E_4$", ha="left", va="center", fontsize=12, color=CORAL)
-    ax.text(m1_x + 0.1, (y2 + y3) / 2 - 0.2, r"$E_5$", ha="left", va="center", fontsize=12, color=LAVENDER)
-    ax.text(m1_x + R / 2, (y2 + y3) / 2, r"$\times\,r_1$", ha="center", va="center", fontsize=11, color=LAVENDER)
+    # Placed outside the mirror M1
+    ax.text(m1_x - 0.2, (y2 + y3) / 2, r"$\times\,r_1$", ha="right", va="center", fontsize=12, color=LAVENDER)
 
-    # ── Stage 5: E5 → rightward (stub) ──────────────────────────────────────
-    draw_path(m1_x + R, m1_x + 3.0, y3, LAVENDER, label="", label_above=True)
+    # ── Stage 5: E5 → rightward stub (line stops ~60%; arrow & label at cavity centre)
+    stub_end   = m1_x + (m2_x - m1_x) * 0.60
+    cavity_mid = (m1_x + m2_x) / 2
+    # Draw the stub line
+    ax.plot([m1_x, stub_end], [y3, y3], color=LAVENDER, lw=2.2, zorder=3)
+    # Arrowhead pinned at true cavity centre (same x as green & red arrows)
+    ax.plot(cavity_mid, y3, marker=">", color=LAVENDER, markersize=10, zorder=4)
+    # Formula label pinned at true cavity centre, above the line
+    ax.text(cavity_mid, y3 + 0.15,
+            r"$\times\;e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}$",
+            ha="center", va="bottom", fontsize=11, color=LAVENDER)
+    # Start dot and E_5 label
+    ax.plot(m1_x, y3, 'o', color=LAVENDER, markersize=6, zorder=5)
+    ax.text(m1_x + 0.15, y3 + 0.15, r"$E_5$", ha="left", va="bottom", fontsize=12, color=LAVENDER)
 
     # ── Distance L line ───────────────────────────────────────────────────────
     ax.plot([m1_x, m2_x], [0.35, 0.35], color=AXES_CLR, lw=1.5, ls="--")
@@ -655,75 +766,80 @@ def plot_airy_function_spectrum():
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Plot 8: Gain Saturation Curve (Steady-State)
-# Concept: As the pump rate R (or equivalently gamma_0) increases above the
-# threshold alpha_r, the small-signal gain exceeds alpha_r. But once oscillation
-# starts, the growing intracavity flux saturates the gain back down to alpha_r
-# exactly. Below threshold: gamma = gamma_0. Above threshold: gamma locked to alpha_r.
+# Plot 8: Gain Saturation — Inversion Depletion and Steady-State Flux
+# Panel 1: N/N0 vs Phi/Phi_s  — the gain saturation hyperbola showing how the
+#           actual inversion N is depleted hyperbolically as photon flux builds.
+# Panel 2: Phi_ss/Phi_s vs N0/N_th — linear growth of intracavity flux above
+#           threshold (the "turn-on" curve).
 # ─────────────────────────────────────────────────────────────────────────────
 def plot_gain_saturation_curve():
-    alpha_r = 0.4
-    # x-axis: normalised pump parameter r = R / R_th (or equivalently gamma_0 / alpha_r)
-    r = np.linspace(0, 3.0, 800)
+    N0_norm = np.linspace(0, 3.5, 1000)  # x-axis: N0 proportional values
 
-    # Small-signal gain grows linearly with pump (3-level result)
-    gamma0 = alpha_r * r   # = alpha_r when r=1
-
-    # Clamped (saturated) gain: below threshold it equals gamma0; above, locks to alpha_r
-    gamma_sat = np.where(r <= 1.0, gamma0, np.full_like(r, alpha_r))
-
-    # Intracavity photon flux = Phi_s * (gamma_0/alpha_r - 1) for r>1, else 0
-    Phi_norm = np.where(r > 1.0, (r - 1.0), 0.0)   # Phi / Phi_s
+    # N (Before threshold: N = N0, after: N = N_th)
+    N_ss = np.where(N0_norm < 1.0, N0_norm, 1.0)
+    
+    # Phi (Before threshold: 0, after climbs linearly)
+    Phi_ss = np.where(N0_norm < 1.0, 0.0, N0_norm - 1.0)
 
     fig, ax1 = plt.subplots(figsize=(9, 5.5))
+    ax2 = ax1.twinx()
 
-    # Gain curves
-    ax1.plot(r, gamma0,   color=SKYBLUE, linewidth=2.5, linestyle="--",
-             label=r"Small-signal gain $\gamma_0$")
-    ax1.plot(r, gamma_sat, color=TEAL, linewidth=2.5,
-             label=r"Saturated gain $\gamma$ (steady state)")
-    ax1.axhline(alpha_r, color=CORAL, linewidth=1.8, linestyle=":",
-                label=r"Cavity loss $\alpha_r$")
+    # Plot Inversion N on left axis
+    line1 = ax1.plot(N0_norm, N_ss, color=TEAL, linewidth=2.5, 
+                     label=r"Steady-State Inversion $N$", zorder=3)
+    
+    # Plot Photon Flux Phi on right axis
+    line2 = ax2.plot(N0_norm, Phi_ss, color=CORAL, linewidth=2.5, 
+                     label=r"Steady-State Photon Flux $\Phi$", zorder=3)
 
     # Threshold marker
-    ax1.axvline(1.0, color=GOLD, linewidth=1.4, linestyle=":")
-    ax1.text(1.03, 0.05, r"Threshold  $R = R_\mathrm{th}$",
-             color=GOLD, fontsize=10, va="bottom")
+    thresh_line = ax1.axvline(1.0, color=GOLD, linewidth=1.8, linestyle="--", 
+                              label=r"Lasing Threshold ($N_0 = N_\mathrm{th}$)", zorder=1)
 
-    # Shade above-threshold region
-    ax1.axvspan(1.0, r[-1], color=TEAL, alpha=0.06)
-    ax1.text(2.0, 0.09, "Oscillation\nregime", color=TEAL,
-             fontsize=9.5, ha="center")
+    # Shading the entire above-threshold region (lasing region) vertically, added to legend
+    import matplotlib.patches as mpatches
+    shade = ax1.axvspan(1.0, 3.2, color=CORAL, alpha=0.08, zorder=0)
+    shade_proxy = mpatches.Patch(color=CORAL, alpha=0.08, label="Lasing Region")
 
-    # Second y-axis: intracavity flux
-    ax2 = ax1.twinx()
-    ax2.plot(r, Phi_norm, color=LAVENDER, linewidth=2.2, linestyle="-.",
-             label=r"Intracavity flux $\Phi/\Phi_s$")
-    ax2.set_ylabel(r"Normalised Intracavity Flux $\Phi\,/\,\Phi_s$",
-                   fontsize=12, color=LAVENDER)
-    ax2.tick_params(axis="y", colors=LAVENDER)
-    ax2.set_ylim(-0.1, 2.2)
+    # Labels and Limits
+    ax1.set_xlim(0, 3.2)
+    ax1.set_ylim(0, 1.5)
+    ax2.set_ylim(0, 2.5)
+
+    ax1.set_xlabel(r"Pump Level (Unsaturated Inversion) $N_0$", fontsize=13)
+    ax1.set_ylabel(r"Steady-State Inversion $N$", fontsize=13)
+    ax2.set_ylabel(r"Steady-State Photon Flux $\Phi$", fontsize=13)
+    
+    # Meaningful Ticks Only
+    ax1.set_xticks([0, 1])
+    ax1.set_xticklabels(["0", r"$N_\mathrm{th}$"], fontsize=12)
+    
+    # Remove '0' tick to single out the origin point with x-axis zero
+    ax1.set_yticks([1])
+    ax1.set_yticklabels([r"$N_\mathrm{th}$"], fontsize=12)
+    
+    ax2.set_yticks([])
+    
+    ax1.set_title("Steady-State Inversion and Flux vs. Pump Level", fontsize=15, pad=12)
+    ax1.grid(True, zorder=-1)
 
     # Combined legend
-    h1, l1 = ax1.get_legend_handles_labels()
-    h2, l2 = ax2.get_legend_handles_labels()
-    ax1.legend(h1 + h2, l1 + l2, loc="upper left",
-               framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc")
-
-    ax1.set_xlim(0, 3.0)
-    ax1.set_ylim(-0.02, alpha_r * 1.6)
-    ax1.set_xlabel(r"Normalised Pump Rate $R\,/\,R_\mathrm{th}$", fontsize=13)
-    ax1.set_ylabel(r"Gain / Loss Coefficient", fontsize=13)
-    ax1.set_yticks([0, alpha_r])
-    ax1.set_yticklabels(["0", r"$\alpha_r$"], fontsize=11)
-    ax1.set_title("Gain Clamping at Threshold: Steady-State Saturation", fontsize=15, pad=12)
-    ax1.grid(True)
+    lines = line1 + line2 + [thresh_line]
+    labels = [l.get_label() for l in lines]
+    
+    # Add the proxy artist for the shaded region to the legend
+    lines.append(shade_proxy)
+    labels.append(shade_proxy.get_label())
+    
+    ax1.legend(lines, labels, loc="upper left", framealpha=1,
+               facecolor="#f5f5f5", edgecolor="#cccccc")
 
     fig.tight_layout()
-    out = os.path.join(FIG_DIR, "gain_saturation_curve.jpg")
+    out = os.path.join(FIG_DIR, "steady_state_inversion_and_flux.jpg")
     fig.savefig(out, dpi=200, bbox_inches="tight")
     print(f"Saved: {out}")
     plt.close(fig)
+
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -941,7 +1057,7 @@ def plot_hb_vs_ihb_mode_spectrum():
     # HB: Lorentzian gain, globally saturated to alpha_r at nu0
     delta_H  = 20.0
     gamma0_H = 1.0
-    nu_HB    = np.linspace(-35, 35, 2000)
+    nu_HB    = np.linspace(-45, 45, 2000)
     g_HB_unsat = gamma0_H / (1 + (2 * (nu_HB - nu0) / delta_H) ** 2)
 
     # Saturation factor: whole curve sinks until peak touches alpha_r
@@ -951,86 +1067,130 @@ def plot_hb_vs_ihb_mode_spectrum():
     # IHB: Gaussian gain (unsaturated envelope remains largely intact)
     sigma_I  = 9.0
     gamma0_I = 1.0
-    nu_IHB   = np.linspace(-35, 35, 2000)
+    nu_IHB   = np.linspace(-45, 45, 2000)
     g_IHB    = gamma0_I * np.exp(-0.5 * (nu_IHB / sigma_I) ** 2)
 
     # Discrete modes
-    modes = np.arange(-32, 33, nu_F)
+    modes = np.arange(-40, 41, nu_F)
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5.5), sharey=False)
 
     # ── Left panel: Homogeneous Broadening ───────────────────────────────────
-    ax1.plot(nu_HB, g_HB_unsat, color=TEAL, linewidth=2.2, linestyle="--",
-             alpha=0.6, label=r"$\gamma_0(\nu)$ — unsaturated")
-    ax1.plot(nu_HB, g_HB_sat,   color=TEAL, linewidth=2.5,
-             label=r"$\gamma(\nu)$ — globally saturated")
-    ax1.axhline(alpha_r, color=CORAL, linewidth=1.8, linestyle="--",
-                label=r"$\alpha_r$")
+    l_unsat1, = ax1.plot(nu_HB, g_HB_unsat, color=TEAL, linewidth=2.2, linestyle="--",
+             alpha=0.6, label=r"Unsaturated gain envelope $\gamma_0$")
+    l_sat1, = ax1.plot(nu_HB, g_HB_sat,   color=TEAL, linewidth=2.5,
+             label=r"Globally saturated gain $\gamma$")
+    l_loss1 = ax1.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--",
+                label=r"Cavity loss $\alpha_r$")
+
+    l_mode_alive1 = None
+    l_mode_dead1  = None
 
     # Only the mode at nu0 survives
     for m in modes:
         g_local = gamma0_H * sat_H / (1 + (2 * (m - nu0) / delta_H) ** 2)
-        col  = TEAL if abs(m - nu0) < nu_F / 2 else AXES_CLR
-        alph = 0.9 if abs(m - nu0) < nu_F / 2 else 0.2
-        ax1.plot([m, m], [0, g_local], color=col, linewidth=2.0, alpha=alph)
-        ax1.plot(m, g_local, 'o', color=col, markersize=5, alpha=alph)
+        alive = abs(m - nu0) < nu_F / 2
+        col  = CORAL if alive else AXES_CLR
+        alph = 0.9 if alive else 0.4
+        lw   = 2.5 if alive else 1.5
+        ms   = 8 if alive else 4
+        
+        l_m, = ax1.plot([m, m], [0, g_local], color=col, linewidth=lw, alpha=alph)
+        ax1.plot(m, g_local, 'o', color=col, markersize=ms, alpha=alph)
+        
+        if alive and not l_mode_alive1:
+            l_m.set_label("Lasing mode")
+            l_mode_alive1 = l_m
+        elif not alive and not l_mode_dead1:
+            l_m.set_label("Suppressed modes")
+            l_mode_dead1 = l_m
 
-    ax1.text(0, -0.06, r"Single lasing mode at $\nu_0$",
-             ha="center", va="top", fontsize=10, color=TEAL)
     ax1.set_title("Homogeneous Broadening\n(Global Saturation → Single Mode)",
                   fontsize=13, pad=8)
-    ax1.set_xlim(-32, 32)
-    ax1.set_ylim(-0.08, 1.20)
+    ax1.set_xlim(-42, 42)
+    ax1.set_ylim(0, 1.65)
     ax1.set_xticks([nu0])
     ax1.set_xticklabels([r"$\nu_0$"], fontsize=12)
     ax1.set_yticks([0, alpha_r, gamma0_H])
-    ax1.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\max}$"], fontsize=10)
-    ax1.set_xlabel(r"Optical Frequency $\nu$", fontsize=12)
-    ax1.set_ylabel(r"Gain / Mode Power", fontsize=12)
-    ax1.grid(True)
-    ax1.legend(fontsize=9.5, loc="upper right",
+    ax1.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0$"], fontsize=12)
+    ax1.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+    ax1.set_ylabel(r"Gain / Mode Power", fontsize=13)
+    ax1.grid(True, zorder=-1)
+    
+    handles1 = [l_unsat1, l_sat1]
+    if l_mode_alive1: handles1.append(l_mode_alive1)
+    if l_mode_dead1: handles1.append(l_mode_dead1)
+    handles1.append(l_loss1)
+    
+    ax1.legend(handles=handles1, fontsize=10, loc="upper right",
                framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc")
 
     # ── Right panel: Inhomogeneous Broadening ─────────────────────────────────
-    ax2.plot(nu_IHB, g_IHB, color=SKYBLUE, linewidth=2.5, linestyle="--",
-             label=r"$\gamma_0(\nu)$ — Gaussian envelope")
-    ax2.axhline(alpha_r, color=CORAL, linewidth=1.8, linestyle="--",
-                label=r"$\alpha_r$")
+    l_unsat2, = ax2.plot(nu_IHB, g_IHB, color=TEAL, linewidth=2.5, linestyle="--",
+             label=r"Unsaturated gain envelope $\bar{\gamma}_0$")
+    l_loss2 = ax2.axhline(alpha_r, color=AXES_CLR, linewidth=1.6, linestyle="--",
+                label=r"Cavity loss $\alpha_r$")
+
+    l_mode_alive2 = None
+    l_mode_dead2  = None
 
     # All modes within bandwidth B survive independently
-    surviving_modes = [m for m in modes
-                       if gamma0_I * np.exp(-0.5 * (m / sigma_I) ** 2) > alpha_r]
     for m in modes:
         g_local = gamma0_I * np.exp(-0.5 * (m / sigma_I) ** 2)
         alive = g_local > alpha_r
-        col  = SKYBLUE if alive else AXES_CLR
-        alph = 0.9 if alive else 0.2
-        ax2.plot([m, m], [0, g_local], color=col, linewidth=2.0, alpha=alph)
-        ax2.plot(m, g_local, 'o', color=col, markersize=5, alpha=alph)
+        col  = CORAL if alive else AXES_CLR
+        alph = 0.9 if alive else 0.4
+        lw   = 2.5 if alive else 1.5
+        ms   = 8 if alive else 4
+        
+        l_m, = ax2.plot([m, m], [0, g_local], color=col, linewidth=lw, alpha=alph)
+        ax2.plot(m, g_local, 'o', color=col, markersize=ms, alpha=alph)
+        
+        if alive and not l_mode_alive2:
+            l_m.set_label("Lasing modes")
+            l_mode_alive2 = l_m
+        elif not alive and not l_mode_dead2:
+            l_m.set_label("Suppressed modes")
+            l_mode_dead2 = l_m
 
-    # B annotation
+    # B annotation: vertical dashed lines from alpha_r intersection up above curve,
+    # then a solid double-tipped arrow between them with label B
     nu_lo_I = -sigma_I * np.sqrt(-2 * np.log(alpha_r / gamma0_I))
     nu_hi_I =  sigma_I * np.sqrt(-2 * np.log(alpha_r / gamma0_I))
-    ax2.annotate("", xy=(nu_lo_I, alpha_r + 0.10),
-                 xytext=(nu_hi_I, alpha_r + 0.10),
+    B_arrow_y = 1.06  # just above the curve peak
+
+    # Vertical golden dashed lines from intersection up above the curve
+    ax2.plot([nu_lo_I, nu_lo_I], [alpha_r, B_arrow_y], color=GOLD,
+             linewidth=1.5, linestyle="--", zorder=2)
+    ax2.plot([nu_hi_I, nu_hi_I], [alpha_r, B_arrow_y], color=GOLD,
+             linewidth=1.5, linestyle="--", zorder=2)
+
+    # Solid double-tipped arrow at the top between the two vertical lines
+    ax2.annotate("", xy=(nu_hi_I, B_arrow_y),
+                 xytext=(nu_lo_I, B_arrow_y),
                  arrowprops=dict(arrowstyle="<->", color=GOLD, lw=2.0))
-    ax2.text(0, alpha_r + 0.14, r"Gain Bandwidth $B$  ($\sim N = B/\nu_F$ modes)",
-             ha="center", va="bottom", fontsize=9.5, color=GOLD)
+    ax2.text((nu_lo_I + nu_hi_I) / 2, B_arrow_y + 0.03, r"$B$",
+             ha="center", va="bottom", fontsize=13, color=GOLD, fontweight="bold")
 
     ax2.set_title("Inhomogeneous Broadening\n(Spectral Hole Burning → Multi-Mode)",
                   fontsize=13, pad=8)
-    ax2.set_xlim(-32, 32)
-    ax2.set_ylim(-0.08, 1.20)
+    ax2.set_xlim(-42, 42)
+    ax2.set_ylim(0, 1.65)
     ax2.set_xticks([nu0])
     ax2.set_xticklabels([r"$\nu_0$"], fontsize=12)
-    ax2.set_yticks([0, alpha_r, gamma0_I])
-    ax2.set_yticklabels(["0", r"$\alpha_r$", r"$\gamma_0^{\max}$"], fontsize=10)
-    ax2.set_xlabel(r"Optical Frequency $\nu$", fontsize=12)
-    ax2.grid(True)
-    ax2.legend(fontsize=9.5, loc="upper right",
+    ax2.set_yticks([])
+    ax2.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
+    ax2.grid(True, zorder=-1)
+    
+    handles2 = [l_unsat2]
+    if l_mode_alive2: handles2.append(l_mode_alive2)
+    if l_mode_dead2: handles2.append(l_mode_dead2)
+    handles2.append(l_loss2)
+    
+    ax2.legend(handles=handles2, fontsize=10, loc="upper right",
                framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc")
 
-    fig.suptitle("Steady-State Mode Spectrum: HB vs. IHB Laser",
+    fig.suptitle("Steady-State Mode Spectrum: Homogeneously vs. Inhomogeneously Broadened Laser",
                  fontsize=15, y=1.02)
     fig.tight_layout()
     out = os.path.join(FIG_DIR, "hb_vs_ihb_mode_spectrum.jpg")
@@ -1069,7 +1229,7 @@ def plot_frequency_pulling_diagram():
 
     # -- Top panel --
     ax_top.plot(nu, gain, color=TEAL, linewidth=2.5, zorder=3,
-                label=r"Gain profile $\gamma_0(\nu)$")
+                label=r"Gain profile $\gamma_0$")
     ax_top.axhline(alpha_r, color=CORAL, linewidth=1.8, linestyle="--", zorder=2,
                    label=r"Cavity loss $\alpha_r$")
     ax_top.axvline(nu0, color=GOLD, linewidth=1.2, linestyle=":", zorder=1)

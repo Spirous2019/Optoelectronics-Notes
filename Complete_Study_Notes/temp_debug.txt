@@ -179,7 +179,7 @@ The gain coefficient is directly proportional to the population inversion $N_0$ 
 
 At the lasing threshold, the small-signal gain must exactly equal the total cavity loss:
 \begin{equation*}
-    \gamma_{\text{th}} = \alpha_r \quad\Rightarrow\quad \sigma\,N_{0,\text{th}} = \alpha_r
+    \gamma_{\text{th}} = \alpha_r \quad\Longrightarrow\quad \sigma\,N_{0,\text{th}} = \alpha_r
 \end{equation*}
 
 Solving for the \textbf{threshold population inversion}:
@@ -296,7 +296,7 @@ At steady state, gain saturation has driven the gain exactly to the loss level: 
 Solving for the intracavity photon-flux density $\Phi$:
 \begin{equation*}
     1 + \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r}
-    \quad\Rightarrow\quad
+    \quad\Longrightarrow\quad
     \frac{\Phi}{\Phi_s} = \frac{\gamma_0}{\alpha_r} - 1
 \end{equation*}
 
@@ -431,106 +431,103 @@ By substituting this simplified relationship back into our gain equation, we cre
 \begin{equation*}
     d\gamma = \frac{d\gamma_0}{1 + \dfrac{\Phi}{\Phi_s} \cdot \dfrac{(\Delta\nu/2)^2}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2}}
 \end{equation*}
-This algebraic reduction confirms our physical intuition: velocity classes shifted far from resonance have near-zero interaction probability, rendering them virtually impossible to saturate. Crucially, while this apparent center frequency $\nu_0'$ varies for each velocity class, the intrinsic quantum mechanics of the atoms do not, meaning the saturation flux $\Phi_s$ remains a strict, global constant across the entire inhomogeneous medium.
+This explicit algebraic reduction verifies our physical intuition: atoms whose velocities shift them far from resonance have a near-zero probability of interacting with the light, rendering them virtually impossible to saturate. While the shifted resonance frequency $\nu_0'$ varies for every velocity class, the basic atomic properties do not. Thus, $\Phi_s$ is a global constant for the entire medium.
 
 \subsubsection*{Power Broadening and the Saturated Lineshape}
 
-To see how the intracavity field distorts the gain profile of each velocity class, we must examine the frequency-dependent shape of the small-signal gain distribution. The absolute small-signal gain depends on both the transition cross-section and the population inversion density of that velocity class, governed by the exact relation $d\gamma_0 = \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} g_{\nu_0'}(\nu) \, dN$, where $g_{\nu_0'}(\nu) = \frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2}$ is the unperturbed homogeneous Lorentzian lineshape of the velocity class.
-
-Substituting this exact expression into our saturation equation, we can clear the nested fractions by multiplying the numerator and denominator by $(\Delta\nu/2)^2 + (\nu - \nu_0')^2$:
+To see what the intracavity field actually does to each velocity class, we substitute the explicit Lorentzian lineshape $d\gamma_0 \propto \frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2}$ directly into the saturated gain equation. By expanding $d\gamma_0$, we can explicitly trace how the nested fraction clears and how the linewidth term grows:
 \begin{equation*}
-    d\gamma = \frac{\frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} \left[ \frac{\frac{\Delta\nu}{2\pi}}{\left(\frac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0')^2} \right] dN}{1 + \frac{\Phi}{\Phi_s} \cdot \frac{\left(\frac{\Delta\nu}{2}\right)^2}{\left(\frac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0')^2}} \quad\Rightarrow\quad d\gamma = \frac{\frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} \left(\frac{\Delta\nu}{2\pi}\right) dN}{\left(\frac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0')^2 + \frac{\Phi}{\Phi_s}\left(\frac{\Delta\nu}{2}\right)^2}
+    d\gamma \propto \frac{\dfrac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2}}{1 + \dfrac{\Phi}{\Phi_s} \cdot \dfrac{(\Delta\nu/2)^2}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2}} \quad\Longrightarrow\quad \frac{\Delta\nu/2\pi}{(\Delta\nu/2)^2 + (\nu - \nu_0')^2 + \dfrac{\Phi}{\Phi_s}\!\left(\frac{\Delta\nu}{2}\right)^{\!2}}
 \end{equation*}
-Grouping the terms involving $\left(\frac{\Delta\nu}{2}\right)^2$ in the denominator yields:
+Grouping the constant terms in the denominator reveals that the natural linewidth has grown from $(\Delta\nu/2)^2$ to $(\Delta\nu/2)^2(1 + \Phi/\Phi_s)$. Physically, the higher the photon flux, the wider the effective resonance of the velocity class appears. This fundamental phenomenon is known as \textbf{power broadening}. We formally define this new, intensity-dependent \textbf{power-broadened linewidth} $\Delta\nu_s$ as:
 \begin{equation*}
-    d\gamma = \frac{\frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} \left(\frac{\Delta\nu}{2\pi}\right) dN}{\left(\frac{\Delta\nu}{2}\right)^2\left(1 + \frac{\Phi}{\Phi_s}\right) + (\nu - \nu_0')^2}
+    \left(\frac{\Delta\nu_s}{2}\right)^{\!2} \equiv \left(\frac{\Delta\nu}{2}\right)^{\!2}\!\left(1 + \frac{\Phi}{\Phi_s}\right)
 \end{equation*}
-
-The photon flux $\Phi$ expands the unperturbed linewidth term $\left(\frac{\Delta\nu}{2}\right)^2$ into an intensity-dependent effective width. This phenomenon is known as \textbf{power broadening}. To cast the saturated lineshape back into standard Lorentzian form, we define the \textbf{power-broadened linewidth} $\Delta\nu_s$:
-\begin{equation*}
-    \left(\frac{\Delta\nu_s}{2}\right)^2 = \left(\frac{\Delta\nu}{2}\right)^2\left(1 + \frac{\Phi}{\Phi_s}\right) \quad\Rightarrow\quad \frac{\Delta\nu_s}{2} = \left(\frac{\Delta\nu}{2}\right)\sqrt{1 + \frac{\Phi}{\Phi_s}}
-\end{equation*}
-Taking the positive square root yields the final relation:
+Taking the positive square root:
 \begin{keyresult}
     \begin{equation}
         \Delta\nu_s = \Delta\nu\sqrt{1 + \frac{\Phi}{\Phi_s}}
     \end{equation}
 \end{keyresult}
 
-Substituting $\Delta\nu_s$ into the denominator, we multiply and divide the numerator by $\Delta\nu_s$ to extract a normalised Lorentzian lineshape:
+With this definition, the gain of the velocity class becomes a perfect Lorentzian of width $\Delta\nu_s$:
 \begin{equation*}
-    d\gamma = \frac{\frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} \left(\frac{\Delta\nu}{2\pi}\right) dN}{\left(\frac{\Delta\nu_s}{2}\right)^2 + (\nu - \nu_0')^2} \quad\Rightarrow\quad d\gamma = \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} \left[ \frac{\Delta\nu}{\Delta\nu_s} \cdot \frac{\frac{\Delta\nu_s}{2\pi}}{\left(\frac{\Delta\nu_s}{2}\right)^2 + (\nu - \nu_0')^2} \right] dN
+    d\gamma \propto \frac{\Delta\nu}{\Delta\nu_s} \cdot \frac{\Delta\nu_s / 2\pi}{(\Delta\nu_s/2)^2 + (\nu - \nu_0')^2}
 \end{equation*}
-
-Where the scaling factor $\frac{\Delta\nu}{\Delta\nu_s} = \frac{1}{\sqrt{1 + \frac{\Phi}{\Phi_s}}}$ represents the local gain suppression due to saturation.
+The fraction on the right is a normalised Lorentzian with the broadened width $\Delta\nu_s$, but the overall amplitude has been scaled down by the ratio $\Delta\nu / \Delta\nu_s = 1/\sqrt{1 + \Phi/\Phi_s}$ relative to the unsaturated case. The subgroup gets wider \emph{and} shorter simultaneously; its total area (proportional to amplitude $\times$ width) scales as:
+\begin{equation*}
+    \frac{\text{Saturated area}}{\text{Unsaturated area}} = \frac{\Delta\nu}{\Delta\nu_s} = \frac{1}{\sqrt{1 + \Phi/\Phi_s}}
+\end{equation*}
 
 \subsubsection*{Averaging Over the Inhomogeneous Distribution}
 
-To find the total macroscopic saturated gain $\bar{\gamma}$ of the entire medium, we must integrate the saturated gain contributions $d\gamma$ from all velocity classes. This is accomplished by weighting each homogeneous velocity class by its physical population density. In a gas laser, the velocity $V$ of active atoms along the cavity axis follows a standard Maxwell-Boltzmann Gaussian probability distribution.
-
-The differential population inversion density $dN$ contributed by the specific subset of active atoms moving with a velocity between $V$ and $V+dV$ is simply the total macroscopic inversion $N_0$ weighted by the fraction of atoms in that velocity class, yielding $dN = N_0 f_V(V) \, dV$. Here, $N_0$ is the total, unsaturated population inversion density of the entire gas medium, and $f_V(V) = \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{V^2}{2\sigma_V^2}\right)$ is the Maxwell-Boltzmann distribution governing the thermal speeds of the gas atoms along the cavity axis, with $\sigma_V = \sqrt{k_BT/m}$ representing the standard deviation of the velocity distribution.
-
-Substituting this into the saturated gain expression, the total saturated gain at laser frequency $\nu$ is the integral over all velocity classes:
+To find the total macroscopic gain $\gamma$ for the entire medium, we weight each velocity class's contribution by the probability of finding an atom in that class. In a gas laser, the velocity $V$ along the cavity axis follows a Maxwell-Boltzmann Gaussian with zero mean and rms width $\delta_v$:
 \begin{equation*}
-    \bar{\gamma} = \int_{-\infty}^{\infty} \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \frac{\Delta\nu}{\Delta\nu_s} \left[ \frac{\frac{\Delta\nu_s}{2\pi}}{\left(\frac{\Delta\nu_s}{2}\right)^2 + \left(\nu - \nu_0\left[1+\frac{V}{c}\right]\right)^2} \right] \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) \, dV \tag{I}
+    p(V) = \frac{1}{\sqrt{2\pi}\,\delta_v} \exp\!\left(-\frac{V^2}{2\delta_v^2}\right)
 \end{equation*}
 
-To evaluate this integral, we examine the \textbf{extreme inhomogeneous limit}, where the macroscopic Doppler frequency spread $\sigma_D$ is vastly wider than the power-broadened homogeneous linewidth $\Delta\nu_s$ (i.e., $\sigma_D \gg \Delta\nu_s$, where $\sigma_D \equiv \frac{\nu_0}{c}\sigma_V$). In this regime, the normalised Lorentzian lineshape behaves virtually as a Dirac delta function. Using the Cauchy limit identity:
+The total saturated gain is the integral over all velocity classes:
 \begin{equation*}
-    \lim_{\epsilon \to 0} \frac{\epsilon}{\epsilon^2 + x^2} = \pi\,\delta(x)
-\end{equation*}
-with $\epsilon = \frac{\Delta\nu_s}{2}$ and $x = \nu - \nu_0 - \nu_0\left(\frac{V}{c}\right)$, the collapsing lineshape yields:
-\begin{equation*}
-    \lim_{\Delta\nu_s \to 0} \left[ \frac{\frac{\Delta\nu_s}{2\pi}}{\left(\frac{\Delta\nu_s}{2}\right)^2 + \left(\nu - \nu_0 - \nu_0\left(\frac{V}{c}\right)\right)^2} \right] = \delta\!\left(\nu - \nu_0 - \nu_0\left(\frac{V}{c}\right)\right)
+    \gamma = \int_{-\infty}^{\infty} \underbrace{\frac{\Delta\nu}{\Delta\nu_s} \cdot \frac{\Delta\nu_s / 2\pi}{(\Delta\nu_s/2)^2 + (\nu - \nu_0')^2}}_{d\gamma} \cdot \; p(V) \, dV
 \end{equation*}
 
-Substituting this Dirac delta approximation into our macroscopic gain integral \textup{(I)}, and factoring out the velocity-independent terms, we obtain:
+In the extreme inhomogeneous limit ($\Delta\nu_D \gg \Delta\nu_s$), the Gaussian distribution is so broad and flat compared to the sharp Lorentzian spike that the normalised Lorentzian converges to a Dirac delta function:
 \begin{equation*}
-    \bar{\gamma} \approx \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \frac{\Delta\nu}{\Delta\nu_s} \int_{-\infty}^{\infty} \delta\!\left(\nu - \nu_0 - \nu_0\left(\frac{V}{c}\right)\right) \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{V^2}{2\sigma_V^2}\right) \, dV
+    \frac{\Delta\nu_s / 2\pi}{(\Delta\nu_s/2)^2 + (\nu - \nu_0')^2} \;\xrightarrow{\;\Delta\nu_s \ll \Delta\nu_D\;}\; \delta(\nu - \nu_0')
 \end{equation*}
 
-To perform the integration using the sifting property of the delta function, we change variables to clear the coefficient inside the delta function's argument. Let us define a new dummy integration variable $u$:
+The integral then collapses. The pre-factor $\Delta\nu / \Delta\nu_s$ is independent of the integration variable and factors out:
 \begin{equation*}
-    u \equiv \frac{\nu_0}{c}\,V \quad\Rightarrow\quad V = \frac{c}{\nu_0}\,u \quad\text{and}\quad dV = \frac{c}{\nu_0}\,du
-\end{equation*}
-Substituting these into the integral yields:
-\begin{equation*}
-    \bar{\gamma} \approx \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \frac{\Delta\nu}{\Delta\nu_s} \int_{-\infty}^{\infty} \delta(\nu - \nu_0 - u) \cdot \left[ \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{c^2 u^2}{2\nu_0^2\sigma_V^2}\right) \right] \frac{c}{\nu_0}\,du
+    \gamma = \frac{\Delta\nu}{\Delta\nu_s} \int_{-\infty}^{\infty} \delta(\nu - \nu_0') \cdot p(V) \, dV
 \end{equation*}
 
-Using the symmetry of the delta function ($\delta(\nu - \nu_0 - u) = \delta(u - (\nu - \nu_0))$), the sifting property collapses the integral:
+The sifting property of the delta function picks out only the specific velocity class perfectly resonant with the lasing frequency ($\nu_0' = \nu$), evaluating the Gaussian distribution at the corresponding velocity. This remaining Gaussian factor is precisely the small-signal inhomogeneous gain profile $\gamma_0$:
 \begin{equation*}
-    \bar{\gamma} \approx \frac{\Delta\nu}{\Delta\nu_s} \cdot \left[ \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \cdot \frac{c}{\nu_0} \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{c^2(\nu - \nu_0)^2}{2\nu_0^2\sigma_V^2}\right) \right]
-\end{equation*}
-Since the linewidth ratio is $\frac{\Delta\nu}{\Delta\nu_s} = \frac{1}{\sqrt{1 + \frac{\Phi}{\Phi_s}}}$, it evaluates to $1$ in the small-signal limit ($\Phi \to 0$). In this unperturbed state, the bracketed expression represents the purely unsaturated inhomogeneous gain profile $\bar{\gamma}_0$. By defining the Doppler broadening parameter $\sigma_D \equiv \frac{\nu_0}{c}\sigma_V$, we obtain the classic Gaussian envelope:
-\begin{equation*}
-    \bar{\gamma}_0 = \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \cdot \frac{c}{\nu_0} \frac{1}{\sqrt{2\pi}\,\sigma_V} \exp\!\left(-\frac{c^2(\nu - \nu_0)^2}{2\nu_0^2\sigma_V^2}\right) \quad\Rightarrow\quad \bar{\gamma}_0 = \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \cdot \frac{1}{\sqrt{2\pi}\,\sigma_D} \exp\!\left(-\frac{(\nu - \nu_0)^2}{2\sigma_D^2}\right)
+    \gamma = \frac{\Delta\nu}{\Delta\nu_s} \cdot \gamma_0 = \frac{1}{\sqrt{1 + \Phi/\Phi_s}} \cdot \gamma_0
 \end{equation*}
 
-Substituting this unperturbed $\bar{\gamma}_0$ profile back into the collapsed gain equation yields the final inhomogeneous gain saturation law:
 \begin{keyresult}
     \begin{equation}
-        \bar{\gamma} = \frac{\Delta\nu}{\Delta\nu_s} \bar{\gamma}_0 = \frac{\bar{\gamma}_0}{\sqrt{1 + \frac{\Phi}{\Phi_s}}} \quad \text{where} \quad \bar{\gamma}_0 = \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \frac{1}{\sqrt{2\pi}\,\sigma_D} \exp\!\left(-\frac{(\nu - \nu_0)^2}{2\sigma_D^2}\right)
+        \gamma = \frac{\gamma_0}{\sqrt{1 + \Phi/\Phi_s}}
     \end{equation}
 \end{keyresult}
+where $\gamma_0$ is the unsaturated, small-signal inhomogeneous gain at the lasing frequency, shaped by the broad Gaussian (Doppler) spectral envelope.
 
-\begin{keyinsight}[Homogeneous vs.\ Inhomogeneous Saturation]
-    This result exposes a fundamental physical contrast: homogeneous media saturate globally as $(1+\Phi/\Phi_s)^{-1}$ because every atom is identical (requiring exactly $\Phi = \Phi_s$ to halve the gain), whereas inhomogeneous media saturate locally as $(1+\Phi/\Phi_s)^{-1/2}$. Because the optical field only depletes the specific velocity class in resonance, leaving the rest of the distribution untouched, the overall macroscopic gain drops much more slowly. Halving the overall gain in an inhomogeneous medium thus requires an intensity of $\Phi = 3\Phi_s$---exactly \textbf{three times} the photon flux required by its homogeneous counterpart.
-\end{keyinsight}
+\subsubsection*{Physical Insight: Homogeneous vs.\ Inhomogeneous Saturation}
+
+This result reveals a striking difference in how the two types of media respond to intense optical fields.
+
+In a homogeneously broadened medium, the gain depletes globally and directly with intensity, following $1/(1 + \Phi/\Phi_s)$. To saturate the gain down to exactly half of its small-signal value, we simply need the flux to equal the saturation flux ($\Phi = \Phi_s$).
+
+In an inhomogeneously broadened medium, the gain depletes strictly locally and much more slowly, following $1/\sqrt{1 + \Phi/\Phi_s}$. To achieve that same 50\% reduction in gain, we must satisfy a much higher threshold:
+\begin{equation*}
+    \frac{1}{\sqrt{1 + \frac{\Phi}{\Phi_s}}} = \frac{1}{2}
+\end{equation*}
+Square both sides:
+\begin{equation*}
+    \frac{1}{1 + \frac{\Phi}{\Phi_s}} = \frac{1}{4}
+\end{equation*}
+Invert and solve for the flux:
+\begin{equation*}
+    1 + \frac{\Phi}{\Phi_s} = 4 \implies \frac{\Phi}{\Phi_s} = 3 \implies \Phi = 3\Phi_s
+\end{equation*}
+So, when all the math clears, an inhomogeneous medium requires exactly \textbf{three times} the photon flux to reach the same level of relative gain saturation.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 4/hb_vs_ihb_saturation_law.jpg}
-    \caption{Homogeneous vs.\ Inhomogeneous Saturation Laws: A homogeneously broadened medium saturates as $1/(1+\Phi/\Phi_s)$, while an inhomogeneously broadened medium saturates far more slowly as $1/\sqrt{1+\Phi/\Phi_s}$. The shaded region between the curves represents the additional gain retained by the inhomogeneously broadened medium at the same photon flux --- the direct reason inhomogeneously broadened lasers accumulate higher intracavity power and support multi-mode oscillation.}
+    \caption{HB vs.\ IHB Saturation Laws: A homogeneously broadened medium saturates as $1/(1+\Phi/\Phi_s)$, while an inhomogeneously broadened medium saturates far more slowly as $1/\sqrt{1+\Phi/\Phi_s}$. The shaded region between the curves represents the additional gain retained by the IHB medium at the same photon flux --- the direct reason IHB lasers accumulate higher intracavity power and support multi-mode oscillation.}
 \end{figure}
+
+Now that we have established how gain saturates differently across homogeneous and inhomogeneous media, we must next examine how these distinct saturation dynamics dictate the specific number of longitudinal modes that can simultaneously oscillate within the laser cavity.
 
 \subsection{Spectral Hole Burning}
 
-Because gain saturation in an inhomogeneous medium is strictly \emph{local} in the frequency domain, a lasing mode at frequency $\nu_q$ interacts only with the specific sub-group of atoms it resonates with. It depletes the inversion of these atoms alone, leaving atoms at other frequencies entirely unaffected and at their full small-signal inversion.
+Because the gain saturation in an inhomogeneous medium is strictly \emph{local} in the frequency domain, the mode at $\nu_q$ only depletes the population inversion of the specific atoms it resonates with. Atoms with resonance frequencies further away from $\nu_q$ are completely unaffected and retain their full small-signal inversion.
 
-As the mode intensifies and saturates this sub-group, it physically carves a narrow depression into the broad inhomogeneous gain envelope. This localized depletion is known as \textbf{spectral hole burning}. The spectral width of the burned hole corresponds precisely to the power-broadened homogeneous linewidth of that specific atomic sub-group: $\Delta\nu_s = \Delta\nu\sqrt{1 + \frac{\Phi}{\Phi_s}}$.
+As the mode grows and saturates its specific sub-group, it physically carves a narrow depression into the broad inhomogeneous gain envelope. This localized depletion is called \textbf{spectral hole burning}. The width of the burned hole is precisely the power-broadened homogeneous linewidth $\Delta\nu_s = \Delta\nu_H\sqrt{1 + \Phi/\Phi_s}$.
 
-This localized saturation fundamentally alters multi-mode behavior. Because different longitudinal modes interact with different sub-groups of atoms, their saturation dynamics are completely decoupled. Burning a hole at $\nu_q$ does not reduce the gain available for an adjacent mode at $\nu_{q+1}$. Consequently, inhomogeneously broadened lasers natively support \textbf{multi-mode oscillation}---multiple modes can lase simultaneously, each drawing power from its own private pool of resonant atoms. The number of oscillating modes is roughly $B/\nu_F$, in stark contrast to homogeneously broadened lasers where global saturation forces single-mode operation.
+The consequence for multi-mode behaviour is profound. In an IHB medium, different modes interact with different sub-groups of atoms, so their saturations are independent. Burning a hole at $\nu_q$ does not affect the gain available at $\nu_{q+1}$. Each mode can therefore coexist with all others, each depleting its own private pool of resonant atoms. IHB lasers natively support multi-mode oscillation, with the number of modes approximately equal to $B/\nu_F$. This contrasts sharply with the homogeneous case, where global saturation forces single-mode operation.
 
 \begin{figure}[H]
     \centering
@@ -538,116 +535,99 @@ This localized saturation fundamentally alters multi-mode behavior. Because diff
     \caption{Inhomogeneous Broadening --- Spectral Hole Burning: (Left) The broad inhomogeneous gain envelope comprises many independent, narrow homogeneous sub-groups. (Right) Oscillating modes deplete only their resonant sub-groups, burning isolated spectral holes down to the cavity loss line $\alpha_r$. Because the remaining profile is untouched, multiple modes can lase simultaneously without competition.}
 \end{figure}
 
-When observing the hole-burned profile in the figure above, two features are physically significant. First, the \textbf{red dots} represent the exact steady-state clamping points where the saturated gain equals the cavity loss ($\gamma = \alpha_r$), enabling continuous oscillation. Second, the \textbf{shaded region} is the literal ``spectral hole''---it represents the macroscopic inversion that has been depleted by the intense optical field. The width of this depleted region is the power-broadened linewidth $\Delta\nu_s$, which is noticeably wider than the natural unperturbed sub-groups ($\Delta\nu$) due to the strong intracavity photon flux.
+\subsection{Steady-State Intracavity Power}
 
-\subsection{Steady-State Intracavity Photon Flux}
-
-Having established the inhomogeneous gain saturation law, we can now determine the steady-state intracavity photon flux. Just as in the homogeneously broadened case, continuous oscillation requires the saturated gain to lock exactly to the cavity loss at steady state. Setting $\bar{\gamma} = \alpha_r$:
+All of the output-power analysis above assumed a homogeneously broadened medium. For an inhomogeneously broadened laser the saturated gain takes the square-root form, but at steady state the gain must still lock exactly to the loss. Setting $\gamma = \alpha_r$:
 \begin{equation*}
-    \frac{\bar{\gamma}_0}{\sqrt{1 + \frac{\Phi}{\Phi_s}}} = \alpha_r
+    \frac{\gamma_0}{\sqrt{1 + \Phi_m/\Phi_s}} = \alpha_r
 \end{equation*}
-
-Solving for the intracavity photon-flux density $\Phi$:
+where $\Phi_m$ is the steady-state intracavity photon flux. Solving step by step --- first isolate the square root:
 \begin{equation*}
-    \sqrt{1 + \frac{\Phi}{\Phi_s}} = \frac{\bar{\gamma}_0}{\alpha_r}
-    \quad\Rightarrow\quad
-    1 + \frac{\Phi}{\Phi_s} = \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2}
-    \quad\Rightarrow\quad
-    \frac{\Phi}{\Phi_s} = \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2} - 1
+    \sqrt{1 + \frac{\Phi_m}{\Phi_s}} = \frac{\gamma_0}{\alpha_r}
 \end{equation*}
-
+Squaring both sides:
+\begin{equation*}
+    1 + \frac{\Phi_m}{\Phi_s} = \left(\frac{\gamma_0}{\alpha_r}\right)^{\!2}
+    \quad\Longrightarrow\quad
+    \frac{\Phi_m}{\Phi_s} = \left(\frac{\gamma_0}{\alpha_r}\right)^{\!2} - 1
+\end{equation*}
+Multiplying through by $P_s = \Phi_s\,h\nu\,A$ to convert to power:
 \begin{keyresult}
     \begin{equation}
-        \Phi = \Phi_s \left[ \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2} - 1 \right]
+        P_m = P_s\!\left[\left(\frac{\gamma_0}{\alpha_r}\right)^{\!2} - 1\right]
     \end{equation}
 \end{keyresult}
-
-\subsection{Steady-State Output Power}
-
-To model the practical output of this inhomogeneously broadened laser, we again assume a single output mirror configuration with a highly reflective output coupler ($T = 1 - R \ll 1$). The physical output power exiting the laser is the energy carried by the forward-travelling half of the flux passing through the beam area $A$ and transmitting through $M_2$:
+where $P_m$ is the steady-state intracavity power. Comparing this to the HB result $P = P_s(\gamma_0/\alpha_r - 1)$, we can factor the IHB result as:
 \begin{equation*}
-    P_{\text{out}} = \left(\frac{\Phi}{2}\right) h\nu\cdot A\cdot T
+    P_m = P_s\!\left(\frac{\gamma_0}{\alpha_r} + 1\right)\!\left(\frac{\gamma_0}{\alpha_r} - 1\right)
 \end{equation*}
-
-Substituting our derived steady-state flux $\Phi$:
-\begin{equation*}
-    P_{\text{out}} = \frac{1}{2} \left[ \Phi_s \left( \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2} - 1 \right) \right] h\nu\cdot A\cdot T \quad \Rightarrow \quad P_{\text{out}} = \frac{\Phi_s\,h\nu\,A}{2}\cdot T\left[ \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2} - 1 \right]
-\end{equation*}
-
-By defining the macroscopic saturation power $P_s = \Phi_s\,h\nu\,A$, we encapsulate the medium's intrinsic saturation properties and beam geometry into a single power term, simplifying the expression to:
-\begin{equation*}
-    P_{\text{out}} = \frac{P_s}{2}\cdot T\left[ \left(\frac{\bar{\gamma}_0}{\alpha_r}\right)^{\!2} - 1 \right]
-\end{equation*}
-
-The total cavity loss coefficient, $\alpha_r$, is the sum of the internal scattering and absorption loss, $\alpha_s$, and the distributed mirror loss. Just as we did for the homogeneously broadened case, for highly reflective mirrors ($R \approx 1$), the transmissivity $T = 1 - R$ is sufficiently small ($T \ll 1$) to justify the Taylor approximation $\ln(1-T) \approx -T$. By substituting this into the mirror loss term, the algebraic steps gracefully simplify:
-\begin{equation*}
-    \alpha_r = \alpha_s + \frac{1}{2L}\ln\left(\frac{1}{R}\right) \quad \Rightarrow \quad \alpha_r = \alpha_s - \frac{1}{2L}\ln(1-T) \quad \Rightarrow \quad \alpha_r \approx \alpha_s - \frac{1}{2L}(-T) = \alpha_s + \frac{T}{2L}
-\end{equation*}
-
-Substituting this explicit loss approximation directly back into our power equation, and multiplying the gain-to-loss ratio by $(2L)^2 / (2L)^2$ to eliminate the per-length dependence:
-\begin{equation*}
-    P_{\text{out}} = \frac{P_s}{2}\cdot T\left[ \frac{\bar{\gamma}_0^2}{\left(\alpha_s + \dfrac{T}{2L}\right)^{\!2}} - 1 \right]
-    \quad\Rightarrow\quad
-    P_{\text{out}} = \frac{P_s}{2}\cdot T\left[ \frac{(2\bar{\gamma}_0 L)^2}{(2\alpha_s L + T)^2} - 1 \right]
-\end{equation*}
-
-We now recognize the standard unitless macroscopic round-trip variables: the round-trip small-signal inhomogeneous gain $g = 2\bar{\gamma}_0 L$ and the round-trip internal loss $\ell = 2\alpha_s L$. Substituting these definitions transforms the equation into its purely macroscopic form:
-\begin{keyresult}
-    \begin{equation}
-        P_{\text{out}} = \frac{P_s}{2}\cdot T\left[ \frac{g^2}{(\ell + T)^2} - 1 \right]
-    \end{equation}
-\end{keyresult}
-
-Comparing this to the homogeneously broadened output power $P_{\mathrm{hom}} = \frac{P_s}{2}\cdot T \left[ \frac{g}{\ell + T} - 1 \right]$, we can factor the inhomogeneously broadened expression as:
-\begin{equation*}
-    P_{\text{out}} = \frac{P_s}{2}\cdot T \left( \frac{g}{\ell + T} + 1 \right)\!\left( \frac{g}{\ell + T} - 1 \right)
-\end{equation*}
-Because the extra factor $( \frac{g}{\ell + T} + 1 )$ is strictly greater than $1$, an inhomogeneously broadened laser extracts \textbf{more output power} than an identical homogeneously broadened laser. Physically, this stems from spectral hole burning. While a homogeneous medium depletes all atoms simultaneously (crashing the global gain rapidly), an inhomogeneous medium only depletes its specific resonant sub-group. This localized depletion causes the macroscopic gain to saturate much more slowly (the square-root dependence). Consequently, the cavity can accumulate a larger photon flux before the gain clamps to the loss line, directly yielding a higher output power.
-
-\begin{keyinsight}[Where is the Optimal Transmission $T_{\text{opt}}$?]
-    Unlike a homogeneously broadened laser, which yields a neat closed-form solution ($T_{\text{opt}} = \sqrt{g\ell} - \ell$), taking the derivative of the inhomogeneously broadened power equation $dP_{\text{out}}/dT = 0$ results in a messy cubic equation: $(\ell + T)^3 = g^2(\ell - T)$. While the fundamental physical trade-off between trapping photons and extracting them still exists, finding the exact optimal mirror coupling usually requires solving this cubic equation numerically.
-\end{keyinsight}
+The extra factor $(\gamma_0/\alpha_r + 1) > 1$ means the IHB laser accumulates \emph{more} intracavity power for the same pump level above threshold compared to the HB laser. This is a direct consequence of the weaker square-root saturation: gain does not collapse as quickly, so more photons build up before equilibrium is reached.
 
 \subsubsection{Power Distribution Across Modes}
 
-In a multi-mode inhomogeneously broadened laser, longitudinal modes interact with mutually exclusive sub-groups of atoms. Because their saturation dynamics are decoupled, we must evaluate the steady-state conditions on a strict mode-by-mode basis.
-
-Each mode at frequency $\nu_q$ experiences a distinct round-trip small-signal gain $g_q$. Expanding the macroscopic gain definition ($g_q = 2 \, \bar{\gamma}_0 \big|_{\nu = \nu_q} L$) reveals its exact physical dependencies:
+In a multi-mode IHB laser, however, each mode at frequency $\nu_q$ sits at a different point on the Gaussian gain envelope, so it sees its own individual small-signal gain:
 \begin{equation*}
-    g_q = 2 \left[ \frac{\lambda^2}{8\pi\tau_{\mathrm{sp}}} N_0 \frac{1}{\sqrt{2\pi}\,\sigma_D} \exp\!\left(-\frac{(\nu_q - \nu_0)^2}{2\sigma_D^2}\right) \right] L
-\end{equation*}
-The gain scales linearly with total inversion $N_0$ and cavity length $L$, inversely with Doppler width $\sigma_D$ and spontaneous lifetime $\tau_{\text{sp}}$, and decays as a Gaussian as the mode detunes from the atomic resonance $\nu_0$.
-
-Because the modes saturate their independent atomic pools without cross-competition, the macroscopic output power equation applies individually to every surviving mode. The useful power extracted by a specific mode $q$ is:
-\begin{equation*}
-    P_{\text{out},q} = \frac{P_s}{2}\cdot T\left[ \frac{g_q^2}{(\ell + T)^2} - 1 \right]
+    \gamma\big|_{\nu=\nu_q} = \gamma_{0,\max}\,\exp\!\left(-\frac{(\nu_q - \nu_0)^2}{2\sigma_D^2}\right)
 \end{equation*}
 
-This quadratic dependence on $g_q$ directly dictates the shape of the output spectrum. Modes near the center of the bandwidth ($\nu_q \approx \nu_0$) experience the highest gain and dominate the output power. Modes near the edges of the bandwidth ($g_q \approx \ell + T$) barely exceed threshold and emit negligible power. 
+Since IHB modes saturate independently through their own private pool of resonant atoms, we apply the square-root steady-state condition mode by mode. For each mode $q$, setting its saturated gain equal to $\alpha_r$:
+\begin{equation*}
+    \frac{\gamma\big|_{\nu=\nu_q}}{\sqrt{1 + \Phi_q/\Phi_s}} = \alpha_r
+    \quad\Longrightarrow\quad
+    \frac{\Phi_q}{\Phi_s} = \left(\frac{\gamma\big|_{\nu=\nu_q}}{\alpha_r}\right)^{\!2} - 1
+\end{equation*}
 
-Consequently, the multi-mode spectrum forms a structured set of discrete lines whose overall intensity envelope follows the \emph{squared} Gaussian gain profile, peaking sharply at $\nu_0$ and tapering smoothly to zero at the bandwidth limits.
+The output power from mode $q$ through a mirror of transmissivity $T$ is therefore proportional to $\Phi_q$:
+\begin{equation*}
+    P_q \propto P_s\!\left[\left(\frac{\gamma\big|_{\nu=\nu_q}}{\alpha_r}\right)^{\!2} - 1\right]
+\end{equation*}
 
-\begin{keyinsight}[Inhomogeneously Broadened Output Is Not a Flat Comb]
-    It is a common misconception that because all modes survive simultaneously, an inhomogeneously broadened laser outputs a flat frequency comb. In reality, the output power varies dramatically across the spectrum. Central modes saturate the hardest and dominate the output, while edge modes barely emit. The final output spectrum is bounded by a Gaussian envelope, not a rectangular window.
+The physical message is clear. Modes near the centre of the gain profile ($\nu_q \approx \nu_0$) have a high $\gamma\big|_{\nu=\nu_q}$ and accumulate the most intracavity photons, producing the highest output power. Modes near the edges of the lasing bandwidth have $\gamma\big|_{\nu=\nu_q}$ only slightly above $\alpha_r$, so $(\gamma_0/\alpha_r)^2 \approx 1$ and their contribution is negligible. The multi-mode output spectrum of an IHB laser is therefore not a flat frequency comb --- it is a structured set of lines whose envelope mimics the squared gain profile, peaked at $\nu_0$ and decaying to zero at both sides of the gain bandwidth $B$.
+
+\begin{keyinsight}[IHB Laser Output Is Not a Flat Comb]
+    A common misconception is that an IHB laser's multi-mode output is a flat frequency comb because all modes survive simultaneously. In reality, the per-mode output power varies dramatically across the spectrum. Modes closest to the atomic resonance $\nu_0$ enjoy the highest gain, saturate hardest, and dominate the output. Edge modes barely exceed threshold and emit very little power. The envelope of the output spectrum is a Gaussian-shaped curve (inheriting the Doppler gain profile), not a rectangular window.
 \end{keyinsight}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{Figures/Chapter 4/hb_vs_ihb_mode_spectrum.jpg}
-    \caption{Steady-State Mode Spectrum --- Homogeneously vs.\ Inhomogeneously Broadened Laser: In the homogeneously broadened case (left), global gain saturation suppresses the entire Lorentzian uniformly until the strongest cavity mode just touches $\alpha_r$, leaving only one surviving longitudinal mode. In the inhomogeneously broadened case (right), each mode burns its own independent spectral hole and does not affect others; all modes within the gain bandwidth $B$ survive simultaneously, producing a rich multi-mode output spectrum.}
+    \caption{Steady-State Mode Spectrum --- HB vs.\ IHB Laser: In the homogeneously broadened case (left), global gain saturation suppresses the entire Lorentzian uniformly until the strongest cavity mode just touches $\alpha_r$, leaving only one surviving longitudinal mode. In the inhomogeneously broadened case (right), each mode burns its own independent spectral hole and does not affect others; all modes within the gain bandwidth $B$ survive simultaneously, producing a rich multi-mode output spectrum.}
+\end{figure}
+
+\subsection{The Lamb Dip (Doppler Broadened Media)}
+
+The general IHB picture applies to any inhomogeneously broadened medium. But in a gas laser --- the canonical IHB system --- the inhomogeneous broadening arises from the thermal motion of atoms, and the resulting Doppler picture has an important subtlety worth examining explicitly.
+
+Consider an atom moving with velocity $V$ along the cavity axis. Because of the Doppler effect, this atom does not interact with light at $\nu_0$ but at a shifted frequency. An atom moving \emph{toward} the incoming beam sees it blue-shifted to $\nu_0(1 + V/c)$; an atom moving \emph{away} sees it red-shifted to $\nu_0(1 - V/c)$.
+
+The intracavity mode at frequency $\nu_q$ is a standing wave --- the superposition of two counter-propagating beams. This means a single mode at $\nu_q$ resonates simultaneously with \emph{two} distinct velocity classes:
+\begin{itemize}
+    \item Atoms moving toward the rightward beam with speed $+V$ such that $\nu_q = \nu_0(1 + V/c)$.
+    \item Atoms moving toward the leftward beam with speed $-V$ such that $\nu_q = \nu_0(1 - V/c)$, i.e.\ the same speed magnitude $|V| = c|\nu_q/\nu_0 - 1|$.
+\end{itemize}
+The mode therefore saturates atoms on \emph{both} sides of the Doppler distribution, burning \emph{two} symmetric spectral holes --- one on each side of the central frequency $\nu_0$.
+
+As the mode frequency $\nu_q$ is tuned toward line centre $\nu_0$ and eventually reaches $\nu_q = \nu_0$, the two velocity classes merge: both the $+V$ and $-V$ groups collapse to $V = 0$. Instead of drawing from two separate pools, the mode now draws from a single, shared pool of stationary atoms. The number of active atoms available to the mode therefore \emph{decreases} as $\nu_q \to \nu_0$, even though the unsaturated gain is highest at line centre.
+
+This causes the mode output power to actually \emph{decrease} as $\nu_q$ is tuned through $\nu_0$. The output power as a function of $\nu_q$ traces a bell-curve with a central \textbf{depression} at line centre. This central dip is called the \textbf{Lamb dip}.
+
+\begin{keyinsight}[The Lamb Dip]
+    In a Doppler-broadened medium, a mode at $\nu_q \neq \nu_0$ burns two holes simultaneously in the gain profile --- one for each velocity class resonating with the standing-wave field. When $\nu_q = \nu_0$, the two holes collapse into one because only the $V = 0$ atoms are available. The mode loses half its pool of active atoms, and the power drops. The resulting central depression in the mode's frequency-tuning curve is the \textbf{Lamb dip} --- a direct signature of the two-hole burning mechanism unique to standing-wave cavities in Doppler-broadened media.
+\end{keyinsight}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 4/lamb_dip.jpg}
+    \caption{The Lamb Dip: Output power of a Doppler-broadened laser as a function of the mode frequency $\nu_q$. Away from line centre the mode simultaneously burns two spectral holes (one per velocity class resonating with each counter-propagating beam), drawing from two pools of atoms. At $\nu_q = \nu_0$ the two velocity classes collapse to $v = 0$ and the mode draws from a single shared pool --- the available gain drops, and the output power dips. The narrow central depression is the Lamb dip.}
 \end{figure}
 
 \section{Spatial Hole Burning}
 
-While the distinction between homogeneous and inhomogeneous broadening describes saturation in \emph{frequency} space, a Fabry-P\'{e}rot cavity intrinsically creates structure in \emph{real} space. The counter-propagating fields of a resonant mode form a standing wave, creating an intensity pattern that alternates between bright peaks (antinodes) and dark nulls (nodes) with a spatial period of $\lambda/2$ along the longitudinal cavity axis.
+The homogeneous-versus-inhomogeneous distinction describes saturation in frequency space, but a standing-wave cavity also has structure in real space. The counter-propagating beams form an intensity pattern that alternates between peaks and nulls with period $\lambda/2$ along the cavity axis. Gain saturation is therefore not spatially uniform: it is strong at the intensity peaks and weak near the nulls. This is called \textbf{spatial hole burning}.
 
-Because stimulated emission depends directly on local field intensity, the population inversion is not depleted uniformly across the cavity. Instead, the gain is heavily saturated at the antinodes (where intensity is highest) and remains virtually untouched at the nodes (where intensity is zero). The lasing mode effectively burns a spatially periodic grating of depleted atoms into the active medium. This phenomenon is called \textbf{spatial hole burning}.
+This effect is especially important because it weakens the ideal single-mode conclusion for homogeneously broadened media. A second longitudinal mode whose standing-wave peaks fall near the unsaturated regions left by the first mode can still find gain and survive. In other words, homogeneous broadening tries to enforce global mode competition, but spatial hole burning can reopen enough unsaturated gain for multiple modes to coexist.
 
-This spatial structure provides a critical loophole in homogeneously broadened lasers. In theory, a homogeneously broadened medium should oscillate in exactly one longitudinal mode because the strongest mode globally crashes the gain to the loss line. However, a second longitudinal mode at a different frequency $\nu_2$ has a different standing-wave period ($\lambda_2/2$). Because its antinodes do not perfectly align with the antinodes of the first mode, it can position its intensity peaks over the untouched, unsaturated regions (the nodes) left behind by the first mode.
-
-By tapping into these un-depleted spatial pockets of population inversion, the second mode can experience enough small-signal gain to reach threshold and lase. Consequently, spatial hole burning fundamentally weakens global mode competition, allowing multiple longitudinal modes to coexist even in a purely homogeneously broadened laser.
-
-\section{The Fabry-P\'{e}rot Amplifier}
+\section{The Fabry-P\'{e}rot Resonator}
 
 The round-trip conditions derived in the first section define \emph{when} the Fabry-P\'{e}rot cavity will cross the threshold into self-sustained oscillation. They do not, however, tell us \emph{how sharply} the cavity filters its resonant modes, or \emph{how a signal is amplified} when the gain falls short of the threshold (the sub-threshold regime).
 
@@ -1028,3 +1008,5 @@ However, a fundamental abstraction remains at the core of our oscillator model: 
 \end{keyinsight}
 
 This conceptual leap from a generic atomic cavity to a solid-state, electrically driven diode is the ultimate transition into applied optoelectronics. The cavity mechanics we have mastered here --- threshold conditions, mode spacing, and photon lifetimes --- will now serve as the structural framework housing this new semiconductor gain medium. The next chapter will review exactly how this band-structure physics successfully powers the LED and the \textbf{semiconductor laser diode}.
+
+
