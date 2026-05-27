@@ -695,7 +695,7 @@ def plot_fp_cavity_round_trip():
 # ─────────────────────────────────────────────────────────────────────────────
 def plot_airy_function_spectrum():
     # Cavity parameters
-    R   = 0.80          # geometric mean mirror reflectivity
+    R   = 0.70          # geometric mean mirror reflectivity
     als = 0.00          # internal loss (zero for cleaner illustration)
     # Finesse (analytic)
     F_exact = np.pi * R**0.5 / (1 - R)
@@ -710,18 +710,18 @@ def plot_airy_function_spectrum():
     I_norm = I / I.max()
 
     fig, ax = plt.subplots(figsize=(9, 5.5))
-    ax.plot(nu / FSR, I_norm, color=TEAL, linewidth=2.5, zorder=3)
+    line_airy, = ax.plot(nu / FSR, I_norm, color=TEAL, linewidth=2.5, zorder=3, label=r"Airy Transmission $T$")
 
     # Shade under peaks
     ax.fill_between(nu / FSR, 0, I_norm, color=TEAL, alpha=0.08, zorder=1)
 
+    import matplotlib.lines as mlines
     # ── FSR span arrow ───────────────────────────────────────────────────────
     y_fsr = 1.05
     ax.annotate("", xy=(1.0, y_fsr), xytext=(0.0, y_fsr),
                 arrowprops=dict(arrowstyle="<->", color=GOLD, lw=2.0))
     ax.text(0.5, y_fsr + 0.02, r"FSR $= \dfrac{c}{2L}$",
             ha="center", va="bottom", fontsize=11, color=GOLD)
-
     # ── FWHM of one peak — compute numerically ────────────────────────────────
     # Peak at nu=0; half-power = I_norm.max()/2 on left slope
     half_val = 0.5
@@ -735,33 +735,39 @@ def plot_airy_function_spectrum():
     nu_r  = nu[idx_r] / FSR
 
     fwhm_y = half_val
+    # Two-tip straight arrow
     ax.annotate("", xy=(nu_l, fwhm_y), xytext=(nu_r, fwhm_y),
                 arrowprops=dict(arrowstyle="<->", color=CORAL, lw=2.0))
-    ax.text(0.0, fwhm_y - 0.09, r"$\delta\nu$",
-            ha="center", va="top", fontsize=12, color=CORAL)
+    ax.text(0.0, fwhm_y + 0.03, r"$\delta\nu$",
+            ha="center", va="bottom", fontsize=13, color=CORAL)
 
-    # ── Finesse annotation ────────────────────────────────────────────────────
-    ax.text(1.75, 0.72,
-            rf"$\mathcal{{F}} = \dfrac{{\mathrm{{FSR}}}}{{\delta\nu}} \approx {F_exact:.1f}$",
-            ha="center", va="center", fontsize=12, color=LAVENDER,
-            bbox=dict(facecolor="#f5f5f5", edgecolor="#cccccc", boxstyle="round,pad=0.3"))
+    # Finesse proxy removed per user request
 
     ax.set_xlim(-0.45, 2.45)
-    ax.set_ylim(-0.04, 1.25)
+    ax.set_ylim(0, 1.35)
+    
+    # Meaningful Ticks Only
     ax.set_xticks([0, 1, 2])
     ax.set_xticklabels([r"$\nu_{q}$", r"$\nu_{q+1}$", r"$\nu_{q+2}$"], fontsize=12)
+    
     ax.set_yticks([0, 0.5, 1.0])
-    ax.set_yticklabels(["0", r"$\frac{1}{2}I_{\max}$", r"$I_{\max}$"], fontsize=11)
+    ax.set_yticklabels(["0", r"$\frac{1}{2}T_{\max}$", r"$T_{\max}$"], fontsize=12)
+    
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"Normalised Intracavity Intensity", fontsize=13)
-    ax.set_title(f"Airy Function Spectrum of the Fabry-Pérot Cavity  ($R = {R}$)",
+    ax.set_ylabel(r"Transmission $T$", fontsize=13)
+    ax.set_title("Airy Transmission Spectrum of the Fabry-Pérot Cavity",
                  fontsize=15, pad=12)
-    ax.grid(True)
+    ax.grid(True, zorder=-1)
+    
+    ax.legend(handles=[line_airy], loc="upper right", framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc", fontsize=11)
 
     fig.tight_layout()
     out = os.path.join(FIG_DIR, "airy_function_spectrum.jpg")
+    out2 = r"d:\ASUFE\Spring 2026\Optoelectronics\Notes\Notes - LaTeX\Complete_Study_Notes\Figures\Chapter 4\airy_function_spectrum.jpg"
     fig.savefig(out, dpi=200, bbox_inches="tight")
-    print(f"Saved: {out}")
+    os.makedirs(os.path.dirname(out2), exist_ok=True)
+    fig.savefig(out2, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}\nSaved: {out2}")
     plt.close(fig)
 
 
@@ -951,97 +957,77 @@ def plot_lamb_dip():
 # ─────────────────────────────────────────────────────────────────────────────
 def plot_fp_gain_ripple_spectrum():
     """
-    FP amplifier gain G(nu) for two sub-threshold G0 values.
-    Y-axis clipped to 5x G_max(moderate) so BOTH curves are visible:
-    - Moderate case: both G_max and G_min are fully visible with ripple annotation.
-    - Near-threshold: peaks clip off the top (shown by upward arrows), making
-      the point that they diverge as G0*sqrt(R1R2) -> 1.
+    FP amplifier gain G with a frequency-dependent single-pass gain G0.
+    Shows how the generalized gain oscillates rapidly across FSRs while being
+    enveloped by broader G_max and G_min lineshapes dictated by the gain medium.
     """
-    R1, R2 = 0.70, 0.70
-    sqrtR  = np.sqrt(R1 * R2)
-
-    phi     = np.linspace(0, 3 * np.pi, 6000)
-    nu_norm = phi / np.pi   # 0 -> 3 (three FSR periods shown)
-
-    def G_fp(G0, phi):
-        num = (1 - R1) * (1 - R2) * G0
-        den = (1 - G0 * sqrtR) ** 2 + 4.0 * G0 * sqrtR * np.sin(phi) ** 2
-        return num / den
-
-    def Gmax(G0): return (1 - R1) * (1 - R2) * G0 / (1 - G0 * sqrtR) ** 2
-    def Gmin(G0): return (1 - R1) * (1 - R2) * G0 / (1 + G0 * sqrtR) ** 2
-
-    G0_mod  = 0.80              # moderate — clearly sub-threshold
-    G0_near = 1.0 / sqrtR * 0.93   # 93 % of threshold
-
-    G_mod  = G_fp(G0_mod,  phi)
-    G_near = G_fp(G0_near, phi)
-
-    gmax_m = Gmax(G0_mod)
-    gmin_m = Gmin(G0_mod)
-    gmax_n = Gmax(G0_near)
-
-    # Clip y-axis: 5x moderate G_max makes the moderate curve fully visible
-    y_clip = 5.0 * gmax_m
-
+    nu_F = 1.2            # FSR — tighter spacing for smoother oscillation
+    delta_nu = 10.0       # Gain bandwidth FWHM
+    R = 0.04              # Very low reflectivity — visible G_min curvature
+    
+    # Sub-threshold gain: G0*R = 0.4 gives finesse ~3.3, both envelopes visible
+    G0_peak = (1.0 / R) * 0.40  # 40% of threshold
+    
+    nu = np.linspace(-15, 15, 20000)
+    # Frequency-dependent single-pass gain: drops to 1.0 (transparency) at tails
+    G0_nu = 1.0 + lorentzian(nu, 0.0, delta_nu, peak=G0_peak - 1.0)
+    
+    # Phase term (beta L) = pi * nu / nu_F
+    phi = np.pi * nu / nu_F
+    
+    # Generalized Gain G
+    num = ((1 - R) ** 2) * G0_nu
+    den = (1 - G0_nu * R) ** 2 + 4.0 * G0_nu * R * (np.sin(phi) ** 2)
+    G_nu = num / den
+    
+    # Envelopes
+    G_max_env = ((1 - R) ** 2) * G0_nu / ((1 - G0_nu * R) ** 2)
+    G_min_env = ((1 - R) ** 2) * G0_nu / ((1 + G0_nu * R) ** 2)
+    
     fig, ax = plt.subplots(figsize=(9.5, 5.5))
+    
+    import matplotlib.patches as mpatches
+    ax.fill_between(nu, G_min_env, G_max_env, color=LAVENDER, alpha=0.15, zorder=1)
+    p_ripple = mpatches.Patch(color=LAVENDER, alpha=0.15, label=r"Gain Ripple Range  ($\rho = G_{\max} / G_{\min}$)")
 
-    ax.plot(nu_norm, np.clip(G_mod,  0, y_clip * 1.05),
-            color=TEAL,  linewidth=2.5,
-            label=rf"$G_0 = {G0_mod}$ (moderate sub-threshold)")
-    ax.plot(nu_norm, np.clip(G_near, 0, y_clip * 1.05),
-            color=CORAL, linewidth=2.5,
-            label=rf"$G_0 = {G0_near:.2f}$ (near threshold, $93\%$)")
+    # Plot the full generalized gain comb
+    l_G, = ax.plot(nu, G_nu, color=AXES_CLR, linewidth=1.8, zorder=3,
+            label=r"Generalized Gain $G$")
+    
+    # Plot the envelopes
+    l_max, = ax.plot(nu, G_max_env, color=CORAL, linewidth=2.2, linestyle="--", zorder=4,
+            label=r"$G_{\max}$ envelope")
+    l_min, = ax.plot(nu, G_min_env, color=TEAL, linewidth=2.2, linestyle="--", zorder=4,
+            label=r"$G_{\min}$ envelope")
+    
+    # Unity gain line
+    l_unity = ax.axhline(1.0, color=GOLD, linewidth=1.5, linestyle=":", zorder=2,
+               label=r"Unity Gain ($G = 1$)")
+            
+    # Center max/min values for ylim scaling
+    max_center = G_max_env[len(nu)//2]
 
-    # Moderate case: dotted guide lines + ripple annotation
-    ax.axhline(gmax_m, color=TEAL, linewidth=1.0, linestyle=":")
-    ax.axhline(gmin_m, color=TEAL, linewidth=1.0, linestyle=":")
-
-    ripple_m = gmax_m / gmin_m
-    ax.annotate("", xy=(2.72, gmax_m), xytext=(2.72, gmin_m),
-                arrowprops=dict(arrowstyle="<->", color=TEAL, lw=1.8))
-    ax.text(2.75, (gmax_m + gmin_m) / 2,
-            rf"$\rho = {ripple_m:.1f}$",
-            color=TEAL, fontsize=10, va="center")
-
-    ax.text(2.97, gmax_m + 0.01, r"$G_\mathrm{max}$",
-            color=TEAL, fontsize=9, ha="right", va="bottom")
-    ax.text(2.97, gmin_m - 0.01, r"$G_\mathrm{min}$",
-            color=TEAL, fontsize=9, ha="right", va="top")
-
-    # Near-threshold: mark clipped peaks with upward arrows
-    for q in [0, 1, 2]:
-        nu_peak = 2 * q
-        if nu_peak < nu_norm[-1]:
-            ax.annotate("", xy=(nu_peak, y_clip * 1.00),
-                        xytext=(nu_peak, y_clip * 0.86),
-                        arrowprops=dict(arrowstyle="->", color=CORAL, lw=1.8))
-    ax.text(1.0, y_clip * 0.88,
-            rf"$G_{{\mathrm{{max}}}}^{{(\mathrm{{near}})}} \approx {gmax_n:.0f}$",
-            color=CORAL, fontsize=9, ha="center", va="top")
-
-    ax.set_xlim(0, 3)
-    ax.set_ylim(-0.05, y_clip)
-    ax.set_xticks([0, 1, 2, 3])
-    ax.set_xticklabels(
-        [r"$\nu_q$",
-         r"$\nu_q + \frac{\mathrm{FSR}}{2}$",
-         r"$\nu_{q+1}$",
-         r"$\nu_{q+1}+\frac{\mathrm{FSR}}{2}$"],
-        fontsize=10)
+    ax.set_xlim(-12, 12)
+    ax.set_ylim(0, max_center * 1.35)
+    
+    # Meaningful Ticks Only
+    ax.set_xticks([0])
+    ax.set_xticklabels([r"$\nu_0$"], fontsize=12)
+    
+    ax.set_yticks([])  # No fixed y-ticks — envelopes are frequency-dependent
+    
     ax.set_xlabel(r"Optical Frequency $\nu$", fontsize=13)
-    ax.set_ylabel(r"FP Amplifier Power Gain $G(\nu)$", fontsize=13)
-    ax.set_title("Fabry-Pérot Amplifier: Gain Ripple Spectrum", fontsize=15, pad=12)
-    ax.grid(True)
-    ax.legend(loc="upper center", framealpha=1,
-              facecolor="#f5f5f5", edgecolor="#cccccc")
-
+    ax.set_ylabel(r"FP Amplifier Power Gain $G$", fontsize=13)
+    ax.set_title(r"Fabry-Pérot Amplifier: Gain Ripple Spectrum", fontsize=15, pad=12)
+    
+    ax.grid(True, zorder=-1)
+    ax.legend(handles=[l_G, l_max, l_min, l_unity, p_ripple], loc="upper right", framealpha=1, facecolor="#f5f5f5", edgecolor="#cccccc", fontsize=11)
+    
     fig.tight_layout()
     out = os.path.join(FIG_DIR, "fp_gain_ripple_spectrum.jpg")
     fig.savefig(out, dpi=200, bbox_inches="tight")
     print(f"Saved: {out}")
     plt.close(fig)
-
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Plot 11: HB vs IHB — Steady-State Mode Spectrum
@@ -1368,6 +1354,91 @@ def plot_frequency_chirping():
     plt.close(fig)
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Plot: Fabry-Pérot Cavity Self-Consistent Fields
+# Concept: Illustrate the rightward A(z) and leftward B(z) fields inside the cavity
+# ─────────────────────────────────────────────────────────────────────────────
+def plot_fp_cavity_fields():
+    fig, ax = plt.subplots(figsize=(10, 4.5))
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 5)
+    ax.axis("off")
+
+    # ── Cavity walls (mirrors) ────────────────────────────────────────────────
+    m1_x, m2_x = 1.2, 8.8
+    mirror_h = 3.6
+    mirror_y0 = 0.6
+
+    for mx, lbl in [(m1_x, r"$M_1$  ($r_1$)"), (m2_x, r"$M_2$  ($r_2$)")]:
+        ax.plot([mx, mx], [mirror_y0, mirror_y0 + mirror_h],
+                color=AXES_CLR, linewidth=5, solid_capstyle="butt", zorder=4)
+        # Top label (M1, r1)
+        ax.text(mx, mirror_y0 + mirror_h + 0.15, lbl,
+                ha="center", va="bottom", fontsize=11, color=AXES_CLR)
+        # Bottom label (z=0, z=L)
+        z_lbl = r"$z=0$" if mx == m1_x else r"$z=L$"
+        ax.text(mx, 0.25, z_lbl,
+                ha="center", va="top", fontsize=12, color=AXES_CLR)
+
+    # ── Gain medium rectangle ─────────────────────────────────────────────────
+    gm_x0, gm_x1 = m1_x + 0.05, m2_x - 0.05
+    gm_y0, gm_y1 = 1.2, 3.6
+    rect = mpatches.FancyBboxPatch((gm_x0, gm_y0), gm_x1 - gm_x0, gm_y1 - gm_y0,
+                                   boxstyle="round,pad=0.05",
+                                   facecolor=TEAL, alpha=0.12,
+                                   edgecolor=TEAL, linewidth=1.8, zorder=2)
+    ax.add_patch(rect)
+    ax.text((gm_x0 + gm_x1) / 2, gm_y1 + 0.1,
+            r"Gain Medium $\;(\gamma,\;\alpha_s)$",
+            ha="center", va="bottom", fontsize=11, color=TEAL)
+
+    y_A = 2.8
+    y_B = 2.0
+
+    def draw_short_arrow(x_start, x_end, y, label, label_pos, color):
+        dx = x_end - x_start
+        ax.plot([x_start, x_end], [y, y], color=color, lw=2.2, zorder=3)
+        if x_end > x_start:
+            ax.plot(x_end, y, marker=">", color=color, markersize=8, zorder=4)
+        else:
+            ax.plot(x_end, y, marker="<", color=color, markersize=8, zorder=4)
+            
+        dy = 0.2 if label_pos == "above" else -0.2
+        va = "bottom" if label_pos == "above" else "top"
+        mid_x = (x_start + x_end) / 2
+        ax.text(mid_x, y + dy, label, ha="center", va=va, fontsize=14, color=color)
+
+    offset = 0.0
+    arrow_len = 1.5
+    y_mid = (y_A + y_B) / 2
+    # E_in (entering M1)
+    draw_short_arrow(0.2, m1_x - offset, y_mid, r"$E_{\text{in}}$", "above", TEAL)
+    # E_out (leaving M2)
+    draw_short_arrow(m2_x + offset, 9.8, y_mid, r"$E_{\text{out}}$", "above", TEAL)
+
+    # A(0) (leaving M1 rightward)
+    draw_short_arrow(m1_x + offset, m1_x + offset + arrow_len, y_A, r"$A(0)$", "above", TEAL)
+    # B(0) (entering M1 leftward)
+    draw_short_arrow(m1_x + offset + arrow_len, m1_x + offset, y_B, r"$B(0)$", "below", CORAL)
+
+    # A(L) (entering M2 rightward)
+    draw_short_arrow(m2_x - offset - arrow_len, m2_x - offset, y_A, r"$A(L)$", "above", TEAL)
+    # B(L) (leaving M2 leftward)
+    draw_short_arrow(m2_x - offset, m2_x - offset - arrow_len, y_B, r"$B(L)$", "below", CORAL)
+
+    # ── Distance L line ───────────────────────────────────────────────────────
+    ax.plot([m1_x, m2_x], [0.35, 0.35], color=AXES_CLR, lw=1.5, ls="--")
+    ax.plot(m1_x, 0.35, marker="<", color=AXES_CLR, markersize=8)
+    ax.plot(m2_x, 0.35, marker=">", color=AXES_CLR, markersize=8)
+    ax.text((m1_x + m2_x) / 2, 0.25, r"$L$", ha="center", va="top", fontsize=12, color=AXES_CLR)
+
+    ax.set_title("Fabry-Pérot Cavity: Self-Consistent Fields", fontsize=15, pad=10)
+    fig.tight_layout()
+    out = os.path.join(FIG_DIR, "fp_cavity_fields.jpg")
+    fig.savefig(out, dpi=200, bbox_inches="tight")
+    print(f"Saved: {out}")
+    plt.close(fig)
+
 # ── Entry point ───────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     # Original 5
@@ -1378,6 +1449,7 @@ if __name__ == "__main__":
     plot_output_power_vs_transmission()
     # Physics-derivation figures
     plot_fp_cavity_round_trip()
+    plot_fp_cavity_fields()
     plot_airy_function_spectrum()
     plot_gain_saturation_curve()
     plot_lamb_dip()

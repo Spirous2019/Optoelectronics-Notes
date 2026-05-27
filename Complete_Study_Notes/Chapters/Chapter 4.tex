@@ -623,7 +623,7 @@ Because the modes saturate their independent atomic pools without cross-competit
     P_{\text{out},q} = \frac{P_s}{2}\cdot T\left[ \frac{g_q^2}{(\ell + T)^2} - 1 \right]
 \end{equation*}
 
-This quadratic dependence on $g_q$ directly dictates the shape of the output spectrum. Modes near the center of the bandwidth ($\nu_q \approx \nu_0$) experience the highest gain and dominate the output power. Modes near the edges of the bandwidth ($g_q \approx \ell + T$) barely exceed threshold and emit negligible power. 
+This quadratic dependence on $g_q$ directly dictates the shape of the output spectrum. Modes near the center of the bandwidth ($\nu_q \approx \nu_0$) experience the highest gain and dominate the output power. Modes near the edges of the bandwidth ($g_q \approx \ell + T$) barely exceed threshold and emit negligible power.
 
 Consequently, the multi-mode spectrum forms a structured set of discrete lines whose overall intensity envelope follows the \emph{squared} Gaussian gain profile, peaking sharply at $\nu_0$ and tapering smoothly to zero at the bandwidth limits.
 
@@ -647,272 +647,394 @@ This spatial structure provides a critical loophole in homogeneously broadened l
 
 By tapping into these un-depleted spatial pockets of population inversion, the second mode can experience enough small-signal gain to reach threshold and lase. Consequently, spatial hole burning fundamentally weakens global mode competition, allowing multiple longitudinal modes to coexist even in a purely homogeneously broadened laser.
 
-\section{The Fabry-P\'{e}rot Amplifier}
+\section{The Fabry-P\'{e}rot Resonator and Amplifier}
 
-The round-trip conditions derived in the first section define \emph{when} the Fabry-P\'{e}rot cavity will cross the threshold into self-sustained oscillation. They do not, however, tell us \emph{how sharply} the cavity filters its resonant modes, or \emph{how a signal is amplified} when the gain falls short of the threshold (the sub-threshold regime).
+The round-trip phase and amplitude conditions establish the threshold for self-sustained laser oscillation, but they do not describe the cavity's frequency-resolving power or its response to external signals in the sub-threshold regime. A complete description requires analyzing the Fabry-P\'{e}rot cavity through formal electromagnetic wave theory.
 
-To build a complete electromagnetic wave description of the cavity, we must step back from the running oscillator and study the formal filter theory of the resonator. This derivation gives the mode linewidth, the Airy spectrum, and the finesse their precise physical and mathematical foundations. Crucially, by then switching on sub-threshold gain, we recover the Fabry-P\'{e}rot amplifier response and show that as its gain approaches the threshold derived in \S1.2, the amplifier's response diverges to infinity --- beautifully recovering the laser oscillator as a natural, continuous limiting case of a sub-threshold amplifier.
+\subsection{Operating Regimes of a Fabry-P\'{e}rot Cavity}
 
-This section has two halves. We first study the \emph{cold} passive cavity, where the mirrors alone create the Airy spectrum, the free spectral range, and the linewidth. We then switch on sub-threshold gain and recover the Fabry-P\'{e}rot amplifier response, whose limiting case is exactly laser oscillation.
+It is a profound realization of laser physics that the Fabry-P\'{e}rot resonator, the Fabry-P\'{e}rot amplifier, and the laser oscillator are not three different devices --- they are the exact same physical device. Because the threshold loss $\alpha_r$ is permanently fixed by the mirrors and the cavity geometry, the physical behavior of the device is dictated entirely by a single remaining independent variable: the \textbf{small-signal gain} $\gamma_0$ (the unsaturated gain dictated solely by the pump power). Turning the pump dial up from zero simply marches the identical device through three distinct operational regimes:
 
-\subsection{The Passive Cavity}
-\subsubsection{Three operating regimes}
+\begin{enumerate}
+    \item \textbf{Fabry-P\'{e}rot Resonator} ($\gamma_0 = 0$): Without any pump power, the cavity cannot generate optical power. It functions purely as an optical filter. If an external broadband light source is injected, the mirrors trap and selectively transmit only those specific frequencies that constructively interfere, rejecting the rest.
 
-The operating point of a Fabry-P\'{e}rot device is fully specified by comparing the gain inside the cavity with the total cavity loss $\alpha_r$ we derived above:
+    \item \textbf{Fabry-P\'{e}rot Amplifier} ($0 < \gamma_0 < \alpha_r$): The pump provides some gain, but strictly below the cavity losses. The light cannot self-sustain and will eventually die out if left alone. However, if an external optical signal is injected, the sub-threshold gain multiplies the signal during each round trip, resulting in highly selective amplification of the resonant frequencies.
 
-\begin{itemize}
-    \item If $\gamma = 0$, the cavity is a \textbf{passive resonator}. It does not amplify light; it only filters frequency by storing resonant fields longer than non-resonant fields.
-    \item If $0 < \gamma_{ss} < \alpha_r$, the round-trip gain is still less than the round-trip loss. The field cannot self-sustain, but an injected signal is selectively amplified --- this is the \textbf{FP amplifier} regime.
-    \item If $\gamma_{ss} \geq \alpha_r$, round-trip gain reaches or exceeds round-trip loss. The field can grow without an injected signal, and gain saturation then clamps the steady-state gain to $\alpha_r$ --- this is the \textbf{laser oscillator} regime.
-\end{itemize}
+    \item \textbf{Laser Oscillator} ($\gamma_0 \geq \alpha_r$): The pump provides enough small-signal gain to balance or exceed the cavity losses, making round-trip amplification completely self-sustaining. The device no longer requires an external injected signal; it generates its own coherent light from spontaneous emission. While the pump \emph{attempts} to provide $\gamma_0 \geq \alpha_r$, gain saturation immediately clamps the actual steady-state gain $\gamma$ to exactly $\alpha_r$. (This is the regime whose fundamental threshold conditions were established earlier).
+\end{enumerate}
 
-The connection to the travelling-wave amplifier (TWA) is direct: forcing $R_1 = R_2 = 0$ makes $\alpha_r \to \infty$, so $\gamma_{ss} < \alpha_r$ is trivially satisfied for any finite gain --- which is exactly why the perfectly anti-reflected TWA can never oscillate.
-\subsubsection{Passive cavity intensity spectrum --- the Airy function}
+\begin{keyinsight}[Which Regime is the "Laser"?]
+    It is crucial to recognize that both the \textbf{Fabry-P\'{e}rot resonator} and the \textbf{Fabry-P\'{e}rot amplifier} fundamentally require an external beam of light injected into them to produce an output. Without an external signal, they produce nothing (or just negligible spontaneous noise).
 
-To derive the explicit cavity linewidth and gain spectrum, we first study the cold cavity ($\gamma = 0$) by summing all rightward-travelling field contributions. Every additional round trip multiplies the field by $r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}$, so the total forward field is an infinite geometric series:
-\begin{equation*}
-    E^{+} = E_0\!\left[1 + r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}
-        + \!\left(r_1 r_2 e^{-j2\beta L}e^{-\alpha_s L}\right)^2 + \cdots\right]
-\end{equation*}
+    The \textbf{laser oscillator}, on the other hand, is the only regime capable of taking its own internal spontaneous emission and amplifying it into a massive, self-sustaining coherent beam without any external optical input. Therefore, when we colloquially refer to a "Laser" (such as a laser pointer or an industrial cutting laser), we are specifically referring to a \textbf{laser oscillator}.
+\end{keyinsight}
 
-The series converges (modulus $r_1 r_2 e^{-\alpha_s L} < 1$ for any lossy cavity) to:
-\begin{equation}
-    E^{+} = \frac{E_0}{1 - r_1 r_2\,e^{-j2\beta L}\,e^{-\alpha_s L}} \tag{I}
-\end{equation}
+\subsection{General Theory of the Fabry-P\'{e}rot Cavity}
 
-The optical intensity $I^{+} = |E^{+}|^2/(2\eta)$ follows from multiplying \textup{(I)} by its complex conjugate. Using $e^{j\theta}+e^{-j\theta}=2\cos\theta$ then $\cos\theta = 1-2\sin^2(\theta/2)$, the denominator's constant terms collect into a perfect square:
-\begin{equation*}
-    I^{+} = \frac{|E_0|^2}{2\eta}\cdot
-    \frac{1}{\left(1-r_1 r_2 e^{-\alpha_s L}\right)^2+4\,r_1 r_2 e^{-\alpha_s L}\sin^2(\beta L)}
-\end{equation*}
+As established, the Fabry-P\'{e}rot resonator and the Fabry-P\'{e}rot amplifier are identically the same physical device. The only difference is whether the pump is turned off (resulting in zero gain, $\gamma = 0$) or turned on (providing active amplification, $\gamma > 0$). To reflect this, we will first derive the generalized gain and its associated quantities for the cavity using an arbitrary actual gain $\gamma$. Once we have this universal mathematical framework, we can simply plug in $\gamma = 0$ to model the passive filter, or $\gamma > 0$ to model the active amplifier.
 
-This is the \textbf{Airy function} of the cavity --- it confirms the resonance frequencies we derived from the phase condition ($\sin(\beta L)=0$) and gives the exact lineshape. The half-power condition $I^+ = I^+_{\max}/2$ yields:
-\begin{equation*}
-    4\,r_1 r_2 e^{-\alpha_s L}\sin^2(\beta L) = \left(1 - r_1 r_2 e^{-\alpha_s L}\right)^2
-\end{equation*}
+\subsubsection{The Generalized Gain}
 
-Solving for $\sin(\beta L)$, substituting $\beta = 2\pi\nu/c$, doubling for the full FWHM, and writing $c/(2L) = \nu_F$:
-\begin{equation*}
-    \delta\nu = \frac{2\nu_F}{\pi}\,\sin^{-1}\!\left[\frac{1 - r_1 r_2 e^{-\alpha_s L}}{2\sqrt{r_1 r_2 e^{-\alpha_s L}}}\right]
-\end{equation*}
+To find the generalized gain $G = P_{\text{out}}/P_{\text{in}} = |E_{\text{out}}|^2/|E_{\text{in}}|^2$ of the cavity, we track the electric field self-consistently. Let $A(z)$ denote the rightward-travelling field amplitude and $B(z)$ the leftward-travelling one. We inject an external signal field $E_{\text{in}}$ through the front mirror:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 4/airy_function_spectrum.jpg}
-    \caption{Passive Cavity Airy Spectrum: The intracavity intensity as a function of optical frequency forms a comb of sharp resonance peaks separated by the FSR $= c/2L$. The FWHM of each peak $\delta\nu$ and the finesse $\mathcal{F} = \mathrm{FSR}/\delta\nu$ are both set by the total round-trip loss $\alpha_r L$. As mirror reflectivity increases, the peaks sharpen and the finesse diverges.}
+    \includegraphics[width=0.6\textwidth]{Figures/Chapter 4/fp_cavity_fields.jpg}
+    \caption{Self-consistent fields inside the Fabry-P\'{e}rot cavity. The rightward-travelling field $A(z)$ and leftward-travelling field $B(z)$ are evaluated at the boundaries $z=0$ and $z=L$ to find the overall power transfer function.}
 \end{figure}
-\subsubsection{Free spectral range, mode linewidth, and finesse}
 
-The resonance peaks of the Airy function occur whenever $\sin(\beta L) = 0$, i.e.\ when $\beta L = q\pi$ for integer $q$. Consecutive resonances are separated in frequency by:
-\begin{keyresult}
-    \begin{equation}
-        \nu_F = \frac{c}{2L}
-    \end{equation}
-\end{keyresult}
-
-This is the \textbf{Free Spectral Range} (FSR) --- the frequency spacing between adjacent longitudinal modes. The $q$-th mode sits at $\nu_q = q\,\nu_F$, recovering our cold-resonator result from the phase condition. The finesse is defined as the ratio of the FSR to the mode linewidth:
-\begin{keyresult}
-    \begin{equation}
-        \mathcal{F} = \frac{\nu_F}{\delta\nu}
-    \end{equation}
-\end{keyresult}
-
-The finesse plays the same role for a Fabry-P\'{e}rot resonator as the quality factor $Q$ does for an electronic resonator --- it quantifies how sharply the resonances are defined. For a high-finesse cavity, the small-angle approximation $\sin^{-1}(x) \approx x$ applies.
-
-Depending on the cavity's loss characteristics, several key approximations for the finesse are widely used in practice:
-\begin{enumerate}
-    \item \textbf{Mirror-Limited Finesse (Lossless Cavity):} In an ideal cavity with zero internal medium loss ($\alpha_s = 0$) and identical mirrors ($R_1 = R_2 = R$), the finesse depends solely on the mirror reflectivities:
-          \begin{keyresult}
-              \begin{equation}
-                  \mathcal{F} \approx \frac{\pi\sqrt{R}}{1 - R}
-              \end{equation}
-          \end{keyresult}
-          This represents the upper mirror-limited bound of the cavity's resolving power.
-
-    \item \textbf{Generalized Lossy Finesse:} Converting $r_i = \sqrt{R_i}$ in the full Airy half-power condition gives the explicit formula accounting for both unequal mirrors and internal medium scattering/absorption ($\alpha_s > 0$):
-          \begin{keyresult}
-              \begin{equation}
-                  \mathcal{F} \approx \frac{\pi\,(R_1 R_2)^{1/4}\,e^{-\alpha_s L/2}}{1 - \sqrt{R_1 R_2}\,e^{-\alpha_s L}}
-              \end{equation}
-          \end{keyresult}
-
-    \item \textbf{High-Reflectivity/Low-Loss Approximation:} Using the identity $\sqrt{R_1 R_2}\,e^{-\alpha_s L} = e^{-\alpha_r L}$ (where $\alpha_r$ is the total distributed loss we defined earlier) and linearising for small round-trip loss ($\alpha_r L \ll 1$):
-          \begin{keyresult}
-              \begin{equation}
-                  \mathcal{F} \approx \frac{\pi}{\alpha_r L} \qquad (\alpha_r L \ll 1)
-              \end{equation}
-          \end{keyresult}
-\end{enumerate}
-
-This last result is the most transparent form: finesse is simply $\pi$ divided by the total fractional round-trip loss. A high-finesse cavity ($\alpha_r L \ll 1$) has very narrow mode linewidths, meaning photons bounce many times before leaking out.
-
-\subsubsection{Photon lifetime}
-
-To complete our temporal characterisation of the passive cavity, we can derive the \textbf{photon lifetime} $\tau_{\text{ph}}$ --- the average time a photon survives inside the cavity before being lost through the mirrors or internal scattering. Inside the lossy passive cavity, the optical intensity decays spatially under the combined distributed loss $\alpha_r$:
-\begin{equation*}
-    I(z) = I(0)\,e^{-\alpha_r z}
-\end{equation*}
-
-To translate this spatial decay into a temporal one, we apply the chain rule. The disturbance travels at the group velocity $V_g$ of the optical mode, so $dz/dt = V_g$:
-\begin{equation*}
-    \frac{dI}{dt} = \frac{dI}{dz}\cdot\frac{dz}{dt} = (-\alpha_r I)\cdot V_g = -\alpha_r V_g\,I
-\end{equation*}
-
-Integrating this separable ODE:
-\begin{equation*}
-    I(t) = I(0)\,e^{-\alpha_r V_g\,t}
-\end{equation*}
-
-Reading off the exponential time constant:
-\begin{keyresult}
-    \begin{equation}
-        \tau_{\text{ph}} = \frac{1}{\alpha_r\,V_g}
-    \end{equation}
-\end{keyresult}
-
-The mode linewidth $\delta\nu$ is directly tied to the photon lifetime by the time-frequency uncertainty of a decaying exponential:
-\begin{keyresult}
-    \begin{equation}
-        \delta\nu = \frac{1}{2\pi\,\tau_{\text{ph}}}
-    \end{equation}
-\end{keyresult}
-
-The mode linewidth is thus $\delta\nu = 1/(2\pi\tau_{\text{ph}}) = \alpha_r V_g/(2\pi)$. A tightly confining, low-loss cavity enjoys a long photon lifetime and sharply defined narrow modes; a lossy cavity suffers a short photon lifetime and bleeds into broad modes.
-
-The physical significance of the photon lifetime goes far beyond a passive decay constant; it directly dictates the \textbf{ON/OFF switching dynamics} and maximum modulation speed of the laser oscillator:
-\begin{itemize}
-    \item \textbf{Turn-Off Speed (Decay):} When the pump current is abruptly switched off, the intracavity field cannot vanish instantaneously. The trapped photons continue to escape the mirrors, and the light intensity decays exponentially as $I(t) = I(0)\,e^{-t/\tau_{\text{ph}}}$. A long photon lifetime (desirable for high-confinement, low-threshold cavities) therefore acts as a temporal bottleneck, slowing down the decay speed.
-    \item \textbf{Turn-On Delay (Build-up):} Similarly, when the pump is suddenly turned on, the laser does not emit light instantly. It requires a finite build-up delay for spontaneous emission photons to bounce back and forth, accumulating enough round-trip gain to surpass losses and establish the steady-state flux. This build-up time is fundamentally scaled by $\tau_{\text{ph}}$.
-    \item \textbf{The Modulation Trade-off:} Consequently, for high-speed digital communications where the laser must switch between logical 1 and 0 at gigahertz rates, designers must intentionally decrease $\tau_{\text{ph}}$ (by reducing mirror reflectivities $R_i$), even though this undesirable change increases the required threshold pump rate $R_{\text{th}}$.
-\end{itemize}
-
-\subsection{The Active Cavity}
-
-Now we switch on the gain medium ($\gamma > 0$) and keep it sub-threshold ($\gamma < \alpha_r$). To find the total power gain $G = P_{\text{out}}/P_{\text{in}}$, we track the electric field self-consistently through the cavity. Let $A(z)$ denote the rightward-travelling field amplitude and $B(z)$ the leftward-travelling one. Boundary conditions at both mirrors must be satisfied simultaneously.
-
-At the left entrance facet ($z = 0$), the total rightward field is the superposition of the transmitted input and the reflected fraction of the leftward field:
+As either field propagates a single pass across the cavity (from $z=0$ to $z=L$ or vice versa), it acquires a phase delay $e^{-j\beta L}$ and undergoes a net amplitude change $e^{(\gamma-\alpha_s)L/2}$ from simultaneous gain and internal scattering loss. The exponent is halved because $\gamma$ and $\alpha_s$ are \emph{power} coefficients, and the field amplitude is the square root of power:
 \begin{equation}
-    A(0) = E_{\text{in}}\,t_1 + B(0)\,r_1 \tag{I}
+    A(L) = A(0)\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2} \tag{I}
+\end{equation}
+\begin{equation}
+    B(0) = B(L)\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2} \tag{II}
 \end{equation}
 
-At the right exit facet ($z = L$), the output field is the transmitted fraction of the rightward field:
+At the left entrance facet ($z = 0$), the rightward field is the superposition of the transmitted input and the reflected fraction of the leftward field:
 \begin{equation}
-    E_{\text{out}} = A(L)\,t_2 \tag{II}
+    A(0) = E_{\text{in}}\,t_1 + B(0)\,r_1 \tag{III}
 \end{equation}
 
-The leftward field born at the right mirror is the reflected fraction of $A(L)$:
+At the right exit facet ($z = L$), the new leftward field is the reflected fraction of the rightward field, and the output field is the transmitted fraction:
 \begin{equation}
-    B(L) = A(L)\,r_2 \tag{III}
+    B(L) = A(L)\,r_2 \tag{IV}
+\end{equation}
+\begin{equation}
+    E_{\text{out}} = A(L)\,t_2 \tag{V}
 \end{equation}
 
-Rearranging \textup{(I)} to isolate the input and dividing the output \textup{(II)} by it gives the field transfer function:
+We now have five equations and five unknowns ($A(0),\,A(L),\,B(0),\,B(L),\,E_{\text{out}}$). Our goal is to eliminate all internal fields and express $E_{\text{out}}/E_{\text{in}}$ in closed form.
+
+From \textup{(III)}, we first rearrange to isolate the input field:
+\begin{equation*}
+    E_{\text{in}}\,t_1 = A(0) - B(0)\,r_1 \quad \Rightarrow \quad E_{\text{in}} = \frac{A(0) - B(0)\,r_1}{t_1}
+\end{equation*}
+Dividing \textup{(V)} by this expression yields:
 \begin{equation}
-    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(L)\,t_1\,t_2}{A(0)-B(0)\,r_1} \tag{IV}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(L)\,t_2}{\displaystyle \frac{A(0)-B(0)\,r_1}{t_1}} \quad \Rightarrow \quad \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(L)\,t_1\,t_2}{A(0)-B(0)\,r_1} \tag{VI}
 \end{equation}
 
-The propagation laws across the cavity accumulate phase, internal loss, and gain:
+Now, substitute the propagation laws directly into the transfer function. Using \textup{(I)} to replace $A(L)$ in the numerator:
 \begin{equation*}
-    A(L) = A(0)\,e^{-j\beta L}\,e^{-\alpha_s L/2}\,e^{\gamma L/2}
-\end{equation*}
-\begin{equation*}
-    B(0) = B(L)\,e^{-j\beta L}\,e^{-\alpha_s L/2}\,e^{\gamma L/2}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{\Bigl[A(0)\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}\Bigr]\,t_1\,t_2}{A(0)-B(0)\,r_1}
 \end{equation*}
 
-Substituting \textup{(III)} to replace $B(L)=A(L)r_2$ and then substituting both propagation expressions into \textup{(IV)}, factoring and cancelling $A(0)$:
+For the denominator, we must eliminate $B(0)$. First, we substitute \textup{(IV)} into \textup{(II)} to trace the leftward field backward from the right mirror:
 \begin{equation*}
-    \frac{E_{\text{out}}}{E_{\text{in}}}
-    = \frac{t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}}{1-r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}}
+    B(0) = B(L)\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2} \quad \Rightarrow \quad B(0) = \bigl[A(L)\,r_2\bigr]\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}
 \end{equation*}
 
-We define the \textbf{single-pass power gain} as the net power multiplication factor accumulated in one traversal of the cavity:
+Next, we substitute \textup{(I)} for $A(L)$ to express this entirely in terms of the initial rightward field $A(0)$:
+\begin{equation*}
+    B(0) = \Bigl[A(0)\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}\Bigr]\,r_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2} \quad \Rightarrow \quad B(0) = A(0)\,r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}
+\end{equation*}
+
+Substituting this explicit form of $B(0)$ back into our transfer function:
+\begin{equation*}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(0)\,t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}}{A(0) - \Bigl[A(0)\,r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}\Bigr]\,r_1}
+\end{equation*}
+
+Factoring out $A(0)$ in the denominator and cancelling it with the numerator yields the \textbf{complex field transfer function}:
+\begin{equation*}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{A(0)\,\Bigl[t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}\Bigr]}{A(0)\,\Bigl[1 - r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}\Bigr]} \quad \Rightarrow \quad \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}}{1-r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}}
+\end{equation*}
+
+\begin{keyinsight}[The Physics of the Denominator]
+    The denominator of the transfer function, $1 - r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}$, is the mathematical heart of resonant enhancement. The subtracted term represents exactly one round trip inside the cavity: double reflection ($r_1 r_2$), net power change ($e^{(\gamma-\alpha_s)L}$), and accumulated phase ($e^{-j2\beta L}$).
+
+    To maximize the output fraction $E_{\text{out}}/E_{\text{in}}$, this complex denominator must be minimized. This happens when the subtracted term is purely real and positive, subtracting directly from 1. By Euler's formula, the phase term $e^{-j2\beta L} = \cos(2\beta L) - j\sin(2\beta L)$ equals exactly 1 only when the round-trip phase $2\beta L$ is a multiple of $2\pi$.
+
+    Physically, this means the wave has travelled an integer number of wavelengths during its round trip. Upon returning, its peaks perfectly align with incoming light, interfering constructively. This shrinks the denominator to its real minimum, causing transmitted power to sharply peak.
+\end{keyinsight}
+
+To simplify this expression, we define the \textbf{single-pass gain} $G_0$ as the net power multiplication that the field experiences during one traversal of the cavity:
 \begin{keyresult}
     \begin{equation}
         G_0 = e^{(\gamma-\alpha_s)L}
     \end{equation}
 \end{keyresult}
 
-$G_0$ bundles the amplification $e^{\gamma L}$ and the internal scattering loss $e^{-\alpha_s L}$ into a single factor. Taking the squared modulus of the transfer function to obtain the power gain $G = |E_{\text{out}}|^2/|E_{\text{in}}|^2$, expanding with $e^{j\theta}+e^{-j\theta}=2\cos\theta$ and applying $\cos(2\beta L)=1-2\sin^2(\beta L)$, the constant denominator terms form the perfect square $(1-r_1 r_2 G_0)^2$. Writing $r_1 r_2=\sqrt{R_1 R_2}$ and $t_i^2=T_i=1-R_i$:
+To simplify the notation, we convert the field coefficients into their power equivalents. For the numerator, we use the fact that $t_i^2 = 1 - R_i$, meaning the product $t_1 t_2$ becomes $\sqrt{(1-R_1)(1-R_2)}$. For the denominator, we define a composite variable for the geometric mean reflectivity $R \equiv r_1 r_2$, which is equivalent to $R = \sqrt{R_1 R_2}$.
+
+Substituting the single-pass gain $G_0$ (noting that $e^{(\gamma-\alpha_s)L/2} = \sqrt{G_0}$) along with our new power variables, we can rewrite the raw transfer function entirely in terms of power reflectivities:
+\begin{equation*}
+    \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{t_1\,t_2\,e^{-j\beta L}\,e^{(\gamma-\alpha_s)L/2}}{1-r_1 r_2\,e^{-j2\beta L}\,e^{(\gamma-\alpha_s)L}} \quad \Rightarrow \quad \frac{E_{\text{out}}}{E_{\text{in}}} = \frac{\sqrt{(1-R_1)(1-R_2)\,G_0}\;e^{-j\beta L}}{1-R\,G_0\,e^{-j2\beta L}}
+\end{equation*}
+
+To find the generalized power gain $G = |E_{\text{out}}/E_{\text{in}}|^2$, we take the squared magnitude of the entire transfer function. The numerator simply loses its phase factor and its square root:
+\begin{equation*}
+    G = \frac{\left|\sqrt{(1-R_1)(1-R_2)\,G_0}\right|^2}{|1 - R\,G_0\,e^{-j2\beta L}|^2} \quad \Rightarrow \quad G = \frac{(1-R_1)(1-R_2)\,G_0}{|1 - R\,G_0\,e^{-j2\beta L}|^2}
+\end{equation*}
+
+To evaluate the squared magnitude in the denominator, we expand the complex exponential using Euler's formula $e^{-j2\beta L} = \cos 2\beta L - j\sin 2\beta L$:
+\begin{equation*}
+    G = \frac{(1-R_1)(1-R_2)\,G_0}{(1 - R\,G_0 \cos 2\beta L)^2 + (R\,G_0 \sin 2\beta L)^2}
+\end{equation*}
+
+Expanding the squared terms in the denominator, and then grouping the common $R^2 G_0^2$ terms yields:
+\begin{align*}
+    G & = \frac{(1-R_1)(1-R_2)\,G_0}{1 - 2 R\,G_0 \cos 2\beta L + R^2 G_0^2 \cos^2 2\beta L + R^2 G_0^2 \sin^2 2\beta L} \\[1em]
+    G & = \frac{(1-R_1)(1-R_2)\,G_0}{1 - 2 R\,G_0 \cos 2\beta L + R^2 G_0^2 (\cos^2 2\beta L + \sin^2 2\beta L)}
+\end{align*}
+
+First, applying the trigonometric identity $\cos^2 x + \sin^2 x = 1$ simplifies the grouped term to $R^2 G_0^2$. We then add and subtract $2R\,G_0$ in the denominator to forcefully create a perfect square:
+\begin{equation*}
+    G = \frac{(1-R_1)(1-R_2)\,G_0}{1 - 2 R\,G_0 \cos 2\beta L + R^2 G_0^2} \quad \Rightarrow \quad G = \frac{(1-R_1)(1-R_2)\,G_0}{1 - 2 R\,G_0 + 2 R\,G_0 - 2 R\,G_0 \cos 2\beta L + R^2 G_0^2}
+\end{equation*}
+
+We can now group the terms $(1 - 2R\,G_0 + R^2 G_0^2)$ into the perfect square $(1-R\,G_0)^2$, and factor out $2R\,G_0$ from the remaining terms:
+\begin{equation*}
+    G = \frac{(1-R_1)(1-R_2)\,G_0}{(1-R\,G_0)^2 + 2 R\,G_0 (1 - \cos 2\beta L)}
+\end{equation*}
+
+Finally, applying the half-angle identity $1 - \cos 2\beta L = 2 \sin^2 \beta L$ yields the final \textbf{generalized gain equation} (also known as the generalized Airy function):
 \begin{keyresult}
     \begin{equation}
-        G = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1-G_0\sqrt{R_1 R_2}\right)^2+4\,G_0\sqrt{R_1 R_2}\,\sin^2(\beta L)}
+        G = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1 - R\,G_0\right)^2 + 4R\,G_0\,\sin^2(\beta L)}
     \end{equation}
 \end{keyresult}
-where:
+This equation describes the exact power gain lineshape of the cavity. It is mathematically universal for any sub-threshold operation ($0 \leq \gamma < \alpha_r$), seamlessly capturing both operating regimes:
 \begin{itemize}
-    \item $G$: the total power gain of the FP amplifier at frequency $\nu$.
-    \item $R_1,R_2$: power reflectivities of the entrance and exit facets.
-    \item $G_0 = e^{(\gamma-\alpha_s)L}$: the single-pass net power gain.
-    \item $\beta = 2\pi\nu/c$: the phase constant, whose frequency dependence through $\sin^2(\beta L)$ drives the gain ripple.
+    \item \textbf{Passive Resonator ($\gamma = 0$):} The single-pass gain is $G_0 = e^{-\alpha_s L} \leq 1$. The overall gain $G$ remains below unity, meaning the cavity acts purely as a frequency-selective filter.
+    \item \textbf{Active Amplifier ($\gamma > 0$):} The single-pass gain is $G_0 > 1$. The overall gain $G$ can vastly exceed unity, meaning the cavity provides true optical amplification.
 \end{itemize}
 
-The gain is not flat with frequency. At a resonance frequency where $\sin(\beta L)=0$, the denominator minimises and the gain peaks at:
-\begin{equation*}
-    G_{\max} = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1-G_0\sqrt{R_1 R_2}\right)^2}
-\end{equation*}
+Furthermore, because the $\sin^2(\beta L)$ term in the denominator oscillates between $0$ and $1$, the generalized gain is highly frequency-dependent. It swings periodically between resonance peaks and anti-resonance troughs:
+\begin{itemize}
+    \item \textbf{Resonance Maximum:} The gain peaks when the denominator is minimized, which occurs when $\sin^2(\beta L) = 0$. Substituting this into the generalized gain equation yields:
+          \begin{equation*}
+              G_{\max} = \frac{(1-R_1)(1-R_2)\,G_0}{(1 - R\,G_0)^2 + 4R\,G_0(0)} \quad \Rightarrow \quad G_{\max} = \frac{(1-R_1)(1-R_2)\,G_0}{(1 - R\,G_0)^2}
+          \end{equation*}
 
-Midway between resonances ($\sin^2(\beta L)=1$), the denominator maximises and the gain drops to:
-\begin{equation*}
-    G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1+G_0\sqrt{R_1 R_2}\right)^2}
-\end{equation*}
+    \item \textbf{Anti-Resonance Minimum:} The gain drops to a trough when the denominator is maximized, which occurs when $\sin^2(\beta L) = 1$. Substituting this into the generalized gain equation and expanding the perfect square gives:
+          \begin{equation*}
+              G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{(1 - R\,G_0)^2 + 4R\,G_0(1)} \quad \Rightarrow \quad G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{1 - 2R\,G_0 + R^2 G_0^2 + 4R\,G_0}
+          \end{equation*}
+          Combining the $R\,G_0$ terms allows the denominator to explicitly re-factor into the perfect square $(1+R\,G_0)^2$, yielding the final trough value:
+          \begin{equation*}
+              G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{1 + 2R\,G_0 + R^2 G_0^2} \quad \Rightarrow \quad G_{\min} = \frac{(1-R_1)(1-R_2)\,G_0}{(1 + R\,G_0)^2}
+          \end{equation*}
+\end{itemize}
 
-\begin{keyinsight}[Recovering the TWA as a Special Case]
-    Setting $R_1=R_2=0$ collapses the FP gain formula to $G = G_0 = e^{(\gamma-\alpha_s)L}$ --- exactly the single-pass gain of the anti-reflected travelling-wave amplifier. The FP formula is a strict generalisation.
-\end{keyinsight}
-\subsubsection{Gain ripple}
-
-The frequency swing of the gain from peak to trough is quantified by the \textbf{gain ripple ratio} $\rho(\nu)$, defined as the ratio of the resonance peak gain to the trough gain:
+The severity of this frequency swing is quantified by the \textbf{peak-to-trough ratio} $\rho$:
 \begin{keyresult}
     \begin{equation}
-        \rho(\nu) = \frac{G_{\max}}{G_{\min}}
-        = \left(\frac{1+G_0\sqrt{R_1 R_2}}{1-G_0\sqrt{R_1 R_2}}\right)^{\!2}
+        \rho = \frac{G_{\max}}{G_{\min}}
+        = \left(\frac{1 + R\,G_0}{1 - R\,G_0}\right)^{\!2}
+    \end{equation}
+\end{keyresult}
+Depending on the operating regime, this universal ratio takes on different physical meanings. In a passive filter ($\gamma = 0$), it is called the \textbf{contrast factor} (or fringe visibility), describing how well the filter rejects off-resonance light. In an active amplifier ($\gamma > 0$), it is called the \textbf{gain ripple}.
+
+\subsubsection{Universal linewidth}
+
+While the peak-to-trough ratio $\rho$ describes the vertical contrast of the resonances, we must also quantify their horizontal sharpness. In a passive cavity, this dictates the frequency selectivity of the filter; in an active cavity, it defines the amplification bandwidth of a single longitudinal mode. Both are measured by the Full Width at Half Maximum (FWHM) linewidth $\delta\nu$.
+
+Because the Fabry-Pérot resonance spikes are much narrower than the active medium's broad gain spectrum, we treat $G_0$ as locally constant across any individual peak. This defines a local $\delta\nu$ for each interference spike, which narrows near the gain center and broadens on the wings. To find $\delta\nu$, we set the generalized gain equal to half its local peak value, $G = \tfrac{1}{2}G_{\max}$:
+\begin{equation*}
+    \frac{(1-R_1)(1-R_2)\,G_0}{\left(1 - R\,G_0\right)^2 + 4R\,G_0\,\sin^2(\beta L)} = \frac{1}{2}\cdot\frac{(1-R_1)(1-R_2)\,G_0}{\left(1 - R\,G_0\right)^2}
+\end{equation*}
+
+Canceling the numerators and inverting both sides, then subtracting $(1 - R\,G_0)^2$ yields:
+\begin{equation*}
+    \left(1 - R\,G_0\right)^2 + 4R\,G_0\,\sin^2(\beta L) = 2\left(1 - R\,G_0\right)^2 \quad \Rightarrow \quad 4R\,G_0\,\sin^2(\beta L) = \left(1 - R\,G_0\right)^2
+\end{equation*}
+
+Dividing by $4R\,G_0$ isolates the sine-squared term. Taking the square root then gives the phase detuning $\beta L$ from resonance at the half-maximum points:
+\begin{equation*}
+    \sin^2(\beta L) = \frac{(1 - R\,G_0)^2}{4R\,G_0} \quad \Rightarrow \quad \sin(\beta L) = \frac{1 - R\,G_0}{2\sqrt{R\,G_0}} \quad \Rightarrow \quad \beta L = \sin^{-1}\!\left[\frac{1 - R\,G_0}{2\sqrt{R\,G_0}}\right]
+\end{equation*}
+
+Using the propagation constant $\beta = 2\pi\nu / c$ (where $c$ is the speed of light in the medium) and the FSR $\nu_F = c / 2L$, the absolute phase relates to absolute frequency via $\beta L = \pi\nu/\nu_F$. Because the inverse sine function mathematically returns a principal value (a small angle), its result inherently isolates the \textit{relative} phase distance from the nearest resonance peak, ignoring the absolute center ($q\pi$). Evaluating this locally relative to a peak center $\nu_q$, the phase detuning relates directly to the half-maximum frequency distance $\nu_{\text{HM}}$:
+\begin{equation*}
+    \beta L = \pi \frac{\nu_{\text{HM}}}{\nu_F} \quad \Rightarrow \quad \nu_{\text{HM}} = \frac{\nu_F}{\pi}(\beta L) \quad \Rightarrow \quad \nu_{\text{HM}} = \frac{\nu_F}{\pi} \sin^{-1}\!\left[\frac{1 - R\,G_0}{2\sqrt{R\,G_0}}\right]
+\end{equation*}
+
+Because the $\sin^2$ function is symmetric around its resonance zeros, the gain peak is perfectly symmetric. Doubling the half-maximum detuning ($\delta\nu = 2\nu_{\text{HM}}$) gives the exact full-width universal linewidth:
+\begin{keyresult}
+    \begin{equation}
+        \delta\nu = \frac{2\,\nu_F}{\pi}\,
+        \sin^{-1}\!\left[\frac{1 - R\,G_0}{2\sqrt{R\,G_0}}\right]
     \end{equation}
 \end{keyresult}
 
-We can notice that $\rho(\nu) \geq 1$ always, with equality only when $R_1 R_2=0$ (the TWA). As $G_0\sqrt{R_1 R_2}\to 1$ --- meaning the round-trip gain approaches the round-trip loss --- the denominator $(1-G_0\sqrt{R_1 R_2})\to 0$ and $\rho(\nu)\to\infty$. An infinite ripple ratio is the signature of the oscillation threshold: $G_{\max}\to\infty$ while $G_{\min}$ remains finite, meaning no external input is needed for output at the resonance frequencies. In practice, $\rho(\nu)$ must be kept below a system-specified engineering bound (often $\rho(\nu) < 1\,\mathrm{dB}$) to prevent selective amplification of individual wavelength channels in a multiplexed link.
+Because $G_0$ is embedded in this equation, the linewidth is inherently frequency-dependent. This dependency manifests differently depending on whether the device is a passive filter (where $G_0$ is a constant loss) or an active amplifier (where $G_0$ follows the medium's gain spectrum). Crucially, this macroscopic derivation assumes sub-threshold operation ($R\,G_0 < 1$). As $R\,G_0 \to 1$, the predicted linewidth collapses toward zero, marking the physical transition from an amplifier into a coherent laser oscillator.
+
+\subsubsection{General finesse}
+
+While the linewidth $\delta\nu$ dictates the absolute frequency width of a longitudinal mode, it is heavily dependent on the physical length of the cavity (since it is proportional to $\nu_F = c/2L$). To obtain a pure, length-independent metric of the cavity's trapping quality---one dictated solely by the mirror reflectivity and internal gain---we define the \textbf{finesse} $\mathcal{F}$ as the ratio of the peak spacing (FSR) to the peak width:
+\begin{equation*}
+    \mathcal{F} = \frac{\nu_F}{\delta\nu}
+\end{equation*}
+
+To find the general expression for finesse, we substitute the exact universal linewidth formula we just derived into this definition. The $\nu_F$ terms immediately cancel, removing the length dependency:
+\begin{equation*}
+    \mathcal{F} = \frac{\nu_F}{\frac{2\,\nu_F}{\pi} \sin^{-1}\!\left[\frac{1 - R\,G_0}{2\sqrt{R\,G_0}}\right]} \quad \Rightarrow \quad \mathcal{F} = \frac{\pi}{2\,\sin^{-1}\!\left[\frac{1 - R\,G_0}{2\sqrt{R\,G_0}}\right]}
+\end{equation*}
+
+In practice, useful optical cavities have sharp peaks where the linewidth is much smaller than the FSR ($\delta\nu \ll \nu_F$). In this high-resolution limit, the argument of the inverse sine is small, allowing us to use the small-angle approximation $\sin^{-1}(x) \approx x$. Applying this to the exact finesse yields the standard approximation:
+\begin{equation*}
+    \mathcal{F} \approx \frac{\pi}{2 \left( \frac{1 - R\,G_0}{2\sqrt{R\,G_0}} \right)} \quad \Rightarrow \quad \mathcal{F}_{\text{general}} \approx \frac{\pi\sqrt{R\,G_0}}{1 - R\,G_0}
+\end{equation*}
+
+\begin{keyresult}
+    \begin{equation}
+        \mathcal{F}_{\text{general}} \approx \frac{\pi\sqrt{R\,G_0}}{1 - R\,G_0}
+    \end{equation}
+\end{keyresult}
+
+Notice the $(1 - R\,G_0)$ term in the denominator. Physically, $R\,G_0$ is the fraction of energy that survives a single round trip, making $(1 - R\,G_0)$ the net fractional loss. Because finesse scales inversely with this net loss, it physically represents the effective number of round trips a photon completes before leaving the cavity. It plays the exact same conceptual role as the quality factor $Q$ in an electronic circuit: as the system approaches the lasing threshold ($R\,G_0 \to 1$), the net loss vanishes, the trapped photons survive indefinitely, and the finesse diverges to infinity.
+
+\subsection{Regime 1: The Passive Fabry-P\'{e}rot Resonator (\texorpdfstring{$\gamma = 0$}{gamma = 0})}
+
+If we turn off the pump ($\gamma = 0$), the device operates purely as a passive optical filter governed by multi-beam interference. When illuminated by a broad spectrum, the cavity only transmits wavelengths that satisfy the resonance condition: a round-trip phase shift equal to a multiple of $2\pi$. Physically, this means the cavity length $L$ must fit an exact integer number $q$ of half-wavelengths ($L = q\lambda/2$). Wavelengths meeting this condition build up via constructive interference and emerge as discrete longitudinal modes. Off-resonance wavelengths suffer destructive interference and are reflected. Because the passive internal loss is uniform across all frequencies, every transmitted mode $q$ reaches the exact same peak amplitude---a defining characteristic that sharply contrasts with the frequency-dependent peaks of an active amplifier.
+
+Mathematically, setting $\gamma = 0$ removes all active amplification, collapsing the single-pass gain factor strictly to the medium's passive exponential attenuation: $G_0 = e^{-\alpha_s L}$. Because this internal loss ($\alpha_s$) is frequency-independent, substituting this constant factor into our generalized master equation immediately reduces the active power gain $G$ into the passive fractional transmission spectrum $T$, known as the Airy function:
+\begin{equation*}
+    G = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1 - R\,G_0\right)^2 + 4R\,G_0\,\sin^2(\beta L)} \quad \Rightarrow \quad T = \frac{(1-R_1)(1-R_2)\,e^{-\alpha_s L}}{\left(1 - R\,e^{-\alpha_s L}\right)^2 + 4R\,e^{-\alpha_s L}\,\sin^2(\beta L)}
+\end{equation*}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 4/fp_gain_ripple_spectrum.jpg}
-    \caption{Fabry-P\'{e}rot Amplifier Gain Ripple: The total power gain $G(\nu)$ oscillates between $G_\mathrm{max}$ at each cavity resonance and $G_\mathrm{min}$ at anti-resonance, with the ripple ratio growing rapidly as $G_0\sqrt{R_1 R_2}\to 1$. The near-threshold case shows dramatically sharper and taller resonance peaks --- as the round-trip gain approaches the round-trip loss, the FP amplifier converges continuously to the laser oscillator.}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 4/airy_function_spectrum.jpg}
+    \caption{The Airy transmission function of a passive Fabry-P\'{e}rot resonator. Because the internal loss $G_0$ is constant, every resonance peak experiences the exact same attenuation, forming an infinite, perfectly periodic comb of transmitted frequencies.}
 \end{figure}
-\subsubsection{Active bandwidth and modified finesse}
 
-The FWHM bandwidth $\delta\nu$ of one amplified resonance peak follows from the half-power condition $G = G_{\max}/2$. The numerators cancel and the condition reduces to:
+This transmission spectrum forms an infinite periodic comb of identical resonance spikes, allowing only discrete, equally spaced frequency channels to pass through. To evaluate the resolving sharpness of these passive transmission peaks, we specialize the general finesse expression $\mathcal{F}_{\text{general}} \approx \pi\sqrt{R\,G_0}/(1 - R\,G_0)$ by setting $G_0 = e^{-\alpha_s L}$. Accounting for unequal mirrors ($R_1 \neq R_2$) and non-zero internal scattering or absorption loss ($\alpha_s > 0$), the exact passive finesse becomes:
+\begin{keyresult}
+    \begin{equation}
+        \mathcal{F}_{\text{passive}} \approx \frac{\pi\sqrt{R\,e^{-\alpha_s L}}}{1 - R\,e^{-\alpha_s L}}
+    \end{equation}
+\end{keyresult}
+In the idealized limit of a lossless internal medium ($\alpha_s = 0$), this expression simplifies to the mirror-limited finesse:
+\begin{keyresult}
+    \begin{equation}
+        \mathcal{F}_{\text{mirror}} \approx \frac{\pi\sqrt{R}}{1 - R}
+    \end{equation}
+\end{keyresult}
+This represents the absolute upper bound of the cavity's resolving power, bounded purely by the mirror reflectivities.
+
+More practically, we can relate the finesse directly to the cavity's total distributed loss. Starting with the exact definition featuring both mirrors, we absorb the $1/2$ factor into the logarithm to recover the geometric mean $R = \sqrt{R_1 R_2}$:
 \begin{equation*}
-    4\,G_0\sqrt{R_1 R_2}\,\sin^2(\beta L) = \left(1-G_0\sqrt{R_1 R_2}\right)^2
+    \alpha_r = \alpha_s + \frac{1}{2L}\ln\left(\frac{1}{R_1 R_2}\right) \quad \Rightarrow \quad \alpha_r = \alpha_s + \frac{1}{L}\ln\left(\frac{1}{\sqrt{R_1 R_2}}\right) \quad \Rightarrow \quad \alpha_r = \alpha_s - \frac{1}{L}\ln(R)
+\end{equation*}
+To smoothly inject this into the finesse formula, we multiply by $L$ and negate both sides to prepare for exponentiation:
+\begin{equation*}
+    \alpha_r L = \alpha_s L - \ln(R) \quad \Rightarrow \quad -\alpha_r L = \ln(R) - \alpha_s L
+\end{equation*}
+By exponentiating both sides, we uncover a direct physical identity linking the total exponential distributed loss ($e^{-\alpha_r L}$) to the explicit single-pass cavity attenuation ($R\,e^{-\alpha_s L}$):
+\begin{equation*}
+    e^{-\alpha_r L} = e^{\ln(R)}\,e^{-\alpha_s L} \quad \Rightarrow \quad e^{-\alpha_r L} = R\,e^{-\alpha_s L}
+\end{equation*}
+Substituting this identity into our exact passive finesse equation elegantly absorbs the mirror reflectivities into a single exponential term:
+\begin{equation*}
+    \mathcal{F} \approx \frac{\pi\sqrt{R\,e^{-\alpha_s L}}}{1 - R\,e^{-\alpha_s L}} \quad \Rightarrow \quad \mathcal{F} \approx \frac{\pi\sqrt{e^{-\alpha_r L}}}{1 - e^{-\alpha_r L}}
+\end{equation*}
+For low-loss cavities ($\alpha_r L \ll 1$), we can linearize the exponential terms using a first-order Taylor expansion ($e^{-x} \approx 1 - x$). This approximation effortlessly reduces the denominator to a linear loss term, $1 - e^{-\alpha_r L} \approx 1 - (1 - \alpha_r L) = \alpha_r L$. Simultaneously, applying the expansion to the numerator yields $\sqrt{e^{-\alpha_r L}} = e^{-\alpha_r L / 2} \approx 1 - \alpha_r L / 2$. Because the fractional loss $\alpha_r L$ is exceedingly small, this slight reduction is completely negligible compared to $1$, leaving the numerator as simply the constant $\pi$. Combining these two limits, the exact finesse elegantly simplifies to:
+\begin{keyresult}
+    \begin{equation}
+        \mathcal{F} \approx \frac{\pi}{\alpha_r L} \qquad (\alpha_r L \ll 1)
+    \end{equation}
+\end{keyresult}
+This approximation reveals the physical essence of the passive cavity: the finesse is simply $\pi$ divided by the total fractional round-trip loss. High finesse demands an extremely low round-trip loss, forcing trapped photons to bounce back and forth many times before leaking out.
+
+\subsubsection{Photon Lifetime and Temporal Dynamics}
+
+While finesse and linewidth describe the cavity's resolving power in the frequency domain, understanding the transient behavior of the cavity requires us to shift into the time domain. It is crucial to define a temporal metric to quantify how long the cavity can trap light, as this ultimately dictates the maximum modulation speeds and switching dynamics of optical systems built upon it.
+
+This trapping capacity is naturally quantified by the \textbf{photon lifetime} $\tau_{\text{ph}}$---the average time a photon survives inside the cavity before escaping through the mirrors or being absorbed. Inside a lossy passive cavity, the optical intensity decays spatially under the total distributed loss as $I(z) = I(0)\,e^{-\alpha_r z}$. By differentiating this expression with respect to position $z$, we obtain the spatial rate of decay:
+\begin{equation*}
+    \frac{dI}{dz} = -\alpha_r\,I(0)\,e^{-\alpha_r z} = -\alpha_r I
+\end{equation*}
+To project this spatial decay into a temporal decay, we apply the chain rule using the group velocity of the photons, $v_g = dz/dt = c$ (where $c$ is the speed of light in the medium):
+\begin{equation*}
+    \frac{dI}{dt} = \frac{dI}{dz}\cdot\frac{dz}{dt} = (-\alpha_r I)\cdot c = -\alpha_r c\,I
+\end{equation*}
+This forms a first-order separable ordinary differential equation. We can solve it by separating the variables $I$ and $t$, and integrating from an initial state at $t=0$:
+\begin{equation*}
+    \frac{dI}{I} = -\alpha_r c\, dt \quad \Rightarrow \quad \int_{I(0)}^{I(t)} \frac{dI'}{I'} = -\alpha_r c \int_0^t dt' \quad \Rightarrow \quad \ln\left(\frac{I(t)}{I(0)}\right) = -\alpha_r c\,t
+\end{equation*}
+Exponentiating both sides completely unpacks the temporal intensity profile:
+\begin{equation*}
+    e^{\ln\left(\frac{I(t)}{I(0)}\right)} = e^{-\alpha_r c\,t} \quad \Rightarrow \quad \frac{I(t)}{I(0)} = e^{-\alpha_r c\,t} \quad \Rightarrow \quad I(t) = I(0)\,e^{-\alpha_r c\,t}
+\end{equation*}
+Comparing this derived intensity function with the standard exponential decay model $I(t) = I(0)\,e^{-t/\tau_{\text{ph}}}$ allows us to directly extract the characteristic photon lifetime:
+\begin{keyresult}
+    \begin{equation}
+        \tau_{\text{ph}} = \frac{1}{\alpha_r\,c}
+    \end{equation}
+\end{keyresult}
+
+Through the Fourier time-frequency uncertainty relation of a decaying exponential, this finite photon lifetime represents the fundamental physical mechanism behind the spectral broadening of the longitudinal modes, directly dictating their FWHM linewidth:
+\begin{keyresult}
+    \begin{equation}
+        \delta\nu = \frac{1}{2\pi\,\tau_{\text{ph}}} = \frac{\alpha_r\,c}{2\pi}
+    \end{equation}
+\end{keyresult}
+
+It is crucial to explicitly recognize that this $\delta\nu$ represents the \textit{passive} (or ``cold'') cavity linewidth. Establishing this fundamental baseline is vital because, as we will soon see, introducing active optical gain into the resonator will dramatically compress this spectral width far below this passive limit.
+
+Ultimately, the physical significance of the photon lifetime extends far beyond a passive decay constant; it dictates the fundamental ON/OFF switching dynamics and maximum modulation bandwidth of any optical system built on this resonator. Depending on the operational state, the photon lifetime imposes strict temporal bottlenecks:
+\begin{enumerate}
+    \item \textbf{Turn-Off Decay:} When the pump is abruptly turned off, the trapped photons do not vanish instantly. They continue to leak through the mirrors, decaying exponentially as $I(t) = I(0)\,e^{-t/\tau_{\text{ph}}}$. A long photon lifetime severely slows down the cavity's turn-off speed.
+    \item \textbf{Turn-On Build-Up Delay:} When the pump is turned on, the system experiences a finite delay. Spontaneous emission photons must travel back and forth, accumulating enough round-trip passes to surpass losses and eventually establish the steady-state macroscopic field.
+    \item \textbf{High-Speed Modulation Trade-Off:} For high-speed digital communications, designers must intentionally decrease $\tau_{\text{ph}}$ to facilitate rapid switching. This is practically achieved by lowering the mirror reflectivities $R_i$. Physically, lower reflectivities allow trapped photons to leak out of the cavity faster per round trip. Mathematically, this increases the total distributed loss $\alpha_r$, which inversely shrinks the photon lifetime ($\tau_{\text{ph}} = 1/\alpha_r c$). However, this speed-enhancing compromise inevitably increases the required threshold pump rate $R_{\text{th}}$.
+\end{enumerate}
+These three cases highlight the fundamental, unavoidable design trade-off between spectral resolution (high finesse, narrow linewidth) and temporal speed in optoelectronic systems.
+
+\subsection{Regime 2: The Fabry-P\'{e}rot Amplifier (\texorpdfstring{$0 < \gamma < \alpha_r$}{0 < gamma < alpha\_r})}
+
+Now we switch on the pump, providing active amplification ($\gamma > 0$). When the single-pass gain surpasses the internal scattering loss ($G_0 = e^{(\gamma - \alpha_s)L} > 1$), the cavity transitions into a power amplifier governed by the generalized active gain:
+\begin{equation*}
+    G = \frac{(1-R)^2\,G_0}{(1-R\,G_0)^2 + 4R\,G_0\sin^2(\beta L)} \quad \Rightarrow \quad G = \frac{(1-R)^2\,e^{(\gamma - \alpha_s)L}}{\left(1-R\,e^{(\gamma - \alpha_s)L}\right)^2 + 4R\,e^{(\gamma - \alpha_s)L}\sin^2(\beta L)}
+\end{equation*}
+Unlike the passive filter, this gain $G$ can greatly exceed unity. Because the single-pass gain is inherently frequency-dependent, the theoretical envelopes $G_{\max}$ and $G_{\min}$ are not flat lines; they form broad spectral curves that track the atomic lineshape of the gain medium, bounding the rapid Fabry-P\'{e}rot resonances.
+
+The severity of this oscillation is quantified by the peak-to-trough ratio $\rho$. While this ratio describes fringe contrast in a passive cavity, in an active amplifier it is known as the \textbf{gain ripple}:
+\begin{equation*}
+    \rho = \frac{G_{\max}}{G_{\min}} = \left(\frac{1 + R\,G_0}{1 - R\,G_0}\right)^2
 \end{equation*}
 
-Solving for $\sin(\beta L)$, taking the inverse sine, doubling for the full FWHM, and writing $\mathrm{FSR} = c/2L$:
-\begin{keyresult}
-    \begin{equation}
-        \delta\nu = \frac{2\,\mathrm{FSR}}{\pi}\,
-        \sin^{-1}\!\left[\frac{1-G_0\sqrt{R_1 R_2}}{2\sqrt{G_0\sqrt{R_1 R_2}}}\right]
-    \end{equation}
-\end{keyresult}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 4/fp_gain_ripple_spectrum.jpg}
+    \caption{Gain spectrum of an active Fabry-P\'{e}rot amplifier. Because the single-pass gain $G_0$ is frequency-dependent, the resonance envelope $G_{\max}$ and anti-resonance envelope $G_{\min}$ track the atomic profile. The power gain $G$ oscillates between these bounds, defining the gain ripple $\rho$. At the spectrum tails, as active amplification weakens, the gain envelopes shrink and converge toward the unity gain baseline ($G=1$).}
+\end{figure}
 
-Defining $R=\sqrt{R_1 R_2}$ as the geometric mean mirror reflectivity and applying the small-angle approximation (valid for high finesse), the ratio $\mathrm{FSR}/\delta\nu$ gives the \textbf{active finesse}:
-\begin{keyresult}
-    \begin{equation}
-        \mathcal{F}_{\text{active}} \approx \frac{\pi\sqrt{R\,G_0}}{1-R\,G_0}
-    \end{equation}
-\end{keyresult}
+In engineering practice, particularly in dense wavelength-division multiplexed (DWDM) optical communication links, this gain ripple must be kept below a strict system-specified bound (often $\rho < 1\,\mathrm{dB}$) to prevent selective, highly unequal amplification of individual wavelength channels.
 
-\begin{keyinsight}[Active Finesse Reduces to Passive Finesse at Zero Gain]
-    Setting $\gamma=0$ gives $G_0=e^{-\alpha_s L}$ and:
-    \begin{equation*}
-        \mathcal{F}_{\text{active}}\big|_{\gamma=0} = \frac{\pi\sqrt{R\,e^{-\alpha_s L}}}{1-R\,e^{-\alpha_s L}}
-    \end{equation*}
-    This is exactly the passive finesse expression $\pi(R_1 R_2)^{1/4}e^{-\alpha_s L/2}/(1-\sqrt{R_1 R_2}\,e^{-\alpha_s L})$ derived earlier. The active finesse is therefore a genuine generalisation --- it recovers the passive result when the gain is switched off.
+\begin{keyinsight}[The Travelling-Wave Amplifier (TWA) Limit]
+    If we completely remove the cavity mirrors by applying perfect anti-reflective coatings ($R=0$), the ripple factor collapses to unity ($\rho = 1$), representing perfectly flat amplification across all frequencies. In this limit, the generalized gain simplifies to $G = G_0 = e^{(\gamma-\alpha_s)L}$, which is exactly the single-pass gain of a Travelling-Wave Amplifier.
+
+    Furthermore, setting $R=0$ pushes the mirror-loss component to infinity ($\alpha_r \to \infty$). Consequently, the condition $\gamma < \alpha_r$ becomes permanently satisfied for any finite gain. This proves mathematically why a perfectly anti-reflected TWA is locked in the amplifier regime and can never cross into self-sustained oscillation.
 \end{keyinsight}
-\subsubsection{The oscillation limit}
 
-The active finesse exceeds the passive finesse whenever $G_0 > 1$, because the gain reduces the net round-trip loss experienced by a photon. As $RG_0\to 1$ --- as we approach the oscillation threshold derived in \S1.2 --- the active finesse diverges and the resonance peaks become arbitrarily narrow. At that crossing, the gain-to-infinity condition is met, and what was a sub-threshold amplifier becomes, precisely, the laser oscillator.
+Because active gain physically replenishes the energy lost by a photon during a round trip, it effectively decreases the net cavity loss. This inherently increases the resolving power of the cavity. To evaluate the resolving sharpness of these active resonance peaks, we specialize the general finesse expression $\mathcal{F}_{\text{general}} \approx \pi\sqrt{R\,G_0}/(1 - R\,G_0)$ by setting $G_0 = e^{(\gamma - \alpha_s)L}$. This yields the \textbf{active finesse}:
+\begin{keyresult}
+    \begin{equation}
+        \mathcal{F}_{\text{active}} \approx \frac{\pi\sqrt{R\,e^{(\gamma - \alpha_s)L}}}{1 - R\,e^{(\gamma - \alpha_s)L}}
+    \end{equation}
+\end{keyresult}
+Because $G_0 > 1$, the active finesse is strictly greater than the passive finesse. As the pump is turned up and $G_0$ increases, the transmission peaks become significantly sharper.
 
-The laser physics is now complete at the amplitude and rate-equation level: we know the threshold, the surviving modes, and the steady-state output power. One final assumption deserves scrutiny: we have treated the gain medium as a pure amplitude element, leaving the lasing frequencies unchanged from their cold-cavity values. That is not quite correct. The gain medium also introduces a phase shift, and that phase shift pulls the real oscillation frequencies away from the cold-cavity comb.
+\subsubsection{The Oscillation Threshold}
+
+As pump power increases and the round-trip gain perfectly balances the cavity losses ($R\,G_0 \to 1$), the fundamental $(1 - R\,G_0)$ denominator approaches zero. This common term governs three critical amplifier metrics:
+\begin{equation*}
+    \rho = \left(\frac{1 + R\,G_0}{1 - R\,G_0}\right)^2 \qquad \mathcal{F}_{\text{active}} \approx \frac{\pi\sqrt{R\,G_0}}{1 - R\,G_0} \qquad G_{\max} = \frac{(1-R)^2\,G_0}{(1-R\,G_0)^2}
+\end{equation*}
+Because this shared denominator vanishes, it forces two simultaneous physical limits:
+
+\begin{enumerate}
+    \item The gain ripple diverges ($\rho \to \infty$).
+    \item The active finesse diverges ($\mathcal{F}_{\text{active}} \to \infty$), ultimately collapsing the resonance linewidth to zero ($\delta\nu \to 0$).
+\end{enumerate}
+
+These limits mathematically define the \textbf{oscillation threshold}. At exactly $R\,G_0 = 1$, the peak transmission gain $G_{\max}$ diverges to infinity. Physically, this means that even an infinitesimally small input---such as a single spontaneously emitted photon---will be amplified boundlessly until gain saturation sets in. The device therefore no longer requires a macroscopic external input $P_{\text{in}}$ to produce a coherent output field; it fundamentally transforms from a driven optical amplifier into an active, self-sustaining \textbf{laser oscillator}.
 
 \section{The Hot Resonator: Frequency Pulling and Chirping}
 
-So far we have assumed that the resonance frequencies are the cold-cavity values $\nu_q = qc/(2L)$, determined purely by geometry. But we forgot something important: the gain medium inside the cavity also introduces a \emph{phase shift} --- not just amplitude gain. This is a direct consequence of the Kramers-Kronig relations, which link the real and imaginary parts of the complex susceptibility. We cannot have gain (imaginary part) without also having an accompanying change in the refractive index (real part), and that index change modifies the round-trip phase.
+Until now, we have treated the gain medium as a pure amplitude element, assuming the lasing frequencies remain perfectly locked to their cold-cavity geometrical values $\nu_q = qc/(2L)$. However, the gain medium also introduces a frequency-dependent \emph{phase shift}. This is a direct consequence of the Kramers-Kronig relations, which link the real and imaginary parts of the complex susceptibility. We cannot have gain (imaginary part) without an accompanying change in the refractive index (real part). This index change modifies the round-trip phase, pulling the actual oscillation frequencies away from the ideal geometric comb.
 
 \subsection{Kramers-Kronig and Phase Shift from the Gain Medium}
 
