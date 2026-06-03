@@ -304,8 +304,8 @@ fig_03()
 #  FIG-4  Joint Density of States  rho(nu)
 # ==============================================================================
 def fig_04():
-    Eg = 1.424   # GaAs bandgap eV
-    hnu = np.linspace(Eg, Eg + 0.18, 400)
+    Eg = 1.0   # Generic bandgap
+    hnu = np.linspace(0, Eg + 1.0, 500)
     rho = np.sqrt(np.maximum(hnu - Eg, 0))   # proportional to sqrt(hnu - Eg)
 
     fig, ax = plt.subplots(figsize=(7, 5))
@@ -315,17 +315,23 @@ def fig_04():
 
     # Onset at Eg
     ax.plot([Eg, Eg], [0, max(rho)*1.15], color=AXES_CLR, lw=1.2, ls="--")
-    ax.text(Eg + 0.002, max(rho)*0.85,
+    ax.text(Eg + 0.05, max(rho)*0.85,
             r"$\rho(\nu) \propto \sqrt{h\nu - E_g}$",
-            color=AXES_CLR, fontsize=11)
-    ax.text(Eg, -0.015, r"$E_g = 1.424\;\mathrm{eV}$",
-            color=AXES_CLR, fontsize=10, ha="center", va="top")
+            color=AXES_CLR, fontsize=12)
 
-    ax.set_xlabel(r"Photon energy $h\nu$  (eV)", fontsize=13)
-    ax.set_ylabel(r"$\rho(\nu)$  (arb. units)", fontsize=13)
-    ax.set_title(r"Joint Density of States (GaAs, 300 K)", pad=10)
-    ax.set_xlim(Eg - 0.01, Eg + 0.18)
-    ax.set_ylim(-0.03, max(rho) * 1.15)
+    ax.set_xlabel(r"Photon energy $h\nu$", fontsize=13)
+    ax.set_ylabel(r"Joint Density of States $\rho(\nu)$", fontsize=13)
+    ax.set_title(r"Joint Density of States vs. Photon Energy", pad=10)
+    
+    ax.set_xlim(0, Eg + 1.0)
+    ax.set_ylim(0, max(rho) * 1.15)
+    
+    # Generic axis values
+    ax.set_xticks([0, Eg])
+    ax.set_xticklabels(['$0$', '$E_g$'], fontsize=12)
+    ax.set_yticks([0])
+    ax.set_yticklabels(['$0$'], fontsize=12)
+    
     ax.grid(True)
 
     fig.tight_layout()
@@ -405,69 +411,6 @@ def fig_05():
 
 
 fig_05()
-
-
-# ==============================================================================
-#  FIG-6  Gain Spectrum gamma(hnu) for Multiple Carrier Densities (GaAs, 300 K)
-# ==============================================================================
-def fig_06():
-    Eg = 1.424; kBT = 0.026
-    hnu = np.linspace(1.40, 1.51, 600)
-    delta = np.maximum(hnu - Eg, 0.0)
-    configs = [
-        ("Below transparency", SKYBLUE, -0.04, -0.04),
-        ("Near transparency", GOLD, -0.01, -0.01),
-        ("Moderate inversion", TEAL, 0.05, 0.01),
-        ("Strong inversion", CORAL, 0.09, 0.03),
-    ]
-
-    fig, ax = plt.subplots(figsize=(9, 6))
-    ax.axhspan(0,    260, color=TEAL,  alpha=0.06)
-    ax.axhspan(-260, 0,   color=CORAL, alpha=0.06)
-    ax.axhline(0, color=AXES_CLR, lw=1.8)
-    ax.axvline(Eg, color=AXES_CLR, lw=1.2, ls="--")
-    ax.text(Eg+0.001, -230, r"$E_g$", color=AXES_CLR, fontsize=10)
-
-    # Bulk direct-gap gain: joint DOS times the occupation inversion factor.
-    gain_curves = {}
-    unscaled_curves = {}
-    max_abs = 0.0
-    for label, _, eta_c, eta_v in configs:
-        inv, _, _ = inversion_factor(delta, eta_c, eta_v, kBT)
-        gain_unscaled = np.sqrt(delta) * inv
-        unscaled_curves[label] = gain_unscaled
-        max_abs = max(max_abs, np.max(np.abs(gain_unscaled)))
-
-    G0 = 220.0 / (max_abs + 1e-12)
-    for label, clr, _, _ in configs:
-        gain = G0 * unscaled_curves[label]
-        gain_curves[label] = gain
-        ax.plot(hnu, gain, color=clr, lw=2.5, label=label)
-
-    # Bandwidth annotation
-    g_hi_scaled = gain_curves["Strong inversion"]
-    positive = g_hi_scaled > 0
-    if np.any(positive):
-        x1 = hnu[np.argmax(positive)]
-        last_pos = np.where(positive)[0][-1]
-        x2 = hnu[last_pos]
-        ax.annotate("", xy=(x2, 32), xytext=(x1, 32),
-                    arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.3))
-        ax.text((x1+x2)/2, 50, f"~{(x2-x1)*1000:.0f} meV gain BW",
-                ha="center", color=AXES_CLR, fontsize=10)
-
-    ax.set_xlabel(r"Photon energy $h\nu$  (eV)", fontsize=13)
-    ax.set_ylabel(r"Gain $\gamma$  (cm$^{-1}$)", fontsize=13)
-    ax.set_title("Gain Spectrum vs. Injection Level (GaAs, 300 K)", pad=10)
-    ax.set_xlim(1.40, 1.51); ax.set_ylim(-240, 240)
-    ax.legend(loc="upper right", framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.grid(True)
-
-    fig.tight_layout()
-    save(fig, "gain_spectrum.jpg")
-
-
-fig_06()
 
 
 # ==============================================================================
@@ -600,233 +543,6 @@ def fig_08():
 
 fig_08()
 
-
-# ==============================================================================
-#  FIG-9  Double Heterojunction Band Diagram Under Forward Bias
-# ==============================================================================
-def fig_09():
-    z = np.linspace(0, 1, 500)
-    d_lo, d_hi = 0.38, 0.62      # active layer boundaries (normalized)
-
-    # Band edges
-    Eg_clad = 2.0
-    Eg_act = 1.42
-    dEc = 0.30
-    dEv = Eg_clad - Eg_act - dEc   # = 0.28 eV for the type-I well
-    qVf = 0.15                     # net electrostatic drop across the device
-
-    # Abrupt material offsets plus a gentle electrostatic tilt under forward bias.
-    tilt = -qVf * z
-    Ec_base = np.where((z >= d_lo) & (z <= d_hi), Eg_clad - dEc, Eg_clad)
-    Ev_base = np.where((z >= d_lo) & (z <= d_hi), dEv, 0.0)
-
-    def Ec_profile(z_query):
-        zq = np.asarray(z_query)
-        tilt_q = -qVf * zq
-        base_q = np.where((zq >= d_lo) & (zq <= d_hi), Eg_clad - dEc, Eg_clad)
-        return base_q + tilt_q
-
-    def Ev_profile(z_query):
-        zq = np.asarray(z_query)
-        tilt_q = -qVf * zq
-        base_q = np.where((zq >= d_lo) & (zq <= d_hi), dEv, 0.0)
-        return base_q + tilt_q
-
-    Ec_z = Ec_base + tilt
-    Ev_z = Ev_base + tilt
-
-    active = (z >= d_lo) & (z <= d_hi)
-    Efn = Ec_z[active].mean() - 0.08
-    Efp = Ev_z[active].mean() + 0.08
-
-    fig, ax = plt.subplots(figsize=(10, 6))
-
-    # Active layer shading
-    ax.axvspan(d_lo, d_hi, color=GOLD, alpha=0.12)
-
-    ax.plot(z, Ec_z, color=SKYBLUE, lw=2.5, label=r"$E_c$")
-    ax.plot(z, Ev_z, color=CORAL,   lw=2.5, label=r"$E_v$")
-    ax.fill_between(z, Ec_z, Ec_z+0.35, color=SKYBLUE, alpha=0.10)
-    ax.fill_between(z, Ev_z-0.35, Ev_z,  color=CORAL,   alpha=0.10)
-
-    ax.hlines(Efn, xmin=d_lo, xmax=d_hi, color=SKYBLUE, lw=1.8, ls="--")
-    ax.hlines(Efp, xmin=d_lo, xmax=d_hi, color=CORAL,   lw=1.8, ls="--")
-
-    # dEc, dEv annotations at left interface
-    Ec_left_clad = Ec_profile(np.array([d_lo - 1e-3]))[0]
-    Ec_left_act  = Ec_profile(np.array([d_lo + 1e-3]))[0]
-    ax.annotate("", xy=(d_lo, Ec_left_act), xytext=(d_lo, Ec_left_clad),
-                arrowprops=dict(arrowstyle="<->", color=SKYBLUE, lw=1.4))
-    ax.text(d_lo - 0.05, (Ec_left_act+Ec_left_clad)/2, r"$\Delta E_c$",
-            color=SKYBLUE, fontsize=10, ha="right", va="center")
-
-    Ev_left_act  = Ev_profile(np.array([d_lo+0.01]))[0]
-    Ev_left_clad = Ev_profile(np.array([d_lo-0.01]))[0]
-    ax.annotate("", xy=(d_lo, Ev_left_clad), xytext=(d_lo, Ev_left_act),
-                arrowprops=dict(arrowstyle="<->", color=CORAL, lw=1.4))
-    ax.text(d_lo - 0.05, (Ev_left_act+Ev_left_clad)/2, r"$\Delta E_v$",
-            color=CORAL, fontsize=10, ha="right", va="center")
-
-    # Active layer width
-    ax.annotate("", xy=(d_hi, min(Ev_z)-0.25), xytext=(d_lo, min(Ev_z)-0.25),
-                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
-    ax.text((d_lo+d_hi)/2, min(Ev_z)-0.35, r"$d$",
-            ha="center", color=GOLD, fontsize=11)
-
-    # Electron/hole dots in active layer
-    for zi in [0.42, 0.50, 0.58]:
-        Ec_here = Ec_profile(np.array([zi]))[0]
-        Ev_here = Ev_profile(np.array([zi]))[0]
-        ax.plot(zi, Ec_here - 0.06, "o", color=SKYBLUE, ms=8, zorder=5)
-        ax.plot(zi, Ev_here + 0.06, "o", mfc="white", mec=CORAL, ms=8, lw=1.5, zorder=5)
-
-    # Labels
-    ax.text(0.50, Efn+0.08, r"$E_{Fn}$", color=SKYBLUE, fontsize=11, ha="center", va="bottom")
-    ax.text(0.50, Efp-0.08, r"$E_{Fp}$", color=CORAL,   fontsize=11, ha="center", va="top")
-    ax.text(0.18, max(Ec_z)+0.15, r"P$^+$ cladding" "\n(e.g. AlGaAs)", ha="center",
-            color=AXES_CLR, fontsize=9.5)
-    ax.text(0.50, max(Ec_z)+0.15, "Active layer\n(e.g. GaAs)", ha="center",
-            color=GOLD, fontsize=9.5)
-    ax.text(0.82, max(Ec_z)+0.15, r"N$^+$ cladding" "\n(e.g. AlGaAs)", ha="center",
-            color=AXES_CLR, fontsize=9.5)
-    ax.text(0.50, (min(Ec_z) + max(Ev_z))/2, "Carrier well + optical gain region",
-            ha="center", color=LAVENDER, fontsize=9.5)
-
-    ax.set_xlabel(r"Position $z$  (norm.)", fontsize=13)
-    ax.set_ylabel(r"Electron energy $E$  (eV, a.u.)", fontsize=13)
-    ax.set_title("Double Heterojunction Band Diagram (Forward Bias)", pad=10)
-    ax.set_xticks([]); ax.set_yticks([])
-    ax.set_xlim(-0.08, 1.05); ax.set_ylim(min(Ev_z)-0.5, max(Ec_z)+0.55)
-    ax.legend(loc="upper right", framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.grid(False)
-
-    fig.tight_layout()
-    save(fig, "double_heterojunction_band_diagram.jpg")
-
-
-fig_09()
-
-
-# ==============================================================================
-#  FIG-10  Band Gap vs. Lattice Constant (III-V Semiconductor Chart)
-# ==============================================================================
-def fig_10():
-    # Binary compound data: (lattice constant Å, Eg eV, direct?, label)
-    binaries = [
-        (5.451, 2.26, False, "GaP"),
-        (5.660, 2.16, False, "AlAs"),
-        (5.653, 1.424, True,  "GaAs"),
-        (5.869, 1.35,  True,  "InP"),
-        (6.136, 1.60,  False, "AlSb"),
-        (6.096, 0.73,  True,  "GaSb"),
-        (6.058, 0.36,  True,  "InAs"),
-    ]
-
-    # AlxGa(1-x)As alloy: linear interpolation GaAs -> AlAs (approx)
-    x_algaas = np.linspace(0, 1, 100)
-    a_algaas = 5.653 + (5.660 - 5.653)*x_algaas
-    # Direct branch for x < 0.45, indirect X-valley branch above crossover.
-    Eg_algaas_direct = 1.424 + 1.247*x_algaas
-    Eg_algaas_indirect = 1.90 + 0.125*x_algaas + 0.143*x_algaas**2
-
-    # InxGa(1-x)As: GaAs -> InAs
-    x_ingaas = np.linspace(0, 1, 100)
-    a_ingaas  = 5.653 + (6.058 - 5.653)*x_ingaas
-    Eg_ingaas = 1.424 - 1.064*x_ingaas - 0.477*x_ingaas*(1-x_ingaas)  # bowing
-
-    fig, ax = plt.subplots(figsize=(10, 7))
-
-    # AlGaAs line (solid direct, dashed indirect)
-    direct_mask = x_algaas <= 0.45
-    ax.plot(a_algaas[direct_mask],  Eg_algaas_direct[direct_mask],
-            color=TEAL, lw=2.2, ls="-")
-    ax.plot(a_algaas[~direct_mask], Eg_algaas_indirect[~direct_mask],
-            color=TEAL, lw=2.2, ls="--")
-    ax.annotate(r"Al$_x$Ga$_{1-x}$As",
-                xy=(a_algaas[65], Eg_algaas_indirect[65]), xytext=(5.56, 2.37),
-                color=TEAL, fontsize=10, bbox=dict(facecolor=WHITE, edgecolor='none', pad=2.0),
-                arrowprops=dict(arrowstyle="->", color=TEAL, lw=1.1), zorder=10)
-
-    # InGaAs line (all direct)
-    ax.plot(a_ingaas, Eg_ingaas, color=CORAL, lw=2.2, ls="-")
-    ax.text(5.80, 0.98, r"In$_x$Ga$_{1-x}$As",
-            color=CORAL, fontsize=10, rotation=-30, bbox=dict(facecolor=WHITE, edgecolor='none', pad=1.5), zorder=10)
-
-    # Binary compounds
-    for (a, Eg, direct, name) in binaries:
-        ms = 10; mk = "o" if direct else "s"
-        mfc = AXES_CLR if direct else WHITE
-        ax.plot(a, Eg, marker=mk, ms=ms, color=AXES_CLR,
-                mfc=mfc, mec=AXES_CLR, lw=1.5, zorder=5)
-        # Per-compound label offsets to avoid collisions
-        label_offsets = {
-            "GaP":  (0.01,  0.06),
-            "AlAs": (0.02,  0.06),
-            "GaAs": (-0.06, -0.10),
-            "InP":  (0.02,  0.06),
-            "AlSb": (0.01,  0.06),
-            "GaSb": (-0.08, 0.06),
-            "InAs": (0.02,  0.06),
-        }
-        label_ha = {
-            "GaAs": "right", "GaSb": "right",
-        }
-        off = label_offsets.get(name, (0.01, 0.04))
-        ha_val = label_ha.get(name, "left")
-        ax.text(a + off[0], Eg + off[1], name,
-                color=AXES_CLR, fontsize=10, ha=ha_val, bbox=dict(facecolor=WHITE, edgecolor='none', pad=1.5), zorder=10)
-
-    # Substrate lines
-    for (a_sub, lbl, y_lbl) in [(5.653, "GaAs substrate", 0.55), (5.869, "InP substrate", 2.42)]:
-        ax.axvline(a_sub, color=SKYBLUE, lw=1.3, ls="--")
-        ax.text(a_sub + 0.005, y_lbl, lbl,
-                color=SKYBLUE, fontsize=9.5, rotation=90, va="top")
-
-    # In0.53Ga0.47As star (lattice matched to InP, Eg~0.75 eV, 1.55 um)
-    x_star = 0.53
-    a_star  = 5.653 + (6.058-5.653)*x_star
-    Eg_star = 1.424 - 1.064*x_star - 0.477*x_star*(1-x_star)
-    lambda_star = 1.24 / Eg_star
-    ax.plot(a_star, Eg_star, "*", ms=14, color=GOLD, zorder=6)
-    ax.text(a_star+0.015, Eg_star-0.10,
-            rf"In$_{{0.53}}$Ga$_{{0.47}}$As" "\n" rf"(InP matched, $\lambda \approx {lambda_star:.2f}\;\mu$m)",
-            color=GOLD, fontsize=9, bbox=dict(facecolor=WHITE, edgecolor='none', pad=2.0), zorder=10)
-
-    # Second y-axis: wavelength
-    ax2 = ax.twinx()
-    ax2.set_ylim(ax.get_ylim())
-    wavelengths = [0.5, 0.62, 0.83, 1.24, 1.55, 2.48]
-    Eg_wl = [1.24/lam for lam in wavelengths]
-    ax2.set_yticks(Eg_wl)
-    ax2.set_yticklabels([rf"{lam} $\mu$m" for lam in wavelengths])
-    ax2.tick_params(colors=AXES_CLR)
-    ax2.set_ylabel(r"Wavelength $\lambda$ ($\mu$m)", fontsize=12, color=AXES_CLR)
-
-    # Legend
-    from matplotlib.lines import Line2D
-    legend_elements = [
-        Line2D([0],[0], marker="o", ms=8, color=AXES_CLR, mfc=AXES_CLR, lw=0,
-               label="Direct gap"),
-        Line2D([0],[0], marker="s", ms=8, color=AXES_CLR, mfc=WHITE, mec=AXES_CLR, lw=0,
-               label="Indirect gap"),
-    ]
-    leg = ax.legend(handles=legend_elements, loc="lower left",
-              framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    leg.set_zorder(15)
-
-    ax.set_xlabel(r"Lattice constant  ($\AA$)", fontsize=13)
-    ax.set_ylabel(r"Band gap energy $E_g$  (eV)", fontsize=13)
-    ax.set_title("Band Gap vs. Lattice Constant — III-V Semiconductors", pad=10)
-    ax.set_xlim(5.38, 6.20); ax.set_ylim(0.20, 2.55)
-    ax.grid(True)
-
-    fig.tight_layout()
-    save(fig, "bandgap_vs_lattice_constant.jpg")
-
-
-fig_10()
-
-
 # ==============================================================================
 #  FIG-11  Threshold Current: Homojunction vs. Double Heterojunction
 # ==============================================================================
@@ -893,3 +609,320 @@ def fig_11():
 
 
 fig_11()
+
+
+# ==============================================================================
+#  FIG-12  E-k Band Diagram (Optical Gain)
+# ==============================================================================
+def fig_12():
+    # Parabola parameters
+    Eg = 2.0
+    Ec = Eg / 2
+    Ev = -Eg / 2
+    mc = 1.0
+    mv = 1.5
+
+    fig, ax = plt.subplots(figsize=(9, 7))
+    
+    k = np.linspace(-3, 3, 100)
+    E_c_k = Ec + k**2 / mc
+    E_v_k = Ev - k**2 / mv
+
+    # Quasi-Fermi levels
+    Efc = Ec + 3.5
+    Efv = Ev - 3.5
+
+    # Plot parabolas
+    ax.plot(k, E_c_k, color=AXES_CLR, lw=2)
+    ax.plot(k, E_v_k, color=AXES_CLR, lw=2)
+
+    # Shaded regions (filled states)
+    k_fill_c = np.linspace(-np.sqrt((Efc - Ec) * mc), np.sqrt((Efc - Ec) * mc), 100)
+    E_c_k_fill = Ec + k_fill_c**2 / mc
+    ax.fill_between(k_fill_c, E_c_k_fill, Efc, color=GRID_CLR, alpha=0.5)
+
+    k_fill_v = np.linspace(-np.sqrt((Ev - Efv) * mv), np.sqrt((Ev - Efv) * mv), 100)
+    E_v_k_fill = Ev - k_fill_v**2 / mv
+    ax.fill_between(k_fill_v, Efv, E_v_k_fill, color=GRID_CLR, alpha=0.5)
+
+    # Dots on the parabolas (electrons and holes)
+    k_dots_c = np.linspace(-2.6, 2.6, 17)
+    E_dots_c = Ec + k_dots_c**2 / mc
+    for x, y in zip(k_dots_c, E_dots_c):
+        if y <= Efc:
+            ax.plot(x, y, 'o', color=AXES_CLR, ms=8)
+        else:
+            ax.plot(x, y, 'o', color=WHITE, markeredgecolor=AXES_CLR, ms=8)
+
+    k_dots_v = np.linspace(-2.8, 2.8, 21)
+    E_dots_v = Ev - k_dots_v**2 / mv
+    for x, y in zip(k_dots_v, E_dots_v):
+        if y >= Efv:
+            ax.plot(x, y, 'o', color=WHITE, markeredgecolor=AXES_CLR, ms=8) # holes are empty (white)
+        else:
+            ax.plot(x, y, 'o', color=AXES_CLR, ms=8) # filled states below Efv
+
+    # Axes
+    ax.axhline(0, color=AXES_CLR, lw=1) # k axis
+    ax.axvline(0, color=AXES_CLR, lw=1) # E axis
+
+    # Arrows for axes
+    ax.annotate('', xy=(4.5, 0), xytext=(0, 0), arrowprops=dict(arrowstyle="->", color=AXES_CLR, lw=1))
+    ax.text(4.7, 0, 'k', va='center', ha='left', fontsize=16, style='italic')
+
+    ax.annotate('', xy=(0, 7.8), xytext=(0, -4.8), arrowprops=dict(arrowstyle="->", color=AXES_CLR, lw=1))
+    ax.text(0, 8.1, 'E', va='bottom', ha='center', fontsize=16, style='italic')
+
+    # Lines and Labels for Energy Levels
+    ax.plot([-3.5, 3.3], [Ec, Ec], color=AXES_CLR, ls='--', lw=1)
+    ax.text(3.5, Ec, '$E_c$', va='center', fontsize=16)
+
+    ax.plot([-3.6, 4.0], [Ev, Ev], color=AXES_CLR, ls='--', lw=1)
+    ax.text(-3.8, Ev, '$E_v$', va='center', ha='right', fontsize=16)
+
+    ax.plot([-2.0, 3.3], [Efc, Efc], color=AXES_CLR, ls='--', lw=1)
+    ax.text(3.5, Efc, '$E_{FC}$', va='center', fontsize=16)
+
+    ax.plot([-2.5, 3.3], [Efv, Efv], color=AXES_CLR, ls='--', lw=1)
+    ax.text(3.5, Efv, '$E_{FV}$', va='center', fontsize=16)
+
+    # Transition 'a' to 'b'
+    k0 = 1.7
+    Ea = Ec + k0**2 / mc
+    Eb = Ev - k0**2 / mv
+
+    ax.plot([0, 3.3], [Ea, Ea], color=AXES_CLR, ls='--', lw=1)
+    ax.text(3.5, Ea, '$E_a$', va='center', fontsize=16)
+
+    ax.plot([0, 3.3], [Eb, Eb], color=AXES_CLR, ls='--', lw=1)
+    ax.text(3.5, Eb, '$E_b$', va='center', fontsize=16)
+
+    # Vertical Arrow for emission
+    ax.annotate('', xy=(k0, Eb), xytext=(k0, Ea), arrowprops=dict(arrowstyle="<->", color=CORAL, lw=2))
+    ax.text(k0 + 0.2, (Ea+Eb)/2, r'$\hbar\omega(k)$', va='center', fontsize=16)
+
+    # Points a and b
+    ax.text(k0 + 0.35, Ea, 'a', va='center', ha='left', style='italic', fontsize=16)
+    ax.text(k0 + 0.35, Eb, 'b', va='center', ha='left', style='italic', fontsize=16)
+
+    # Eg Bracket
+    ax.annotate('', xy=(-0.5, Ec), xytext=(-0.5, Ev), arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1))
+    ax.text(-0.7, 0, '$E_g$', ha='right', va='center', fontsize=16)
+
+    # Kinetic energy markers
+    ax.annotate('', xy=(3.1, Ec), xytext=(3.1, Ea), arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1))
+    ax.text(4.4, (Ea+Ec)/2, r'$\frac{\hbar^2 k^2}{2m_c} \equiv \hbar\omega_c$', ha='center', va='center', fontsize=16)
+
+    ax.annotate('', xy=(3.1, Ev), xytext=(3.1, Eb), arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1))
+    ax.text(4.4, (Eb+Ev)/2, r'$\frac{\hbar^2 k^2}{2m_v} \equiv \hbar\omega_v$', ha='center', va='center', fontsize=16)
+
+    # Photon input
+    x_wave = np.linspace(-4.0, -2.5, 100)
+    y_wave = 0.5 + 0.2 * np.sin(25 * x_wave)
+    ax.plot(x_wave, y_wave, color=TEAL, lw=2)
+    ax.annotate('', xy=(-2.4, 0.5), xytext=(-2.5, 0.5), arrowprops=dict(arrowstyle="->", color=TEAL, lw=2))
+    ax.text(-3.25, 1.0, r'$I(\omega_0)$', ha='center', fontsize=16)
+
+    # Limits
+    ax.set_xlim(-4.5, 5.5)
+    ax.set_ylim(-5, 8)
+
+    # Remove axes lines and ticks
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+    ax.set_xticks([])
+    ax.set_yticks([])
+
+    fig.tight_layout()
+    save(fig, "band_gain_ek.jpg")
+
+
+fig_12()
+
+
+# ==============================================================================
+#  FIG-13  Gain Formula Decomposition: ρ(ν) × [f_c − f_v] = γ₀(ν)
+#  Three-panel conceptual figure showing the multiplication that produces gain.
+#  Solid = T = 0 K (absolute zero);  Dashed = T > 0 K
+# ==============================================================================
+def fig_13():
+    # Conceptual parameters for clear visualization
+    Eg = 1.0
+    Efc_Efv = 1.6  # quasi-Fermi separation (gain window edge)
+    hnu = np.linspace(0, 2.5, 800)
+
+    # ── Joint DOS: ρ(ν) ∝ sqrt(hν − Eg) ──────────────────────────────────────
+    rho = np.where(hnu >= Eg, np.sqrt(hnu - Eg), 0.0)
+    rho_norm = rho / (np.max(rho) + 1e-12)
+
+    # ── Inversion factor: f_c(ν) − f_v(ν) ────────────────────────────────────
+    # For a conceptual plot, we assume symmetric bands (m_c = m_v). 
+    # Mathematically, this exactly simplifies the Fermi-Dirac difference to a tanh function:
+    # f_c(E_a) - f_v(E_b) = tanh((Efc_Efv - hnu) / (4 * kBT))
+    
+    # At T = 0 (solid): perfect step  +1 for hν < Efc−Efv,  −1 outside
+    inv_T0 = np.where(hnu <= Efc_Efv, 1.0, -1.0)
+
+    # At T > 0 (dashed): exact mathematical form for symmetric bands
+    kBT_vis = 0.06  # pedagogical temperature to make smearing visible
+    inv_T = np.tanh((Efc_Efv - hnu) / (4 * kBT_vis))
+
+    # ── Product: γ₀(ν) = ρ(ν) × [f_c − f_v] ─────────────────────────────────
+    gamma_T0 = rho_norm * inv_T0
+    gamma_T  = rho_norm * inv_T
+
+    fig, axes = plt.subplots(1, 3, figsize=(16, 5.0))
+
+    # Apply consistent x-axis formatting to all three subplots
+    for ax in axes:
+        ax.set_xlim(0, 2.5)
+        ax.set_xticks([0, Eg, Efc_Efv])
+        ax.set_xticklabels(["$0$", "$E_g$", "$E_{fc}\!-\!E_{fv}$"], fontsize=12)
+        ax.axvline(Eg, color=AXES_CLR, lw=1.0, ls=":")
+        ax.axvline(Efc_Efv, color=AXES_CLR, lw=1.0, ls=":")
+        ax.set_xlabel(r"Photon energy $h\nu$", fontsize=13)
+        ax.grid(True)
+
+    # ── Panel (a): ρ(ν) ──────────────────────────────────────────────────────
+    ax = axes[0]
+    ax.plot(hnu, rho_norm, color=TEAL, lw=2.5)
+    ax.text(Eg + 0.05, 0.85, r"$\rho(\nu) \propto \sqrt{h\nu - E_g}$",
+            color=AXES_CLR, fontsize=11)
+    ax.set_ylabel(r"$\rho(\nu)$", fontsize=13)
+    ax.set_title(r"(a) Joint Density of States $\rho(\nu)$", pad=8)
+    ax.set_ylim(0, 1.15)
+    ax.set_yticks([0])
+    ax.set_yticklabels(["$0$"], fontsize=12)
+
+    # ── Panel (b): f_c − f_v ─────────────────────────────────────────────────
+    ax = axes[1]
+    ax.axhline(0, color=AXES_CLR, lw=1.2)
+    ax.plot(hnu, inv_T0, color=TEAL, lw=2.5, label=r"$T = 0$ K")
+    ax.plot(hnu, inv_T,  color=TEAL, lw=2.5, ls="--", label=r"$T > 0$ K")
+    ax.set_ylabel(r"$f_c - f_v$", fontsize=13)
+    ax.set_title(r"(b) Population Inversion Factor", pad=8)
+    ax.set_ylim(-1.4, 1.4)
+    ax.set_yticks([-1, 0, 1])
+    ax.set_yticklabels(["$-1$", "$0$", "$+1$"], fontsize=11)
+    ax.legend(loc="upper right", framealpha=0.9,
+              facecolor="#f5f5f5", edgecolor="#cccccc")
+
+    # ── Panel (c): γ₀(ν) = product ───────────────────────────────────────────
+    ax = axes[2]
+    ax.axhline(0, color=AXES_CLR, lw=1.5)
+    ax.plot(hnu, gamma_T0, color=TEAL, lw=2.5, label=r"$T = 0$ K")
+    ax.plot(hnu, gamma_T,  color=TEAL, lw=2.5, ls="--", label=r"$T > 0$ K")
+
+    gain_peak_idx = np.argmax(gamma_T)
+    ax.text(hnu[gain_peak_idx], gamma_T[gain_peak_idx] + 0.08,
+            "Gain", color=TEAL, fontsize=12, ha="center", fontweight="bold")
+    loss_region = hnu[hnu > Efc_Efv + 0.3]
+    if len(loss_region):
+        ax.text(loss_region[0], -0.25, "Loss", color=CORAL,
+                fontsize=12, ha="center", fontweight="bold")
+
+    ax.set_ylabel(r"$\gamma_0(\nu)$", fontsize=13)
+    ax.set_title(r"(c) Net Gain $\gamma_0(\nu) = \rho(\nu) \cdot [f_c - f_v]$",
+                 pad=8)
+    ax.set_ylim(-0.8, 1.15)
+    ax.set_yticks([0])
+    ax.set_yticklabels(["$0$"], fontsize=12)
+    ax.legend(loc="upper right", framealpha=0.9,
+              facecolor="#f5f5f5", edgecolor="#cccccc")
+
+    fig.tight_layout(pad=2.0)
+    save(fig, "gain_formula_decomposition.jpg")
+
+
+fig_13()
+
+
+# ==============================================================================
+#  FIG-14  Gain Spectrum for Multiple Carrier Densities (Labelled)
+#  Shows gain curves at increasing Δn with carrier density annotations,
+#  gain/loss boundary, and bandwidth markers.
+# ==============================================================================
+def fig_14():
+    Eg = 1.424       # GaAs bandgap eV
+    kBT = 0.026      # room temperature
+    me_eff = 0.067
+    mh_eff = 0.50
+
+    hnu = np.linspace(1.40, 1.56, 600)
+    delta = np.maximum(hnu - Eg, 0.0)
+
+    # Carrier densities and corresponding quasi-Fermi level positions
+    carrier_configs = [
+        (r"$\Delta n = 1.2 \times 10^{18}$", SKYBLUE, 0.01, -0.01),
+        (r"$\Delta n = 1.4 \times 10^{18}$", LAVENDER, 0.04, 0.00),
+        (r"$\Delta n = 1.6 \times 10^{18}$", TEAL,    0.06, 0.01),
+        (r"$\Delta n = 1.8 \times 10^{18}$", CORAL,   0.08, 0.02),
+    ]
+
+    fig, ax = plt.subplots(figsize=(9, 6))
+
+    # Background shading
+    ax.axhspan(0,    300, color=TEAL,  alpha=0.05)
+    ax.axhspan(-160, 0,   color=CORAL, alpha=0.05)
+    ax.axhline(0, color=AXES_CLR, lw=1.8)
+    ax.axvline(Eg, color=AXES_CLR, lw=1.2, ls="--")
+    ax.text(Eg + 0.001, -140, r"$E_g$", color=AXES_CLR, fontsize=11)
+
+    # Compute and plot each gain curve
+    gain_curves = {}
+    unscaled = {}
+    max_abs = 0.0
+
+    for label, _, eta_c, eta_v in carrier_configs:
+        frac_e = mh_eff / (me_eff + mh_eff)
+        frac_h = me_eff / (me_eff + mh_eff)
+        eps_e = frac_e * delta
+        eps_h = frac_h * delta
+        fc = 1.0 / (1.0 + np.exp((eps_e - eta_c) / kBT))
+        fv_hole = 1.0 / (1.0 + np.exp((eps_h - eta_v) / kBT))
+        inv = fc + fv_hole - 1.0
+        g = np.sqrt(delta) * inv
+        unscaled[label] = g
+        max_abs = max(max_abs, np.max(np.abs(g)))
+
+    G0 = 250.0 / (max_abs + 1e-12)
+    for label, clr, _, _ in carrier_configs:
+        gain = G0 * unscaled[label]
+        gain_curves[label] = gain
+        ax.plot(hnu, gain, color=clr, lw=2.5, label=label + r" cm$^{-3}$")
+
+    # Gain bandwidth annotation on the strongest curve
+    strongest_label = carrier_configs[-1][0]
+    g_top = gain_curves[strongest_label]
+    positive = g_top > 0
+    if np.any(positive):
+        idx_start = np.argmax(positive)
+        idx_end   = np.where(positive)[0][-1]
+        x1, x2 = hnu[idx_start], hnu[idx_end]
+        ax.annotate("", xy=(x2, 30), xytext=(x1, 30),
+                    arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.3))
+        ax.text((x1+x2)/2, 45,
+                rf"$\sim{(x2-x1)*1000:.0f}$ meV gain BW",
+                ha="center", color=AXES_CLR, fontsize=10)
+
+    # Region labels
+    ax.text(1.455, 230, "Gain", color=TEAL, fontsize=14,
+            fontweight="bold", ha="center")
+    ax.text(1.455, -130, "Loss", color=CORAL, fontsize=14,
+            fontweight="bold", ha="center")
+
+    ax.set_xlabel(r"Photon energy $h\nu$  (eV)", fontsize=13)
+    ax.set_ylabel(r"Gain coefficient $\gamma$  (cm$^{-1}$)", fontsize=13)
+    ax.set_title("Gain Spectrum vs. Carrier Density (GaAs, 300 K)", pad=10)
+    ax.set_xlim(1.40, 1.56); ax.set_ylim(-160, 280)
+    ax.legend(loc="upper right", framealpha=0.9,
+              facecolor="#f5f5f5", edgecolor="#cccccc")
+    ax.grid(True)
+
+    fig.tight_layout()
+    save(fig, "gain_spectrum_carrier_densities.jpg")
+
+
+fig_14()

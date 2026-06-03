@@ -1,4 +1,3 @@
-% !TEX root = ../Optoelectronics.tex
 % =========================================================
 %  Chapter 6 — Homojunctions, Heterojunctions, and Optical Gain
 %  Source: Dr. George's Lectures (Lecture 2)
@@ -21,7 +20,21 @@ Before two differently-doped regions of the same semiconductor material are brou
 
 The moment contact is made, a fundamental rule of thermodynamics takes over: at thermal equilibrium, the Fermi level must be flat and continuous throughout the entire structure. Electrons diffuse from the n-side (where they are abundant) into the p-side, and holes diffuse in the opposite direction. This carrier diffusion leaves behind fixed, ionised donor and acceptor atoms in what becomes the \textbf{depletion region} — a layer stripped of free carriers. This fixed charge creates a built-in electric field pointing from n to p, which opposes further diffusion and ultimately halts the net flow.
 
-The resulting electrostatic potential difference across the junction is the \textbf{built-in (contact) potential} $V_0$. To find its value, we apply the equilibrium condition that the electron concentration on the n-side must be consistent with the same Fermi level as on the p-side. Writing the electron concentration in terms of the Fermi level on each side and equating the two through the mass-action law:
+The resulting electrostatic potential difference across the junction is the \textbf{built-in (contact) potential} $V_0$. By definition, the energy difference between the conduction bands on either side is $E_c^p - E_c^n = qV_0$.
+
+To find its value, we apply the equilibrium condition that the electron concentration on the n-side ($n_{n0}$) and the p-side ($n_{p0}$) must be governed by the exact same flat Fermi level $E_f$:
+\begin{align*}
+    n_{n0} &= N_c \exp\!\left(-\frac{E_c^n - E_f}{k_B T}\right) \approx N_d \\
+    n_{p0} &= N_c \exp\!\left(-\frac{E_c^p - E_f}{k_B T}\right) \approx \frac{n_i^2}{N_a}
+\end{align*}
+
+Taking the ratio of these two concentrations isolates the energy difference:
+\begin{align*}
+    \frac{N_d}{n_i^2 / N_a} &= \frac{\exp\!\left(-(E_c^n - E_f)/k_B T\right)}{\exp\!\left(-(E_c^p - E_f)/k_B T\right)} \\
+    \frac{N_d N_a}{n_i^2} &= \exp\!\left(\frac{E_c^p - E_c^n}{k_B T}\right) = \exp\!\left(\frac{qV_0}{k_B T}\right)
+\end{align*}
+
+Taking the natural logarithm of both sides yields the final expression:
 \begin{keyresult}
     \begin{equation}
         V_0 = \frac{k_B T}{q}\,\ln\!\left(\frac{N_d\,N_a}{n_i^2}\right)
@@ -37,9 +50,8 @@ where:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/homojunction_equilibrium.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/homojunction_equilibrium.jpg}
     \caption{p-n Homojunction Band Diagram at Thermal Equilibrium}
-    \label{fig:homojunction_equilibrium}
 \end{figure}
 
 Notice the logarithmic dependence: heavier doping on either side pushes the Fermi levels further toward the band edges, increasing the potential difference. At room temperature with typical doping densities of $10^{17}$--$10^{18}\,\text{cm}^{-3}$, $V_0$ is typically in the range of $0.5$--$1.5\,\text{V}$ for GaAs.
@@ -59,7 +71,21 @@ In the \textbf{p-doped region}, acceptors are fully ionised, so holes are the ma
     p_{p0} = N_a, \qquad n_{p0} = \frac{n_i^2}{N_a}
 \end{equation*}
 
-These minority carrier densities are not just theoretical curiosities. It is precisely these minority carriers — electrons injected into the p-side and holes injected into the n-side — that produce optical emission when a forward bias is applied. Their low equilibrium concentration is why we must actively inject them with current.
+These minority carrier densities are not just theoretical curiosities. In fact, understanding their extreme scarcity at equilibrium is central to understanding how optoelectronic devices like LEDs and laser diodes function.
+
+To produce meaningful optical emission, an electron must recombine with a hole, releasing its energy as a photon. This requires a high concentration of \emph{both} electrons and holes existing in the exact same physical space simultaneously.
+
+Under thermal equilibrium (no applied voltage), the mass-action law guarantees this condition is never met:
+\begin{itemize}
+    \item \textbf{On the p-side:} There is an ocean of majority holes, but practically zero minority electrons.
+    \item \textbf{On the n-side:} There is an ocean of majority electrons, but practically zero minority holes.
+\end{itemize}
+
+If we consider an electron sitting on the p-side, it has plenty of holes to recombine with. However, because electrons are minority carriers here, their equilibrium concentration is so low that almost no light is produced.
+
+This low equilibrium concentration is precisely why we must actively inject carriers with current. When a forward bias is applied, we physically push electrons from the n-side over the junction into the p-side, where they instantly become minority carriers. Simultaneously, holes are injected into the n-side.
+
+This injection floods the regions with minority carriers, creating a massive, non-equilibrium population of both electrons and holes in the same place. Because they are no longer constrained by the equilibrium mass-action law, they rapidly recombine in massive numbers, yielding the bright optical emission that powers modern LEDs.
 
 % ------------------------------------------------------------------
 \section{Depletion Region Analysis}
@@ -78,21 +104,76 @@ This single equation contains important physics: the depletion region extends fu
 
 \subsection{Building Up to the Total Depletion Width}
 
-Poisson's equation on the n-side of the depletion region ($0 \leq x \leq W_{n0}$) relates the fixed charge density $qN_d$ to the electric field $\mathcal{E}$. Integrating once from the neutral n-bulk (where $\mathcal{E} = 0$) to position $x$:
+We start from Poisson's equation in 1D, which relates the electrostatic potential $V(x)$ and the electric field $\mathcal{E}(x) = -\frac{dV}{dx}$ to the charge density $\rho(x)$:
 \begin{equation*}
-    \frac{d\mathcal{E}}{dx} = \frac{qN_d}{\epsilon} \implies \mathcal{E}(x) = \frac{qN_d}{\epsilon}(x - W_{n0})
+    \frac{d\mathcal{E}}{dx} = \frac{\rho(x)}{\epsilon}
 \end{equation*}
-The field is negative (pointing from n to p, opposing diffusion) and peaks in magnitude at the metallurgical junction $x=0$:
+In the depletion approximation, we assume the free carriers are completely swept out, leaving only the fixed ionized dopants. The charge density profile is:
+\begin{equation*}
+    \rho(x) = 
+    \begin{cases}
+        -q N_a & \text{for } -W_{p0} \le x < 0 \quad (\text{p-side}) \\
+        q N_d & \text{for } 0 < x \le W_{n0} \quad (\text{n-side})
+    \end{cases}
+\end{equation*}
+Integrating Poisson's equation on the n-side ($0 \leq x \leq W_{n0}$) with the boundary condition that the electric field must vanish at the depletion boundary ($\mathcal{E}(W_{n0}) = 0$):
+\begin{equation*}
+    \int_{\mathcal{E}(x)}^{0} d\mathcal{E}' = \int_x^{W_{n0}} \frac{qN_d}{\epsilon}\,dx' \implies -\mathcal{E}(x) = \frac{qN_d}{\epsilon}(W_{n0} - x) \implies \mathcal{E}(x) = \frac{qN_d}{\epsilon}(x - W_{n0})
+\end{equation*}
+Symmetrically, integrating on the p-side ($-W_{p0} \leq x < 0$) with the boundary condition $\mathcal{E}(-W_{p0}) = 0$:
+\begin{equation*}
+    \int_0^{\mathcal{E}(x)} d\mathcal{E}' = \int_{-W_{p0}}^x -\frac{qN_a}{\epsilon}\,dx' \implies \mathcal{E}(x) = -\frac{qN_a}{\epsilon}(x + W_{p0})
+\end{equation*}
+Since the electric field must be continuous at the metallurgical junction ($x=0$), equating the two expressions yields the peak field magnitude at $x=0$:
 \begin{equation*}
     \mathcal{E}_0 = -\frac{qN_d\,W_{n0}}{\epsilon} = -\frac{qN_a\,W_{p0}}{\epsilon}
 \end{equation*}
-where the second equality follows from the charge neutrality condition above.
+which directly recovers the charge neutrality condition $N_d W_{n0} = N_a W_{p0}$.
 
-The built-in potential $V_0$ is the integral of the electric field across the entire depletion width. The field profile is triangular (piecewise linear), so the integral gives a factor of $\frac{1}{2}$:
+To find the electrostatic potential profile $V(x)$, we integrate the electric field $\frac{dV}{dx} = -\mathcal{E}(x)$. We set the potential on the p-side boundary as our reference, $V(-W_{p0}) = 0$.
+Integrating across the p-side ($-W_{p0} \leq x < 0$):
 \begin{equation*}
-    V_0 = \int_{-W_{p0}}^{W_{n0}} |\mathcal{E}|\,dx = \frac{1}{2}\,\frac{q}{\epsilon}\,\frac{N_a N_d}{N_a + N_d}\,W_0^2
+    V(x) = \int_{-W_{p0}}^x -\mathcal{E}(x')\,dx' = \int_{-W_{p0}}^x \frac{qN_a}{\epsilon}(x' + W_{p0})\,dx' = \frac{qN_a}{2\epsilon}(x + W_{p0})^2
 \end{equation*}
-where $W_0 = W_{n0} + W_{p0}$ is the total depletion width. Solving for $W_0$:
+Thus, the potential drop across the p-side depletion region is:
+\begin{equation*}
+    V_p \equiv V(0) = \frac{qN_a W_{p0}^2}{2\epsilon}
+\end{equation*}
+Next, integrating across the n-side ($0 < x \le W_{n0}$):
+\begin{equation*}
+    V(x) - V(0) = \int_0^x -\mathcal{E}(x')\,dx' = \int_0^x -\frac{qN_d}{\epsilon}(x' - W_{n0})\,dx' = -\frac{qN_d}{\epsilon}\left(\frac{x^2}{2} - W_{n0} x\right)
+\end{equation*}
+The potential drop across the n-side depletion region is $V_n \equiv V(W_{n0}) - V(0)$:
+\begin{equation*}
+    V_n = \frac{qN_d W_{n0}^2}{2\epsilon}
+\end{equation*}
+The total built-in potential $V_0$ is the sum of these potential drops:
+\begin{equation*}
+    V_0 = V_p + V_n = \frac{q}{2\epsilon}\left(N_a W_{p0}^2 + N_d W_{n0}^2\right)
+\end{equation*}
+Alternatively, because the electric field profile is perfectly triangular, the total potential $V_0 = \int_{-W_{p0}}^{W_{n0}} |\mathcal{E}(x)|\,dx$ is simply the area of the field triangle ($\frac{1}{2} \times \text{base} \times \text{height}$):
+\begin{equation*}
+    V_0 = \frac{1}{2} W_0 |\mathcal{E}_0|
+\end{equation*}
+where $W_0 = W_{n0} + W_{p0}$ is the total depletion width. Substituting the peak field magnitude $|\mathcal{E}_0| = \frac{q N_d W_{n0}}{\epsilon}$:
+\begin{equation*}
+    V_0 = \frac{1}{2} W_0 \left( \frac{qN_d W_{n0}}{\epsilon} \right)
+\end{equation*}
+
+However, from the charge neutrality condition ($W_{p0}N_a = W_{n0}N_d$) and the fact that $W_0 = W_{n0} + W_{p0}$, we can express the n-side width purely as a fraction of the total width:
+\begin{align*}
+    W_{n0} &= W_0 - W_{p0} \\
+    W_{n0} &= W_0 - W_{n0}\frac{N_d}{N_a} \\
+    W_{n0} &= \frac{N_a}{N_a + N_d} W_0
+\end{align*}
+
+Substituting this expression for $W_{n0}$ back into the potential equation:
+\begin{align*}
+    V_0 &= \frac{1}{2} W_0 \frac{qN_d}{\epsilon} \left( \frac{N_a}{N_a + N_d} W_0 \right) \\
+    V_0 &= \frac{1}{2}\frac{q}{\epsilon}\frac{N_a N_d}{N_a + N_d} W_0^2
+\end{align*}
+
+Finally, rearranging this to solve for the total depletion width $W_0$:
 \begin{keyresult}
     \begin{equation}
         W_0 = \sqrt{\frac{2\epsilon}{q}\cdot\frac{N_a + N_d}{N_a N_d}\cdot V_0}
@@ -111,9 +192,8 @@ The individual widths then follow directly from charge neutrality:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 6/depletion_profiles.jpg}
+    \includegraphics[width=0.75\textwidth]{Figures/Chapter 6/depletion_profiles.jpg}
     \caption{Depletion Region Profiles: Charge Density, Electric Field, and Potential}
-    \label{fig:depletion_profiles}
 \end{figure}
 
 For a typical GaAs homojunction with $N_a \sim N_d \sim 10^{17}\,\text{cm}^{-3}$, the total depletion width $W_0$ is of order tens of nanometres — far narrower than the micron-scale diffusion length $L_D = \sqrt{D\tau}$ over which injected minority carriers ultimately spread. This size mismatch is the root cause of the homojunction's poor efficiency, which we will return to shortly.
@@ -126,20 +206,47 @@ For a typical GaAs homojunction with $N_a \sim N_d \sim 10^{17}\,\text{cm}^{-3}$
 
 Applying a forward voltage $V$ lowers the built-in barrier from $eV_0$ to $e(V_0 - V)$, allowing majority carriers to flood across the junction. The device is now far from thermal equilibrium: the electron and hole populations are both elevated simultaneously in the depletion region. As established in the previous chapter, we describe this non-equilibrium state with two separate quasi-Fermi levels $E_{fn}$ and $E_{fp}$, one for each carrier species.
 
-The key fact about why this works is the timescale separation: carriers scatter and thermalise within their own band on a timescale of $\sim 10^{-13}\,\text{s}$ (100 femtoseconds), which is orders of magnitude faster than the radiative recombination lifetime of $\sim 10^{-9}\,\text{s}$ (1 nanosecond). Each carrier population is therefore always in internal thermal equilibrium, described by a Fermi-Dirac distribution with its own quasi-Fermi level, while the two populations remain out of equilibrium with each other.
+The fundamental physical justification for using quasi-Fermi levels is a massive timescale separation between two distinct processes.
 
-The excess minority carrier profile injected into the p-side satisfies the minority carrier diffusion equation, whose solution gives the fractional excess as:
+In thermodynamics, the Fermi-Dirac distribution strictly applies only to systems in perfect thermal equilibrium. However, a forward-biased p-n junction is actively driven out of equilibrium as carriers are continuously injected and forced to recombine. By all rights, equilibrium statistics should break down.
+
+We are saved by the fact that carriers undergo two processes with vastly different timescales:
+\begin{enumerate}
+    \item \textbf{Thermalisation (Fast):} When electrons are injected into the conduction band, they scatter off each other and the crystal lattice, rapidly sharing their energy. This intra-band thermalisation process occurs on a timescale of roughly $\sim 10^{-13}\,\text{s}$ (100 femtoseconds).
+    \item \textbf{Recombination (Slow):} The inter-band process of an electron dropping into the valence band to annihilate a hole and emit a photon takes roughly $\sim 10^{-9}\,\text{s}$ (1 nanosecond).
+\end{enumerate}
+
+Because the intra-band thermalisation process is $10,000$ times faster than the inter-band recombination process, the electrons reach a state of internal thermal equilibrium \emph{with themselves} long before they recombine. The holes in the valence band independently do the exact same thing. 
+
+Therefore, even though the electron and hole populations are completely out of equilibrium \emph{with each other}, each population is internally well-behaved. This allows us to mathematically treat them as two separate, isolated populations, each governed by its own Fermi-Dirac distribution and its own quasi-Fermi level ($E_{fn}$ for electrons and $E_{fp}$ for holes).
+
+The carrier populations injected across the depletion boundaries under a forward bias voltage $V$ are governed by the Shockley boundary conditions (the law of the junction). At the edge of the depletion region on the p-side, the total electron concentration increases to:
 \begin{equation*}
-    \frac{\Delta n_p}{n_{p0}} = \exp\!\left(\frac{qV}{k_BT}\right) - 1
+    n_p(0) = n_{p0} \exp\!\left(\frac{qV}{k_B T}\right)
+\end{equation*}
+where $n_{p0}$ is the equilibrium minority electron concentration. The excess carrier density at the depletion edge is therefore:
+\begin{equation*}
+    \Delta n_p(0) = n_p(0) - n_{p0} = n_{p0} \left[\exp\!\left(\frac{qV}{k_B T}\right) - 1\right]
+\end{equation*}
+In the neutral p-bulk, these injected electrons diffuse and recombine, satisfying the 1D steady-state minority carrier diffusion equation:
+\begin{equation*}
+    D_e \frac{d^2 \Delta n_p}{dx^2} - \frac{\Delta n_p}{\tau_e} = 0
+\end{equation*}
+Solving this differential equation with boundary conditions $\Delta n_p(0)$ at the depletion edge and $\Delta n_p(\infty) = 0$ yields the spatial decay profile of the injected minority carriers:
+\begin{equation*}
+    \Delta n_p(x) = \Delta n_p(0) \exp\!\left(-\frac{x}{L_e}\right) = n_{p0} \left[\exp\!\left(\frac{qV}{k_B T}\right) - 1\right] \exp\!\left(-\frac{x}{L_e}\right)
+\end{equation*}
+where $L_e = \sqrt{D_e \tau_e}$ is the minority electron diffusion length. At the depletion boundary ($x=0$), the fractional excess carrier concentration is:
+\begin{equation*}
+    \frac{\Delta n_p(0)}{n_{p0}} = \exp\!\left(\frac{qV}{k_BT}\right) - 1
 \end{equation*}
 
 This exponential dependence on voltage is the classic diode equation — a small increase in forward bias produces an enormous increase in injected minority carriers. At a forward bias of $V \approx 1\,\text{V}$ for GaAs (where $E_g \approx 1.42\,\text{eV}$), the quasi-Fermi level separation is $E_{fn} - E_{fp} = eV \approx E_g$, and the Bernard-Duraffourg condition is on the verge of being met.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/homojunction_forward_bias.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/homojunction_forward_bias.jpg}
     \caption{Homojunction Band Diagram Under Forward Bias}
-    \label{fig:homojunction_forward_bias}
 \end{figure}
 
 % ------------------------------------------------------------------
@@ -149,6 +256,12 @@ This exponential dependence on voltage is the classic diode equation — a small
 \subsection{From Atomic Gain to Band Gain}
 
 The gain coefficient for a collection of two-level atoms has the form $\gamma = \sigma(N_2 - N_1)$, where $\sigma$ is the stimulated emission cross-section and $(N_2 - N_1)$ is the population inversion. That result was derived by treating the active medium as a collection of identical, isolated resonators each with two sharp energy levels. The same physical logic carries over to a semiconductor, but we must now account for the fundamental difference: instead of two sharp levels, we have continuous bands filled with a distribution of states, each pair at a different energy, each with its own occupation probability.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/band_gain_ek.jpg}
+    \caption{Energy-momentum ($E-k$) diagram illustrating an optical transition between the conduction and valence bands. The transition must conserve momentum, resulting in a vertical arrow.}
+\end{figure}
 
 For a photon of energy $h\nu$ to stimulate an optical transition, it must interact with a pair of states: an electron at energy $E_a$ in the conduction band and an empty state (a hole) at energy $E_b$ in the valence band, satisfying energy conservation:
 \begin{equation*}
@@ -167,19 +280,41 @@ where $m_c^*$ and $m_v^*$ are the effective masses in the conduction and valence
 \begin{equation*}
     E_a - E_b = (E_c - E_v) + \frac{(\hbar k)^2}{2m_c^*} + \frac{(\hbar k)^2}{2m_v^*} = E_g + \frac{(\hbar k)^2}{2m_r}
 \end{equation*}
-where we have defined the \textbf{reduced mass} $m_r$ by grouping the two effective masses:
+where we have defined the \textbf{reduced mass} $m_r$:
 \begin{keyresult}
     \begin{equation}
         \frac{1}{m_r} = \frac{1}{m_c^*} + \frac{1}{m_v^*}
     \end{equation}
 \end{keyresult}
 
-Setting this equal to $h\nu$ and solving for the wavevector $k$ determines which pair of states in the bands participates in a transition at frequency $\nu$. The conduction band energy of that state is:
+This reduced mass is not merely a mathematical grouping—it represents a profound physical mechanism. Because a photon carries negligible momentum, an optical transition must be strictly \textbf{vertical} on the $E-k$ diagram ($k_e \approx k_h$). This means the electron and hole cannot be treated as independent particles; they are rigidly coupled by momentum conservation and must share the exact same wavevector $k$. 
+
+Consequently, the photon must provide enough energy to overcome the inertia of \textit{both} bands simultaneously. The reduced mass $m_r$ allows us to map this coupled two-particle system onto a \textbf{single fictitious particle}. Instead of tracking two particles in two bands, $m_r$ represents the effective inertia of the transition itself.
+
+If we set the total transition energy equal to $h\nu$:
 \begin{equation*}
-    E_a = E_c + \frac{m_r}{m_c^*}(h\nu - E_g)
+    h\nu = E_g + \frac{\hbar^2 k^2}{2m_r}
+\end{equation*}
+we can rearrange this to isolate the shared kinetic energy term:
+\begin{equation*}
+    \frac{\hbar^2 k^2}{2} = m_r(h\nu - E_g)
 \end{equation*}
 
-The physical meaning is important: for a given photon energy $h\nu$, there is only one specific kinetic energy $(\hbar k)^2/2m_r = h\nu - E_g$ that satisfies momentum conservation (since the photon carries negligible momentum). This single value of $k$ maps to one $E_a$ in the CB and one $E_b$ in the VB.
+By substituting this isolated kinetic energy term back into the original parabolic equation for the conduction band electron, we can exactly determine how the excess energy partitions:
+\begin{align*}
+    E_a &= E_c + \frac{1}{m_c^*}\left[\frac{\hbar^2 k^2}{2}\right] \\
+        &= E_c + \frac{1}{m_c^*}\left[m_r(h\nu - E_g)\right] \\
+    E_a &= E_c + \frac{m_r}{m_c^*}(h\nu - E_g)
+\end{align*}
+
+Applying the exact same substitution for the corresponding hole state in the valence band:
+\begin{align*}
+    E_b &= E_v - \frac{1}{m_v^*}\left[\frac{\hbar^2 k^2}{2}\right] \\
+        &= E_v - \frac{1}{m_v^*}\left[m_r(h\nu - E_g)\right] \\
+    E_b &= E_v - \frac{m_r}{m_v^*}(h\nu - E_g)
+\end{align*}
+
+Notice the mechanism of energy partitioning: if the conduction band is very "heavy" (large $m_c^*$) and the valence band is very "light" (small $m_v^*$), the lighter particle will absorb the vast majority of the photon's kinetic energy. Because the vertical transition requires a specific $k$ to satisfy momentum conservation, a given photon energy $h\nu$ uniquely maps to exactly one paired state $(E_a, E_b)$.
 
 \subsection{The Joint Density of States}
 
@@ -230,9 +365,8 @@ This square-root form is identical in structure to the single-band density of st
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/joint_dos.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/joint_dos.jpg}
     \caption{Joint Density of States $\rho(\nu)$}
-    \label{fig:joint_dos}
 \end{figure}
 
 \subsection{The Full Gain Formula}
@@ -241,7 +375,33 @@ Now we are ready to write down the net gain coefficient. At photon energy $h\nu$
 
 The probability of finding an electron in state $E_a$ (needed for stimulated emission) is $f_c(E_a)$ — the Fermi-Dirac distribution evaluated with the electron quasi-Fermi level $E_{fc}$. The probability of finding the corresponding state $E_b$ empty (i.e., occupied by a hole, needed for emission) is $[1 - f_v(E_b)]$, where $f_v(E_b)$ uses the hole quasi-Fermi level $E_{fv}$.
 
-The net gain coefficient is therefore proportional to the joint density of states, weighted by the net inversion factor — the probability of stimulated emission minus the probability of absorption — integrated over all participating state pairs:
+The net gain coefficient is proportional to the joint density of states, weighted by the net inversion factor — the probability of stimulated emission minus the probability of absorption. To derive the exact prefactor, we use Einstein's thermodynamic theory of radiative transitions adapted to a semiconductor.
+
+For a mode with spectral energy density $u(\nu)$ and refractive index $n$, the group velocity is $v_g = c/n$. The transition rates per unit volume per unit frequency interval are:
+\begin{align*}
+    r_{sp}(\nu) &= A_{21}\,\rho(\nu)\,f_c(E_a)\!\left[1 - f_v(E_b)\right] \\
+    r_{st}(\nu) &= B_{21}\,u(\nu)\,\rho(\nu)\,f_c(E_a)\!\left[1 - f_v(E_b)\right] \\
+    r_{abs}(\nu) &= B_{12}\,u(\nu)\,\rho(\nu)\,f_v(E_b)\!\left[1 - f_c(E_a)\right]
+\end{align*}
+where $A_{21}$, $B_{21}$, and $B_{12}$ are the Einstein coefficients. Symmetries demand $B_{21} = B_{12}$, and the spontaneous lifetime is $\tau_{sp} = 1/A_{21}$. The relationship between the spontaneous and stimulated emission coefficients in a medium of refractive index $n$ is:
+\begin{equation*}
+    \frac{A_{21}}{B_{21}} = \frac{8\pi h n^3 \nu^3}{v_g^3} = \frac{8\pi h n^3 \nu^3}{c^3} \implies B_{21} = \frac{c^3}{8\pi h n^3 \nu^3 \tau_{sp}}
+\end{equation*}
+The net rate of stimulated transition events per unit volume per unit frequency is:
+\begin{align*}
+    r_{net}(\nu) &= r_{st}(\nu) - r_{abs}(\nu) \\
+    &= B_{21}\,u(\nu)\,\rho(\nu)\,\left( f_c(E_a)\!\left[1 - f_v(E_b)\right] - f_v(E_b)\!\left[1 - f_c(E_a)\right] \right) \\
+    &= B_{21}\,u(\nu)\,\rho(\nu)\,\left[f_c(E_a) - f_v(E_b)\right]
+\end{align*}
+The spectral energy density is related to the spectral intensity $I(\nu)$ of the wave by $u(\nu) = I(\nu)/v_g = n I(\nu)/c$. Substituting $B_{21}$ and $u(\nu)$ gives:
+\begin{equation*}
+    r_{net}(\nu) = \left(\frac{c^3}{8\pi h n^3 \nu^3 \tau_{sp}}\right) \left(\frac{n I(\nu)}{c}\right) \rho(\nu) \left[f_c(E_a) - f_v(E_b)\right] = \frac{c^2 I(\nu)}{8\pi h n^2 \nu^3 \tau_{sp}}\,\rho(\nu)\,\left[f_c(E_a) - f_v(E_b)\right]
+\end{equation*}
+Each net stimulated emission transition generates one photon of energy $h\nu$. By conservation of energy, the spatial growth of intensity along the propagation direction $z$ is:
+\begin{equation*}
+    \frac{dI(\nu)}{dz} = h\nu \cdot r_{net}(\nu) = \left(\frac{c^2}{8\pi n^2 \nu^2 \tau_{sp}}\,\rho(\nu)\,\left[f_c(E_a) - f_v(E_b)\right]\right) I(\nu)
+\end{equation*}
+Since the material gain coefficient $\gamma(\nu)$ is defined by $\frac{dI(\nu)}{dz} = \gamma(\nu) I(\nu)$, we identify the prefactor exactly:
 \begin{keyresult}
     \begin{equation}
         \gamma(\nu) = \frac{c^2}{8\pi n^2\nu^2\,\tau_{sp}}\cdot\rho(\nu)\cdot\left[f_c(E_a) - f_v(E_b)\right]
@@ -262,9 +422,8 @@ The inversion factor $[f_c(E_a) - f_v(E_b)]$ is the semiconductor analogue of th
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/fermi_occupation_gain_window.jpg}
-    \caption{Fermi Occupation Functions and Population Inversion}
-    \label{fig:fermi_occupation_gain_window}
+    \includegraphics[width=0.95\textwidth]{Figures/Chapter 6/gain_formula_decomposition.jpg}
+    \caption{Conceptual Decomposition of the Net Gain Formula $\gamma_0(\nu) = \rho(\nu) \cdot [f_c - f_v]$}
 \end{figure}
 
 This expression is positive — meaning net gain — precisely when:
@@ -275,9 +434,8 @@ which is exactly the Bernard-Duraffourg condition. No tricks, no approximations:
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/gain_spectrum.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/gain_spectrum_carrier_densities.jpg}
     \caption{Gain Spectrum $\gamma(h\nu)$ for Multiple Carrier Densities}
-    \label{fig:gain_spectrum}
 \end{figure}
 
 \subsection{Rates of Optical Transitions}
@@ -303,9 +461,8 @@ The net stimulated rate is $R_{st} - R_{abs}$, which is proportional to $[f_c(E_
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 6/optical_transition_rates_in_a_semiconductor.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/optical_transition_rates_in_a_semiconductor.jpg}
     \caption{Optical Transition Rates in a Semiconductor}
-    \label{fig:optical_transition_rates_in_a_semiconductor}
 \end{figure}
 
 % ------------------------------------------------------------------
@@ -324,9 +481,8 @@ The gain region effectively spans this diffusion length, which is orders of magn
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/minority_carrier_profile.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/minority_carrier_profile.jpg}
     \caption{Minority Carrier Profile in a Forward-Biased Homojunction}
-    \label{fig:minority_carrier_profile}
 \end{figure}
 
 \subsection{Limitation 2 — Weak Photon Confinement}
@@ -337,9 +493,8 @@ Together, these two limitations — a thick, poorly confined gain region and a w
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/optical_confinement_comparison.jpg}
+    \includegraphics[width=0.75\textwidth]{Figures/Chapter 6/optical_confinement_comparison.jpg}
     \caption{Optical Field Confinement: Homojunction vs. Double Heterojunction}
-    \label{fig:optical_confinement_comparison}
 \end{figure}
 
 % ------------------------------------------------------------------
@@ -375,10 +530,10 @@ where:
 
 Now, let's calculate the conduction band discontinuity $\Delta E_c$ by applying Anderson's rule directly:
 \begin{align*}
-    \Delta E_c &= \chi_\text{active} - \chi_\text{cladding} \\
-               &= \chi_\text{GaAs} - \chi_\text{AlAs} \\
-               &= 4.07\text{ eV} - 3.50\text{ eV} \\
-               &= 0.57\text{ eV}
+    \Delta E_c & = \chi_\text{active} - \chi_\text{cladding} \\
+               & = \chi_\text{GaAs} - \chi_\text{AlAs}       \\
+               & = 4.07\text{ eV} - 3.50\text{ eV}           \\
+               & = 0.57\text{ eV}
 \end{align*}
 where:
 \begin{itemize}
@@ -387,9 +542,9 @@ where:
 
 Next, let's find the total bandgap difference $\Delta E_g$ between the cladding and active materials:
 \begin{align*}
-    \Delta E_g &= E_{g,\text{AlAs}} - E_{g,\text{GaAs}} \\
-               &= 2.16\text{ eV} - 1.424\text{ eV} \\
-               &= 0.736\text{ eV}
+    \Delta E_g & = E_{g,\text{AlAs}} - E_{g,\text{GaAs}} \\
+               & = 2.16\text{ eV} - 1.424\text{ eV}      \\
+               & = 0.736\text{ eV}
 \end{align*}
 where:
 \begin{itemize}
@@ -398,27 +553,21 @@ where:
 
 Finally, we can compute the valence band discontinuity $\Delta E_v$ as the remaining difference:
 \begin{align*}
-    \Delta E_v &= \Delta E_g - \Delta E_c \\
-               &= 0.736\text{ eV} - 0.57\text{ eV} \\
-               &= 0.166\text{ eV}
+    \Delta E_v & = \Delta E_g - \Delta E_c          \\
+               & = 0.736\text{ eV} - 0.57\text{ eV} \\
+               & = 0.166\text{ eV}
 \end{align*}
 where:
 \begin{itemize}
     \item $\Delta E_v$: valence band discontinuity (or barrier height for holes)
 \end{itemize}
 
-These localized jumps are incredibly important! A conduction band barrier of $0.57\text{ eV}$ and a valence band barrier of $0.166\text{ eV}$ are both much larger than the room-temperature thermal energy ($k_B T \approx 26\text{ meV}$). 
+These localized jumps are incredibly important! A conduction band barrier of $0.57\text{ eV}$ and a valence band barrier of $0.166\text{ eV}$ are both much larger than the room-temperature thermal energy ($k_B T \approx 26\text{ meV}$).
 
 For a typical AlGaAs/GaAs/AlGaAs DH structure, the GaAs active layer has a smaller bandgap than the Al$_x$Ga$_{1-x}$As cladding. The conduction band is higher in the cladding by $\Delta E_c$, and the valence band is lower by $\Delta E_v$. These discontinuities form \textbf{potential barriers} that physically prevent injected electrons from escaping the active region into the cladding — the carriers are confined inside the thin active layer like water trapped in a narrow channel.
 
 This confinement is the key breakthrough: the gain region is now $d \sim 100\,\text{nm}$ thick rather than $L_p \sim 1\,\mu\text{m}$. The current density required to achieve inversion in this small volume is reduced by a factor of $L_p/d \sim 10$--$100$, bringing threshold currents down to practical levels ($\sim 1\,\text{kA/cm}^2$ or below).
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/double_heterojunction_band_diagram.jpg}
-    \caption{Double Heterojunction Band Diagram Under Forward Bias}
-    \label{fig:double_heterojunction_band_diagram}
-\end{figure}
 
 \subsection{Photon Confinement via the Optical Confinement Factor}
 
@@ -431,18 +580,29 @@ We quantify this photon-carrier overlap with the \textbf{optical confinement fac
     \end{equation}
 \end{keyresult}
 
-For a homojunction, $\Gamma$ is very small — the mode spreads far beyond the gain region. For a DH laser with well-chosen layer thicknesses, $\Gamma$ can approach $0.3$--$0.5$, meaning 30--50\% of the photon energy is concentrated in the active layer. The threshold condition for the DH laser becomes:
+For a homojunction, $\Gamma$ is very small — the mode spreads far beyond the gain region. For a DH laser with well-chosen layer thicknesses, $\Gamma$ can approach $0.3$--$0.5$, meaning 30--50\% of the photon energy is concentrated in the active layer. To derive the threshold condition, we track the optical intensity $I$ of a mode propagating along the longitudinal cavity length $L$ between two end facets (mirrors) of reflectivities $R_1$ and $R_2$. 
+Starting at mirror 1 with initial intensity $I_0$, the wave travels a distance $L$ to mirror 2, experiences reflection, and returns a distance $L$ to mirror 1. The net modal gain coefficient is $\Gamma \gamma$, and the internal waveguide loss coefficient is $\alpha_s$. The intensity after one complete round trip is:
 \begin{equation*}
-    \Gamma\,\gamma_\text{th} = \alpha_s + \frac{1}{2d}\ln\!\left(\frac{1}{R_1 R_2}\right)
+    I = I_0 \, R_1 R_2 \, \exp\!\left[2(\Gamma \gamma - \alpha_s)L\right]
 \end{equation*}
+At the lasing threshold, the round-trip gain must exactly balance the total losses to achieve self-sustained oscillation, requiring $I/I_0 = 1$:
+\begin{equation*}
+    R_1 R_2 \, \exp\!\left[2(\Gamma \gamma_{\text{th}} - \alpha_s)L\right] = 1 \implies 2(\Gamma \gamma_{\text{th}} - \alpha_s)L = \ln\!\left(\frac{1}{R_1 R_2}\right)
+\end{equation*}
+Solving for the threshold gain:
+\begin{keyresult}
+    \begin{equation}
+        \Gamma\,\gamma_\text{th} = \alpha_s + \frac{1}{2L}\ln\!\left(\frac{1}{R_1 R_2}\right)
+    \end{equation}
+\end{keyresult}
+where $L$ is the cavity length. Note that the mirror loss term is scaled by the cavity length $L$, not the active layer thickness $d$, which is a common point of confusion.
 
 The gain coefficient $\gamma_\text{th}$ required to reach threshold is reduced by a factor of $\Gamma$ compared to the homojunction. Higher optical confinement means less gain — and therefore less current — is needed to overcome the losses.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/threshold_current_comparison.jpg}
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 6/threshold_current_comparison.jpg}
     \caption{Threshold Current Density: Homojunction vs. Double Heterojunction}
-    \label{fig:threshold_current_comparison}
 \end{figure}
 
 \subsection{Materials Design: Lattice Matching}
@@ -458,21 +618,8 @@ Crucially, Al$_x$Ga$_{1-x}$As is nearly perfectly lattice-matched to GaAs for al
 
 For longer-wavelength applications in the $1.55\,\mu$m telecommunications window, the preferred system is In$_{0.53}$Ga$_{0.47}$As grown lattice-matched on InP substrates. This alloy has a bandgap of $\approx 0.75\,\text{eV}$, corresponding to the critical minimum-loss window of silica optical fibres, and is the material behind virtually every erbium-doped fibre amplifier pump laser and telecommunications source deployed globally.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 6/bandgap_vs_lattice_constant.jpg}
-    \caption{Band Gap vs. Lattice Constant (III-V Semiconductor Chart)}
-    \label{fig:bandgap_vs_lattice_constant}
-\end{figure}
-
-% ------------------------------------------------------------------
-\section{From Heterostructure to Quantum Wells}
-% ------------------------------------------------------------------
-
-The double heterostructure we have analysed here represents a major leap in laser performance — it solved the threshold current problem that made homojunction lasers impractical. However, as we make the active layer thinner and thinner to further reduce the threshold, something new happens: once the active layer thickness $d$ approaches the de Broglie wavelength of the carriers ($d \lesssim 10\,\text{nm}$), quantum confinement effects become significant. The continuous parabolic bands begin to break up into discrete \textbf{sub-bands}, and the density of states transitions from the three-dimensional square-root form we derived in the previous chapter to a staircase-shaped two-dimensional form.
-
 \begin{keyinsight}[The DH Laser as a Stepping Stone]
-    The double heterostructure solved the two critical problems of the homojunction — thick gain regions and weak optical confinement — through a single architectural innovation. The AlGaAs/GaAs material system made this practically realisable with nearly perfect lattice matching. These same two confinement principles — carrier confinement via band-edge discontinuities and photon confinement via the refractive index step — carry forward unchanged into the quantum well laser. The only thing that changes is the scale: as $d$ shrinks below $\sim 10\,\text{nm}$, the physics transitions from classical 3D semiconductor mechanics to genuine quantum mechanics, and the density of states changes shape. The resulting quantum well laser achieves dramatically lower threshold currents and higher differential gain than any bulk DH device, and forms the basis of virtually every practical semiconductor laser built today.
+    The double heterostructure solved the two critical problems of the homojunction — thick gain regions and weak optical confinement — through a single architectural innovation. The AlGaAs/GaAs material system made this practically realisable with nearly perfect lattice matching. These same two confinement principles — carrier confinement via band-edge discontinuities and photon confinement via the refractive index step — carry forward unchanged into the quantum well laser. The only thing that changes is the scale: as $d$ shrinks below $\sim 10\,\text{nm}$, the physics transitions from classical 3D semiconductor mechanics to genuine quantum mechanics. The resulting quantum well laser achieves dramatically lower threshold currents and higher differential gain than any bulk DH device, and forms the basis of virtually every practical semiconductor laser built today.
 \end{keyinsight}
 
 The next step in this series is to examine what happens to the gain spectrum, threshold current, and efficiency when we shrink the active layer into the quantum confinement regime — and why the quantum well laser has become the dominant architecture in every area from consumer electronics to fibre-optic communications.

@@ -1,4 +1,3 @@
-% !TEX root = ../Optoelectronics.tex
 % =========================================================
 %  Chapter 8 — LEDs, Semiconductor Optical Amplifiers,
 %              and the Laser Diode
@@ -45,28 +44,30 @@ The internally generated photons face a second obstacle before escaping the chip
 \begin{equation*}
     \sin\theta_c = \frac{n_a}{n_s}
 \end{equation*}
-where $n_s$ is the semiconductor refractive index ($n_s \approx 3.5$ for GaAs) and $n_a = 1$ for air.
-
-The general external extraction efficiency integrates the Fresnel transmittance $T(\theta)$ over the escape cone:
+where $n_s$ is the semiconductor refractive index ($n_s \approx 3.5$ for GaAs) and $n_a = 1$ To see how this escapes, consider an isotropic light source inside the semiconductor emitting power $P_0$ uniformly in all directions ($4\pi$ steradians). The power emitted per unit solid angle is $P_0/(4\pi)$. Light can only escape if it strikes the semiconductor-air interface within the escape cone defined by the critical angle $\theta_c$. The differential solid angle is $d\Omega = 2\pi\sin\theta\,d\theta$. The fraction of light emitted within this escape cone, accounting for the transmission probability $T(\theta)$, gives the external extraction efficiency:
 \begin{equation*}
     \eta_\text{ext} = \frac{1}{4\pi}\int_0^{\theta_c} T(\theta)\cdot 2\pi\sin\theta\,d\theta
 \end{equation*}
 
-For the high-index approximation ($n_s \gg n_a$), the normal-incidence transmittance:
+At normal incidence ($\theta = 0$), the reflection coefficient is given by the Fresnel reflection equation:
 \begin{equation*}
-    T(0) = \frac{4n_a n_s}{(n_a + n_s)^2}
+    R(0) = \left(\frac{n_s - n_a}{n_s + n_a}\right)^2
 \end{equation*}
-is approximately constant over the narrow escape cone ($\theta_c$ is small). Substituting $T(\theta) \approx T(0)$ and evaluating the solid-angle integral over the cone:
+By conservation of energy, the normal-incidence transmittance is $T(0) = 1 - R(0)$:
 \begin{equation*}
-    \eta_\text{ext} = \frac{1}{4\pi}\int_0^{\theta_c} T(0)\cdot 2\pi\sin\theta\,d\theta
-    = \frac{T(0)}{2}\int_0^{\theta_c}\sin\theta\,d\theta
-    = \frac{T(0)}{2}(1 - \cos\theta_c)
+    T(0) = 1 - \left(\frac{n_s - n_a}{n_s + n_a}\right)^2 = \frac{(n_s + n_a)^2 - (n_s - n_a)^2}{(n_s + n_a)^2} = \frac{4n_a n_s}{(n_a + n_s)^2}
 \end{equation*}
-For small $\theta_c$, $1 - \cos\theta_c \approx \theta_c^2/2 \approx \sin^2\theta_c/2 = n_a^2/(2n_s^2)$, so:
+For a high refractive index semiconductor ($n_s \gg n_a$), the critical angle $\theta_c$ is very small, meaning the escape cone is narrow. Over this narrow angle, the transmittance is approximately constant, $T(\theta) \approx T(0)$. Substituting this and evaluating the solid-angle integral:
 \begin{equation*}
-    \eta_\text{ext} \approx \frac{T(0)}{2}\cdot\frac{n_a^2}{2n_s^2}
-    = \frac{4n_a n_s}{(n_a+n_s)^2}\cdot\frac{n_a^2}{4n_s^2}
-    = \frac{n_a^3}{n_s(n_a+n_s)^2}
+    \eta_\text{ext} = \frac{T(0)}{2}\int_0^{\theta_c}\sin\theta\,d\theta = \frac{T(0)}{2}(1 - \cos\theta_c)
+\end{equation*}
+Using the small-angle Taylor expansion for $\theta_c \ll 1$, we have $1 - \cos\theta_c \approx \theta_c^2/2 \approx \sin^2\theta_c/2$. Applying Snell's law ($\sin\theta_c = n_a/n_s$):
+\begin{equation*}
+    1 - \cos\theta_c \approx \frac{n_a^2}{2n_s^2}
+\end{equation*}
+Substituting this approximation back into the efficiency equation:
+\begin{equation*}
+    \eta_\text{ext} \approx \frac{T(0)}{2}\cdot\frac{n_a^2}{2n_s^2} = \frac{4n_a n_s}{(n_a+n_s)^2}\cdot\frac{n_a^2}{4n_s^2} = \frac{n_a^3}{n_s(n_a+n_s)^2}
 \end{equation*}
 which gives the closed-form result:
 \begin{keyresult}
@@ -106,21 +107,69 @@ where the \textbf{LED responsivity} is:
 
 The responsivity is the slope of the P--I curve. At low currents it is constant, but at high currents, Joule heating raises the junction temperature, increasing non-radiative recombination and reducing $\eta_\text{int}$. The P--I characteristic therefore sub-linearly rolls off at high drive currents — this rolloff is more severe at higher ambient temperatures, which is one reason LED datasheets always specify output power at a specific junction temperature.
 
-\subsection{LED Emission Spectrum}
+\subsection{LED Emission Spectrum and Recombination Rate}
 
-Under weak injection (where the quasi-Fermi levels remain within the bandgap and the Maxwell-Boltzmann approximation holds), the spontaneous emission spectrum follows directly from the joint density of states and the Boltzmann occupation factors:
+Under weak injection (where the quasi-Fermi levels remain within the bandgap and the Maxwell-Boltzmann approximation holds), the spontaneous emission rate per unit frequency interval $r_{sp}(\nu)$ is obtained by multiplying the joint density of states by the Boltzmann occupation probabilities. 
+Note that while the energy joint density of states is $\rho_E(E) = \frac{\sqrt{2} m_r^{3/2}}{\pi^2 \hbar^3} \sqrt{E - E_g}$, we convert to a frequency scale via $\rho_\nu(\nu) = h \rho_E(h\nu)$. Because $h = 2\pi\hbar$, this cancels terms to yield the frequency density joint DOS:
 \begin{equation*}
-    R_{sp}(h\nu) \propto \sqrt{h\nu - E_g}\;\exp\!\left(-\frac{h\nu - E_g}{k_BT}\right), \qquad h\nu \geq E_g
+    \rho_\nu(\nu) = (2\pi\hbar) \frac{\sqrt{2} m_r^{3/2}}{\pi^2 \hbar^3} \sqrt{h\nu - E_g} = \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2} \sqrt{h\nu - E_g}
+\end{equation*}
+Multiplying by the spontaneous lifetime decay rate $1/\tau_r$ and the Boltzmann factor:
+\begin{equation*}
+    r_{sp}(\nu) = \frac{1}{\tau_r} \rho_\nu(\nu) \exp\!\left(-\frac{h\nu}{k_B T}\right) = \frac{1}{\tau_r} \left( \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2} \sqrt{h\nu - E_g} \right) \exp\!\left(-\frac{h\nu - E_g}{k_B T}\right) \exp\!\left(-\frac{E_g}{k_B T}\right)
 \end{equation*}
 
-This lineshape — a square-root rise above $E_g$ multiplied by a decaying exponential — peaks at:
+This lineshape — a square-root rise above $E_g$ multiplied by a decaying exponential — has a peak frequency determined by differentiating with respect to $h\nu$ (or equivalently the kinetic energy variable $x = h\nu - E_g$). Differentiating $S(x) = \sqrt{x} e^{-x/k_B T}$:
+\begin{equation*}
+    \frac{dS}{dx} = \frac{1}{2\sqrt{x}} e^{-x/k_B T} - \frac{\sqrt{x}}{k_B T} e^{-x/k_B T} = 0 \implies \frac{1}{2\sqrt{x}} = \frac{\sqrt{x}}{k_B T} \implies x = \frac{k_B T}{2}
+\end{equation*}
+Substituting $x = h\nu_p - E_g$ yields the precise peak frequency:
 \begin{keyresult}
     \begin{equation}
-        h\nu_\text{max} = E_g + \frac{k_BT}{2}
+        h\nu_p = E_g + \frac{k_B T}{2}
     \end{equation}
 \end{keyresult}
+The peak sits exactly $k_BT/2$ above the bandgap. If we substitute this peak frequency back into the rate equation, the maximum spontaneous emission rate per unit frequency is:
+\begin{equation*}
+    r_{sp}(\nu_p) = \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2 \tau_r} \sqrt{\frac{k_B T}{2}} \exp\!\left(-\frac{1}{2}\right) \exp\!\left(-\frac{E_g}{k_B T}\right) = \frac{2 m_r^{3/2}}{\pi \hbar^2 \tau_r} \sqrt{\frac{k_B T}{e}} \exp\!\left(-\frac{E_g}{k_B T}\right)
+\end{equation*}
 
-The peak sits exactly $k_BT/2$ above the bandgap. The FWHM of the spectrum in frequency is:
+More importantly, if we integrate this entire spectrum over all frequencies from $\nu = E_g/h$ to $\infty$, we obtain the total spontaneous emission rate per unit volume. We use the change of variables $u = \frac{h\nu - E_g}{k_B T} \implies d\nu = \frac{k_B T}{h}\,du = \frac{k_B T}{2\pi\hbar}\,du$:
+\begin{align*}
+    \int_{E_g/h}^\infty r_{sp}(\nu)\,d\nu &= \frac{2\sqrt{2}m_r^{3/2}}{\pi \hbar^2 \tau_r} \exp\!\left(-\frac{E_g}{k_B T}\right) \int_0^\infty \left( \sqrt{k_B T} \sqrt{u} \right) e^{-u} \left(\frac{k_B T}{2\pi\hbar}\,du\right) \\
+    &= \frac{\sqrt{2}m_r^{3/2}}{\pi^2 \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right) \int_0^\infty \sqrt{u}\,e^{-u}\,du
+\end{align*}
+Using the standard integral result $\int_0^\infty \sqrt{u}\,e^{-u}\,du = \frac{\sqrt{\pi}}{2}$:
+\begin{equation*}
+    \int_{E_g/h}^\infty r_{sp}(\nu)\,d\nu = \frac{\sqrt{2}m_r^{3/2}}{\pi^2 \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right) \left(\frac{\sqrt{\pi}}{2}\right) = \frac{m_r^{3/2}}{\sqrt{2} \pi^{3/2} \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right)
+\end{equation*}
+
+This exact quantum-mechanical integration is the physical foundation for the macroscopic recombination parameter $r$ (used in the rate $R = rnp$). Under equilibrium conditions, $np = n_i^2$. We write the intrinsic carrier concentration using the effective densities of states:
+\begin{align*}
+    n_i^2 &= N_c N_v \exp\!\left(-\frac{E_g}{k_B T}\right) \\
+    &= \left( 2\left[\frac{2\pi m_e^* k_B T}{h^2}\right]^{3/2} \right) \left( 2\left[\frac{2\pi m_h^* k_B T}{h^2}\right]^{3/2} \right) \exp\!\left(-\frac{E_g}{k_B T}\right) \\
+    &= 4 \left( \frac{2\pi \sqrt{m_e^* m_h^*} k_B T}{4\pi^2 \hbar^2} \right)^3 \exp\!\left(-\frac{E_g}{k_B T}\right) \\
+    &= \frac{1}{2\pi^3 \hbar^6} (m_e^* m_h^*)^{3/2} (k_B T)^3 \exp\!\left(-\frac{E_g}{k_B T}\right)
+\end{align*}
+By equating the integrated spontaneous emission rate to the macroscopic rate $r n_i^2$:
+\begin{equation*}
+    r \left[ \frac{1}{2\pi^3 \hbar^6} (m_e^* m_h^*)^{3/2} (k_B T)^3 \exp\!\left(-\frac{E_g}{k_B T}\right) \right] = \frac{m_r^{3/2}}{\sqrt{2} \pi^{3/2} \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right)
+\end{equation*}
+Solving for $r$ and using the reduced mass relation $m_r = \frac{m_e^* m_h^*}{m_e^* + m_h^*} \implies \frac{m_r}{m_e^* m_h^*} = \frac{1}{m_e^* + m_h^*}$:
+\begin{align*}
+    r &= \frac{m_r^{3/2}}{\sqrt{2}\pi^{3/2}\hbar^3 \tau_r (k_B T)^{3/2}} \cdot \frac{2\pi^3 \hbar^6}{(m_e^* m_h^*)^{3/2}} \\
+    &= \frac{\sqrt{2}\pi^{3/2}\hbar^3}{\tau_r (k_B T)^{3/2}} \left( \frac{m_r}{m_e^* m_h^*} \right)^{3/2} \\
+    &= \frac{\sqrt{2}\pi^{3/2}\hbar^3}{(m_e^* + m_h^*)^{3/2}} \frac{1}{(k_B T)^{3/2}\tau_r}
+\end{align*}
+yielding the final result:
+\begin{keyresult}
+    \begin{equation}
+        r = \frac{\sqrt{2}\pi^{3/2}\hbar^3}{(m_e^* + m_h^*)^{3/2}} \frac{1}{(k_B T)^{3/2}\tau_r}
+    \end{equation}
+\end{keyresult}
+This elegantly links a macroscopic device parameter ($r$) directly to the microscopic quantum mechanics ($m_e^*$, $m_h^*$, $\hbar$).
+
+The FWHM of the spectrum in frequency is:
 \begin{equation*}
     \Delta\nu_\text{FWHM} = \frac{1.8\,k_BT}{h}
 \end{equation*}
@@ -134,21 +183,57 @@ Converting to wavelength bandwidth using $\Delta\lambda = (\lambda^2/c)\Delta\nu
     \label{fig:led_emission_spectrum}
 \end{figure}
 
-\subsection{LED Modulation Bandwidth}
+\subsection{LED AC Modulation and Rise Time Dynamics}
 
-To use an LED in a communications link, we need to know how fast it can be switched. For a sinusoidal drive current $I = I_b + I_m e^{j\omega_m t}$ superimposed on a bias $I_b$, the carrier density responds as $N = N_b + N_m e^{j\omega_m t}$. Substituting into the steady-state rate equation and separating the DC and AC components:
+To use an LED in a communications link, we must understand its transient and AC response. If we modulate the LED with a sinusoidal drive current $I(t) = I_b + I_m e^{j\omega_m t}$ superimposed on a DC bias $I_b$, the carrier density responds as $N(t) = N_b + N_m e^{j\omega_m t}$.
+
+Substituting this into the carrier rate equation $dN/dt = I/(eV) - N/\tau$ and separating the DC and AC components yields two equations:
 \begin{equation*}
-    N_b = \frac{\tau I_b}{eV}, \qquad N_m = \frac{\tau I_m / eV}{1 + j\omega_m\tau}
+    0 = \frac{I_b}{eV} - \frac{N_b}{\tau} \implies N_b = \frac{\tau I_b}{eV}
+\end{equation*}
+\begin{equation*}
+    j\omega_m N_m = \frac{I_m}{eV} - \frac{N_m}{\tau} \implies N_m = \frac{\tau I_m / eV}{1 + j\omega_m\tau}
 \end{equation*}
 
-Since the optical output is proportional to $N$, the 3\,dB modulation bandwidth — the frequency at which the photon modulation drops to half its low-frequency value — is:
+Because the optical output power $P(t)$ is directly proportional to the carrier density $N(t)$, the AC modulation index $m_n$ of the photon output is the magnitude of the AC carrier density divided by the DC carrier density. Taking the magnitude of the complex AC density $N_m$:
+\begin{equation*}
+    |N_m| = \frac{\tau I_m / eV}{\sqrt{1 + (\omega_m\tau)^2}}
+\end{equation*}
+Taking the ratio $|N_m|/N_b$ yields:
 \begin{keyresult}
     \begin{equation}
-        f_{3\text{dB}} = \frac{1}{2\pi\tau}
+        m_n = \frac{|N_m|}{N_b} = \frac{\frac{\tau I_m / eV}{\sqrt{1 + (\omega_m\tau)^2}}}{\frac{\tau I_b}{eV}} = \frac{I_m}{I_b \sqrt{1 + (\omega_m\tau)^2}}
+    \end{equation}
+\end{keyresult}
+Furthermore, the denominator $1 + j\omega_m\tau$ is a complex number with phase angle $\arg(1 + j\omega_m\tau) = \tan^{-1}(\omega_m\tau)$. Because this term is in the denominator of $N_m$, it introduces a phase lag $\theta$ between the injected AC current and the resulting optical AC output:
+\begin{keyresult}
+    \begin{equation}
+        \theta = \arg(N_m) = -\tan^{-1}(\omega_m\tau)
     \end{equation}
 \end{keyresult}
 
-This reveals a fundamental trade-off: a short carrier lifetime $\tau$ gives high modulation bandwidth, but it also means faster non-radiative recombination ($\tau_{nr}$ is shorter), which reduces $\eta_\text{int}$. Maximising efficiency and maximising bandwidth pull in opposite directions — one of the core design tensions in LED engineering.
+The 3\,dB modulation bandwidth — the frequency $f_{3\text{dB}}$ at which the AC optical power drops by half ($1/\sqrt{2}$ in amplitude) — occurs when $\omega_m \tau = 1$:
+\begin{equation*}
+    f_{3\text{dB}} = \frac{1}{2\pi\tau}
+\end{equation*}
+This reveals a fundamental design tension: maximizing bandwidth requires a short carrier lifetime $\tau$, but shortening $\tau$ (often by increasing non-radiative recombination) drastically reduces the internal quantum efficiency $\eta_{\text{int}}$.
+
+Finally, let us examine the large-signal time-domain response. If we apply an abrupt current step $I(t) = I_o u(t)$, the carrier rate equation is a simple first-order ODE. The optical power rises exponentially:
+\begin{equation*}
+    P(t) = P_o \left( 1 - e^{-t/\tau} \right)
+\end{equation*}
+The standard metric for switching speed is the 10-90\% rise time $t_{\text{rise}}$. We find the times $t_{10}$ and $t_{90}$ by setting $P(t)/P_o$ to $0.1$ and $0.9$:
+\begin{align*}
+    1 - e^{-t_{10}/\tau} & = 0.1 \implies t_{10} = \tau \ln(10/9) \\
+    1 - e^{-t_{90}/\tau} & = 0.9 \implies t_{90} = \tau \ln(10)
+\end{align*}
+Subtracting these gives the exact rise time:
+\begin{keyresult}
+    \begin{equation}
+        t_{\text{rise}} = t_{90} - t_{10} = \tau \ln(9) \approx 2.2\tau
+    \end{equation}
+\end{keyresult}
+Because we just established that $f_{3\text{dB}} = 1/(2\pi\tau)$, we can elegantly link the time-domain and frequency-domain speeds: $t_{\text{rise}} \approx \frac{2.2}{2\pi f_{3\text{dB}}} = \frac{0.35}{f_{3\text{dB}}}$.
 
 \subsection{LED for Illumination: Luminous Efficacy}
 
@@ -173,6 +258,34 @@ accounts for both the electrical-to-photon conversion and the photon-to-lumens c
 \section{The Semiconductor Optical Amplifier (SOA)}
 % ------------------------------------------------------------------
 
+\subsection{Degenerate Quasi-Fermi Separations and Positive Gain Bandwidth}
+
+Before calculating the amplification factor, we must first determine the spectral window over which the SOA can actually provide positive gain. Net gain requires the Bernard-Duraffourg condition to be strictly satisfied: $E_g < h\nu < E_{fc} - E_{fv}$. Thus, the absolute maximum positive gain bandwidth is set by the separation of the quasi-Fermi levels.
+
+In a heavily pumped SOA, the injected carrier density $\Delta n$ is so massive that the semiconductor becomes strongly degenerate. To find the quasi-Fermi levels, we approximate the Fermi-Dirac distribution at $T=0\text{ K}$ as a perfect step function. The carrier density is found by integrating the 3D density of states $\rho_c(E)$ from the conduction band edge $E_c$ up to the electron quasi-Fermi level $E_{fc}$:
+\begin{equation*}
+    n = \int_{E_c}^{E_{fc}} \frac{1}{2\pi^2} \left( \frac{2m_e^*}{\hbar^2} \right)^{3/2} \sqrt{E - E_c} \,dE = \frac{1}{3\pi^2} \left( \frac{2m_e^*}{\hbar^2} \right)^{3/2} (E_{fc} - E_c)^{3/2}
+\end{equation*}
+
+Solving this directly for the electron quasi-Fermi level $E_{fc}$ (and doing the symmetric derivation for holes) yields:
+\begin{keyresult}
+    \begin{equation}
+        E_{fc} = E_c + (3\pi^2)^{2/3} \frac{\hbar^2}{2 m_e^*} (n)^{2/3} \qquad \text{and} \qquad E_{fv} = E_v - (3\pi^2)^{2/3} \frac{\hbar^2}{2 m_h^*} (p)^{2/3}
+    \end{equation}
+\end{keyresult}
+
+If we subtract $E_{fv}$ from $E_{fc}$ to find the total separation, and recognize that under strong injection $n \approx p \approx \Delta n$, we find:
+\begin{equation*}
+    E_{fc} - E_{fv} = E_g + (3\pi^2)^{2/3} \frac{\hbar^2}{2} \left( \frac{1}{m_e^*} + \frac{1}{m_h^*} \right) (\Delta n)^{2/3} = E_g + (3\pi^2)^{2/3} \frac{\hbar^2}{2m_r} (\Delta n)^{2/3}
+\end{equation*}
+where $m_r$ is the reduced mass. The positive gain bandwidth $BW$ in Hz is the difference between the maximum amplifiable photon energy ($E_{fc}-E_{fv}$) and the minimum amplifiable photon energy ($E_g$), divided by Planck's constant $h$:
+\begin{keyresult}
+    \begin{equation}
+        BW = \frac{(E_{fc}-E_{fv}) - E_g}{h} = (3\pi^2)^{2/3}\frac{h}{8\pi^2 m_r}(\Delta n)^{2/3}
+    \end{equation}
+\end{keyresult}
+This elegantly proves that the optical amplification bandwidth of an SOA expands proportionally to $\Delta n^{2/3}$. More injected carriers physically push the quasi-Fermi levels deeper into the bands, widening the spectral window available for amplification.
+
 \subsection{Small-Signal Amplification}
 
 An SOA is a forward-biased semiconductor heterostructure with anti-reflection coatings on both facets, so that the photon density never builds up enough to sustain oscillation. An external optical signal enters one facet, is amplified by stimulated emission as it propagates through the gain medium, and exits the other facet with higher power.
@@ -193,16 +306,34 @@ Converting the exponential argument using $G = v_g\,\gamma_m = v_g B(N - N_\text
 
 \subsection{Gain Saturation}
 
-When the input power is large enough that the photon density $S$ becomes comparable to the carrier density, stimulated emission depletes the inversion. Setting the steady-state carrier rate equation to zero with the saturation term included and solving for the population inversion:
+When the input power is large enough that the photon density $S$ becomes comparable to the carrier density, stimulated emission depletes the inversion. To quantify this, we set the carrier rate equation to zero at steady-state:
 \begin{equation*}
-    N - N_\text{tr} = \frac{\Delta N_0}{1 + P/P_s}
+    \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma G S = 0
 \end{equation*}
-The saturated material gain coefficient therefore becomes:
+Expressing the carrier density in terms of the deviation from transparency $(N - N_\text{tr})$:
+\begin{equation*}
+    \frac{J}{ed} - \frac{N - N_\text{tr} + N_\text{tr}}{\tau} - \Gamma B(N - N_\text{tr}) S = 0 \implies \left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right) - (N - N_\text{tr})\left(\frac{1}{\tau} + \Gamma B S\right) = 0
+\end{equation*}
+Solving for $(N - N_\text{tr})$:
+\begin{equation*}
+    N - N_\text{tr} = \frac{\frac{J}{ed} - \frac{N_\text{tr}}{\tau}}{\frac{1}{\tau} + \Gamma B S} = \frac{\tau\left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right)}{1 + \Gamma B \tau S} = \frac{\Delta N_0}{1 + \Gamma B \tau S}
+\end{equation*}
+where $\Delta N_0 \equiv \tau\left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right)$ is the unsaturated population inversion.
+Next, we relate the photon density $S$ to the optical power $P$ flowing through the waveguide mode. The cross-sectional area of the optical mode is $A_\text{mode} = A/\Gamma$. The optical power is the energy density $S \cdot h\nu$ multiplied by the group velocity $v_g$ and the mode area:
+\begin{equation*}
+    P = S \cdot h\nu \cdot v_g \cdot A_\text{mode} = \frac{S h\nu v_g A}{\Gamma} \implies S = \frac{\Gamma P}{v_g h\nu A}
+\end{equation*}
+Substituting this expression for $S$ into the denominator:
+\begin{equation*}
+    N - N_\text{tr} = \frac{\Delta N_0}{1 + \Gamma B \tau \left(\dfrac{\Gamma P}{v_g h\nu A}\right)} = \frac{\Delta N_0}{1 + \dfrac{P}{P_s}}
+\end{equation*}
+where we define the saturation power as $P_s \equiv \frac{v_g h\nu A}{\Gamma B \tau}$. The saturated material gain coefficient $g = B(N-N_\text{tr})$ then becomes:
 \begin{keyresult}
     \begin{equation}
         g = \frac{g_0}{1 + P/P_s}, \qquad P_s = \frac{v_g h\nu A}{\Gamma B \tau}
     \end{equation}
 \end{keyresult}
+where $g_0 = B \Delta N_0$ is the unsaturated gain.
 
 This homogeneous saturation form — gain compressing inversely with optical power — is the universal behaviour of any gain medium where stimulated emission depletes the inversion that feeds it. Integrating the propagation equation $dP/dz = g\,P$ through the device gives the transcendental implicit equation:
 \begin{equation*}
@@ -361,7 +492,25 @@ The first term is the dominant above-threshold contribution — every increment 
     \label{fig:ld_dc_characteristics}
 \end{figure}
 
-The output power through facet $R_1$ is proportional to the mirror loss fraction of the total photon loss:
+To derive the output power through facet $R_1$, we relate it to the rate of photon generation. Above threshold, the carrier density is clamped at $N_\text{th}$, so any additional injected current above $I_\text{th}$ is converted into photons by stimulated emission. The rate of photon generation in the cavity is:
+\begin{equation*}
+    \left.\frac{d N_p}{dt}\right|_\text{stim} = \frac{I - I_\text{th}}{e}
+\end{equation*}
+The generated photons decay at rate $1/\tau_{ph} = v_g(\alpha + \alpha_m)$. The fraction of photons that escape the cavity through the mirrors (mirror loss) rather than being absorbed internally is:
+\begin{equation*}
+    \eta_\text{mirror} = \frac{\alpha_m}{\alpha + \alpha_m} = v_g \alpha_m \tau_{ph}
+\end{equation*}
+So the total rate of photons escaping the cavity from both mirrors is $\eta_\text{mirror} \frac{I - I_\text{th}}{e}$. The mirror loss coefficient $\alpha_m$ is the sum of the losses from mirror 1 and mirror 2:
+\begin{equation*}
+    \alpha_m = \alpha_{m1} + \alpha_{m2} = \frac{1}{2L}\ln\!\left(\frac{1}{R_1}\right) + \frac{1}{2L}\ln\!\left(\frac{1}{R_2}\right)
+\end{equation*}
+The fraction of escaping photons that exit specifically through mirror 1 is $F_1 = \alpha_{m1}/\alpha_m$. Multiplying the photon generation rate, the escape fraction, the mirror 1 fraction, and the photon energy $h\nu$ yields the output power:
+\begin{align*}
+    P_\text{out} &= h\nu \cdot F_1 \cdot \eta_\text{mirror} \cdot \left(\frac{I - I_\text{th}}{e}\right) \\
+    &= h\nu \left( \frac{\frac{1}{2L}\ln(1/R_1)}{\alpha_m} \right) (v_g \alpha_m \tau_{ph}) \left(\frac{I - I_\text{th}}{e}\right) \\
+    &= \left( \frac{1}{2L}\ln\!\frac{1}{R_1} \cdot \frac{h\nu v_g \tau_{ph}}{e} \right) (I - I_\text{th})
+\end{align*}
+Thus, the output power through facet $R_1$ is:
 \begin{equation*}
     P_\text{out} \approx \eta_d\,(I - I_\text{th})
 \end{equation*}

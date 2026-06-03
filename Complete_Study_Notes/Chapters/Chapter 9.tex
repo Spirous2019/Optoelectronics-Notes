@@ -1,4 +1,3 @@
-% !TEX root = ../Optoelectronics.tex
 % =========================================================
 %  Chapter 9 — Laser Diode Dynamics, Modulation, and
 %              Single-Frequency Operation
@@ -36,10 +35,43 @@ The physical role of each term has been established in the previous chapter. The
 
 For small-signal modulation, we bias the laser above threshold at a steady operating point $(N_0, S_0)$ and superimpose a small sinusoidal perturbation at modulation frequency $\omega_m$:
 \begin{equation*}
-    J = J_0 + J_m e^{j\omega_m t}, \qquad N = N_\text{th} + N_m e^{j\omega_m t}, \qquad S = S_0 + S_m e^{j\omega_m t}
+    J(t) = J_0 + J_m e^{j\omega_m t}, \qquad N(t) = N_0 + N_m e^{j\omega_m t}, \qquad S(t) = S_0 + S_m e^{j\omega_m t}
 \end{equation*}
+where $J_m \ll J_0$, $N_m \ll N_0$, and $S_m \ll S_0$ represent the small-signal AC amplitudes. Since the laser is biased above threshold, the steady-state carrier density is clamped at the threshold value, so $N_0 = N_\text{th}$.
 
-Substituting into the rate equations and keeping only first-order terms (dropping products of small quantities like $N_m S_m$), the DC parts cancel identically (they satisfy the steady-state equations by definition), leaving a linear system for the AC amplitudes:
+Substituting these perturbed quantities into the coupled rate equations yields:
+\begin{align*}
+    \frac{d(N_0 + N_m e^{j\omega_m t})}{dt} &= \frac{J_0 + J_m e^{j\omega_m t}}{ed} - \frac{N_0 + N_m e^{j\omega_m t}}{\tau} - \Gamma B\left(N_0 + N_m e^{j\omega_m t} - N_\text{tr}\right)\left(S_0 + S_m e^{j\omega_m t}\right) \\[6pt]
+    \frac{d(S_0 + S_m e^{j\omega_m t})}{dt} &= \Gamma B\left(N_0 + N_m e^{j\omega_m t} - N_\text{tr}\right)\left(S_0 + S_m e^{j\omega_m t}\right) - \frac{S_0 + S_m e^{j\omega_m t}}{\tau_{ph}} + \beta\frac{N_0 + N_m e^{j\omega_m t}}{\tau_r}
+\end{align*}
+
+To linearise this system, we expand the terms and make the following physical simplifications:
+\begin{enumerate}
+    \item We expand the stimulated emission term, noting that:
+    \begin{align*}
+        \Gamma B(N_0 + N_m e^{j\omega_m t} - N_\text{tr})(S_0 + S_m e^{j\omega_m t}) = \Gamma B(N_0 - N_\text{tr})S_0 &+ \Gamma B S_0 N_m e^{j\omega_m t} \\
+        &+ \Gamma B(N_0 - N_\text{tr})S_m e^{j\omega_m t} + \Gamma B N_m S_m e^{2j\omega_m t}
+    \end{align*}
+    \item We drop the second-order small AC product term, $\Gamma B N_m S_m e^{2j\omega_m t} \approx 0$.
+    \item We neglect the contribution of spontaneous emission to the AC dynamics above threshold, setting $\beta \frac{N_m e^{j\omega_m t}}{\tau_r} \approx 0$ (since the spontaneous emission factor $\beta \approx 10^{-4}$ is extremely small and stimulated processes dominate the AC response).
+\end{enumerate}
+
+Applying these approximations and performing the differentiation on the left-hand side ($d/dt \to j\omega_m$) gives:
+\begin{align*}
+    j\omega_m N_m e^{j\omega_m t} &= \left[ \frac{J_0}{ed} - \frac{N_0}{\tau} - \Gamma B(N_0 - N_\text{tr})S_0 \right] + \left[ \frac{J_m}{ed} - \frac{N_m}{\tau} - \Gamma B S_0 N_m - \Gamma B(N_0 - N_\text{tr})S_m \right] e^{j\omega_m t} \\[6pt]
+    j\omega_m S_m e^{j\omega_m t} &= \left[ \Gamma B(N_0 - N_\text{tr})S_0 - \frac{S_0}{\tau_{ph}} + \beta\frac{N_0}{\tau_r} \right] + \left[ \Gamma B S_0 N_m + \left( \Gamma B(N_0 - N_\text{tr}) - \frac{1}{\tau_{ph}} \right) S_m \right] e^{j\omega_m t}
+\end{align*}
+
+By definition, the DC terms inside the first brackets on the right-hand sides must balance the steady-state (zero-derivative) rate equations:
+\begin{align*}
+    0 &= \frac{J_0}{ed} - \frac{N_0}{\tau} - \Gamma B(N_0 - N_\text{tr})S_0 \\[6pt]
+    0 &= \Gamma B(N_0 - N_\text{tr})S_0 - \frac{S_0}{\tau_{ph}} + \beta\frac{N_0}{\tau_r}
+\end{align*}
+Therefore, the DC terms cancel identically. Furthermore, since the laser is biased above threshold ($N_0 = N_\text{th}$), the gain clamps to the cavity loss:
+\begin{equation*}
+    \Gamma B(N_\text{th} - N_\text{tr}) = \frac{1}{\tau_{ph}}
+\end{equation*}
+This causes the $\left(\Gamma B(N_0 - N_\text{tr}) - 1/\tau_{ph}\right) S_m$ term in the AC photon equation to vanish. Cancelling the common factor $e^{j\omega_m t}$ leaves a clean linear system for the AC amplitudes:
 \begin{equation*}
     j\omega_m N_m = \frac{J_m}{ed} - \left(\frac{1}{\tau} + \Gamma B S_0\right)N_m - \Gamma B(N_\text{th} - N_\text{tr})S_m
 \end{equation*}
@@ -58,24 +90,39 @@ We eliminate $N_m$ between the two equations to get the optical response $S_m$ a
     \end{equation}
 \end{keyresult}
 
-The stimulated lifetime $\tau_{st}$ is the average time a carrier spends before being consumed by stimulated emission into the photon mode. Above threshold with strong photon density $S_0$, this can be much shorter than the spontaneous lifetime $\tau$.
-
-We now eliminate $N_m$ explicitly. From the photon AC equation: $N_m = j\omega_m S_m / (\Gamma B S_0) = j\omega_m\tau_{st}\,S_m$. Substituting into the carrier AC equation:
+The stimulated lifetime $\tau_{st}$ is the average time a carrier spends before being consumed by stimulated emission into the photon mode. Above threshold with strong photon density $S_0$, this can be much shorter than the spontaneous lifetime $\tau$. We now eliminate $N_m$ explicitly. From the photon AC equation, we isolate $N_m$:
+\begin{equation*}
+    N_m = \frac{j\omega_m S_m}{\Gamma B S_0} = j\omega_m\tau_{st}\,S_m
+\end{equation*}
+Substituting this expression for $N_m$ into the carrier AC equation, and replacing $\Gamma B(N_\text{th} - N_\text{tr})$ with $1/\tau_{ph}$:
 \begin{equation*}
     j\omega_m(j\omega_m\tau_{st}\,S_m) = \frac{J_m}{ed} - \left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right)(j\omega_m\tau_{st}\,S_m) - \frac{S_m}{\tau_{ph}}
 \end{equation*}
-
-Expanding and collecting all $S_m$ terms on the left:
+Using $j^2 = -1$, this simplifies to:
 \begin{equation*}
-    -\omega_m^2\tau_{st}\,S_m - j\omega_m\!\left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right)\!\tau_{st}\,S_m - \frac{S_m}{\tau_{ph}} = \frac{J_m}{ed}
+    -\omega_m^2\tau_{st}\,S_m = \frac{J_m}{ed} - j\omega_m\tau_{st}\left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right)S_m - \frac{S_m}{\tau_{ph}}
 \end{equation*}
-
-Dividing through by $\tau_{st}$ and grouping:
+To solve for $S_m$, we collect all terms containing $S_m$ on the left-hand side:
 \begin{equation*}
-    S_m\!\left[-\omega_m^2 - j\omega_m\!\left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right) - \frac{1}{\tau_{st}\,\tau_{ph}}\right] = \frac{J_m}{ed\,\tau_{st}}
+    -\omega_m^2\tau_{st}\,S_m + j\omega_m\tau_{st}\left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right)S_m + \frac{S_m}{\tau_{ph}} = \frac{J_m}{ed}
 \end{equation*}
-
-Defining $\omega_r^2 = 1/(\tau_{st}\tau_{ph})$ and $\xi = 1/\tau + 1/\tau_{st}$, and rearranging into standard second-order form by multiplying numerator and denominator by $-\tau_{ph}$:
+Dividing both sides by $\tau_{st}$ to isolate the second-order frequency term:
+\begin{equation*}
+    S_m\left[ -\omega_m^2 + j\omega_m\left(\frac{1}{\tau} + \frac{1}{\tau_{st}}\right) + \frac{1}{\tau_{st}\,\tau_{ph}} \right] = \frac{J_m}{ed\,\tau_{st}}
+\end{equation*}
+We now define the system parameters: the relaxation oscillation frequency $\omega_r^2 = 1/(\tau_{st}\tau_{ph})$ and the damping factor $\xi = 1/\tau + 1/\tau_{st}$. Substituting these in:
+\begin{equation*}
+    S_m\left[ \omega_r^2 + j\omega_m\xi - \omega_m^2 \right] = \frac{J_m}{ed\,\tau_{st}}
+\end{equation*}
+Dividing both sides by $\omega_r^2$:
+\begin{equation*}
+    S_m\left[ 1 + j\frac{\xi\omega_m}{\omega_r^2} - \left(\frac{\omega_m}{\omega_r}\right)^2 \right] = \frac{J_m}{ed\,\tau_{st}\omega_r^2}
+\end{equation*}
+Since $\omega_r^2 = 1/(\tau_{st}\tau_{ph})$, the numerator on the right becomes:
+\begin{equation*}
+    \frac{1}{ed\,\tau_{st}\omega_r^2} = \frac{\tau_{st}\tau_{ph}}{ed\,\tau_{st}} = \frac{\tau_{ph}}{ed} = H_0
+\end{equation*}
+This yields the standard second-order transfer function $H(j\omega_m)$:
 \begin{keyresult}
     \begin{equation}
         H(j\omega_m) = \frac{S_m}{J_m} = \frac{H_0}{1 + j\,\dfrac{\xi\,\omega_m}{\omega_r^2} - \left(\dfrac{\omega_m}{\omega_r}\right)^2}, \qquad H_0 = \frac{\tau_{ph}}{ed}
@@ -146,7 +193,19 @@ The small-signal analysis assumed infinitesimally small current perturbations. F
 \end{equation*}
 where $N_1 = J_1\tau/(ed)$ and $N_2 = J_2\tau/(ed)$ are the steady-state carrier densities corresponding to the two current levels.
 
-The laser does not begin lasing until $N(t)$ reaches the threshold density $N_\text{th}$. The time required to reach $N_\text{th}$ is the \textbf{turn-on delay}. Setting $N(t_d) = N_\text{th}$ and solving for $t_d$:
+The laser does not begin lasing until $N(t)$ reaches the threshold density $N_\text{th}$. The time required to reach $N_\text{th}$ is the \textbf{turn-on delay} $t_d$. To solve for $t_d$, we set $N(t_d) = N_\text{th}$:
+\begin{equation*}
+    N_\text{th} = N_1 + (N_2 - N_1)\left(1 - e^{-t_d/\tau}\right)
+\end{equation*}
+Rearranging to isolate the exponential term:
+\begin{equation*}
+    (N_2 - N_1)e^{-t_d/\tau} = N_2 - N_\text{th} \implies e^{-t_d/\tau} = \frac{N_2 - N_\text{th}}{N_2 - N_1}
+\end{equation*}
+Taking the natural logarithm of both sides:
+\begin{equation*}
+    -\frac{t_d}{\tau} = \ln\!\left(\frac{N_2 - N_\text{th}}{N_2 - N_1}\right) \implies t_d = \tau \ln\!\left(\frac{N_2 - N_1}{N_2 - N_\text{th}}\right)
+\end{equation*}
+Since the carrier densities correspond to steady-state sub-threshold relationships, they are directly proportional to their drive current densities ($N_i = J_i\tau/ed$). Substituting $N_1 = J_1\tau/(ed)$, $N_2 = J_2\tau/(ed)$, and $N_\text{th} = J_\text{th}\tau/(ed)$, the common prefactor $\tau/(ed)$ cancels from the numerator and denominator:
 \begin{keyresult}
     \begin{equation}
         t_d = \tau\ln\!\left(\frac{J_2 - J_1}{J_2 - J_\text{th}}\right)
@@ -168,26 +227,64 @@ A \emph{larger current step} (higher $J_2$) makes the ratio $(J_2 - J_1)/(J_2 - 
 
 \subsection{Relaxation Oscillations After Turn-On}
 
-Once the carrier density crosses $N_\text{th}$, stimulated emission ignites and the photon density rises rapidly. But the coupled system does not settle immediately — the same resonance mechanism responsible for the small-signal peak drives transient oscillations. Linearising the rate equations around the new steady-state point $(N_\text{th}, S_0)$ with perturbations $\Delta N(t)$ and $\Delta S(t)$:
-\begin{equation*}
-    \frac{d\,\Delta N}{dt} = -\!\left(\frac{1}{\tau} + \Gamma B S_0\right)\Delta N - \Gamma B N_\text{th}\,\Delta S
-\end{equation*}
-\begin{equation*}
-    \frac{d\,\Delta S}{dt} = \Gamma B S_0\,\Delta N
-\end{equation*}
+Once the carrier density crosses $N_\text{th}$, stimulated emission ignites and the photon density rises rapidly. But the coupled system does not settle immediately — the same resonance mechanism responsible for the small-signal peak drives transient oscillations. We linearise the rate equations for time-domain deviations $\Delta N(t) = N(t) - N_\text{th}$ and $\Delta S(t) = S(t) - S_0$ around the final above-threshold steady-state point $(N_\text{th}, S_0)$:
+\begin{align*}
+    \frac{d(N_\text{th} + \Delta N)}{dt} &= \frac{J_2}{ed} - \frac{N_\text{th} + \Delta N}{\tau} - \Gamma B(N_\text{th} + \Delta N - N_\text{tr})(S_0 + \Delta S) \\[6pt]
+    \frac{d(S_0 + \Delta S)}{dt} &= \Gamma B(N_\text{th} + \Delta N - N_\text{tr})(S_0 + \Delta S) - \frac{S_0 + \Delta S}{\tau_{ph}} + \beta\frac{N_\text{th} + \Delta N}{\tau_r}
+\end{align*}
 
-Differentiating the first equation and substituting the second gives a single second-order ODE for $\Delta N$:
-\begin{equation*}
-    \frac{d^2\Delta N}{dt^2} + \xi\,\frac{d\Delta N}{dt} + \omega_r^2\,\Delta N = 0
-\end{equation*}
+We subtract the DC steady-state relations (with $J = J_2$ and spontaneous emission neglected for the dynamic deviation), drop the second-order perturbation product $\Delta N \Delta S \approx 0$, and apply the gain clamping condition $\Gamma B(N_\text{th} - N_\text{tr}) = 1/\tau_{ph}$. This yields the linearized first-order system:
+\begin{align*}
+    \frac{d\,\Delta N}{dt} &= -\left(\frac{1}{\tau} + \Gamma B S_0\right)\Delta N - \Gamma B(N_\text{th} - N_\text{tr})\,\Delta S = -\xi\,\Delta N - \frac{\Delta S}{\tau_{ph}} \\[6pt]
+    \frac{d\,\Delta S}{dt} &= \Gamma B S_0\,\Delta N = \frac{\Delta N}{\tau_{st}}
+\end{align*}
+where we have used the definitions $\xi = 1/\tau + \Gamma B S_0$ and $\tau_{st} = 1/(\Gamma B S_0)$.
 
-This is a standard damped harmonic oscillator equation with the same $\omega_r$ and $\xi$ from the small-signal analysis. For the underdamped case ($\xi < 2\omega_r$), the solution is a decaying sinusoid:
+To combine these into a single equation, we differentiate the carrier equation with respect to time:
 \begin{equation*}
-    \Delta N(t) = D\,e^{-(\xi/2) t}\sin(\Omega\,t), \qquad \Omega = \sqrt{\omega_r^2 - (\xi/2)^2}
+    \frac{d^2\Delta N}{dt^2} = -\xi\,\frac{d\,\Delta N}{dt} - \frac{1}{\tau_{ph}}\frac{d\,\Delta S}{dt}
 \end{equation*}
+Substituting the derivative of the photon density $\frac{d\,\Delta S}{dt} = \Gamma B S_0\,\Delta N$ into the equation:
 \begin{equation*}
-    \Delta S(t) = -\frac{\Gamma B S_0}{\Omega}\,D\,e^{-(\xi/2) t}\cos(\Omega\,t)
+    \frac{d^2\Delta N}{dt^2} = -\xi\,\frac{d\,\Delta N}{dt} - \frac{\Gamma B S_0}{\tau_{ph}}\,\Delta N
 \end{equation*}
+Since $\omega_r^2 = \frac{\Gamma B S_0}{\tau_{ph}}$, this rearranges into the classic second-order damped harmonic oscillator ODE:
+\begin{keyresult}
+    \begin{equation}
+        \frac{d^2\Delta N}{dt^2} + \xi\,\frac{d\Delta N}{dt} + \omega_r^2\,\Delta N = 0
+    \end{equation}
+\end{keyresult}
+
+We solve this using the characteristic equation $s^2 + \xi s + \omega_r^2 = 0$. The roots are:
+\begin{equation*}
+    s_{1,2} = -\frac{\xi}{2} \pm j\sqrt{\omega_r^2 - \left(\frac{\xi}{2}\right)^2} = -\frac{\xi}{2} \pm j\Omega
+\end{equation*}
+where $\Omega \equiv \sqrt{\omega_r^2 - (\xi/2)^2}$ is the damped oscillation frequency. For the underdamped case ($\xi < 2\omega_r$), the carrier density solution is a decaying sinusoid:
+\begin{keyresult}
+    \begin{equation}
+        \Delta N(t) = D\,e^{-(\xi/2) t}\sin(\Omega\,t)
+    \end{equation}
+\end{keyresult}
+where $D$ is a constant determined by the initial conditions of the current step. 
+
+To find the corresponding photon density deviation $\Delta S(t)$, we integrate the linearized photon equation:
+\begin{equation*}
+    \Delta S(t) = \Gamma B S_0 \int \Delta N(t)\,dt = \Gamma B S_0 D \int e^{-(\xi/2) t}\sin(\Omega\,t)\,dt
+\end{equation*}
+Using the standard integration identity $\int e^{-at} \sin(\Omega t)\,dt = -\frac{e^{-at}}{a^2+\Omega^2}(a\sin(\Omega t) + \Omega\cos(\Omega t))$ with $a = \xi/2$:
+\begin{equation*}
+    \Delta S(t) = -\Gamma B S_0 D \frac{e^{-(\xi/2) t}}{(\xi/2)^2 + \Omega^2} \left[ \frac{\xi}{2}\sin(\Omega\,t) + \Omega\cos(\Omega\,t) \right]
+\end{equation*}
+Since $(\xi/2)^2 + \Omega^2 = \omega_r^2$ and we are in the typical light-damping limit where the decay rate is much slower than the oscillation frequency ($\xi/2 \ll \Omega$), the sine term inside the brackets is negligible. Using this approximation:
+\begin{equation*}
+    \Delta S(t) \approx -\frac{\Gamma B S_0 D \Omega}{\omega_r^2} e^{-(\xi/2) t}\cos(\Omega\,t)
+\end{equation*}
+Using the identity $\omega_r^2 = \frac{\Gamma B S_0}{\tau_{ph}} \implies \frac{\Gamma B S_0}{\omega_r^2} = \tau_{ph}$, and substituting $\omega_r \approx \Omega$ under light damping:
+\begin{keyresult}
+    \begin{equation}
+        \Delta S(t) \approx -\frac{\Gamma B S_0}{\Omega}\,D\,e^{-(\xi/2) t}\cos(\Omega\,t) \approx -\tau_{ph}\Omega D\,e^{-(\xi/2) t}\cos(\Omega\,t)
+    \end{equation}
+\end{keyresult}
 
 \begin{figure}[H]
     \centering
@@ -204,7 +301,53 @@ The photon density and carrier density both oscillate at frequency $\Omega \appr
 
 \subsection{Why a Standard Fabry-Pérot Laser Is Not Single-Frequency}
 
-An ordinary Fabry-Pérot laser diode supports multiple longitudinal modes simultaneously. The gain bandwidth of a semiconductor material is broad — typically tens of nanometres — while the longitudinal mode spacing is $\Delta f = c/(2nL)$. For a $300\,\mu$m long GaAs cavity with $n \approx 3.6$, the mode spacing is approximately $140\,\text{GHz}$ ($\approx 0.3\,\text{nm}$). Dozens of modes fit within the gain bandwidth and all can lase simultaneously.
+An ordinary Fabry-Pérot laser diode supports multiple longitudinal modes simultaneously. In a perfectly \textbf{homogeneously broadened} gain medium (where every carrier shares the exact same transition lineshape), the first mode to reach threshold would clamp the gain globally. Once the peak gain hits the loss line, it cannot rise further, meaning all other modes would be permanently locked below threshold. The laser would perfectly oscillate in a single mode.
+
+In reality, active atoms in the semiconductor experience slightly different local environments due to alloy fluctuations, localized strains, and thermal gradients. This leads to \textbf{inhomogeneous broadening}, where the overall gain spectrum is a superposition of many shifted individual lineshapes, forming a broad Gaussian profile:
+\begin{equation*}
+    \gamma(\lambda) = \gamma_o \exp\!\left(-\frac{(\lambda - \lambda_o)^2}{2\delta^2}\right)
+\end{equation*}
+
+Because the broadening is inhomogeneous, different longitudinal modes interact with different subsets of the carrier population. When the mode at $\lambda_o$ reaches threshold, it burns a "hole" in the gain spectrum at that specific wavelength (spatial hole burning), but it does \emph{not} clamp the gain at other wavelengths. This allows the gain at adjacent modes to continue rising until they too reach threshold.
+
+The resonance condition for a Fabry-Pérot cavity of length $L$ requires the round-trip phase to be an integer multiple of $2\pi$:
+\begin{equation*}
+    2\beta L = 2m\pi \implies 2\left(\frac{2\pi n}{\lambda}\right) L = 2m\pi \implies m\lambda = 2nL
+\end{equation*}
+where $m$ is the integer mode number and $n$ is the refractive index. To find the spacing between adjacent longitudinal modes ($dm = 1$), we differentiate both sides:
+\begin{equation*}
+    dm \cdot \lambda + m \cdot d\lambda = 2\frac{dn}{d\lambda} d\lambda L \implies \lambda \cdot dm + \left(m - 2L\frac{dn}{d\lambda}\right) d\lambda = 0
+\end{equation*}
+Substituting $m = 2nL/\lambda$ and grouping terms:
+\begin{equation*}
+    \lambda \cdot dm + \frac{2L}{\lambda}\left(n - \lambda\frac{dn}{d\lambda}\right) d\lambda = 0
+\end{equation*}
+The term in the parentheses is the group index, $n_g \equiv n - \lambda\frac{dn}{d\lambda}$, which accounts for material dispersion. For adjacent modes ($dm = 1$), the magnitude of the mode spacing $d\lambda = -\Delta\lambda_f$ is:
+\begin{keyresult}
+    \begin{equation}
+        \Delta\lambda_f = \frac{\lambda_o^2}{2 n_g L}
+    \end{equation}
+\end{keyresult}
+If material dispersion is neglected, the group index simplifies to the refractive index ($n_g \approx n$).
+
+The result is multimode oscillation. The total number of simultaneously oscillating modes is the spectral width over which the Gaussian gain exceeds the passive resonator loss line $\alpha_r$. By setting $\gamma(\lambda) = \alpha_r$ and solving for $\lambda$:
+\begin{align*}
+    \gamma_o \exp\!\left(-\frac{(\lambda - \lambda_o)^2}{2\delta^2}\right) & = \alpha_r                                                                                   \\
+    -\frac{(\lambda - \lambda_o)^2}{2\delta^2}                             & = \ln\!\left(\frac{\alpha_r}{\gamma_o}\right) = -\ln\!\left(\frac{\gamma_o}{\alpha_r}\right) \\
+    |\lambda - \lambda_o|                                                  & = \delta \sqrt{2 \ln\!\left(\frac{\gamma_o}{\alpha_r}\right)}
+\end{align*}
+This absolute deviation defines the spectral bounds of the lasing band: $\lambda_o - |\lambda - \lambda_o| \le \lambda \le \lambda_o + |\lambda - \lambda_o|$. The total lasing bandwidth is the difference between these bounds:
+\begin{equation*}
+    \Delta\lambda_\text{lasing} = 2|\lambda - \lambda_o| = 2\delta \sqrt{2 \ln\!\left(\frac{\gamma_o}{\alpha_r}\right)}
+\end{equation*}
+The total number of oscillating modes $N$ is this lasing bandwidth divided by the longitudinal mode spacing $\Delta\lambda_f$:
+\begin{keyresult}
+    \begin{equation}
+        \text{Number of Modes } N \approx \frac{\Delta\lambda_\text{lasing}}{\Delta\lambda_f} = \frac{2\delta}{\Delta\lambda_f}\sqrt{2 \ln\!\left(\frac{\gamma_o}{\alpha_r}\right)}
+    \end{equation}
+\end{keyresult}
+
+For a $300\,\mu$m long GaAs cavity with $n \approx 3.6$, the mode spacing is approximately $\Delta\lambda_f \approx 0.3\,\text{nm}$. If the gain exceeds the loss over a $15\,\text{nm}$ window, roughly $50$ modes will lase simultaneously.
 
 Multi-mode operation is unacceptable for wavelength-division multiplexed (WDM) systems: each mode occupies a different wavelength channel, and the composite output spectrum is too broad to be routed by a wavelength-selective filter. Moreover, when the device is modulated, the mode spectrum shifts and broadens — a phenomenon called \textbf{mode partition noise} — further degrading system performance.
 
@@ -228,10 +371,20 @@ Substituting:
 
 Only the longitudinal mode closest to $\lambda_B$ experiences the strong Bragg reflectivity — all others see essentially no distributed reflection and are suppressed. For a GaAs device at $\lambda_0 = 850\,\text{nm}$ with $n_\text{eff} \approx 3.5$, the required grating period is $\Lambda_g = \lambda_B/(2n_\text{eff}) \approx 120\,\text{nm}$ — achievable with electron-beam lithography.
 
-When the injection current (and thus the carrier density) changes during modulation, the refractive index of the active region changes. Since $\lambda_B = 2n_\text{eff}\Lambda_g$ and the grating period $\Lambda_g$ is fixed, a change $\Delta n_\text{eff}$ in the effective index shifts the selected wavelength by:
+When the injection current (and thus the carrier density) changes during modulation, the refractive index of the active region changes. Since the physical grating period $\Lambda_g$ is structurally fixed, the Bragg wavelength shifts due to changes in the effective index $n_\text{eff}$. We find this by taking the differential of the Bragg condition with respect to $n_\text{eff}$:
+\begin{equation*}
+    d\lambda_B = \frac{d}{d n_\text{eff}}\left(2\,n_\text{eff}\,\Lambda_g\right) dn_\text{eff} = 2\Lambda_g\,dn_\text{eff}
+\end{equation*}
+For a finite index perturbation $\Delta n_\text{eff}$, this shift is:
 \begin{equation*}
     \Delta\lambda_B = 2\Lambda_g\,\Delta n_\text{eff}
 \end{equation*}
+By dividing both sides by the Bragg wavelength $\lambda_B = 2 n_\text{eff} \Lambda_g$, we obtain the fractional wavelength shift:
+\begin{keyresult}
+    \begin{equation}
+        \frac{\Delta\lambda_B}{\lambda_B} = \frac{\Delta n_\text{eff}}{n_\text{eff}}
+    \end{equation}
+\end{keyresult}
 
 This is \textbf{laser chirp}: the output wavelength shifts while the power is being modulated. In a DFB laser, the grating is inside the active region, so modulation-induced index changes directly perturb $\lambda_B$. Chirp broadens the optical spectrum during modulation and limits the dispersion-limited transmission distance in fibre.
 

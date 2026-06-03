@@ -38,7 +38,7 @@ def save(fig, name):
     print(f"Saved: {path}")
 
 
-:
+def fig_l1_01():
     k = np.linspace(-1, 1, 400)
     fig, axes = plt.subplots(1, 2, figsize=(10, 5.5))
 

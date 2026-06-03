@@ -1,4 +1,3 @@
-% !TEX root = ../Optoelectronics.tex
 % =========================================================
 %  Chapter 5 — Semiconductor Light Sources: Fundamentals and Review
 %  Source: Dr. George's Lectures (Lecture 1)
@@ -30,9 +29,14 @@ Between these two bands sits the \textbf{bandgap} $E_g$, defined as:
 \begin{equation*}
     E_g = E_c - E_v
 \end{equation*}
-where $E_c$ is the energy of the conduction band edge (the \emph{minimum} energy an electron in the CB can have) and $E_v$ is the energy of the valence band edge (the \emph{maximum} energy an electron in the VB can have). No electron state exists anywhere inside this forbidden gap.
+where:
+\begin{itemize}
+    \item $E_g$: bandgap energy of the semiconductor
+    \item $E_c$: conduction band minimum (the lowest energy state in the conduction band)
+    \item $E_v$: valence band maximum (the highest energy state in the valence band)
+\end{itemize}
 
-The physical takeaway here is that a photon can only be absorbed if its energy exceeds the bandgap: $h\nu > E_g$. Conversely, when an electron falls from the CB back into the VB, it releases approximately $E_g$ worth of energy — ideally as a photon.
+No electron state exists anywhere inside this forbidden gap. The physical takeaway here relates directly to the interaction of the material with light. If the photon's energy $h\nu$ exceeds the bandgap $E_g$ ($h\nu > E_g$), then the photon can be absorbed by promoting an electron from the valence band to the conduction band. Conversely, if an electron falls from the conduction band minimum $E_c$ back into the valence band maximum $E_v$, then it releases this energy — ideally emitting a photon of energy $h\nu \approx E_g$.
 
 \subsection{The E–k Diagram and Effective Mass}
 
@@ -44,18 +48,43 @@ Near the band edges, where the interesting physics happens, the bands are approx
         \frac{1}{m^*} \equiv \frac{1}{\hbar^2}\,\frac{d^2 E}{dk^2}
     \end{equation}
 \end{keyresult}
-where $\hbar$ is the reduced Planck constant and $k$ is the wavenumber. A large curvature (sharply peaked band) means a small effective mass — the electron responds strongly to applied forces and behaves as if it were light. A flat band gives a large effective mass — the electron is sluggish. This substitution of the free electron mass $m_0$ with the material-specific effective mass $m^*_e$ (for electrons in the CB) or $m^*_h$ (for holes in the VB) lets us treat carriers as free particles obeying familiar Newtonian dynamics, but with mass $m^*$ instead of $m_0$.
+where:
+\begin{itemize}
+    \item $m^*$: effective mass of the carrier inside the crystal
+    \item $\hbar$: reduced Planck's constant ($\hbar = h/2\pi$, where $h \approx 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$)
+    \item $E$: energy of the carrier
+    \item $k$: wavenumber (crystal momentum wavevector)
+\end{itemize}
+
+If the band has a large curvature (a sharply peaked band), then the effective mass $m^*$ is small, which means the electron responds strongly to applied forces and behaves as if it were light. Conversely, if the band is relatively flat, then the effective mass $m^*$ is large, which means the electron behaves sluggishly. This substitution of the free electron mass $m_0$ with the material-specific effective mass $m^*_e$ (for electrons in the CB) or $m^*_h$ (for holes in the VB) lets us treat carriers as free particles obeying familiar Newtonian dynamics, but with mass $m^*$ instead of $m_0$.
 
 Near the conduction band minimum $E_c$, the parabolic approximation gives:
 \begin{equation*}
     E(k) \approx E_c + \frac{\hbar^2 k^2}{2 m^*_e}
 \end{equation*}
+where:
+\begin{itemize}
+    \item $E(k)$: energy of the electron as a function of the wavenumber $k$
+    \item $E_c$: conduction band minimum energy
+    \item $\hbar$: reduced Planck's constant
+    \item $k$: wavenumber of the electron
+    \item $m^*_e$: effective mass of the electron in the conduction band
+\end{itemize}
+
 and near the valence band maximum $E_v$ for holes:
 \begin{equation*}
     E(k) \approx E_v - \frac{\hbar^2 k^2}{2 m^*_h}
 \end{equation*}
+where:
+\begin{itemize}
+    \item $E(k)$: energy of the hole as a function of the wavenumber $k$
+    \item $E_v$: valence band maximum energy
+    \item $\hbar$: reduced Planck's constant
+    \item $k$: wavenumber of the hole
+    \item $m^*_h$: effective mass of the hole in the valence band
+\end{itemize}
 
-The negative sign for holes follows from the fact that removing an electron from the valence band leaves a hole whose energy \emph{increases} as it moves deeper into the band (i.e., further away from $E_v$).
+The negative sign for holes follows directly from the definition. If an electron is removed from the valence band, then it leaves behind a hole whose energy \emph{increases} as it moves deeper into the band (i.e., further away from $E_v$).
 
 % ------------------------------------------------------------------
 \section{Direct and Indirect Bandgaps}
@@ -67,21 +96,44 @@ An optical transition requires \emph{both} conservation of energy and conservati
 \begin{equation*}
     E_2 - E_1 = E_\text{ph} = h\nu
 \end{equation*}
+where:
+\begin{itemize}
+    \item $E_2$: energy of the electron's state in the conduction band
+    \item $E_1$: energy of the electron's state in the valence band
+    \item $E_\text{ph}$: energy of the emitted or absorbed photon
+    \item $h$: Planck's constant
+    \item $\nu$: frequency of the optical wave
+\end{itemize}
+
 But momentum conservation places a severe additional constraint. The photon carries momentum $p_\text{ph} = \hbar k_\text{ph}$, and the change in electron momentum must equal it:
 \begin{equation*}
     \hbar(k_2 - k_1) = \hbar k_\text{ph}
 \end{equation*}
+where:
+\begin{itemize}
+    \item $k_2$: wavevector of the electron in the conduction band
+    \item $k_1$: wavevector of the electron in the valence band
+    \item $k_\text{ph}$: wavevector of the photon
+    \item $\hbar$: reduced Planck's constant
+\end{itemize}
+
 Now, the electron wavevector in the crystal is of order $k_\text{electron} \sim 2\pi/a \sim 10^{10}\ \text{m}^{-1}$, where $a$ is the lattice constant ($\sim 5\,\text{\AA}$). The photon wavevector, by contrast, is $k_\text{ph} = 2\pi/\lambda \sim 10^{6}\ \text{m}^{-1}$ for visible/near-IR light. Since $10^6 \ll 10^{10}$, the photon carries essentially no momentum on the scale of the Brillouin zone. Therefore, momentum conservation demands:
 \begin{keyresult}
     \begin{equation}
         k_2 \cong k_1
     \end{equation}
 \end{keyresult}
-An optical transition must be \textbf{vertical} in the E–k diagram — the electron's crystal momentum cannot change during a photon emission or absorption event.
+where:
+\begin{itemize}
+    \item $k_2$: wavevector of the conduction band state
+    \item $k_1$: wavevector of the valence band state
+\end{itemize}
+
+If an optical transition (emission or absorption of a photon) occurs, then it must be represented as a purely \textbf{vertical} line in the E–k diagram. This physical mechanism is absolute: a photon simply cannot supply the momentum needed for a "diagonal" (non-vertical) transition. Therefore, non-vertical transitions are strictly forbidden unless a massive third particle—a lattice vibration known as a \textbf{phonon}—is involved to balance the momentum equation. In direct bandgap semiconductors, the conduction band minimum and valence band maximum align vertically at $k=0$, allowing efficient pure-photon emission.
 
 \subsection{Intra-Band Transitions and Phonon Interactions}
 
-If we look closely at transitions occurring within the very same band — which we call \textbf{intra-band transitions} — we will find that the physical rules behave quite differently compared to the band-to-band transitions we just discussed. To see why, let's do a simple calculation of the photon energy in the microwave range. 
+If we look closely at transitions occurring within the very same band — which we call \textbf{intra-band transitions} — we will find that the physical rules behave quite differently compared to the band-to-band transitions we just discussed. To see why, let's do a simple calculation of the photon energy in the microwave range.
 
 If we have a microwave signal operating at a frequency of $\nu = 1\text{ GHz}$, we can compute the corresponding photon energy $E$ as follows:
 \begin{equation*}
@@ -96,14 +148,14 @@ where:
 
 Substituting these values step-by-step:
 \begin{align*}
-    E &= \left(6.625 \times 10^{-34}\text{ J}\cdot\text{s}\right) \times 10^9\text{ Hz} \\
-      &= 6.625 \times 10^{-25}\text{ J}
+    E & = \left(6.625 \times 10^{-34}\text{ J}\cdot\text{s}\right) \times 10^9\text{ Hz} \\
+      & = 6.625 \times 10^{-25}\text{ J}
 \end{align*}
 
 Let's convert this energy into electron-volts to make it easier to compare with typical bandgaps:
 \begin{align*}
-    E &= \frac{6.625 \times 10^{-25}\text{ J}}{1.6 \times 10^{-19}\text{ J/eV}} \\
-      &\approx 4.14 \times 10^{-6}\text{ eV}
+    E & = \frac{6.625 \times 10^{-25}\text{ J}}{1.6 \times 10^{-19}\text{ J/eV}} \\
+      & \approx 4.14 \times 10^{-6}\text{ eV}
 \end{align*}
 
 If we compare this microwave photon energy $E \approx 4.14 \times 10^{-6}\text{ eV}$ to a typical semiconductor bandgap (such as $E_g = 1.12\text{ eV}$ for silicon), we can notice that $E \ll E_g$. The energy is so incredibly tiny that microwave photons cannot possibly excite electrons across the bandgap. Instead, transitions within the same band are mediated almost entirely by lattice vibrations, which we call \textbf{phonons}. So, in this regime, we are dealing with phonons rather than photons.
@@ -148,7 +200,7 @@ where:
     \item $E_2$: final energy of the electron
 \end{itemize}
 
-Ultimately, what this tells us is that **phonon-electron transitions are horizontal transitions** in the E–k diagram. This stands in sharp contrast to photon-electron transitions, which are purely vertical because a photon carries significant energy but virtually zero momentum. 
+Ultimately, what this tells us is that **phonon-electron transitions are horizontal transitions** in the E–k diagram. This stands in sharp contrast to photon-electron transitions, which are purely vertical because a photon carries significant energy but virtually zero momentum.
 
 \begin{figure}[H]
     \centering
@@ -158,12 +210,12 @@ Ultimately, what this tells us is that **phonon-electron transitions are horizon
 \end{figure}
 
 \begin{itemize}
-    \item \textbf{Direct bandgap semiconductor (e.g.\ GaAs):} The conduction band minimum and the valence band maximum occur at the \emph{same} k-point (the $\Gamma$ point, $k=0$). A vertical transition perfectly connects them. Optical emission is fully allowed, making GaAs the workhorse of laser diodes and LEDs.
+    \item \textbf{Direct bandgap semiconductor (e.g.\ GaAs):} If a semiconductor has a direct bandgap, then the conduction band minimum and the valence band maximum occur at the exact same wavevector point (the $\Gamma$ point, where $k=0$). In this case, a vertical transition perfectly connects them without requiring any change in momentum. Consequently, optical emission is highly efficient and fully allowed, making GaAs the workhorse of laser diodes and LEDs.
 
-    \item \textbf{Indirect bandgap semiconductor (e.g.\ Si):} The conduction band minimum sits at a different k-point from the valence band maximum. A vertical photon-only transition \emph{cannot} bridge the momentum gap. To complete the transition, a phonon (a quantised lattice vibration) must also be involved to supply the required crystal momentum. This three-particle process (electron + photon + phonon) is vastly less probable, making optical emission in Si extremely inefficient. This is why Si cannot be used to build practical LEDs or lasers.
+    \item \textbf{Indirect bandgap semiconductor (e.g.\ Si):} If a semiconductor has an indirect bandgap, then the conduction band minimum sits at a completely different wavevector point compared to the valence band maximum. In this case, a vertical photon-only transition is forbidden because it cannot bridge the momentum gap. If a transition is to occur, then it must also involve a phonon (a quantised lattice vibration) to supply the necessary crystal momentum. Because this three-particle process (electron + photon + phonon) is vastly less probable, optical emission in Si is extremely inefficient. This is why Si cannot be used to build practical LEDs or lasers.
 \end{itemize}
 
-The bottom line is fundamental: \textbf{only direct-bandgap semiconductors} make efficient light emitters.
+Ultimately, what this tells us is fundamental: \textbf{only direct-bandgap semiconductors} make efficient light emitters.
 
 % ------------------------------------------------------------------
 \section{Density of States}
@@ -173,46 +225,109 @@ The bottom line is fundamental: \textbf{only direct-bandgap semiconductors} make
 
 Before we can calculate how many electrons actually occupy the conduction band, we must first count how many \emph{quantum states} are available at each energy. This is the role of the \textbf{density of states} $g(E)$, which answers the question: how many states per unit volume exist in the energy range $[E,\, E+dE]$?
 
-Think of it as a concert hall. $g(E)$ counts the number of seats at each energy level, and the Fermi-Dirac function $f(E)$ (which we will meet next) counts the fraction of those seats that are actually occupied. The total electron density is then simply seats $\times$ fraction occupied, integrated over all energies.
+If we want to understand the physical concept, then we can think of the density of states as counting the available seats in a concert hall. In this analogy, if we have a density of states $g(E)$, then it counts the number of seats at each energy level $E$. If we have the Fermi-Dirac function $f(E)$ (which we will meet next), then it represents the fraction of those seats that are actually occupied by electrons. Consequently, if we integrate the product of the available seats and the occupancy fraction over all energies, then we obtain the total free electron density.
 
-\subsection{Derivation in 3D}
+\subsection{Derivation in 3D: Boundary Conditions and k-Space}
 
 To derive $g(E)$, we start with the known parabolic dispersion relation for a free-electron-like conduction band:
 \begin{equation*}
     E = E_c + \frac{\hbar^2 k^2}{2 m^*_e}
 \end{equation*}
-We first count states in k-space. In a cubic crystal of side length $L$, periodic boundary conditions quantise the allowed $k$ values. The number of states in a spherical shell of radius $k$ and thickness $dk$ in 3D k-space is:
+
+We must first count the available quantum states in k-space. To do this, we treat the crystal as a cubic box of side length $L$. There are two physically distinct ways to model the electron boundaries: the \textbf{Standing Wave} (infinite well) and the \textbf{Periodic Boundary Condition} (running wave). Both models describe different physical assumptions, but they must predict the identical measurable density of states. Let us prove this equivalence explicitly:
+
+\textbf{1. The Standing Wave (Infinite Well) Model:} \\
+If we assume the crystal boundaries perfectly reflect electrons, we form standing waves. The wavefunction must go to zero at the boundaries, giving the 1D quantisation condition $k_x = n_x \frac{\pi}{L}$. A critical physical mechanism emerges here: why can't $n_x = 0$? If $n_x = 0$, then $k_x = 0$, and the wavefunction $\psi(x) = A \sin(k_x x)$ becomes exactly zero everywhere. A zero wavefunction means the probability of finding the electron is zero—the particle physically ceases to exist. Thus, the $k=0$ state is physically nullified, and $n_x$ strictly starts from 1.
+Because $n_x, n_y, n_z \ge 1$, the allowed $k$-states exist exclusively in the \emph{positive octant} (one-eighth) of a 3D k-space sphere. The volume of a single state is $(\pi/L)^3$. The number of states $dN_k$ in a spherical shell of radius $k$ and thickness $dk$ is the volume of the octant shell divided by the single-state volume:
 \begin{equation*}
-    dN_k = 2 \cdot \frac{4\pi k^2\,dk}{(2\pi/L)^3} = \frac{V k^2\,dk}{\pi^2}
+    dN_k = 2 \cdot \frac{\frac{1}{8}(4\pi k^2\,dk)}{(\pi/L)^3} = 2 \cdot \frac{\frac{\pi}{2} k^2\,dk}{\pi^3/V} = \frac{V k^2\,dk}{\pi^2}
 \end{equation*}
-where the factor of 2 accounts for spin degeneracy (each k-state holds one spin-up and one spin-down electron), and $V = L^3$ is the volume. To convert from k to E, we differentiate the dispersion relation:
+The leading factor of 2 accounts for spin degeneracy (one spin-up and one spin-down electron per state).
+
+\textbf{2. The Periodic Boundary Condition (Running Wave) Model:} \\
+In a real crystal, electrons carry current rather than just bouncing back and forth. It is physically more representative to use running waves, where we assume the crystal wraps around itself (i.e., $\psi(x+L) = \psi(x)$). The quantisation condition becomes $k_x = n_x \frac{2\pi}{L}$, where $n_x = 0, \pm 1, \pm 2, \dots$.
+Now, $k$ can be positive, negative, or zero, filling all eight octants of the k-space sphere. However, the volume occupied by a single state is now larger: $(2\pi/L)^3$. The number of states is:
 \begin{equation*}
-    E - E_c = \frac{\hbar^2 k^2}{2m^*_e} \implies k = \sqrt{\frac{2m^*_e(E-E_c)}{\hbar^2}}
+    dN_k = 2 \cdot \frac{4\pi k^2\,dk}{(2\pi/L)^3} = 2 \cdot \frac{4\pi k^2\,dk}{8\pi^3/V} = \frac{V k^2\,dk}{\pi^2}
 \end{equation*}
+
+\textbf{Equivalence:} Notice that both models yield the exact same expression for $dN_k$. We will use this established result to proceed:
 \begin{equation*}
-    \frac{dE}{dk} = \frac{\hbar^2 k}{m^*_e} \implies dk = \frac{m^*_e}{\hbar^2 k}\,dE
+    dN_k = \frac{V k^2\,dk}{\pi^2}
 \end{equation*}
-Substituting $k = \sqrt{2m^*_e(E-E_c)}/\hbar$ and $dk = m^*_e\,dE/(\hbar^2 k)$ into the state-count expression $dN_k/V$ and cancelling the common factor of $\sqrt{2m^*_e(E-E_c)}/\hbar$ between numerator and denominator:
+where:
+\begin{itemize}
+    \item $dN_k$: number of available quantum states in the k-space spherical shell of radius $k$ and thickness $dk$
+    \item $k$: wavevector radius in k-space
+    \item $dk$: thickness of the shell in k-space
+    \item $L$: physical side length of the cubic crystal box
+    \item $V$: volume of the crystal ($V = L^3$)
+\end{itemize}
+
+To convert this density from k-space into energy space, we solve the dispersion relation for $k$:
 \begin{equation*}
-    g_c(E) = \frac{1}{\pi^2}\cdot\frac{2m^*_e(E-E_c)}{\hbar^2}\cdot\frac{m^*_e}{\hbar^2}\cdot\frac{\hbar}{\sqrt{2m^*_e(E-E_c)}}
-    = \frac{1}{\pi^2}\cdot\frac{m^*_e}{\hbar^3}\sqrt{2m^*_e(E-E_c)}
+    E - E_c = \frac{\hbar^2 k^2}{2m^*_e} \implies k^2 = \frac{2m^*_e(E-E_c)}{\hbar^2}
 \end{equation*}
-Writing $\hbar = h/(2\pi)$ and pulling the constants together:
+Taking the positive square root gives:
 \begin{equation*}
-    g_c(E) = \frac{1}{\pi^2}\cdot\frac{m^*_e}{(h/2\pi)^3}\sqrt{2m^*_e(E-E_c)}
-    = \frac{8\pi m^*_e}{h^3}\sqrt{2m^*_e(E-E_c)}
-    = 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\!\sqrt{E-E_c}
+    k = \frac{\sqrt{2m^*_e(E-E_c)}}{\hbar}
 \end{equation*}
-which gives us our density of states:
+Next, we differentiate the original dispersion relation $E(k)$ with respect to $k$:
+\begin{equation*}
+    \frac{dE}{dk} = \frac{d}{dk}\left(E_c + \frac{\hbar^2 k^2}{2m^*_e}\right) = \frac{\hbar^2 k}{m^*_e}
+\end{equation*}
+Rearranging this derivative allows us to express the differential step $dk$ in terms of $dE$:
+\begin{equation*}
+    dk = \frac{m^*_e}{\hbar^2 k}\,dE
+\end{equation*}
+Substitute the expression for $k$ into the denominator:
+\begin{equation*}
+    dk = \frac{m^*_e}{\hbar^2 \left(\dfrac{\sqrt{2m^*_e(E-E_c)}}{\hbar}\right)}\,dE = \frac{m^*_e}{\hbar \sqrt{2m^*_e(E-E_c)}}\,dE
+\end{equation*}
+
+Now we substitute both $k^2$ and $dk$ back into our density of states per unit volume, defined as $g_c(E) = \frac{dN_k}{V dE}$:
+\begin{align*}
+    g_c(E) & = \frac{1}{\pi^2} k^2 \frac{dk}{dE}                                                                                    \\
+           & = \frac{1}{\pi^2} \left[ \frac{2m^*_e(E-E_c)}{\hbar^2} \right] \left[ \frac{m^*_e}{\hbar \sqrt{2m^*_e(E-E_c)}} \right] \\
+           & = \frac{1}{\pi^2} \cdot \frac{m^*_e}{\hbar^3} \cdot \frac{2m^*_e(E-E_c)}{\sqrt{2m^*_e(E-E_c)}}                         \\
+           & = \frac{1}{\pi^2} \cdot \frac{m^*_e}{\hbar^3} \sqrt{2m^*_e(E-E_c)}
+\end{align*}
+
+To express this in the standard form found in the literature, substitute $\hbar = h/2\pi$:
+\begin{align*}
+    g_c(E) & = \frac{1}{\pi^2} \cdot \frac{m^*_e}{(h/2\pi)^3} \sqrt{2m^*_e(E-E_c)}   \\
+           & = \frac{1}{\pi^2} \cdot \frac{m^*_e}{h^3 / 8\pi^3} \sqrt{2m^*_e(E-E_c)} \\
+           & = \frac{8\pi^3}{\pi^2} \cdot \frac{m^*_e}{h^3} \sqrt{2m^*_e(E-E_c)}     \\
+           & = \frac{8\pi m^*_e}{h^3} \sqrt{2m^*_e(E-E_c)}                           \\
+           & = \frac{4\pi (2m^*_e)}{h^3} \sqrt{2m^*_e(E-E_c)}                        \\
+           & = 4\pi \left(\frac{2m^*_e}{h^2}\right)^{3/2} \sqrt{E-E_c}
+\end{align*}
+
+which gives us our final 3D density of states:
 \begin{keyresult}
     \begin{equation}
         g_c(E) = 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\!\sqrt{E - E_c}, \qquad E \geq E_c
     \end{equation}
 \end{keyresult}
-where $h = 2\pi\hbar$ is Planck's constant. By symmetry, the density of states for holes in the valence band has the same square-root form, with $m^*_e$ replaced by $m^*_h$ and $E_c$ replaced by $E_v$:
+where:
+\begin{itemize}
+    \item $g_c(E)$: density of available electron states in the conduction band per unit volume per unit energy
+    \item $m^*_e$: effective mass of an electron in the conduction band
+    \item $h$: Planck's constant ($h \approx 6.626 \times 10^{-34}\text{ J}\cdot\text{s}$)
+    \item $E$: energy level
+    \item $E_c$: conduction band minimum energy
+\end{itemize}
+
+By perfect symmetry, the density of states for holes in the valence band has the exact same square-root mathematical form, simply with $m^*_e$ replaced by $m^*_h$ and energy measured downwards from $E_v$:
 \begin{equation*}
     g_v(E) = 4\pi\!\left(\frac{2m^*_h}{h^2}\right)^{\!3/2}\!\sqrt{E_v - E}, \qquad E \leq E_v
 \end{equation*}
+where:
+\begin{itemize}
+    \item $g_v(E)$: density of available hole states in the valence band per unit volume per unit energy
+    \item $m^*_h$: effective mass of a hole in the valence band
+    \item $E_v$: valence band maximum energy
+\end{itemize}
 
 The density of states grows as a square root above the band edge, which means there are very few states right at $E_c$, and the number of available seats increases as we move deeper into the band.
 
@@ -256,64 +371,202 @@ With both the density of states $g(E)$ and the occupation probability $f(E)$ in 
     \end{equation}
 \end{keyresult}
 
-Substituting both expressions explicitly:
-\begin{equation*}
-    n = \int_{E_c}^{\infty} \frac{4\pi(2m^*_e/h^2)^{3/2}\sqrt{E - E_c}}{1 + \exp\!\left(\dfrac{E - E_f}{k_B T}\right)}\, dE
-\end{equation*}
+Substitute the density of states $g_c(E)$ and the Fermi-Dirac distribution $f(E)$ into the integral equation:
+\begin{align*}
+    n & = \int_{E_c}^{\infty} \left[ 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\!\sqrt{E - E_c} \right] \cdot \left[ \frac{1}{1 + \exp\!\left(\dfrac{E - E_f}{k_B T}\right)} \right] dE \\
+      & = \int_{E_c}^{\infty} \frac{4\pi(2m^*_e/h^2)^{3/2}\sqrt{E - E_c}}{1 + \exp\!\left(\dfrac{E - E_f}{k_B T}\right)}\, dE
+\end{align*}
+where:
+\begin{itemize}
+    \item $n$: electron density in the conduction band (number of electrons per unit volume)
+    \item $E_c$: conduction band minimum energy
+    \item $m^*_e$: effective mass of the electron in the conduction band
+    \item $h$: Planck's constant
+    \item $E_f$: Fermi energy level
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+\end{itemize}
 
 \subsection{The Maxwell-Boltzmann Approximation}
 
-This integral has no closed form in general. However, in a non-degenerate semiconductor — one where the Fermi level sits well below the conduction band edge, specifically $E_c - E_f \gg k_B T$ — the exponential in the denominator is much greater than 1, and $f(E)$ simplifies to the \textbf{Maxwell-Boltzmann approximation}:
+This integral has no closed form in general. However, if a semiconductor is non-degenerate — meaning that the Fermi level $E_f$ sits deep in the bandgap well below the conduction band edge $E_c$, specifically satisfying the condition $E_c - E_f \gg k_B T$ — then for any state in the conduction band ($E \geq E_c$), we have $E - E_f \geq E_c - E_f \gg k_B T$. In this regime, the exponential term in the Fermi-Dirac denominator is much greater than 1, which means we can approximate the probability:
 \begin{equation*}
-    f(E) \approx \exp\!\left(-\frac{E - E_f}{k_B T}\right)
+    1 + \exp\!\left(\frac{E - E_f}{k_B T}\right) \approx \exp\!\left(\frac{E - E_f}{k_B T}\right)
+\end{equation*}
+Taking the reciprocal of this gives the \textbf{Maxwell-Boltzmann approximation}:
+\begin{align*}
+    f(E) & = \frac{1}{1 + \exp\!\left(\dfrac{E - E_f}{k_B T}\right)}   \\
+         & \approx \frac{1}{\exp\!\left(\dfrac{E - E_f}{k_B T}\right)} \\
+         & = \exp\!\left(-\frac{E - E_f}{k_B T}\right)
+\end{align*}
+
+Substitute this approximation back into the integral:
+\begin{equation*}
+    n \approx \int_{E_c}^{\infty} 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\!\sqrt{E - E_c} \cdot \exp\!\left(-\frac{E - E_f}{k_B T}\right) dE
 \end{equation*}
 
-Substituting and factoring out the constant exponential involving $E_f$ and $E_c$:
+Split the exponential term by adding and subtracting $E_c$ in the numerator:
+\begin{align*}
+    \exp\!\left(-\frac{E - E_f}{k_B T}\right) & = \exp\!\left(-\frac{E - E_c + E_c - E_f}{k_B T}\right)                                 \\
+                                              & = \exp\!\left(-\frac{E - E_c}{k_B T}\right) \exp\!\left(-\frac{E_c - E_f}{k_B T}\right)
+\end{align*}
+
+Since $\exp\!\left(-\frac{E_c - E_f}{k_B T}\right) = \exp\!\left(\frac{E_f - E_c}{k_B T}\right)$ does not depend on the variable of integration $E$, we can factor it completely out of the integral alongside the other constants:
 \begin{equation*}
     n \approx 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\exp\!\left(\frac{E_f - E_c}{k_B T}\right)\int_{E_c}^{\infty}\sqrt{E - E_c}\,\exp\!\left(-\frac{E - E_c}{k_B T}\right)dE
 \end{equation*}
 
-The remaining integral is a standard Gaussian integral. Substituting $u = (E-E_c)/k_B T$:
+To evaluate this integral, we perform a change of variables by substituting:
+\begin{equation*}
+    u = \frac{E - E_c}{k_B T}
+\end{equation*}
+This implies:
+\begin{equation*}
+    E - E_c = k_B T u \implies \sqrt{E - E_c} = (k_B T)^{1/2} \sqrt{u}
+\end{equation*}
+The differential $dE$ is obtained by differentiating $E = E_c + k_B T u$:
+\begin{equation*}
+    dE = k_B T \, du
+\end{equation*}
+Now we transform the limits of integration. When $E = E_c$, the lower limit becomes $u = 0$. As $E \to \infty$, the upper limit remains $u \to \infty$. Substitute these expressions into the integral:
+\begin{align*}
+    \int_{E_c}^{\infty} \sqrt{E - E_c}\,\exp\!\left(-\frac{E - E_c}{k_B T}\right)dE & = \int_0^\infty (k_B T)^{1/2} \sqrt{u} \cdot e^{-u} \cdot (k_B T \, du) \\
+                                                                                    & = (k_B T)^{3/2} \int_0^\infty \sqrt{u}\,e^{-u}\,du
+\end{align*}
+
+The remaining definite integral is the standard Gaussian-like integral related to the Gamma function $\Gamma(3/2) = \frac{\sqrt{\pi}}{2}$:
 \begin{equation*}
     \int_0^\infty \sqrt{u}\,e^{-u}\,du = \frac{\sqrt{\pi}}{2}
 \end{equation*}
 
-Putting it all together and grouping the prefactor constants:
+Substitute this solved integral back into our expression for the carrier concentration $n$:
+\begin{align*}
+    n & \approx 4\pi\!\left(\frac{2m^*_e}{h^2}\right)^{\!3/2}\exp\!\left(\frac{E_f - E_c}{k_B T}\right) \cdot \left[ (k_B T)^{3/2} \frac{\sqrt{\pi}}{2} \right] \\
+      & = 4\pi \frac{\sqrt{\pi}}{2} \left(\frac{2m^*_e}{h^2}\right)^{\!3/2} (k_B T)^{3/2} \exp\!\left(-\frac{E_c - E_f}{k_B T}\right)                           \\
+      & = 2\pi^{3/2} \left(\frac{2m^*_e k_B T}{h^2}\right)^{\!3/2} \exp\!\left(-\frac{E_c - E_f}{k_B T}\right)                                                  \\
+      & = 2\!\left[\frac{2\pi m^*_e k_B T}{h^2}\right]^{\!3/2} \exp\!\left(-\frac{E_c - E_f}{k_B T}\right)
+\end{align*}
+
+By defining the effective density of states $N_c$, we arrive at the familiar key result:
 \begin{keyresult}
     \begin{gather}
         n = N_c\,\exp\!\left(-\frac{E_c - E_f}{k_B T}\right) \\[1ex]
         N_c \equiv 2\!\left[\frac{2\pi m^*_e k_B T}{h^2}\right]^{\!3/2}
     \end{gather}
 \end{keyresult}
-where $N_c$ is the \textbf{effective density of states in the conduction band} — a temperature-dependent constant that encapsulates the combined effect of the band curvature (via $m^*_e$) and the thermal energy available to the carriers. By an identical derivation for holes:
+where:
+\begin{itemize}
+    \item $n$: conduction band free electron density
+    \item $N_c$: effective density of states in the conduction band
+    \item $E_c$: conduction band minimum energy
+    \item $E_f$: Fermi energy level
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+    \item $m^*_e$: effective mass of the electron
+    \item $h$: Planck's constant
+\end{itemize}
+
+By an identical derivation for holes:
 \begin{keyresult}
     \begin{gather}
         p = N_v\,\exp\!\left(-\frac{E_f - E_v}{k_B T}\right) \\[1ex]
         N_v \equiv 2\!\left[\frac{2\pi m^*_h k_B T}{h^2}\right]^{\!3/2}
     \end{gather}
 \end{keyresult}
+where:
+\begin{itemize}
+    \item $p$: valence band free hole density
+    \item $N_v$: effective density of states in the valence band
+    \item $E_v$: valence band maximum energy
+    \item $E_f$: Fermi energy level
+    \item $m^*_h$: effective mass of the hole
+\end{itemize}
 
 The physical picture is clean: the carrier density is simply the effective number of available states at the band edge $N_c$ (or $N_v$), thermally weighted by the Boltzmann factor that expresses how far the Fermi level is from that edge. The closer $E_f$ is to $E_c$, the more electrons are thermally excited into the conduction band.
 
 \subsection{The Mass-Action Law}
 
-Multiplying $n$ and $p$ together produces a particularly elegant result. All $E_f$ dependence cancels completely:
+Multiply $n$ and $p$ together explicitly using the Maxwell-Boltzmann approximations:
+\begin{align*}
+    np & = \left[ N_c\,\exp\!\left(-\frac{E_c - E_f}{k_B T}\right) \right] \cdot \left[ N_v\,\exp\!\left(-\frac{E_f - E_v}{k_B T}\right) \right] \\
+       & = N_c N_v \exp\!\left(-\frac{E_c - E_f}{k_B T} - \frac{E_f - E_v}{k_B T}\right)
+\end{align*}
+
+Simplify the numerator inside the exponential:
 \begin{equation*}
-    np = N_c N_v\,\exp\!\left(-\frac{E_c - E_v}{k_B T}\right) = N_c N_v\,\exp\!\left(-\frac{E_g}{k_B T}\right)
+    -(E_c - E_f) - (E_f - E_v) = -E_c + E_f - E_f + E_v = -(E_c - E_v)
+\end{equation*}
+
+Substitute this back into the product:
+\begin{equation*}
+    np = N_c N_v\,\exp\!\left(-\frac{E_c - E_v}{k_B T}\right)
+\end{equation*}
+
+Since the bandgap is defined as $E_g = E_c - E_v$, we can substitute $E_g$:
+\begin{equation*}
+    np = N_c N_v\,\exp\!\left(-\frac{E_g}{k_B T}\right)
 \end{equation*}
 
 This product is a constant that depends only on the material (through $N_c$, $N_v$, and $E_g$) and the temperature — not on doping or the Fermi level position. We define the \textbf{intrinsic carrier concentration} $n_i$:
 \begin{equation*}
     n_i^2 \equiv N_c N_v\,\exp\!\left(-\frac{E_g}{k_B T}\right)
 \end{equation*}
+where:
+\begin{itemize}
+    \item $n_i$: intrinsic carrier concentration of the semiconductor
+    \item $N_c$: effective density of states in the conduction band
+    \item $N_v$: effective density of states in the valence band
+    \item $E_g$: bandgap energy
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+\end{itemize}
+
 giving us the \textbf{mass-action law}:
 \begin{keyresult}
     \begin{equation}
         np = n_i^2
     \end{equation}
 \end{keyresult}
+where:
+\begin{itemize}
+    \item $n$: electron density in the conduction band
+    \item $p$: hole density in the valence band
+    \item $n_i$: intrinsic carrier concentration
+\end{itemize}
 
-This law is universal: it holds for intrinsic, n-doped, and p-doped semiconductors alike, as long as the material remains in thermal equilibrium. If we push more electrons into the CB by doping (increasing $n$), the hole density $p$ must decrease proportionally to keep the product constant. It is the semiconductor analogue of the chemical law of mass action.
+This law is universal: it holds for intrinsic, n-doped, and p-doped semiconductors alike, as long as the material remains in thermal equilibrium. If we push more electrons into the CB by doping (increasing $n$), then the hole density $p$ must decrease proportionally to keep the product constant. It is the semiconductor analogue of the chemical law of mass action.
+
+\subsection{Carrier Energy Distributions and Thermal Velocities}
+
+While the total carrier concentration $n$ is given by integrating over all energies, it is crucial to understand \emph{where exactly} in the energy band these carriers physically reside and how fast they are moving.
+
+\textbf{1. Peak Carrier Concentration Energy ($E_{\text{max}}$)} \\
+The number of carriers per unit energy is given by the product of the available states and the occupancy probability: $n(E) = g_c(E) f(E)$. In the non-degenerate Maxwell-Boltzmann regime, this concentration scales as:
+\begin{equation*}
+    n(E) \propto \sqrt{E - E_c} \exp\!\left(-\frac{E - E_f}{k_B T}\right)
+\end{equation*}
+To find the energy level at which the \emph{maximum} number of electrons reside, we must differentiate $n(E)$ with respect to $E$ and set the derivative to zero.
+\begin{align*}
+    \frac{\partial n}{\partial E} & \propto \frac{1}{2\sqrt{E - E_c}} \exp\!\left(-\frac{E - E_f}{k_B T}\right) + \sqrt{E - E_c} \left[ -\frac{1}{k_B T} \exp\!\left(-\frac{E - E_f}{k_B T}\right) \right] = 0 \\
+    \frac{1}{2\sqrt{E - E_c}}     & = \frac{\sqrt{E - E_c}}{k_B T}
+\end{align*}
+Solving for $E$ yields the peak concentration energies for electrons in the CB and holes in the VB:
+\begin{keyresult}
+    \begin{equation}
+        E_{\text{max}}^{(n)} = E_c + \frac{k_B T}{2} \qquad \text{and} \qquad E_{\text{max}}^{(p)} = E_v - \frac{k_B T}{2}
+    \end{equation}
+\end{keyresult}
+
+\textbf{2. The Momentum Conservation Constraint} \\
+If we have a massive concentration of electrons sitting at $E_c + k_B T/2$ and a massive concentration of holes sitting at $E_v - k_B T/2$, we might intuitively assume that the dominant optical transition occurs directly between these two peak populations. However, this violates a fundamental rule we established earlier: optical transitions require strict momentum conservation ($\Delta k \approx 0$).
+
+Where exactly do these peak carriers live in k-space? Because $k = \sqrt{2m^* E_{\text{kin}}}/\hbar$, the wavevectors for these thermal electrons and holes are dictated entirely by their effective masses. In a semiconductor like GaAs, the effective masses differ significantly ($m_e^* \approx 0.07 m_0$ and $m_h^* \approx 0.5 m_0$). Therefore, their thermal wavevectors are severely mismatched:
+\begin{equation*}
+    k_e = \frac{\sqrt{m_e^* k_B T}}{\hbar} \neq k_h = \frac{\sqrt{m_h^* k_B T}}{\hbar}
+\end{equation*}
+If $k_e \neq k_h$, then the electron and hole are physically located at different horizontal positions in the Brillouin zone. A vertical photon-only transition between these peak populations is geometrically forbidden. They cannot simply recombine directly; they must find available states at matching wavevectors.
+
+
 
 % ------------------------------------------------------------------
 \section{Non-Equilibrium Carriers and Quasi-Fermi Levels}
@@ -331,17 +584,45 @@ Instead, we use a powerful but subtle trick: we assign \emph{two separate} quasi
         f_c(E) = \frac{1}{1 + \exp\!\left(\dfrac{E - E_{fn}}{k_B T}\right)}
     \end{equation}
 \end{keyresult}
+where:
+\begin{itemize}
+    \item $f_c(E)$: non-equilibrium probability that a conduction band state at energy $E$ is occupied by an electron
+    \item $E_{fn}$: electron quasi-Fermi level
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+\end{itemize}
+
 and the hole quasi-Fermi level $E_{fp}$ describes the occupation of valence band states:
 \begin{keyresult}
     \begin{equation}
         f_v(E) = \frac{1}{1 + \exp\!\left(\dfrac{E - E_{fp}}{k_B T}\right)}
     \end{equation}
 \end{keyresult}
+where:
+\begin{itemize}
+    \item $f_v(E)$: non-equilibrium probability that a valence band state at energy $E$ is occupied by an electron
+    \item $E_{fp}$: hole quasi-Fermi level
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+\end{itemize}
 
 The modified carrier concentration expressions become:
 \begin{equation*}
     n = N_c\,\exp\!\left(-\frac{E_c - E_{fn}}{k_B T}\right), \qquad p = N_v\,\exp\!\left(-\frac{E_{fp} - E_v}{k_B T}\right)
 \end{equation*}
+where:
+\begin{itemize}
+    \item $n$: non-equilibrium electron density in the conduction band
+    \item $p$: non-equilibrium hole density in the valence band
+    \item $N_c$: effective density of states in the conduction band
+    \item $N_v$: effective density of states in the valence band
+    \item $E_c$: conduction band minimum energy
+    \item $E_v$: valence band maximum energy
+    \item $E_{fn}$: electron quasi-Fermi level
+    \item $E_{fp}$: hole quasi-Fermi level
+    \item $k_B$: Boltzmann's constant
+    \item $T$: absolute temperature in Kelvin
+\end{itemize}
 
 When excess electrons are injected into the CB, $E_{fn}$ shifts \emph{up} toward (or even into) the conduction band. When excess holes are injected into the VB, $E_{fp}$ shifts \emph{down} toward (or into) the valence band. The separation $E_{fn} - E_{fp}$ grows as injection increases. At equilibrium, $E_{fn} = E_{fp} = E_f$.
 
@@ -362,39 +643,121 @@ Why does this two-quasi-Fermi-level picture make sense? Carriers reach thermal e
 
 \subsection{Population Inversion in a Two-Level Picture}
 
-To achieve optical gain — where stimulated emission exceeds absorption — we need population inversion. For a photon of energy $h\nu$ interacting with an electron at energy $E_2$ in the CB and a hole at energy $E_1$ in the VB, stimulated emission dominates absorption when the probability of finding the upper state occupied \emph{and} the lower state empty exceeds the reverse:
+To achieve optical gain — where stimulated emission exceeds absorption — we need population inversion. The most common source of confusion here is losing track of whether we are counting electrons or holes. We must establish an absolute rule: \textbf{both the Fermi-Dirac functions $f_c(E)$ and $f_v(E)$ ALWAYS calculate the probability of finding an ELECTRON.}
+
+If they only count electrons, where do holes fit in? Because a hole is fundamentally just an "empty seat" in the lattice, the probability of finding an empty seat (a hole) at energy $E$ is simply $1 - f(E)$.
+
+For a photon to stimulate emission, it requires a pair: it needs a high-energy electron ready to fall from an upper state $E_2$ \emph{and} an empty seat ready to catch it at a lower state $E_1$. Conversely, for absorption to occur, it needs a low-energy electron sitting at the lower state $E_1$ \emph{and} an empty seat up top at $E_2$ for it to jump into. Stimulated emission dominates absorption when the probability of the emission pair existing exceeds the probability of the absorption pair existing:
 \begin{equation*}
     f_c(E_2)\bigl[1 - f_v(E_1)\bigr] > f_v(E_1)\bigl[1 - f_c(E_2)\bigr]
 \end{equation*}
-Expanding and cancelling common terms, this simplifies to:
+where:
+\begin{itemize}
+    \item $f_c(E_2)$: probability that the conduction band state at energy $E_2$ is occupied by an electron
+    \item $1 - f_v(E_1)$: probability that the valence band state at energy $E_1$ is empty (i.e., occupied by a hole)
+    \item $f_v(E_1)$: probability that the valence band state at energy $E_1$ is occupied by an electron
+    \item $1 - f_c(E_2)$: probability that the conduction band state at energy $E_2$ is empty
+\end{itemize}
+
+Expand the brackets on both sides of the inequality:
+\begin{equation*}
+    f_c(E_2) - f_c(E_2)f_v(E_1) > f_v(E_1) - f_v(E_1)f_c(E_2)
+\end{equation*}
+
+Because $f_c(E_2)f_v(E_1)$ is an identical product of two probabilities on both sides, it mathematically cancels out perfectly, yielding the fundamental condition for gain:
 \begin{equation*}
     f_c(E_2) > f_v(E_1)
 \end{equation*}
 
+Look closely at what this final inequality says: the probability of finding an electron in the high-energy state $E_2$ must be strictly greater than the probability of finding an electron in the low-energy state $E_1$. This is exactly why we call it \textbf{population inversion} — we have literally inverted the natural resting state of the universe where electrons always prefer lower energies.
+
 \subsection{Why a Single Material Cannot Achieve This}
 
-Now, in a single material at equilibrium with one Fermi level $E_f$, we would need:
+Now, if a single material is at equilibrium with only one Fermi level $E_f$, then we substitute the equilibrium Fermi-Dirac distributions into our condition:
 \begin{equation*}
     \frac{1}{1+\exp\!\left(\dfrac{E_2 - E_f}{k_B T}\right)} > \frac{1}{1+\exp\!\left(\dfrac{E_1 - E_f}{k_B T}\right)}
 \end{equation*}
-Since $f(E)$ is a strictly decreasing function of $E$, this requires $E_2 < E_1$. But $E_2$ is in the conduction band and $E_1$ is in the valence band, so $E_2 > E_1$ always. \textbf{Population inversion is impossible in a single material at equilibrium.} This is a fundamental result.
 
-\subsection{The PN Junction Solution and the Bernard-Duraffourg Condition}
+Since both denominators are strictly positive quantities, taking the reciprocal of both sides reverses the inequality sign:
+\begin{equation*}
+    1 + \exp\!\left(\frac{E_2 - E_f}{k_B T}\right) < 1 + \exp\!\left(\frac{E_1 - E_f}{k_B T}\right)
+\end{equation*}
 
-The resolution is to use a forward-biased PN junction, which provides two separate quasi-Fermi levels. The gain condition becomes:
+Subtract 1 from both sides:
+\begin{equation*}
+    \exp\!\left(\frac{E_2 - E_f}{k_B T}\right) < \exp\!\left(\frac{E_1 - E_f}{k_B T}\right)
+\end{equation*}
+
+Because the natural exponential function $\exp(x)$ is strictly monotonically increasing, we can take the natural logarithm of both sides without changing the direction of the inequality:
+\begin{equation*}
+    \frac{E_2 - E_f}{k_B T} < \frac{E_1 - E_f}{k_B T}
+\end{equation*}
+
+Multiply both sides by $k_B T$ (since $T > 0$ K) and add $E_f$ to both sides to find:
+\begin{equation*}
+    E_2 < E_1
+\end{equation*}
+
+But this is a massive contradiction! By definition, $E_2$ is a state in the conduction band and $E_1$ is a state in the valence band, so we physically must have $E_2 > E_c > E_v > E_1$. Therefore, $E_2$ is always greater than $E_1$. \textbf{Population inversion is impossible in a single material at equilibrium.} This is a fundamental result.
+
+\subsection{Where Does Population Inversion Occur?}
+
+To understand where gain happens, we must remember what a "hole" actually is: an empty quantum seat in the valence band. Due to the Pauli exclusion principle, an electron in the conduction band cannot transition downwards and emit a photon unless the lower-energy destination state is strictly empty. Therefore, stimulated emission requires \emph{both} components simultaneously: a high-energy electron ready to fall, and an empty low-energy seat (a hole) ready to catch it.
+
+If we consider the bulk n-side of a semiconductor, then we have billions of electrons in the conduction band, but the valence band is completely full (almost no holes). With nowhere to fall, the electrons cannot emit photons, meaning gain is impossible. Similarly, if we consider the bulk p-side, then we have billions of empty seats (holes), but no high-energy electrons in the conduction band available to fall into them, meaning gain is again impossible.
+
+The resolution relies on the central junction. At thermal equilibrium, the central depletion region contains only immovable, fixed ionized atoms and is entirely depleted of mobile carriers; naturally, no gain can occur here either. However, if we apply a massive forward bias, then we overcome the built-in field and drastically alter this region. The n-side and p-side begin acting as delivery pipes, injecting a massive tidal wave of \emph{mobile} electrons and \emph{mobile} holes directly into the center.
+
+Under this heavy injection, the region is no longer "depleted" at all. It becomes flooded with mobile carriers whose densities completely dwarf the background fixed charges. In this flooded, highly non-equilibrium state, we achieve exactly what is required: a massive concentration of electrons and a massive concentration of holes overlapping in the exact same physical space. We now call this the \textbf{active region} (or recombination region), because it is precisely here—and nowhere else—that the electron and hole quasi-Fermi levels spatially overlap, satisfying $f_c(E_2) > f_v(E_1)$ and achieving population inversion.
+
+\subsection{The Bernard-Duraffourg Condition}
+
+We must now evaluate our fundamental gain condition, $f_c(E_2) > f_v(E_1)$, specifically inside the central active region. This location constraint is critical. Deep in the bulk n-side, only $E_{fn}$ exists, and deep in the bulk p-side, only $E_{fp}$ exists. But because the active region is flooded with carriers injected from \emph{both} sides simultaneously, it is the only physical space where both quasi-Fermi levels overlap and exist at the exact same time.
+
+Because the high-energy electron was injected from the n-side, its probability is governed by $E_{fn}$. Because the empty seat (hole) was injected from the p-side, its probability is governed by $E_{fp}$. Substituting both of these simultaneous non-equilibrium distributions into our gain inequality gives:
 \begin{equation*}
     \frac{1}{1+\exp\!\left(\dfrac{E_2 - E_{fn}}{k_B T}\right)} > \frac{1}{1+\exp\!\left(\dfrac{E_1 - E_{fp}}{k_B T}\right)}
 \end{equation*}
-Following the same algebraic steps — the Fermi-Dirac inequality reduces to requiring $E_2 - E_{fn} < E_1 - E_{fp}$, which rearranges to:
+
+Because both exponential terms yield strictly positive denominators, we can take the reciprocal of both sides. Doing so mathematically reverses the direction of the inequality:
+\begin{equation*}
+    1 + \exp\!\left(\frac{E_2 - E_{fn}}{k_B T}\right) < 1 + \exp\!\left(\frac{E_1 - E_{fp}}{k_B T}\right)
+\end{equation*}
+
+Subtract 1 from both sides to isolate the exponential terms:
+\begin{equation*}
+    \exp\!\left(\frac{E_2 - E_{fn}}{k_B T}\right) < \exp\!\left(\frac{E_1 - E_{fp}}{k_B T}\right)
+\end{equation*}
+
+Because the natural exponential function $\exp(x)$ is strictly monotonically increasing, taking the natural logarithm ($\ln$) of both sides preserves the inequality:
+\begin{equation*}
+    \frac{E_2 - E_{fn}}{k_B T} < \frac{E_1 - E_{fp}}{k_B T}
+\end{equation*}
+
+Multiply both sides by the thermal energy $k_B T$ (which is strictly positive since $T > 0$ K):
+\begin{equation*}
+    E_2 - E_{fn} < E_1 - E_{fp}
+\end{equation*}
+
+Rearrange the terms by grouping the quasi-Fermi levels on the left side and the energy states on the right side:
 \begin{equation*}
     E_{fn} - E_{fp} > E_2 - E_1
 \end{equation*}
-Since $E_2 - E_1 = h\nu$ (energy conservation of the photon), and since the photon energy must be at least $E_g$ to span the bandgap, we arrive at the celebrated \textbf{Bernard-Duraffourg condition}:
+
+Because energy conservation dictates that $E_2 - E_1 = h\nu$ (the energy of the photon), and because a transition spanning the bandgap requires the photon to have at least the bandgap energy ($h\nu \geq E_g$), we arrive at the celebrated \textbf{Bernard-Duraffourg condition}:
 \begin{keyresult}
     \begin{equation}
         E_{fn} - E_{fp} > h\nu > E_g
     \end{equation}
 \end{keyresult}
+where:
+\begin{itemize}
+    \item $E_{fn}$: electron quasi-Fermi level
+    \item $E_{fp}$: hole quasi-Fermi level
+    \item $h$: Planck's constant
+    \item $\nu$: frequency of the optical wave
+    \item $E_g$: bandgap energy of the semiconductor
+\end{itemize}
 
 This is the central result of semiconductor laser physics. Let's unpack what it demands physically:
 
@@ -406,12 +769,82 @@ This is the central result of semiconductor laser physics. Let's unpack what it 
 
 Ultimately, what this tells us is that a semiconductor laser operates in a window: photon energies between $E_g$ and $(E_{fn} - E_{fp})$ will experience net gain. Outside this window, either the photon is too weak to cross the gap, or inversion does not exist for that transition. The width of this gain window grows as we push more current (more injection) into the device, spreading the quasi-Fermi levels further apart.
 
+\subsection{The Fatal Trap of Normal Semiconductors (Degenerate Doping)}
+
+A dangerous misconception is assuming we can take any normal PN junction and just apply enough forward bias $V$ to force $E_{fn} - E_{fp} > E_g$. This is physically impossible, and here is the exact causal chain proving why:
+
+\begin{enumerate}
+    \item \textbf{The Limit of Forward Bias:} When we apply a forward bias $V$, we are lowering the built-in potential barrier $V_0$. The quasi-Fermi separation in the active region is driven by this voltage: $E_{fn} - E_{fp} = eV$. However, $V$ can \emph{never} exceed $V_0$. If $V$ approaches $V_0$, the barrier flattens completely ("flat-band" condition). Any further voltage applied simply burns as Joule heating in the bulk material rather than separating the quasi-Fermi levels further. Therefore, the absolute maximum separation achievable is $(E_{fn} - E_{fp})_{\text{max}} = eV_0$.
+    \item \textbf{The Limit of Built-in Potential:} The built-in potential $V_0$ is defined as the difference between the equilibrium Fermi levels of the isolated n-side and p-side: $eV_0 = E_{fn,\text{bulk}} - E_{fp,\text{bulk}}$.
+    \item \textbf{The Normal Semiconductor Trap:} In a normal (non-degenerate) semiconductor, the equilibrium Fermi levels are stuck \emph{inside} the bandgap. This guarantees mathematically that $eV_0 < E_g$.
+    \item \textbf{The Conclusion:} Since $(E_{fn} - E_{fp})_{\text{max}} = eV_0$, and $eV_0 < E_g$, it is strictly impossible to achieve $E_{fn} - E_{fp} > E_g$ in a normal semiconductor.
+\end{enumerate}
+
+To build a working laser, we \textbf{must} use \textbf{degenerately doped} ($n^+$ and $p^+$) semiconductors. The doping must be so massive that the equilibrium Fermi levels are shoved completely outside the gap and deep into the conduction and valence bands themselves. Because they start deep inside the bands, the built-in potential $eV_0$ is strictly greater than $E_g$, allowing us to finally satisfy the Bernard-Duraffourg condition.
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{Figures/Chapter 5/population_inversion_condition.jpg}
+    \includegraphics[width=0.75\textwidth]{Figures/Chapter 5/population_inversion_condition.jpg}
     \caption{Population Inversion Condition — Single Material vs. PN Junction}
     \label{fig:population_inversion_condition}
 \end{figure}
+
+% ------------------------------------------------------------------
+\section{Optical Absorption and Degenerate Bandgap Narrowing}
+% ------------------------------------------------------------------
+
+Before we conclude our discussion of bulk semiconductors, we must address two critical phenomena that govern how these materials absorb light and how heavy doping physically alters their band structure.
+
+\subsection{The Peak Wavelength of Band-to-Band Absorption}
+
+When light passes through a direct-bandgap semiconductor, the absorption coefficient $\alpha(\nu)$ is not flat; it depends heavily on the photon energy $h\nu$. For direct vertical transitions, $\alpha(\nu)$ is proportional to the joint density of states $\rho_j(\nu)$, which scales as $\sqrt{h\nu - E_g}$, but it is also inversely proportional to the square of the optical frequency $\nu^2$ (arising from the electromagnetic field energy density):
+\begin{equation*}
+    \alpha(\nu) = C \frac{\sqrt{h\nu - E_g}}{\nu^2}
+\end{equation*}
+
+Where exactly does this absorption peak? Intuitively, one might guess the absorption simply keeps increasing as $\sqrt{h\nu - E_g}$ grows. However, the $1/\nu^2$ denominator eventually forces the function back down. To find the exact peak absorption energy, we must differentiate $\alpha(\nu)$ with respect to $\nu$ and set it to zero:
+\begin{align*}
+    \frac{\partial \alpha}{\partial \nu} & \propto \frac{d}{d\nu}\left[ (h\nu - E_g)^{1/2} \nu^{-2} \right]              \\
+                                         & = \frac{1}{2}(h\nu - E_g)^{-1/2}(h)\nu^{-2} - 2(h\nu - E_g)^{1/2}\nu^{-3} = 0
+\end{align*}
+Multiply through by $2\nu^3 (h\nu - E_g)^{1/2}$ to clear the denominators:
+\begin{align*}
+    h\nu - 4(h\nu - E_g) & = 0    \\
+    3h\nu                & = 4E_g
+\end{align*}
+Solving for the photon energy yields:
+\begin{keyresult}
+    \begin{equation}
+        h\nu_p = \frac{4}{3}E_g \qquad \implies \qquad \lambda_p = \frac{3hc}{4E_g}
+    \end{equation}
+\end{keyresult}
+This means that a bulk direct-bandgap semiconductor absorbs light most strongly not precisely at the bandgap, but at an energy exactly $33\%$ higher than the bandgap.
+
+\subsection{Heavy Doping and Bandgap Narrowing (BGN)}
+
+We stated earlier that to build a working laser, we must use degenerately doped semiconductors ($n^+$ and $p^+$). But how does injecting a massive concentration of dopant atoms physically alter the material?
+
+In a lightly doped semiconductor, the donor atoms sit isolated from each other. But if we increase the doping concentration $N_d$ to massive degenerate levels (e.g., $10^{19}$ to $10^{20}\text{ cm}^{-3}$), the physical distance between these dopant atoms shrinks drastically. Their individual electron wavefunctions begin to physically overlap. Just as isolated atomic energy levels split to form continuous bands when atoms form a crystal, these overlapping impurity states split to form a continuous \textbf{impurity band}.
+
+Because this impurity band sits just below the conduction band (for donors) or just above the valence band (for acceptors), it eventually merges directly with the main band edge. This merging effectively shrinks the total forbidden gap, a phenomenon known as \textbf{Bandgap Narrowing (BGN)}.
+
+Empirically, this narrowing scales with the square root of the doping concentration and is inversely related to temperature. For heavily doped silicon, the shift is approximated by:
+\begin{keyresult}
+    \begin{equation}
+        \Delta E_g \approx -22.5\sqrt{\left(\frac{N_d}{10^{18}}\right)\left(\frac{300}{T}\right)} \quad [\text{meV}]
+    \end{equation}
+\end{keyresult}
+where:
+\begin{itemize}
+    \item $\Delta E_g$: the change in the bandgap energy (negative because the gap narrows)
+    \item $N_d$: the donor doping concentration in $\text{cm}^{-3}$
+    \item $T$: the absolute temperature in Kelvin
+\end{itemize}
+
+What is the physical consequence of this? If the bandgap shrinks, then the minimum energy required to absorb a photon decreases. This pushes the absorption edge deeper into the infrared. For example, if an undoped Silicon detector ($E_g = 1.11\text{ eV}$) detects light up to $\lambda_{\text{max}} = 1.24/1.11 \approx 1.12\,\mu\text{m}$, heavily doping it to $N_d = 10^{20}\text{ cm}^{-3}$ at $300\text{ K}$ causes a massive narrowing of $\Delta E_g = -225\text{ meV}$. The new effective bandgap becomes $E_g' = 1.11 - 0.225 = 0.885\text{ eV}$, extending its maximum detectable wavelength to:
+\begin{equation*}
+    \lambda_{\text{max}}' = \frac{1.24}{0.885} \approx 1.40\,\mu\text{m}
+\end{equation*}
 
 % ------------------------------------------------------------------
 \section{The Homojunction Diode}
@@ -421,25 +854,39 @@ Ultimately, what this tells us is that a semiconductor laser operates in a windo
 
 The simplest structure that can achieve population inversion is the \textbf{homojunction} — a PN junction made of a single semiconductor material (same composition, different doping on each side). Understanding its three bias regimes builds the intuition needed for the more advanced double-heterostructure lasers we will study later.
 
-\textbf{(a) Equilibrium (zero bias):} At zero bias, the built-in electric field across the depletion region — arising from the diffusion of carriers and the resulting fixed-charge layer — creates a built-in potential $eV_0$. This potential bends the conduction and valence band edges, establishing a built-in barrier that exactly prevents net current flow. A single Fermi level $E_f$ runs flat and continuous across the entire device (n-side, depletion region, p-side). Electrons are confined to the n-side, holes to the p-side.
+\begin{enumerate}
+    \item \textbf{Equilibrium (zero bias):} If the diode is at zero bias, then the built-in electric field across the depletion region — arising from the diffusion of carriers and the resulting fixed-charge layer — creates a built-in potential $eV_0$. This potential bends the conduction and valence band edges, establishing a built-in barrier that exactly prevents net current flow. A single Fermi level $E_f$ runs flat and continuous across the entire device (n-side, depletion region, p-side). Electrons are confined to the n-side, holes to the p-side.
 
-\textbf{(b) Forward bias ($V > 0$):} Applying a forward voltage $V$ lowers the built-in barrier to $e(V_0 - V)$. Electrons from the n-side are injected across the junction into the p-side, and holes from the p-side are injected into the n-side. Within the depletion/recombination region, the two quasi-Fermi levels $E_{fn}$ and $E_{fp}$ are now separated by exactly $eV$:
-\begin{equation*}
-    E_{fn} - E_{fp} = eV
-\end{equation*}
-This separation grows linearly with the applied voltage. At moderate forward bias, $eV < E_g$, and stimulated emission at the bandgap is not yet possible.
+    \item \textbf{Forward bias ($V > 0$):} If we apply a forward voltage $V$, then it lowers the built-in barrier to $e(V_0 - V)$. Electrons from the n-side are injected across the junction into the p-side, and holes from the p-side are injected into the n-side. Within the depletion/recombination region, the two quasi-Fermi levels $E_{fn}$ and $E_{fp}$ are now separated by exactly $eV$:
+          \begin{equation*}
+              E_{fn} - E_{fp} = eV
+          \end{equation*}
+          where:
+          \begin{itemize}
+              \item $E_{fn}$: electron quasi-Fermi level in the active region
+              \item $E_{fp}$: hole quasi-Fermi level in the active region
+              \item $e$: elementary charge of an electron ($e \approx 1.602 \times 10^{-19}\text{ C}$)
+              \item $V$: forward bias voltage applied across the PN junction
+          \end{itemize}
+          This separation grows linearly with the applied voltage. At moderate forward bias, $eV < E_g$, and stimulated emission at the bandgap is not yet possible.
 
-\textbf{(c) High forward bias (transparency and gain):} As the voltage increases further toward $eV \approx E_g$, the quasi-Fermi level separation approaches the bandgap. Once $eV > E_g$, the Bernard-Duraffourg condition $E_{fn} - E_{fp} > h\nu > E_g$ is satisfied within the active recombination region, and net optical gain is achieved. The junction becomes a source of stimulated emission.
+    \item \textbf{High forward bias ($eV > E_g$, transparency and gain):} If the voltage increases further toward $eV \approx E_g$, then the quasi-Fermi level separation approaches the bandgap. Once $eV > E_g$, the Bernard-Duraffourg condition $E_{fn} - E_{fp} > h\nu > E_g$ is fully satisfied within the active recombination region, and net optical gain is achieved. The junction becomes a strong source of stimulated emission.
+\end{enumerate}
 
 Both quasi-Fermi levels coexist \emph{simultaneously} inside the depletion region — this is the crucial point. The n-side has $E_{fn}$ close to its conduction band; the p-side has $E_{fp}$ close to its valence band. In the depletion region, both coexist, providing the separated electron and hole populations needed for gain.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 5/homojunction_bias_states.jpg}
+    \includegraphics[width=0.85\textwidth]{Figures/Chapter 5/homojunction_bias_states.jpg}
     \caption{Homojunction Band Diagram — Three Bias States}
     \label{fig:homojunction_bias_states}
 \end{figure}
 
-\begin{keyinsight}[The Limitation of the Homojunction]
-    The homojunction has a fundamental practical limitation: the injected carriers are not confined. Electrons injected into the p-side simply diffuse away over a diffusion length $L_D \sim 1$--$10\,\mu$m before recombining. This means the gain region is large, and the threshold current density required to achieve inversion is dauntingly high (of order $10^4$--$10^5$ A/cm$^2$). This limitation motivates the double-heterostructure laser design, where two abrupt bandgap changes create a potential well that physically traps both electrons and holes within a thin active layer of a few hundred nanometres, dramatically reducing the threshold current. That structure will be the subject of the next chapter.
+\begin{keyinsight}[The Fatal Limitations of the Homojunction]
+    While a homojunction can theoretically achieve gain, it suffers from two fundamental practical limitations:
+    \begin{itemize}
+        \item \textbf{Massive Short-Circuit Currents:} The built-in potential $V_0$ of any homojunction is always slightly less than the bandgap ($eV_0 < E_g$). But the Bernard-Duraffourg condition requires an applied voltage $eV > E_g$. If we apply a voltage greater than the built-in potential, then we completely flatten the energy barrier, causing massive, uncontrolled currents to flow that would likely melt the device from Joule heating before practical population inversion is reached.
+        \item \textbf{Lack of Carrier Confinement:} The injected carriers are not confined. Electrons injected into the p-side simply diffuse away over a long diffusion length ($L_D \sim 1$--$10\,\mu\text{m}$) before recombining. This makes the gain region excessively large, requiring a dauntingly high threshold current density (of order $10^4$--$10^5\text{ A/cm}^2$).
+    \end{itemize}
+    These limitations motivate the double-heterostructure laser design, where two abrupt bandgap changes create a potential well that physically traps both electrons and holes within a thin active layer of a few hundred nanometres, while also preventing the barrier from flattening out. That structure will be the subject of the next chapter.
 \end{keyinsight}
