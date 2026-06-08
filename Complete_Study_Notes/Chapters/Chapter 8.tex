@@ -9,9 +9,35 @@
 \section{Putting the Rate Equation to Work}
 % ------------------------------------------------------------------
 
-The carrier rate equation $dN/dt = J/(ed) - N/\tau - \Gamma G S$ is more than just a bookkeeping formula — it is the master equation that governs the entire family of semiconductor light sources. By solving it under different conditions and with different assumptions about the photon field, we recover the distinct operating regimes of three fundamentally different devices: the LED (spontaneous emission dominates, no optical feedback), the semiconductor optical amplifier (stimulated emission amplifies an external signal, no sustained oscillation), and the laser diode (stimulated emission dominates, optical feedback forces threshold and carrier clamping).
+The carrier rate equation $dN/dt = J/(ed) - N/\tau - \Gamma G S$ is more than just a bookkeeping formula — it is the master equation that governs the entire family of semiconductor light sources. By solving it under different conditions and with different assumptions about the photon field, we recover the distinct operating regimes of three fundamentally different devices: the Light-Emitting Diode (LED), the Semiconductor Optical Amplifier (SOA), and the Laser Diode (LD).
 
-This chapter solves each case in turn, deriving the observable quantities — output power, bandwidth, gain saturation, threshold current, and the P--I characteristic — directly from the rate equation framework established in the previous chapter.
+To build a clear mental roadmap, let's look at the physical differences and how to deal with the carrier ($N$) and photon ($S$) dynamics in each device:
+\begin{itemize}
+    \item \textbf{Light-Emitting Diode (LED):} 
+    \begin{itemize}
+        \item \textbf{Optical Feedback:} None (no cavity or mirrors).
+        \item \textbf{Photon Density ($S$):} Negligible ($S \approx 0$). Stimulated emission is completely ignored.
+        \item \textbf{Carrier Governing:} Carriers rise linearly with injection current, $N = \frac{J\tau}{ed}$. Total recombination is dominated entirely by spontaneous and non-radiative processes ($N/\tau$).
+        \item \textbf{Key Signature:} Incoherent, broad-spectrum output ($\sim 40\text{ nm}$ bandwidth) that scales linearly with current until thermal junction heating causes rollover.
+    \end{itemize}
+    \item \textbf{Semiconductor Optical Amplifier (SOA):}
+    \begin{itemize}
+        \item \textbf{Optical Feedback:} Suppressed by anti-reflection coatings ($R \approx 0$) to ensure single-pass traveling-wave amplification.
+        \item \textbf{Photon Density ($S$):} Controlled by the external input signal strength.
+        \item \textbf{Carrier Governing:} In the small-signal limit, $N$ is determined by the bias current. Under high input signal power, stimulated emission depletes the carrier inversion ($N - N_{\text{tr}} = \frac{\Delta N_0}{1 + P/P_s}$), leading to gain saturation.
+        \item \textbf{Key Signature:} Reversible gain compression, amplification of a broadband input signal, and polarization/phase dependence.
+    \end{itemize}
+    \item \textbf{Laser Diode (LD):}
+    \begin{itemize}
+        \item \textbf{Optical Feedback:} High, provided by cleaved facet mirrors (reflectivities $R_1, R_2$) that form a resonant Fabry-Pérot cavity.
+        \item \textbf{The Threshold Concept:} The threshold is the \textbf{minimum injected electrical current} ($I_{\text{th}}$) required for the optical gain to exactly balance the total cavity losses ($\Gamma g_{\text{th}} = \alpha + \alpha_m$).
+        \item \textbf{Carrier Governing:} Below threshold ($I < I_{\text{th}}$), it acts like an LED ($N \propto I$, $S \approx 0$). Above threshold ($I > I_{\text{th}}$), the carrier density is clamped at its threshold value ($N \approx N_{\text{th}}$) because any extra injected carrier is instantly consumed by stimulated recombination.
+        \item \textbf{Photon Density ($S$):} Above threshold ($I > I_{\text{th}}$), all extra current injected beyond the threshold is converted entirely into coherent photons ($S \propto I - I_\text{th}$).
+        \item \textbf{Key Signature:} Coherent, extremely narrow-spectrum output ($\sim\text{MHz}$ or sub-nanometer linewidth) with a sharp threshold "kink" in the P--I curve at $I = I_{\text{th}}$.
+    \end{itemize}
+\end{itemize}
+
+This chapter solves each case in turn, deriving the observable quantities — output power, bandwidth, gain saturation, threshold current, and the P--I characteristic — directly from the rate equation framework.
 
 % ------------------------------------------------------------------
 \section{The Light-Emitting Diode (LED)}
@@ -19,15 +45,26 @@ This chapter solves each case in turn, deriving the observable quantities — ou
 
 \subsection{Steady-State Output Power}
 
-An LED operates far below the optical gain threshold — the photon density $S$ inside the device is negligibly small (no resonant cavity, no optical feedback), so the stimulated emission term $\Gamma G S$ in the carrier rate equation is completely negligible. At DC steady state, $dN/dt = 0$, and the rate equation reduces to a simple balance between injection and recombination:
+An LED operates far below the optical gain threshold — the photon density $S$ inside the device is negligibly small (no resonant cavity, no optical feedback), so the stimulated emission term $\Gamma G S$ in the carrier rate equation is completely negligible. At DC steady state ($dN/dt = 0$), the rate equation reduces to a simple balance between injection and recombination:
 \begin{equation*}
     \frac{J}{ed} = \frac{N}{\tau} \implies N = \frac{J\tau}{ed}
+\end{equation*}
+
+The total carrier lifetime $\tau$ combines radiative ($\tau_r$) and non-radiative ($\tau_{\text{nr}}$) lifetimes operating in parallel:
+\begin{equation*}
+    \frac{1}{\tau} = \frac{1}{\tau_r} + \frac{1}{\tau_{\text{nr}}}
 \end{equation*}
 
 The photon generation rate per unit volume is the radiative fraction of the total recombination:
 \begin{equation*}
     \frac{dS}{dt}\bigg|_\text{gen} = \frac{N}{\tau_r} = \frac{\tau}{\tau_r}\cdot\frac{J}{ed} = \eta_\text{int}\,\frac{J}{ed}
 \end{equation*}
+where the \textbf{internal quantum efficiency} ($\eta_{\text{int}}$) represents the fraction of injected carrier pairs that recombine radiatively to emit a photon:
+\begin{keyresult}
+    \begin{equation}
+        \eta_\text{int} = \frac{\tau}{\tau_r} = \frac{1}{1 + \tau_r/\tau_{\text{nr}}}
+    \end{equation}
+\end{keyresult}
 
 Multiplying by the photon energy $h\nu$ and the active volume $V = A \cdot d$ (where $A$ is the device area) converts the volumetric photon rate into total internal optical power:
 \begin{keyresult}
@@ -44,7 +81,9 @@ The internally generated photons face a second obstacle before escaping the chip
 \begin{equation*}
     \sin\theta_c = \frac{n_a}{n_s}
 \end{equation*}
-where $n_s$ is the semiconductor refractive index ($n_s \approx 3.5$ for GaAs) and $n_a = 1$ To see how this escapes, consider an isotropic light source inside the semiconductor emitting power $P_0$ uniformly in all directions ($4\pi$ steradians). The power emitted per unit solid angle is $P_0/(4\pi)$. Light can only escape if it strikes the semiconductor-air interface within the escape cone defined by the critical angle $\theta_c$. The differential solid angle is $d\Omega = 2\pi\sin\theta\,d\theta$. The fraction of light emitted within this escape cone, accounting for the transmission probability $T(\theta)$, gives the external extraction efficiency:
+where $n_s$ is the semiconductor refractive index ($n_s \approx 3.5$ for GaAs) and $n_a = 1$.
+
+To see how light escapes, consider an isotropic light source inside the semiconductor emitting power $P_0$ uniformly in all directions ($4\pi$ steradians). The power emitted per unit solid angle is $P_0/(4\pi)$. Light can only escape if it strikes the semiconductor-air interface within the escape cone defined by the critical angle $\theta_c$. The differential solid angle is $d\Omega = 2\pi\sin\theta\,d\theta$. The fraction of light emitted within this escape cone, accounting for the transmission probability $T(\theta)$, gives the external extraction efficiency:
 \begin{equation*}
     \eta_\text{ext} = \frac{1}{4\pi}\int_0^{\theta_c} T(\theta)\cdot 2\pi\sin\theta\,d\theta
 \end{equation*}
@@ -55,7 +94,7 @@ At normal incidence ($\theta = 0$), the reflection coefficient is given by the F
 \end{equation*}
 By conservation of energy, the normal-incidence transmittance is $T(0) = 1 - R(0)$:
 \begin{equation*}
-    T(0) = 1 - \left(\frac{n_s - n_a}{n_s + n_a}\right)^2 = \frac{(n_s + n_a)^2 - (n_s - n_a)^2}{(n_s + n_a)^2} = \frac{4n_a n_s}{(n_a + n_s)^2}
+    T(0) = 1 - \left(\frac{n_s - n_a}{n_s + n_a}\right)^2 = \frac{4n_a n_s}{(n_a + n_s)^2}
 \end{equation*}
 For a high refractive index semiconductor ($n_s \gg n_a$), the critical angle $\theta_c$ is very small, meaning the escape cone is narrow. Over this narrow angle, the transmittance is approximately constant, $T(\theta) \approx T(0)$. Substituting this and evaluating the solid-angle integral:
 \begin{equation*}
@@ -83,20 +122,30 @@ which gives the closed-form result:
     \label{fig:led_external_extraction_escape_cone_geometry}
 \end{figure}
 
-For a GaAs LED ($n_s = 3.5$, $n_a = 1$): $\eta_\text{ext} \approx 1.4\%$. This brutally low number explains why practical LEDs invest heavily in geometric tricks — dome-shaped epoxy encapsulants, surface texturing, and chip shaping — to extract a larger fraction of the generated light.
+For a GaAs LED ($n_s = 3.5$, $n_a = 1$): $\eta_\text{ext} \approx 1.4\%$. This brutally low number explains why practical LEDs invest heavily in geometric tricks — dome-shaped epoxy encapsulants (which reduce the refractive index step and widen the escape cone), surface texturing, and chip shaping — to extract a larger fraction of the generated light.
 
 \subsection{LED Responsivity}
 
 Combining both efficiencies, the total output power is:
-\begin{equation*}
-    P_\text{out} = \eta_\text{ext}\,\eta_\text{int}\,\frac{h\nu}{e}\,I = R_\text{LED}\,I
-\end{equation*}
-where the \textbf{LED responsivity} is:
+\begin{keyresult}
+    \begin{equation}
+        P_\text{out} = \eta_\text{ext}\,\eta_\text{int}\,\frac{h\nu}{e}\,I = R_\text{LED}\,I
+    \end{equation}
+\end{keyresult}
+where the \textbf{LED responsivity} ($R_{\text{LED}}$) defines how efficiently the LED converts electrical current into optical power. Its units are Watts per Ampere (W/A):
 \begin{keyresult}
     \begin{equation}
         R_\text{LED} = \eta_\text{ext}\,\eta_\text{int}\,\frac{h\nu}{e} \quad [\text{W/A}]
     \end{equation}
 \end{keyresult}
+
+\begin{keyinsight}
+    Why is Responsivity such a critical parameter?
+    \begin{itemize}
+        \item \textbf{System Design Metric}: It collapses all complex internal physics ($\eta_\text{int}$, photon energy) and optical geometry ($\eta_\text{ext}$) into a single practical number. If a circuit requires $10\text{ mW}$ of optical power, the responsivity immediately dictates the exact required drive current.
+        \item \textbf{Linearity Indicator}: Under ideal conditions, $R_\text{LED}$ is constant, meaning the device acts as a linear converter. If you double the drive current, you precisely double the output light.
+    \end{itemize}
+\end{keyinsight}
 
 \begin{figure}[H]
     \centering
@@ -105,76 +154,80 @@ where the \textbf{LED responsivity} is:
     \label{fig:led_pi_temperature}
 \end{figure}
 
-The responsivity is the slope of the P--I curve. At low currents it is constant, but at high currents, Joule heating raises the junction temperature, increasing non-radiative recombination and reducing $\eta_\text{int}$. The P--I characteristic therefore sub-linearly rolls off at high drive currents — this rolloff is more severe at higher ambient temperatures, which is one reason LED datasheets always specify output power at a specific junction temperature.
+Graphically, the responsivity is simply the slope of the P--I curve. At low currents, it remains constant (the straight, linear portion of the curve). However, at high currents, the curve bends downwards—this is called \textbf{thermal rolloff}. 
 
-\subsection{LED Emission Spectrum and Recombination Rate}
+The physical reason for this rolloff is \textbf{Joule heating} ($I^2R$). As high currents heat up the junction, the elevated temperature strongly increases the rate of non-radiative recombination (such as Auger recombination), which causes $\eta_\text{int}$ to plummet. Consequently, the responsivity drops. This thermal rolloff is more severe at higher ambient temperatures, which is why LED datasheets always specify output power and responsivity at a specific, strictly controlled juncti\subsection{LED Emission Spectrum}
 
-Under weak injection (where the quasi-Fermi levels remain within the bandgap and the Maxwell-Boltzmann approximation holds), the spontaneous emission rate per unit frequency interval $r_{sp}(\nu)$ is obtained by multiplying the joint density of states by the Boltzmann occupation probabilities. 
-Note that while the energy joint density of states is $\rho_E(E) = \frac{\sqrt{2} m_r^{3/2}}{\pi^2 \hbar^3} \sqrt{E - E_g}$, we convert to a frequency scale via $\rho_\nu(\nu) = h \rho_E(h\nu)$. Because $h = 2\pi\hbar$, this cancels terms to yield the frequency density joint DOS:
-\begin{equation*}
-    \rho_\nu(\nu) = (2\pi\hbar) \frac{\sqrt{2} m_r^{3/2}}{\pi^2 \hbar^3} \sqrt{h\nu - E_g} = \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2} \sqrt{h\nu - E_g}
-\end{equation*}
-Multiplying by the spontaneous lifetime decay rate $1/\tau_r$ and the Boltzmann factor:
-\begin{equation*}
-    r_{sp}(\nu) = \frac{1}{\tau_r} \rho_\nu(\nu) \exp\!\left(-\frac{h\nu}{k_B T}\right) = \frac{1}{\tau_r} \left( \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2} \sqrt{h\nu - E_g} \right) \exp\!\left(-\frac{h\nu - E_g}{k_B T}\right) \exp\!\left(-\frac{E_g}{k_B T}\right)
-\end{equation*}
-
-This lineshape — a square-root rise above $E_g$ multiplied by a decaying exponential — has a peak frequency determined by differentiating with respect to $h\nu$ (or equivalently the kinetic energy variable $x = h\nu - E_g$). Differentiating $S(x) = \sqrt{x} e^{-x/k_B T}$:
-\begin{equation*}
-    \frac{dS}{dx} = \frac{1}{2\sqrt{x}} e^{-x/k_B T} - \frac{\sqrt{x}}{k_B T} e^{-x/k_B T} = 0 \implies \frac{1}{2\sqrt{x}} = \frac{\sqrt{x}}{k_B T} \implies x = \frac{k_B T}{2}
-\end{equation*}
-Substituting $x = h\nu_p - E_g$ yields the precise peak frequency:
+Under weak injection conditions, where the quasi-Fermi levels for electrons ($E_{fn}$) and holes ($E_{fp}$) lie within the bandgap, the spontaneous emission rate per unit frequency interval $R_{sp}(\nu)$ is given by:
 \begin{keyresult}
     \begin{equation}
-        h\nu_p = E_g + \frac{k_B T}{2}
+        R_{sp}(\nu) = \frac{1}{\tau_r}\rho(\nu)f_c(E_a)(1-f_v(E_b))
     \end{equation}
 \end{keyresult}
-The peak sits exactly $k_BT/2$ above the bandgap. If we substitute this peak frequency back into the rate equation, the maximum spontaneous emission rate per unit frequency is:
-\begin{equation*}
-    r_{sp}(\nu_p) = \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2 \tau_r} \sqrt{\frac{k_B T}{2}} \exp\!\left(-\frac{1}{2}\right) \exp\!\left(-\frac{E_g}{k_B T}\right) = \frac{2 m_r^{3/2}}{\pi \hbar^2 \tau_r} \sqrt{\frac{k_B T}{e}} \exp\!\left(-\frac{E_g}{k_B T}\right)
-\end{equation*}
+where:
+\begin{itemize}
+    \item $\tau_r$ is the radiative lifetime.
+    \item $\rho(\nu)$ is the joint density of states (DOS) per unit frequency interval.
+    \item $f_c(E_a)$ is the Fermi-Dirac distribution function for the conduction band state $E_a$.
+    \item $f_v(E_b)$ is the Fermi-Dirac distribution function for the valence band state $E_b$.
+\end{itemize}
 
-More importantly, if we integrate this entire spectrum over all frequencies from $\nu = E_g/h$ to $\infty$, we obtain the total spontaneous emission rate per unit volume. We use the change of variables $u = \frac{h\nu - E_g}{k_B T} \implies d\nu = \frac{k_B T}{h}\,du = \frac{k_B T}{2\pi\hbar}\,du$:
-\begin{align*}
-    \int_{E_g/h}^\infty r_{sp}(\nu)\,d\nu &= \frac{2\sqrt{2}m_r^{3/2}}{\pi \hbar^2 \tau_r} \exp\!\left(-\frac{E_g}{k_B T}\right) \int_0^\infty \left( \sqrt{k_B T} \sqrt{u} \right) e^{-u} \left(\frac{k_B T}{2\pi\hbar}\,du\right) \\
-    &= \frac{\sqrt{2}m_r^{3/2}}{\pi^2 \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right) \int_0^\infty \sqrt{u}\,e^{-u}\,du
-\end{align*}
-Using the standard integral result $\int_0^\infty \sqrt{u}\,e^{-u}\,du = \frac{\sqrt{\pi}}{2}$:
+Since $E_{fn}$ and $E_{fp}$ lie within the bandgap under weak injection, we can use the Maxwell-Boltzmann approximation for the carrier distribution functions:
 \begin{equation*}
-    \int_{E_g/h}^\infty r_{sp}(\nu)\,d\nu = \frac{\sqrt{2}m_r^{3/2}}{\pi^2 \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right) \left(\frac{\sqrt{\pi}}{2}\right) = \frac{m_r^{3/2}}{\sqrt{2} \pi^{3/2} \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right)
+    f_c(E_a) \approx \exp\left(-\frac{E_a - E_{fn}}{k_B T}\right)
 \end{equation*}
-
-This exact quantum-mechanical integration is the physical foundation for the macroscopic recombination parameter $r$ (used in the rate $R = rnp$). Under equilibrium conditions, $np = n_i^2$. We write the intrinsic carrier concentration using the effective densities of states:
-\begin{align*}
-    n_i^2 &= N_c N_v \exp\!\left(-\frac{E_g}{k_B T}\right) \\
-    &= \left( 2\left[\frac{2\pi m_e^* k_B T}{h^2}\right]^{3/2} \right) \left( 2\left[\frac{2\pi m_h^* k_B T}{h^2}\right]^{3/2} \right) \exp\!\left(-\frac{E_g}{k_B T}\right) \\
-    &= 4 \left( \frac{2\pi \sqrt{m_e^* m_h^*} k_B T}{4\pi^2 \hbar^2} \right)^3 \exp\!\left(-\frac{E_g}{k_B T}\right) \\
-    &= \frac{1}{2\pi^3 \hbar^6} (m_e^* m_h^*)^{3/2} (k_B T)^3 \exp\!\left(-\frac{E_g}{k_B T}\right)
-\end{align*}
-By equating the integrated spontaneous emission rate to the macroscopic rate $r n_i^2$:
 \begin{equation*}
-    r \left[ \frac{1}{2\pi^3 \hbar^6} (m_e^* m_h^*)^{3/2} (k_B T)^3 \exp\!\left(-\frac{E_g}{k_B T}\right) \right] = \frac{m_r^{3/2}}{\sqrt{2} \pi^{3/2} \hbar^3 \tau_r} (k_B T)^{3/2} \exp\!\left(-\frac{E_g}{k_B T}\right)
+    1 - f_v(E_b) \approx \exp\left(-\frac{E_{fp} - E_b}{k_B T}\right)
 \end{equation*}
-Solving for $r$ and using the reduced mass relation $m_r = \frac{m_e^* m_h^*}{m_e^* + m_h^*} \implies \frac{m_r}{m_e^* m_h^*} = \frac{1}{m_e^* + m_h^*}$:
-\begin{align*}
-    r &= \frac{m_r^{3/2}}{\sqrt{2}\pi^{3/2}\hbar^3 \tau_r (k_B T)^{3/2}} \cdot \frac{2\pi^3 \hbar^6}{(m_e^* m_h^*)^{3/2}} \\
-    &= \frac{\sqrt{2}\pi^{3/2}\hbar^3}{\tau_r (k_B T)^{3/2}} \left( \frac{m_r}{m_e^* m_h^*} \right)^{3/2} \\
-    &= \frac{\sqrt{2}\pi^{3/2}\hbar^3}{(m_e^* + m_h^*)^{3/2}} \frac{1}{(k_B T)^{3/2}\tau_r}
-\end{align*}
-yielding the final result:
+The product of these carrier probabilities is:
+\begin{equation*}
+    f_c(E_a)(1 - f_v(E_b)) \approx \exp\left(-\frac{E_a - E_b - (E_{fn} - E_{fp})}{k_B T}\right)
+\end{equation*}
+Since the photon energy is $h\nu = E_a - E_b$, this becomes:
+\begin{equation*}
+    f_c(E_a)(1 - f_v(E_b)) \approx \exp\left(-\frac{h\nu - \Delta E_f}{k_B T}\right)
+\end{equation*}
+where $\Delta E_f = E_{fn} - E_{fp}$ is the quasi-Fermi level separation.
+Substituting the joint density of states on the frequency scale:
+\begin{equation*}
+    \rho(\nu) = \frac{2\sqrt{2} m_r^{3/2}}{\pi \hbar^2} \sqrt{h\nu - E_g}
+\end{equation*}
+where $m_r = (1/m_e^* + 1/m_h^*)^{-1}$ is the reduced effective mass. Multiplying these terms and absorbing constant scaling factors (relating the carrier concentration under weak injection to the band edge energy reference), we obtain the spontaneous emission spectrum equation:
 \begin{keyresult}
     \begin{equation}
-        r = \frac{\sqrt{2}\pi^{3/2}\hbar^3}{(m_e^* + m_h^*)^{3/2}} \frac{1}{(k_B T)^{3/2}\tau_r}
+        R_{sp}(\nu) = \frac{\sqrt{(2m_r)^3}}{\tau_r \pi \hbar^2} \exp\left(\frac{E_g - h\nu}{k_B T}\right)\sqrt{h\nu - E_g}
     \end{equation}
 \end{keyresult}
-This elegantly links a macroscopic device parameter ($r$) directly to the microscopic quantum mechanics ($m_e^*$, $m_h^*$, $\hbar$).
 
-The FWHM of the spectrum in frequency is:
-\begin{equation*}
-    \Delta\nu_\text{FWHM} = \frac{1.8\,k_BT}{h}
-\end{equation*}
+This spectrum has a very specific shape:
+\begin{itemize}
+    \item For $h\nu < E_g$, $R_{sp}(\nu) = 0$ because there are no available electronic states within the bandgap.
+    \item Immediately above $E_g$, the joint DOS dominates, causing the emission to rise as $\sqrt{h\nu - E_g}$.
+    \item At higher energies, the Boltzmann exponential factor $\exp\left(\frac{E_g - h\nu}{k_B T}\right)$ dominates, representing the thermal decay of highly excited carriers.
+\end{itemize}
 
-Converting to wavelength bandwidth using $\Delta\lambda = (\lambda^2/c)\Delta\nu$, for a GaAs LED at $T = 300\,\text{K}$ this gives $\Delta\lambda \approx 40\,\text{nm}$ centred near $\lambda \approx 870\,\text{nm}$. This broad, incoherent spectrum (compared to the sub-nanometre linewidth of a laser diode) is the fundamental optical signature of spontaneous emission — no two photons are produced with a correlated phase.
+By differentiating $R_{sp}(\nu)$ with respect to frequency, we find the peak frequency where the maximum emission occurs:
+\begin{keyresult}
+    \begin{equation}
+        \nu_{max} = \frac{E_g}{h} + \frac{k_B T}{2h}
+    \end{equation}
+\end{keyresult}
+Thus, the peak emission energy is $h\nu_{max} = E_g + \frac{1}{2}k_B T$.
+
+The Full Width at Half Maximum (FWHM) of this spectrum in the frequency domain is given by:
+\begin{keyresult}
+    \begin{equation}
+        \text{FWHM}_\nu = \Delta\nu = \frac{1.8 k_B T}{h}
+    \end{equation}
+\end{keyresult}
+
+To convert this frequency bandwidth to wavelength bandwidth, we use:
+\begin{keyresult}
+    \begin{equation}
+        \Delta\lambda = \frac{\lambda^2}{c}\Delta\nu
+    \end{equation}
+\end{keyresult}
+For a typical GaAs LED at $T = 300\text{ K}$, this results in a spectral width $\Delta\lambda \approx 40\text{ nm}$ centered around the peak wavelength $\lambda \approx 822\text{ nm}$. This relatively broad spectrum is characteristic of incoherent spontaneous emission.
 
 \begin{figure}[H]
     \centering
@@ -183,69 +236,24 @@ Converting to wavelength bandwidth using $\Delta\lambda = (\lambda^2/c)\Delta\nu
     \label{fig:led_emission_spectrum}
 \end{figure}
 
-\subsection{LED AC Modulation and Rise Time Dynamics}
+\subsection{LED for Lighting Applications}
 
-To use an LED in a communications link, we must understand its transient and AC response. If we modulate the LED with a sinusoidal drive current $I(t) = I_b + I_m e^{j\omega_m t}$ superimposed on a DC bias $I_b$, the carrier density responds as $N(t) = N_b + N_m e^{j\omega_m t}$.
+In illumination and lighting applications, the raw optical output power in Watts is not the defining performance metric. Instead, we must measure the perceived brightness to the human eye, which is characterized by the \textbf{luminous flux}. Luminous flux per watt is the key metric, measured in \textbf{lumens per Watt (lm/W)}.
 
-Substituting this into the carrier rate equation $dN/dt = I/(eV) - N/\tau$ and separating the DC and AC components yields two equations:
-\begin{equation*}
-    0 = \frac{I_b}{eV} - \frac{N_b}{\tau} \implies N_b = \frac{\tau I_b}{eV}
-\end{equation*}
-\begin{equation*}
-    j\omega_m N_m = \frac{I_m}{eV} - \frac{N_m}{\tau} \implies N_m = \frac{\tau I_m / eV}{1 + j\omega_m\tau}
-\end{equation*}
-
-Because the optical output power $P(t)$ is directly proportional to the carrier density $N(t)$, the AC modulation index $m_n$ of the photon output is the magnitude of the AC carrier density divided by the DC carrier density. Taking the magnitude of the complex AC density $N_m$:
-\begin{equation*}
-    |N_m| = \frac{\tau I_m / eV}{\sqrt{1 + (\omega_m\tau)^2}}
-\end{equation*}
-Taking the ratio $|N_m|/N_b$ yields:
+The spectral luminous flux ($\Phi_\lambda$) is defined by:
 \begin{keyresult}
     \begin{equation}
-        m_n = \frac{|N_m|}{N_b} = \frac{\frac{\tau I_m / eV}{\sqrt{1 + (\omega_m\tau)^2}}}{\frac{\tau I_b}{eV}} = \frac{I_m}{I_b \sqrt{1 + (\omega_m\tau)^2}}
+        \Phi_\lambda = P(\lambda) \times 633 \times V(\lambda) \quad [\text{lm/W}]
     \end{equation}
 \end{keyresult}
-Furthermore, the denominator $1 + j\omega_m\tau$ is a complex number with phase angle $\arg(1 + j\omega_m\tau) = \tan^{-1}(\omega_m\tau)$. Because this term is in the denominator of $N_m$, it introduces a phase lag $\theta$ between the injected AC current and the resulting optical AC output:
-\begin{keyresult}
-    \begin{equation}
-        \theta = \arg(N_m) = -\tan^{-1}(\omega_m\tau)
-    \end{equation}
-\end{keyresult}
+where:
+\begin{itemize}
+    \item $P(\lambda)$ is the spectral output power of the LED at wavelength $\lambda$.
+    \item $633\text{ lm/W}$ is the peak conversion factor between optical power and luminous flux.
+    \item $V(\lambda)$ is the \textbf{visibility function} (or photopic luminosity function) of the human eye.
+\end{itemize}
 
-The 3\,dB modulation bandwidth — the frequency $f_{3\text{dB}}$ at which the AC optical power drops by half ($1/\sqrt{2}$ in amplitude) — occurs when $\omega_m \tau = 1$:
-\begin{equation*}
-    f_{3\text{dB}} = \frac{1}{2\pi\tau}
-\end{equation*}
-This reveals a fundamental design tension: maximizing bandwidth requires a short carrier lifetime $\tau$, but shortening $\tau$ (often by increasing non-radiative recombination) drastically reduces the internal quantum efficiency $\eta_{\text{int}}$.
-
-Finally, let us examine the large-signal time-domain response. If we apply an abrupt current step $I(t) = I_o u(t)$, the carrier rate equation is a simple first-order ODE. The optical power rises exponentially:
-\begin{equation*}
-    P(t) = P_o \left( 1 - e^{-t/\tau} \right)
-\end{equation*}
-The standard metric for switching speed is the 10-90\% rise time $t_{\text{rise}}$. We find the times $t_{10}$ and $t_{90}$ by setting $P(t)/P_o$ to $0.1$ and $0.9$:
-\begin{align*}
-    1 - e^{-t_{10}/\tau} & = 0.1 \implies t_{10} = \tau \ln(10/9) \\
-    1 - e^{-t_{90}/\tau} & = 0.9 \implies t_{90} = \tau \ln(10)
-\end{align*}
-Subtracting these gives the exact rise time:
-\begin{keyresult}
-    \begin{equation}
-        t_{\text{rise}} = t_{90} - t_{10} = \tau \ln(9) \approx 2.2\tau
-    \end{equation}
-\end{keyresult}
-Because we just established that $f_{3\text{dB}} = 1/(2\pi\tau)$, we can elegantly link the time-domain and frequency-domain speeds: $t_{\text{rise}} \approx \frac{2.2}{2\pi f_{3\text{dB}}} = \frac{0.35}{f_{3\text{dB}}}$.
-
-\subsection{LED for Illumination: Luminous Efficacy}
-
-In lighting applications, the relevant figure of merit is not watts of optical power but lumens of luminous flux — how much light the human eye perceives. The luminous flux from a monochromatic source at wavelength $\lambda$ is:
-\begin{equation*}
-    \Phi_\lambda = P(\lambda) \times 633\,\text{lm/W} \times V(\lambda)
-\end{equation*}
-where $V(\lambda)$ is the photopic luminosity function (the eye's relative sensitivity), normalised to unity at $\lambda = 555\,\text{nm}$ (peak green sensitivity). The overall \textbf{luminous efficacy}:
-\begin{equation*}
-    \eta_{LE} = \frac{1}{V}\int\eta_\text{ext}\,\eta_\text{int}\,\frac{hc}{q\lambda} \times 633 \times V(\lambda)\,d\lambda
-\end{equation*}
-accounts for both the electrical-to-photon conversion and the photon-to-lumens conversion by integrating over the emission spectrum weighted by the eye's response.
+The visibility function $V(\lambda)$ accounts for the eye's varying sensitivity to different colors. It peaks at a value of unity at $\lambda = 555\text{ nm}$ (green-yellow light) and drops off towards both the ultraviolet and infrared spectral regions.
 
 \begin{figure}[H]
     \centering
@@ -254,93 +262,165 @@ accounts for both the electrical-to-photon conversion and the photon-to-lumens c
     \label{fig:luminosity_functions}
 \end{figure}
 
+\subsection{LED Modulation}
+
+To analyze the speed of an LED for communication applications, we start from the carrier rate equation:
+\begin{keyresult}
+    \begin{equation}
+        \frac{dN}{dt} = \frac{I}{eV} - \frac{N}{\tau}
+    \end{equation}
+\end{keyresult}
+where $N$ is the carrier density, $I$ is the injected current, $V$ is the active volume, and $\tau$ is the overall carrier lifetime.
+
+If we apply a sinusoidally modulated input current:
+\begin{equation}
+    I(t) = I_b + I_m \exp(j\omega_m t) \tag{I}
+\end{equation}
+where $I_b$ is the DC bias current and $I_m$ is the AC modulation current amplitude at modulation frequency $\omega_m$.
+The carrier density responds with a similar sinusoidal variation:
+\begin{equation}
+    N(t) = N_b + N_m \exp(j\omega_m t) \tag{II}
+\end{equation}
+where $N_b$ is the steady-state DC carrier density and $N_m$ is the amplitude of the AC carrier density.
+
+Substituting equations \textup{(I)} and \textup{(II)} into the rate equation yields:
+\begin{equation*}
+    j\omega_m N_m \exp(j\omega_m t) = \frac{I_b + I_m \exp(j\omega_m t)}{eV} - \frac{N_b + N_m \exp(j\omega_m t)}{\tau}
+\end{equation*}
+By separating this equation into its DC (steady-state) and AC (time-varying) components, we get:
+\begin{itemize}
+    \item \textbf{DC Component}:
+    \begin{keyresult}
+        \begin{equation}
+            N_b = \frac{\tau I_b}{eV}
+        \end{equation}
+    \end{keyresult}
+    \item \textbf{AC Component}:
+    \begin{equation*}
+        j\omega_m N_m = \frac{I_m}{eV} - \frac{N_m}{\tau} \implies N_m\left(1 + j\omega_m\tau\right) = \frac{\tau I_m}{eV}
+    \end{equation*}
+    Solving for $N_m$ gives:
+    \begin{keyresult}
+        \begin{equation}
+            N_m = \frac{\frac{\tau I_m}{eV}}{1 + j\omega_m\tau}
+        \end{equation}
+    \end{keyresult}
+\end{itemize}
+
+In this expression for $N_m$:
+\begin{itemize}
+    \item The numerator, $\frac{\tau I_m}{eV}$, represents the \textbf{low-frequency modulation coefficient} (the carrier density amplitude when the modulation frequency approaches zero).
+    \item The denominator introduces a high-frequency roll-off due to the carrier lifetime $\tau$. The \textbf{electrical bandwidth} ($f_{3dB}$) is the frequency at which the amplitude of the carrier density response drops to $1/\sqrt{2}$ of its low-frequency value, corresponding to $\omega_m\tau = 1$:
+    \begin{keyresult}
+        \begin{equation}
+            f_{3\text{dB}} = \frac{1}{2\pi\tau}
+        \end{equation}
+    \end{keyresult}
+\end{itemize}
+
 % ------------------------------------------------------------------
 \section{The Semiconductor Optical Amplifier (SOA)}
 % ------------------------------------------------------------------
 
-\subsection{Degenerate Quasi-Fermi Separations and Positive Gain Bandwidth}
-
-Before calculating the amplification factor, we must first determine the spectral window over which the SOA can actually provide positive gain. Net gain requires the Bernard-Duraffourg condition to be strictly satisfied: $E_g < h\nu < E_{fc} - E_{fv}$. Thus, the absolute maximum positive gain bandwidth is set by the separation of the quasi-Fermi levels.
-
-In a heavily pumped SOA, the injected carrier density $\Delta n$ is so massive that the semiconductor becomes strongly degenerate. To find the quasi-Fermi levels, we approximate the Fermi-Dirac distribution at $T=0\text{ K}$ as a perfect step function. The carrier density is found by integrating the 3D density of states $\rho_c(E)$ from the conduction band edge $E_c$ up to the electron quasi-Fermi level $E_{fc}$:
-\begin{equation*}
-    n = \int_{E_c}^{E_{fc}} \frac{1}{2\pi^2} \left( \frac{2m_e^*}{\hbar^2} \right)^{3/2} \sqrt{E - E_c} \,dE = \frac{1}{3\pi^2} \left( \frac{2m_e^*}{\hbar^2} \right)^{3/2} (E_{fc} - E_c)^{3/2}
-\end{equation*}
-
-Solving this directly for the electron quasi-Fermi level $E_{fc}$ (and doing the symmetric derivation for holes) yields:
-\begin{keyresult}
-    \begin{equation}
-        E_{fc} = E_c + (3\pi^2)^{2/3} \frac{\hbar^2}{2 m_e^*} (n)^{2/3} \qquad \text{and} \qquad E_{fv} = E_v - (3\pi^2)^{2/3} \frac{\hbar^2}{2 m_h^*} (p)^{2/3}
-    \end{equation}
-\end{keyresult}
-
-If we subtract $E_{fv}$ from $E_{fc}$ to find the total separation, and recognize that under strong injection $n \approx p \approx \Delta n$, we find:
-\begin{equation*}
-    E_{fc} - E_{fv} = E_g + (3\pi^2)^{2/3} \frac{\hbar^2}{2} \left( \frac{1}{m_e^*} + \frac{1}{m_h^*} \right) (\Delta n)^{2/3} = E_g + (3\pi^2)^{2/3} \frac{\hbar^2}{2m_r} (\Delta n)^{2/3}
-\end{equation*}
-where $m_r$ is the reduced mass. The positive gain bandwidth $BW$ in Hz is the difference between the maximum amplifiable photon energy ($E_{fc}-E_{fv}$) and the minimum amplifiable photon energy ($E_g$), divided by Planck's constant $h$:
-\begin{keyresult}
-    \begin{equation}
-        BW = \frac{(E_{fc}-E_{fv}) - E_g}{h} = (3\pi^2)^{2/3}\frac{h}{8\pi^2 m_r}(\Delta n)^{2/3}
-    \end{equation}
-\end{keyresult}
-This elegantly proves that the optical amplification bandwidth of an SOA expands proportionally to $\Delta n^{2/3}$. More injected carriers physically push the quasi-Fermi levels deeper into the bands, widening the spectral window available for amplification.
-
 \subsection{Small-Signal Amplification}
 
-An SOA is a forward-biased semiconductor heterostructure with anti-reflection coatings on both facets, so that the photon density never builds up enough to sustain oscillation. An external optical signal enters one facet, is amplified by stimulated emission as it propagates through the gain medium, and exits the other facet with higher power.
+An SOA is a forward-biased semiconductor heterostructure designed to amplify an incoming optical signal via stimulated emission. To prevent the device from lasing, anti-reflection (AR) coatings are deposited on the facets to suppress feedback. 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.7\textwidth]{Figures/Chapter 8/soa_vs_laser_diode_structure_and_output_characteristics.jpg}
-    \caption{SOA vs. Laser Diode: Structure and Output Characteristics}
-    \label{fig:soa_vs_laser_diode_structure_and_output_characteristics}
-\end{figure}
-
-In the small-signal regime, the input photon density $S$ is negligible compared to the carrier density, so the injected current pins the carrier density $N$ at its unsaturated value. The photon density then grows exponentially along the propagation direction $z$:
+To analyze the amplification, we start from the carrier and photon rate equations. The temporal rate equations governing the carrier density $N$ and photon density $S$ are:
 \begin{equation*}
-    S(z) = S(0)\exp\!\left[\Gamma B(N - N_\text{tr})\,\frac{z}{v_g}\right]
+    \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma B(N - N_\text{tr})S
+\end{equation*}
+\begin{equation*}
+    \frac{dS}{dt} = \Gamma B(N - N_\text{tr})S
+\end{equation*}
+where:
+\begin{itemize}
+    \item $J$ is the injected current density.
+    \item $d$ is the active layer thickness.
+    \item $\tau$ is the overall carrier lifetime.
+    \item $\Gamma$ is the optical confinement factor.
+    \item $B$ is the differential gain coefficient.
+    \item $N_\text{tr}$ is the transparency carrier density.
+\end{itemize}
+
+In the small-signal regime, the input signal is weak, meaning the photon density $S$ is small enough that the carrier depletion via stimulated emission is negligible. Under this condition, the carrier density $N$ remains constant. Integrating the temporal rate equation for the photon density yields:
+\begin{equation*}
+    S(t) = S(0)\exp\!\left(\Gamma B(N - N_\text{tr})t\right)
 \end{equation*}
 
-Converting the exponential argument using $G = v_g\,\gamma_m = v_g B(N - N_\text{tr})$ gives the intensity amplification factor $\mathcal{G} = S_\text{out}/S_\text{in} = \exp(G_0 L)$, where $G_0 = \Gamma B(N - N_\text{tr})$ is the unsaturated gain coefficient and $L$ is the device length.
+To express this growth as a function of propagation distance $z$ along the amplifier length, we use the relation between time and distance:
+\begin{equation*}
+    \frac{dt}{dz} = \frac{1}{v_g}
+\end{equation*}
+where $v_g$ is the group velocity of the mode.
+Substituting this into the photon rate equation gives the spatial rate of growth:
+\begin{equation*}
+    \frac{dS}{dz} = \Gamma B v_g(N - N_\text{tr})S
+\end{equation*}
+
+Integrating this from the input facet ($z = 0$) to a distance $z$ yields the spatial photon density:
+\begin{keyresult}
+    \begin{equation}
+        S(z) = S(0)\exp\!\left(\Gamma B v_g(N - N_\text{tr})z\right)
+    \end{equation}
+\end{keyresult}
+The optical intensity $I$ follows the same exponential growth, since it is directly proportional to the photon density:
+\begin{equation*}
+    I = v_g S h\nu
+\end{equation*}
 
 \subsection{Gain Saturation}
 
-When the input power is large enough that the photon density $S$ becomes comparable to the carrier density, stimulated emission depletes the inversion. To quantify this, we set the carrier rate equation to zero at steady-state:
+If the input optical signal is not negligible, stimulated emission consumes carriers faster than they can be replenished by the electrical bias, causing the gain to drop. To quantify this gain saturation, we analyze the steady-state behavior by setting the temporal carrier rate equation to zero:
 \begin{equation*}
-    \frac{dN}{dt} = \frac{J}{ed} - \frac{N}{\tau} - \Gamma G S = 0
+    \frac{J}{ed} - \frac{N}{\tau} - \Gamma B(N - N_\text{tr})S = 0
 \end{equation*}
-Expressing the carrier density in terms of the deviation from transparency $(N - N_\text{tr})$:
+We rewrite this by separating the carrier density term relative to the transparency carrier density:
 \begin{equation*}
-    \frac{J}{ed} - \frac{N - N_\text{tr} + N_\text{tr}}{\tau} - \Gamma B(N - N_\text{tr}) S = 0 \implies \left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right) - (N - N_\text{tr})\left(\frac{1}{\tau} + \Gamma B S\right) = 0
+    \frac{J}{ed} - \frac{N - N_\text{tr}}{\tau} - \frac{N_\text{tr}}{\tau} - \Gamma B(N - N_\text{tr})S = 0
 \end{equation*}
-Solving for $(N - N_\text{tr})$:
-\begin{equation*}
-    N - N_\text{tr} = \frac{\frac{J}{ed} - \frac{N_\text{tr}}{\tau}}{\frac{1}{\tau} + \Gamma B S} = \frac{\tau\left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right)}{1 + \Gamma B \tau S} = \frac{\Delta N_0}{1 + \Gamma B \tau S}
-\end{equation*}
-where $\Delta N_0 \equiv \tau\left(\frac{J}{ed} - \frac{N_\text{tr}}{\tau}\right)$ is the unsaturated population inversion.
-Next, we relate the photon density $S$ to the optical power $P$ flowing through the waveguide mode. The cross-sectional area of the optical mode is $A_\text{mode} = A/\Gamma$. The optical power is the energy density $S \cdot h\nu$ multiplied by the group velocity $v_g$ and the mode area:
-\begin{equation*}
-    P = S \cdot h\nu \cdot v_g \cdot A_\text{mode} = \frac{S h\nu v_g A}{\Gamma} \implies S = \frac{\Gamma P}{v_g h\nu A}
-\end{equation*}
-Substituting this expression for $S$ into the denominator:
-\begin{equation*}
-    N - N_\text{tr} = \frac{\Delta N_0}{1 + \Gamma B \tau \left(\dfrac{\Gamma P}{v_g h\nu A}\right)} = \frac{\Delta N_0}{1 + \dfrac{P}{P_s}}
-\end{equation*}
-where we define the saturation power as $P_s \equiv \frac{v_g h\nu A}{\Gamma B \tau}$. The saturated material gain coefficient $g = B(N-N_\text{tr})$ then becomes:
+Rearranging and solving for the excess carrier density $N - N_\text{tr}$ yields:
 \begin{keyresult}
     \begin{equation}
-        g = \frac{g_0}{1 + P/P_s}, \qquad P_s = \frac{v_g h\nu A}{\Gamma B \tau}
+        N - N_\text{tr} = \frac{\dfrac{J}{ed}\tau - N_\text{tr}}{1 + \Gamma B S \tau} = \frac{\Delta N_0}{1 + P/P_s}
     \end{equation}
 \end{keyresult}
-where $g_0 = B \Delta N_0$ is the unsaturated gain.
+where:
+\begin{itemize}
+    \item $\Delta N_0 = \frac{J}{ed}\tau - N_\text{tr}$ is the unsaturated carrier density.
+    \item $P$ is the optical power, related to photon density by $P = S \cdot h\nu \cdot v_g \cdot A / \Gamma$ (with $A$ being the cross-sectional area).
+    \item $P_s$ is the saturation power, defined as:
+    \begin{keyresult}
+        \begin{equation}
+            P_s = \frac{v_g h\nu A}{\Gamma B \tau}
+        \end{equation}
+    \end{keyresult}
+\end{itemize}
 
-This homogeneous saturation form — gain compressing inversely with optical power — is the universal behaviour of any gain medium where stimulated emission depletes the inversion that feeds it. Integrating the propagation equation $dP/dz = g\,P$ through the device gives the transcendental implicit equation:
+Since the optical gain coefficient $g$ is proportional to the excess carrier density, $g = \Gamma B v_g(N-N_\text{tr})$, it satuarates with power according to:
+\begin{keyresult}
+    \begin{equation}
+        g = \frac{g_0}{1 + P/P_s}
+    \end{equation}
+\end{keyresult}
+where $g_0 = \Gamma B v_g \Delta N_0$ is the unsaturated small-signal gain coefficient.
+
+To find the spatial power evolution, we substitute the saturated gain into the propagation equation:
 \begin{equation*}
-    \ln\!\frac{P_\text{out}}{P_\text{in}} + \frac{P_\text{out} - P_\text{in}}{P_s} = g_0\,L
+    \frac{dP}{dz} = g P = \frac{g_0}{1 + P/P_s} P
 \end{equation*}
+Separating the variables yields:
+\begin{equation*}
+    \frac{1}{P}\left(1 + \frac{P}{P_s}\right) dP = g_0 dz
+\end{equation*}
+Integrating this equation from the input facet ($z = 0, P = P_\text{in}$) to the output facet ($z = L, P = P_\text{out}$) gives the implicit transcendental equation for the output power:
+\begin{keyresult}
+    \begin{equation}
+        \ln\!\left(\frac{P_\text{out}}{P_\text{in}}\right) + \frac{P_\text{out} - P_\text{in}}{P_s} = g_0 L
+    \end{equation}
+\end{keyresult}
 
-The 3\,dB gain compression point — where the total amplified power equals $P_s \ln 2$ — marks the boundary of the linear amplification regime. Beyond this point, the gain compresses rapidly and the amplifier distorts the signal.
+At very low input powers ($P_\text{out} \ll P_s$), the logarithmic term dominates, and the equation simplifies to the linear amplification regime: $P_\text{out} = P_\text{in}\exp(g_0 L)$. As the input signal grows, the linear term $(P_\text{out} - P_\text{in})/P_s$ becomes dominant, and the gain saturates. The 3\,dB gain saturation point represents the power level at which the amplifier's gain drops to half its small-signal value, as shown in the graph below.
 
 \begin{figure}[H]
     \centering
@@ -351,46 +431,84 @@ The 3\,dB gain compression point — where the total amplified power equals $P_s
 
 \subsection{Noise Figure}
 
-Any amplifier that adds spontaneous emission to the signal degrades its signal-to-noise ratio. The noise figure of the SOA is defined as:
-\begin{equation*}
-    F_n = \frac{(\text{SNR})_\text{in}}{(\text{SNR})_\text{out}}
-\end{equation*}
-
-For an SOA with internal loss $\alpha_\text{int}$ per unit length and total intensity gain $\mathcal{G}$:
+Because the transitions in the active region are probabilistic, spontaneous emission occurs alongside stimulated emission. This adds random incoherent photons to the amplified signal, degrading the signal-to-noise ratio. The noise figure ($F_n$) is defined as:
 \begin{keyresult}
     \begin{equation}
-        F_n = 2\!\left(\frac{N}{N - N_\text{tr}}\right)\!\left(\frac{\mathcal{G}}{\mathcal{G} - \alpha_\text{int}L}\right)
+        F_n = \frac{(\text{SNR})_\text{in}}{(\text{SNR})_\text{out}}
     \end{equation}
 \end{keyresult}
 
-In the high-gain limit ($\mathcal{G} \gg 1$) with negligible internal loss, the noise figure approaches $F_n \to 2$ (equivalently, 3\,dB). This quantum-limited noise floor is set by amplified spontaneous emission (ASE): even with perfect population inversion, every amplification event is accompanied by some probability of spontaneous emission into the signal mode, adding shot noise. This 3\,dB quantum limit is fundamental and cannot be beaten by any linear optical amplifier — it is the optical analogue of the $kT$ thermal noise floor in electronic amplifiers.
+For a semiconductor optical amplifier, the noise figure is given by:
+\begin{keyresult}
+    \begin{equation}
+        F_n = 2\left(\frac{N}{N - N_\text{tr}}\right)\left(\frac{G}{G - \alpha_\text{int}L}\right)
+    \end{equation}
+\end{keyresult}
+where:
+\begin{itemize}
+    \item $N$ is the carrier density.
+    \item $N_\text{tr}$ is the transparency carrier density.
+    \item $G$ is the single-pass amplifier gain.
+    \item $\alpha_\text{int}$ represents the internal waveguide losses.
+\end{itemize}
 
-\subsection{Polarisation Dependence and FP vs.\ TWA}
+\subsection{Polarization Dependence}
 
-The rectangular cross-section of a standard SOA waveguide confines TE and TM polarisation modes differently, giving different confinement factors $\Gamma_\text{TE} \neq \Gamma_\text{TM}$. This makes the TE gain systematically higher than the TM gain by several dB at high input powers — a significant limitation for polarisation-diverse fibre-optic systems.
-
-When facet reflectivities are non-zero (an SOA without perfect anti-reflection coatings), the device behaves as a Fabry-Pérot amplifier with frequency-dependent gain ripple. The FP amplifier gain follows from the round-trip boundary conditions: the field must reproduce itself after one round trip, leading to a resonant denominator that creates peaks at the longitudinal mode frequencies $\nu_m = mc/(2nL)$:
-\begin{equation*}
-    \mathcal{G}_\text{FP}(\nu) = \frac{(1-R_1)(1-R_2)\,G_0}{\left(1 - G_0\sqrt{R_1 R_2}\right)^2 + 4G_0\sqrt{R_1 R_2}\sin^2\!\left[\pi(\nu - \nu_m)/\Delta\nu_L\right]}
-\end{equation*}
-where $\Delta\nu_L = c/(2nL)$ is the longitudinal mode spacing. The gain ripple ratio:
-\begin{equation*}
-    \Delta\mathcal{G} = \left(\frac{1 + G_0\sqrt{R_1 R_2}}{1 - G_0\sqrt{R_1 R_2}}\right)^2
-\end{equation*}
+The rectangular cross-section of standard semiconductor waveguides breaks the vertical and horizontal spatial symmetry. Consequently, the confinement factors for the transverse electric (TE) and transverse magnetic (TM) optical modes are different ($\Gamma_\text{TE} \neq \Gamma_\text{TM}$). This causes the TE mode to experience higher gain than the TM mode, as shown in the polarization gain curves below.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\textwidth]{Figures/Chapter 8/soa_gain_spectrum_te.jpg}
-    \caption{SOA Gain Spectrum (TE polarization)}
+    \caption{SOA Gain vs. Input Power for TE and TM Polarizations}
     \label{fig:soa_gain_spectrum_te}
 \end{figure}
 
-must be kept below $\sim 3\,\text{dB}$ for broadband operation. This requires $G_0\sqrt{R_1R_2} < 0.17$, achieved by anti-reflection coatings reducing the facet reflectivities to below $R < 0.001$.
+\subsection{Fabry-Perot vs. Traveling-Wave Amplifiers}
+
+If the facets of the semiconductor chip have non-zero reflectivities ($R_1, R_2$), the device behaves as a resonant Fabry-Pérot (FP) cavity. This introduces a frequency-dependent gain ripple. The Fabry-Pérot amplifier gain spectrum is given by:
+\begin{keyresult}
+    \begin{equation}
+        G_\text{FP}(\nu) = \frac{(1-R_1)(1-R_2)G(\nu)}{\left(1 - G\sqrt{R_1 R_2}\right)^2 + 4G\sqrt{R_1 R_2}\sin^2\!\left[\pi(\nu - \nu_m)/\Delta\nu_L\right]}
+    \end{equation}
+\end{keyresult}
+where:
+\begin{itemize}
+    \item $G(\nu)$ is the single-pass gain.
+    \item $\Delta\nu_L = \frac{c}{2n_s L}$ is the longitudinal mode spacing (with $n_s$ being the semiconductor refractive index).
+    \item $\nu_m = \frac{mc}{2n_s L}$ is the resonant frequency of the $m$-th cavity mode.
+\end{itemize}
+
+The peak gain occurs on resonance, and the minimum gain occurs off resonance. The gain ripple ratio ($\Delta G$), representing the peak-to-trough ratio, is:
+\begin{keyresult}
+    \begin{equation}
+        \Delta G = \frac{G_\text{FP}^\text{max}}{G_\text{FP}^\text{min}} = \left(\frac{1 + G\sqrt{R_1 R_2}}{1 - G\sqrt{R_1 R_2}}\right)^2
+    \end{equation}
+\end{keyresult}
+
+The 3\,dB resonance bandwidth (FWHM of a resonance peak) is:
+\begin{keyresult}
+    \begin{equation}
+        \Delta\nu_A = \frac{2\Delta\nu_L}{\pi}\sin^{-1}\!\left( \frac{1 - G\sqrt{R_1 R_2}}{\sqrt{4 G\sqrt{R_1 R_2}}} \right)
+    \end{equation}
+\end{keyresult}
+
+For broadband, traveling-wave amplifier (TWA) operation, the gain ripple must be minimized (typically $\Delta G < 3\text{ dB}$). This requires suppressing reflection at the facets such that:
+\begin{keyresult}
+    \begin{equation}
+        G\sqrt{R_1 R_2} < 0.17
+    \end{equation}
+\end{keyresult}
+
+To achieve reflectivities below $0.1\%$, TWAs utilize anti-reflection coatings alongside geometric structures to prevent reflected light from coupling back into the waveguide mode:
+\begin{itemize}
+    \item \textbf{Tilted Active Region}: The active waveguide is oriented at an angle (typically $7^\circ$ to $10^\circ$) relative to the facets, directing reflections away from the guiding core.
+    \item \textbf{Windowed Active Region}: The active waveguide terminates shortly before the facet, allowing the beam to expand in a passive region so that only a tiny fraction of the reflected light couples back.
+\end{itemize}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{Figures/Chapter 8/fabryperot_soa_geometries_tilted_vs_windowed_facets.jpg}
-    \caption{Fabry-Perot SOA Geometries: Tilted vs. Windowed Facets}
+    \caption{Tilted Facet and Windowed Facet Waveguide Geometries}
     \label{fig:fabryperot_soa_geometries_tilted_vs_windowed_facets}
 \end{figure}
 
@@ -400,7 +518,7 @@ must be kept below $\sim 3\,\text{dB}$ for broadband operation. This requires $G
 
 \subsection{Lasing Conditions: Gain and Phase}
 
-A laser diode is an SOA placed inside a Fabry-Pérot cavity formed by the cleaved semiconductor facets with reflectivities $R_1$ and $R_2$. Sustained oscillation requires the round-trip field to reproduce itself exactly in both amplitude and phase, which splits into two simultaneous conditions.
+A laser diode is an SOA placed inside a Fabry-Pérot cavity formed by cleaved semiconductor facets with reflectivities $R_1$ and $R_2$. Sustained oscillation requires the round-trip field to reproduce itself exactly in both amplitude and phase, which splits into two simultaneous conditions.
 
 The \textbf{gain (amplitude) condition} requires the round-trip gain to exactly compensate the round-trip losses:
 \begin{keyresult}
@@ -415,7 +533,7 @@ The \textbf{phase condition} selects discrete longitudinal modes:
     2\beta L = 2m\pi \implies f_m = \frac{mc}{2nL}, \qquad m = 1, 2, 3, \ldots
 \end{equation*}
 
-These two conditions are structurally identical to the general laser oscillator threshold conditions — round-trip gain equals round-trip loss, and round-trip phase is an integer multiple of $2\pi$ — now expressed in terms of the semiconductor-specific parameters $\Gamma$, $g$, and the facet reflectivities.
+These two conditions are structurally identical to general laser threshold conditions — round-trip gain equals round-trip loss, and round-trip phase is an integer multiple of $2\pi$ — now expressed in terms of the semiconductor-specific parameters $\Gamma$, $g$, and the facet reflectivities.
 
 \begin{figure}[H]
     \centering
@@ -437,7 +555,7 @@ The mirror loss $\alpha_m = -\ln(R_1 R_2)/(2L)$ contributes on equal footing wit
 
 \subsection{Threshold Carrier Density and Threshold Current}
 
-Using the linear gain model $g = B(N - N_\text{tr})$, the gain condition at threshold gives:
+Using the linear gain model $g = B(N - N_\text{tr})$, the gain condition at threshold ($\Gamma g_{\text{th}} = \alpha + \alpha_m = 1/(v_g\tau_{ph})$) gives:
 \begin{keyresult}
     \begin{equation}
         N_\text{th} = N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}
@@ -450,6 +568,7 @@ Below threshold, the photon density is negligible and the carrier rate equation 
         J_\text{th} = \frac{ed}{\tau}\,N_\text{th} = \frac{ed}{\tau}\!\left(N_\text{tr} + \frac{1}{\Gamma B \tau_{ph}}\right)
     \end{equation}
 \end{keyresult}
+Multiplying by area $A$ gives total threshold current $I_{\text{th}} = J_{\text{th}} A$.
 
 Every term in this expression has a physical handle: making $d$ smaller reduces the threshold current (less volume to invert), making $\Gamma$ larger reduces it (better mode-gain overlap), making $\tau_{ph}$ longer reduces it (lower loss cavity), and making $B$ larger reduces it (higher differential gain from the material).
 
@@ -471,10 +590,13 @@ The device is simply an LED with a cavity around it — the cavity does nothing 
 
 \subsection{Above Threshold: Carrier Clamping and the P--I Curve}
 
-Above threshold, stimulated emission takes over. Any additional carriers injected beyond $N_\text{th}$ are almost instantly converted into coherent photons — the gain cannot rise above the threshold value without being immediately saturated back down by the growing photon density. This is carrier clamping: the same inversion-stabilising feedback that we saw in any saturated gain medium, now playing out inside the laser diode cavity. The carrier density is pinned:
+Above threshold, stimulated emission takes over. Any additional carriers injected beyond $N_\text{th}$ are almost instantly converted into coherent photons — the gain cannot rise above the threshold value without being immediately saturated back down by the growing photon density. 
+
+This is \textbf{carrier clamping}: the same inversion-stabilising feedback that we saw in any saturated gain medium, now playing out inside the laser diode cavity. Specifically, if the carrier density $N$ tries to exceed $N_{\text{th}}$, the gain $g$ exceeds the losses, causing the photon field $S$ to grow exponentially. This massive stimulated field instantly consumes the excess carrier pairs, pulling $N$ back down. Thus, the carrier density in the active region is pinned (clamped) at its threshold value:
 \begin{equation*}
     N \approx N_\text{th} \quad (I > I_\text{th})
 \end{equation*}
+And the material gain is clamped at the threshold loss line: $g \approx g_{\text{th}}$.
 
 Substituting $N = N_\text{th}$ into the steady-state photon rate equation ($dS/dt = 0$) and solving for $S$:
 \begin{keyresult}

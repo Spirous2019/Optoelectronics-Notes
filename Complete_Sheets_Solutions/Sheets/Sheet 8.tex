@@ -9,39 +9,51 @@ A surface emitting LED emits light at 0.633 \si{\micro\meter}. Its internal quan
 
 \textbf{\large Solution --- Question 1}
 
-The given parameters are $\lambda = 0.633\,\mu\text{m}$, $\eta_{int} = 0.5$, $\eta_{ext} = 0.2$, $\tau = 2.0\,\text{ns}$, and $I = 50\,\text{mA}$.
+\textbf{Physical Insight:}
+The overall "wall-plug" efficiency of an LED is the product of two distinct probabilities:
+\begin{enumerate}
+  \item $\eta_{int}$: The internal probability that an injected electron successfully recombines with a hole to create a photon (instead of wasting energy as heat).
+  \item $\eta_{ext}$: The external probability that the generated photon successfully escapes the semiconductor crystal without being trapped by total internal reflection.
+\end{enumerate}
+The total quantum efficiency is simply the product: $\eta = \eta_{int} \times \eta_{ext}$.
 
-The overall (wall-plug) quantum efficiency of an LED relates the useful optical output to the electrical input. The external quantum efficiency $\eta_{ext}$ already accounts for both the internal radiative efficiency and the ability of photons to escape the device. However, here the two efficiencies are given separately, so the combined efficiency is simply their product:
+The given parameters are $\lambda = 0.633\,\mu\text{m}$, $\eta_{int} = 0.5$, $\eta_{ext} = 0.2$, $\tau = 2.0\,\text{ns}$, and $I = 50\,\text{mA}$.
 
 \begin{equation*}
   \eta = \eta_{int}\,\eta_{ext} = 0.5 \times 0.2 = 0.1
 \end{equation*}
 
-By definition, $\eta$ is the ratio of emitted optical power to injected electrical power expressed in photon-to-electron terms:
-
+\textbf{Step 1: The Physics Definition of Efficiency}
+Quantum efficiency ($\eta$) is purely a particle-counting ratio: it is the number of photons emitted per second divided by the number of electrons injected per second.
 \begin{equation*}
-  \eta = \frac{P/h\nu}{I/e} \quad\Longrightarrow\quad P = \eta\,\frac{I}{e}\cdot h\nu
+  \eta = \frac{(\text{Photons per second})}{(\text{Electrons per second})} = \frac{P / (hc/\lambda)}{I / e}
+\end{equation*}
+Rearranging to solve for the output optical power $P$:
+\begin{equation*}
+  P = \eta \left(\frac{I}{e}\right) \frac{hc}{\lambda}
 \end{equation*}
 
-Since photon energy is $h\nu = hc/\lambda$, we substitute directly:
-
+\textbf{Step 2: The "Exam Cheat Code" Substitution}
+Instead of plugging in massive SI constants for $h$ and $c$, we use the golden rule of optoelectronics: $hc \approx 1.24\,\text{eV}\cdot\mu\text{m}$. But remember, an electron-volt ($\text{eV}$) is just $(e\,\text{Joules})$. So we can write the photon energy directly in Joules as:
 \begin{equation*}
-  P = \eta\,\frac{I}{e}\cdot\frac{hc}{\lambda} = 0.1 \times \frac{50\times10^{-3}}{1.6\times10^{-19}}\times\frac{(6.626\times10^{-34})(3\times10^8)}{0.633\times10^{-6}}
+  \frac{hc}{\lambda} = \frac{1.24}{\lambda[\mu\text{m}]} \times e \quad [\text{Joules}]
 \end{equation*}
-
-Using the compact form $hc/\lambda = (1.24\,\text{eV}\cdot\mu\text{m})/\lambda$:
-
+Substitute this back into the power equation:
 \begin{equation*}
-  P = 0.1 \times \frac{50\times10^{-3}}{1.6\times10^{-19}} \times \frac{1.24}{0.633}\times 1.6\times10^{-19}
-  = 0.1 \times 50\times10^{-3} \times \frac{1.24}{0.633}
+  P = \eta \left(\frac{I}{e}\right) \left( \frac{1.24}{\lambda[\mu\text{m}]} \times e \right) = \eta \cdot I \cdot \frac{1.24}{\lambda[\mu\text{m}]}
 \end{equation*}
+Notice how the elementary charge $e$ elegantly cancels out!
 
+\textbf{Step 3: Final Calculation}
+Now simply plug in the given values:
 \begin{equation*}
-  P = 0.1 \times 0.05 \times 1.9589 \approx 9.79\,\text{mW}
+  P = (0.1) \times (50 \times 10^{-3}\,\text{A}) \times \left( \frac{1.24}{0.633} \right)
 \end{equation*}
-
 \begin{equation*}
-  \boxed{P_{\text{out}} \approx 9.81\,\text{mW}}
+  P = 0.005 \times 1.9589 = 0.009794\,\text{W}
+\end{equation*}
+\begin{equation*}
+  \boxed{P = 9.79\,\text{mW}}
 \end{equation*}
 
 \begin{question}[Question 2]
@@ -49,6 +61,9 @@ A GaAs LED has a recombination lifetime of 5 ns. It is forward biased with a DC 
 \end{question}
 
 \textbf{\large Solution --- Question 2}
+
+\textbf{Physical Insight:}
+When you modulate an LED with an AC signal, the carrier density (the number of electrons and holes) cannot respond instantly. It acts exactly like a first-order Low-Pass Filter in an electrical circuit, where the recombination lifetime ($\tau$) plays the role of the RC time constant. As the modulation frequency increases, the carrier response lags behind the driving current (phase shift $\theta$) and its amplitude shrinks (modulation index $m_n$).
 
 The given parameters are $\tau = 5\,\text{ns}$, $I_0 = 20\,\text{mA}$, $f_0 = 100\,\text{MHz}$ (so $\omega_0 = 2\pi \times 100\times10^6\,\text{rad/s}$), and $I_m = 1\,\text{mA}$.
 
@@ -78,24 +93,24 @@ The phase angle $\theta$ of the carrier response $\Delta n$ relative to the driv
   \boxed{\theta = -72.34^\circ = -1.263\,\text{rad}}
 \end{equation*}
 
-For the modulation index, we define $m_n = N_m / N_0$ where $N_m$ is the amplitude of the AC carrier response and $N_0$ is the DC carrier density. Under DC steady state, the carrier continuity equation gives:
+For the modulation index, we define $m_n = \frac{N_m}{N_0}$, where $N_m$ is the amplitude of the AC carrier density and $N_0$ is the DC carrier density.
 
+\textbf{Step 1: Find the DC carrier density ($N_0$)}
+Under DC steady state, the derivatives are zero ($\frac{\partial N}{\partial t} = 0$). The rate equation gives:
 \begin{equation*}
-  0 = -\frac{N_0}{\tau} + \frac{J_0}{ed} \quad\Longrightarrow\quad \frac{N_0}{\tau} = \frac{I_0}{WLed} \quad\Longrightarrow\quad \frac{N_0}{\tau} = \frac{I_0}{WLed}
+  0 = -\frac{N_0}{\tau} + \frac{J_0}{ed} \quad\Longrightarrow\quad N_0 = \tau \frac{J_0}{ed} = \tau \frac{I_0}{e(\text{Volume})}
 \end{equation*}
 
-The AC carrier amplitude from $|H(\omega_0)|$ is:
-
+\textbf{Step 2: Find the AC carrier amplitude ($N_m$)}
+For the AC part, the input "driving force" is the AC current term, but it is attenuated by the low-pass filter transfer function $|H(\omega_0)|$:
 \begin{equation*}
-  |H(\omega_0)| = \frac{N_m/\tau}{J_m/ed} = \frac{1}{\sqrt{1+(\omega_0\tau)^2}}
-  \quad\Longrightarrow\quad \frac{N_m}{\tau} = \frac{I_m}{WLed\sqrt{1+(\omega_0\tau)^2}}
+  N_m = \left( \tau \frac{J_m}{ed} \right) \times |H(\omega_0)| = \tau \frac{I_m}{e(\text{Volume})} \frac{1}{\sqrt{1+(\omega_0\tau)^2}}
 \end{equation*}
 
-Dividing to form the ratio:
-
+\textbf{Step 3: Calculate the ratio ($m_n$)}
+Dividing the AC amplitude by the DC value, all the physical device parameters (Volume, $e$, $\tau$) elegantly cancel out, leaving only the measurable currents and the filter attenuation:
 \begin{equation*}
-  m_n = \frac{N_m}{N_0} = \frac{N_m/\tau}{N_0/\tau} = \frac{I_m / \sqrt{1+(\omega_0\tau)^2}}{I_0}
-  = \frac{I_m}{I_0\sqrt{1+(\omega_0\tau)^2}}
+  m_n = \frac{N_m}{N_0} = \frac{\tau \frac{I_m}{e(\text{Vol})} \frac{1}{\sqrt{1+(\omega_0\tau)^2}}}{\tau \frac{I_0}{e(\text{Vol})}} = \frac{I_m}{I_0\sqrt{1+(\omega_0\tau)^2}}
 \end{equation*}
 
 \begin{equation*}
@@ -112,36 +127,44 @@ A GaAs LED has a modulation bandwidth of 100 MHz. The current density in the LED
 
 \textbf{\large Solution --- Question 3}
 
+\textbf{Physical Insight:}
+Because the LED acts as a low-pass filter, turning it on with a sudden step function $u(t)$ does not instantly produce light. Instead, the carrier density "charges up" exponentially, exactly like a capacitor charging in an RC circuit. The $10\%$ to $90\%$ rise time for any first-order exponential system is a universal constant: $t_{rise} \approx 2.2 \tau$. We first find $\tau$ from the 3-dB bandwidth.
+
 The given parameters are $f_0 = 100\,\text{MHz}$ (the 3-dB modulation bandwidth).
 
-When the current density switches on as a step function $J(t) = J_0\,u(t)$, the carrier rate equation:
-
+\textbf{Step 1: Find the Time Constant ($\tau$)}
+The speed of the LED is governed by how fast carriers recombine. The time constant $\tau$ is directly linked to the $3\text{dB}$ modulation bandwidth ($f_0$) because the LED acts as a single-pole low-pass filter:
 \begin{equation*}
-  \frac{\partial N}{\partial t} = -\frac{N}{\tau} + \frac{J}{ed}
+  f_0 = \frac{1}{2\pi\tau} \quad\Longrightarrow\quad \tau = \frac{1}{2\pi f_0} = \frac{1}{2\pi (100 \times 10^6\,\text{Hz})}
+\end{equation*}
+\begin{equation*}
+  \tau \approx 1.5915\,\text{ns}
 \end{equation*}
 
-has the step response $N(t) = N_0(1 - e^{-t/\tau})$, and since the optical power is proportional to $N$, the output power follows the same form. The time constant $\tau$ of the LED is directly linked to its 3-dB modulation bandwidth by the pole of the transfer function:
+\textbf{Step 2: Derive the Rise Time Formula}
+When a step current is applied, the optical power rises exponentially: $P(t) = P_0 (1 - e^{-t/\tau})$. 
+The rise time ($t_{\text{rise}}$) is defined as the time it takes to go from $10\%$ to $90\%$ of its final steady-state power $P_0$.
 
+First, find the $10\%$ time point ($t_{10}$):
 \begin{equation*}
-  f_0 = \frac{1}{2\pi\tau} \quad\Longrightarrow\quad \tau = \frac{1}{2\pi f_0} = \frac{1}{2\pi \times 100\times10^6}
+  1 - e^{-t_{10}/\tau} = 0.1 \quad\Longrightarrow\quad e^{-t_{10}/\tau} = 0.9 \quad\Longrightarrow\quad t_{10} = -\tau \ln(0.9)
+\end{equation*}
+Next, find the $90\%$ time point ($t_{90}$):
+\begin{equation*}
+  1 - e^{-t_{90}/\tau} = 0.9 \quad\Longrightarrow\quad e^{-t_{90}/\tau} = 0.1 \quad\Longrightarrow\quad t_{90} = -\tau \ln(0.1)
+\end{equation*}
+Subtract them to find the total rise time:
+\begin{equation*}
+  t_{\text{rise}} = t_{90} - t_{10} = \tau \bigl(-\ln(0.1) + \ln(0.9)\bigr) = \tau \ln\left(\frac{0.9}{0.1}\right) = \tau \ln(9) \approx 2.2\tau
 \end{equation*}
 
+\textbf{Step 3: Final Calculation}
+Now simply multiply our time constant by $\ln(9)$:
 \begin{equation*}
-  \tau = 1.592\,\text{ns}
+  t_{\text{rise}} = \ln(9) \times 1.5915\,\text{ns}
 \end{equation*}
-
-For a first-order system with exponential step response, the 10\%--90\% rise time is a well-known result: it is the time between the instants when the response crosses 10\% and 90\% of its final value. Setting $1 - e^{-t/\tau} = 0.1$ gives $t_{10} = \tau\ln(10/9)$, and $1 - e^{-t/\tau} = 0.9$ gives $t_{90} = \tau\ln(10)$. The difference is:
-
 \begin{equation*}
-  t_{\text{rise}} = t_{90} - t_{10} = \tau\bigl[\ln(10) - \ln(10/9)\bigr] = \tau\ln(9) \approx 2.197\,\tau \approx 2.2\,\tau
-\end{equation*}
-
-\begin{equation*}
-  t_{\text{rise}} = 2.2 \times 1.592\,\text{ns}
-\end{equation*}
-
-\begin{equation*}
-  \boxed{t_{\text{rise}} = 3.502\,\text{ns}}
+  \boxed{t_{\text{rise}} \approx 3.50\,\text{ns}}
 \end{equation*}
 
 \begin{question}[Question 4]
@@ -150,30 +173,46 @@ For a particular p-i-n photodiode, a pulse of light containing $6 \times 10^{12}
 
 \textbf{\large Solution --- Question 4}
 
+\textbf{Physical Insight:}
+A photodiode does the exact reverse of an LED. 
+\begin{itemize}
+\item \textbf{Quantum Efficiency ($\eta$)} is the fundamental particle ratio: how many electrons are collected per incident photon?
+\item \textbf{Responsivity ($\mathcal{R}$)} is the practical engineering ratio: how many Amps of current are generated per Watt of optical power?
+\end{itemize}
+
 The given parameters are $N_{ph} = 6\times10^{12}$ incident photons, $N_e = 2\times10^{12}$ collected electrons, and $\lambda = 1.55\,\mu\text{m}$.
 
-The quantum efficiency $\eta$ of a photodetector is defined as the probability that a single incident photon generates a collected electron-hole pair. It is therefore simply the ratio of collected electrons to incident photons:
-
+\textbf{Step 1: Calculate Quantum Efficiency ($\eta$)}
+Quantum efficiency is the raw probability that a photon successfully creates a collected electron. We simply divide the number of collected electrons ($N_e$) by the number of incident photons ($N_{ph}$):
 \begin{equation*}
-  \eta = \frac{N_e}{N_{ph}} = \frac{2\times10^{12}}{6\times10^{12}} = \frac{1}{3}
+  \eta = \frac{N_e}{N_{ph}} = \frac{2 \times 10^{12}}{6 \times 10^{12}} = \frac{1}{3}
 \end{equation*}
-
 \begin{equation*}
   \boxed{\eta = 33.33\%}
 \end{equation*}
 
-The responsivity $\mathcal{R}$ is the ratio of generated photocurrent to incident optical power, measured in A/W. Expressing both in terms of fundamental quantities — photocurrent $I = (N_e/N_{ph})(I_{ph}/h\nu)$ and power $P = N_{ph} h\nu / \Delta t$ — their ratio gives:
-
+\textbf{Step 2: Derive the Responsivity ($\mathcal{R}$) Formula}
+Responsivity is the practical ratio of output Current ($I$) to input Power ($P$). Let's look at the basic definitions for current and power over some time $\Delta t$:
+\begin{itemize}
+  \item $I = \frac{\text{Total Charge}}{\text{Time}} = \frac{N_e \cdot e}{\Delta t}$
+  \item $P = \frac{\text{Total Energy}}{\text{Time}} = \frac{N_{ph} \cdot (hc/\lambda)}{\Delta t}$
+\end{itemize}
+When we divide $I$ by $P$, the $\Delta t$ perfectly cancels out:
 \begin{equation*}
-  \mathcal{R} = \frac{I}{P} = \frac{\eta e}{h\nu} = \frac{\eta e\lambda}{hc}
+  \mathcal{R} = \frac{I}{P} = \frac{N_e \cdot e}{N_{ph} \cdot (hc/\lambda)} = \left(\frac{N_e}{N_{ph}}\right) \frac{e\lambda}{hc} = \eta \frac{e\lambda}{hc}
 \end{equation*}
 
-Using the compact form $hc/e = 1.24\,\text{eV}\cdot\mu\text{m}$:
-
+\textbf{Step 3: The "Exam Cheat Code" Substitution}
+Just like in Question 1, we use the rule $hc \approx 1.24\,\text{eV}\cdot\mu\text{m}$. Since $1\,\text{eV} = e\,\text{Joules}$, we can replace $hc$ directly with $1.24 \times e$. When working with $\lambda$ directly in micrometers, the formula simplifies massively because the elementary charge $e$ cancels out again:
 \begin{equation*}
-  \mathcal{R} = \frac{\eta\lambda\,[\mu\text{m}]}{1.24\,\text{eV}\cdot\mu\text{m}} = \frac{(1/3)\times1.55}{1.24} = \frac{0.5167}{1.24}
+  \mathcal{R} = \eta \frac{e \lambda[\mu\text{m}]}{1.24 \times e} = \frac{\eta \lambda[\mu\text{m}]}{1.24}
 \end{equation*}
 
+\textbf{Step 4: Final Calculation}
+Now simply plug in the values:
+\begin{equation*}
+  \mathcal{R} = \frac{(1/3) \times 1.55}{1.24} = \frac{0.5167}{1.24}
+\end{equation*}
 \begin{equation*}
   \boxed{\mathcal{R} = 0.4167\,\text{A/W}}
 \end{equation*}
@@ -192,31 +231,46 @@ Then, calculate the following\\[0.5ex]
 
 \textbf{\large Solution --- Question 5}
 
+\textbf{The "Photon Journey" Mechanism:}
+To accurately solve photodiode problems, we must track the physical journey of the incident photons. The device is split into three zones:
+\begin{enumerate}
+\item \textbf{The Interface ($x=0$):} As light enters the Silicon, some fraction $R$ bounces off due to the refractive index mismatch. The surviving fraction $(1-R)$ enters the crystal.
+\item \textbf{The Dead Zone ($0 < x \le x_0$):} Light travels through the heavily doped surface contact layer. Any photons absorbed here generate carriers that recombine instantly and are \textit{wasted}. 
+\item \textbf{The Active Zone ($x_0 < x \le x_0 + W$):} This is the depletion region. Any photons absorbed here successfully generate electron-hole pairs that are swept apart by the strong electric field to create useful photocurrent.
+\end{enumerate}
+The overall quantum efficiency requires calculating exactly how many photons survive the interface, survive the dead zone, and are finally absorbed within the active zone!
+
 The given parameters are $n = 3.5$, $W = 10\,\mu\text{m}$, $x_0 = 5\,\mu\text{m}$, $\lambda = 0.8\,\mu\text{m}$, and $P_{\text{inc}} = 1.5\,\mu\text{W}$ (for part d). From the standard absorption coefficient figure for silicon at $\lambda = 0.8\,\mu\text{m}$, we read off $\alpha = 10^5\,\text{m}^{-1}$ (i.e.\ $10^3\,\text{cm}^{-1}$).
 
 \textbf{(a) Quantum efficiency.}
 
-When light travels from air ($n_1 = 1$) into the silicon surface ($n_2 = 3.5$), a fraction is reflected. The normal-incidence power reflectivity is:
-
+We will use the standard efficiency formula:
 \begin{equation*}
-  R = \left(\frac{n_2 - n_1}{n_2 + n_1}\right)^2 = \left(\frac{3.5 - 1}{3.5 + 1}\right)^2 = \left(\frac{2.5}{4.5}\right)^2 = 0.3086
+  \eta = (1-R)(1 - e^{-\alpha L})\eta_{int}
 \end{equation*}
 
-The transmitted fraction $(1-R)$ then propagates through the inactive contact layer of thickness $x_0 = 5\,\mu\text{m}$ before reaching the depletion region of width $W = 10\,\mu\text{m}$. Photons absorbed in the contact layer do not contribute to current. Only those absorbed inside the depletion region produce collected carriers. The quantum efficiency is therefore:
+We can map our "Photon Journey" directly into the terms of this formula:
+\begin{itemize}
+  \item \textbf{Reflection ($1-R$):} The power reflectivity between air ($n_1 = 1$) and silicon ($n_2 = 3.5$) is:
+  \begin{equation*}
+    R = \left(\frac{3.5 - 1}{3.5 + 1}\right)^2 = 0.3086 \quad\Longrightarrow\quad (1-R) = 0.6914
+  \end{equation*}
+  
+  \item \textbf{Active Layer Absorption $(1 - e^{-\alpha L})$:} Here, $L$ is the width of the active zone (the depletion region $W = 10\,\mu\text{m}$) where photons are successfully absorbed:
+  \begin{equation*}
+    1 - e^{-\alpha L} = 1 - e^{-(10^5)(10\times10^{-6})} = 1 - e^{-1} = 0.6321
+  \end{equation*}
+  
+  \item \textbf{Internal Efficiency ($\eta_{int}$):} This term accounts for the photons that are "wasted" in the dead zone ($x_0 = 5\,\mu\text{m}$) before they can even reach the active layer. Thus, $\eta_{int}$ is exactly the survival fraction through the contact layer:
+  \begin{equation*}
+    \eta_{int} = e^{-\alpha x_0} = e^{-(10^5)(5\times10^{-6})} = e^{-0.5} = 0.6065
+  \end{equation*}
+\end{itemize}
 
+Multiplying them all together:
 \begin{equation*}
-  \eta = (1-R)\,e^{-\alpha x_0}\bigl(1 - e^{-\alpha W}\bigr)
+  \eta = (0.6914) \times (0.6321) \times (0.6065) = 0.2650
 \end{equation*}
-
-\begin{equation*}
-  \eta = (1-0.3086)\,e^{-(10^5)(5\times10^{-6})}\bigl(1 - e^{-(10^5)(10\times10^{-6})}\bigr)
-  = (0.6914)\,e^{-0.5}\bigl(1 - e^{-1}\bigr)
-\end{equation*}
-
-\begin{equation*}
-  \eta = 0.6914 \times 0.6065 \times (1 - 0.3679) = 0.6914 \times 0.6065 \times 0.6321
-\end{equation*}
-
 \begin{equation*}
   \boxed{\eta = 26.5\%}
 \end{equation*}
@@ -235,8 +289,9 @@ A photon must have energy at least equal to the silicon bandgap to generate an e
 
 \textbf{(c) Responsivity.}
 
+Using the shortcut we derived in Question 4 (where the elementary charge $e$ cancels out):
 \begin{equation*}
-  \mathcal{R} = \frac{\eta e}{h\nu} = \frac{\eta\lambda}{1.24} = \frac{0.265 \times 0.8}{1.24}
+  \mathcal{R} = \frac{\eta\lambda[\mu\text{m}]}{1.24} = \frac{0.265 \times 0.8}{1.24}
 \end{equation*}
 
 \begin{equation*}
@@ -264,6 +319,9 @@ The refractive index of a silicon photodetector is 3.5. Under reverse bias the w
 \end{question}
 
 \textbf{\large Solution --- Question 6}
+
+\textbf{Physical Insight: Plotting the Power Decay}
+This question forces us to visualize the "Photon Journey" mathematically. The light power doesn't decay smoothly from the very outside; it undergoes a discontinuous drop at the surface due to reflection, and then decays exponentially ($e^{-\alpha x}$) through both the dead zone and the active zone.
 
 The given parameters are $n_1 = 1$ (air), $n_2 = 3.5$ (silicon), $W = 10\,\mu\text{m}$, $x_0 = 5\,\mu\text{m}$, $\lambda = 0.8\,\mu\text{m}$, $P_{\text{inc}} = 1.5\,\mu\text{W}$, and $\alpha = 800\,\text{cm}^{-1} = 8\times10^4\,\text{m}^{-1}$.
 
@@ -296,49 +354,52 @@ The distribution of power $P(x)$ inside the silicon starts at $(1-R)P_{\text{inc
 
 \textbf{(b)(1) Quantum efficiency.}
 
-Only the photons absorbed inside the depletion region contribute to photocurrent. We take $\xi = 1$ (unit fill factor, all photogenerated carriers in the depletion region are collected):
-
+We will use the standard efficiency formula:
 \begin{equation*}
-  \eta = (1-R)\,e^{-\alpha x_0}\bigl(1 - e^{-\alpha W}\bigr)
-  = 0.6914\times0.670\times(1 - e^{-0.8})
+  \eta = (1-R)(1 - e^{-\alpha L})\eta_{int}
 \end{equation*}
 
+We map the physical parameters directly:
+\begin{itemize}
+  \item \textbf{Reflection ($1-R$):} $0.6914$ (calculated in part a)
+  \item \textbf{Active Layer Absorption $(1 - e^{-\alpha L})$:} Here $L = W = 10\,\mu\text{m}$, giving $1 - e^{-0.8} = 0.5507$
+  \item \textbf{Internal Efficiency ($\eta_{int}$):} The survival fraction through the dead zone ($x_0 = 5\,\mu\text{m}$), which is $e^{-\alpha x_0} = e^{-0.4} = 0.6703$
+\end{itemize}
+Multiplying them together gives the total efficiency:
 \begin{equation*}
-  = 0.6914\times0.670\times(1-0.449) = 0.6914\times0.670\times0.551
+  \eta = (0.6914) \times (0.5507) \times (0.6703) \approx 0.2552
 \end{equation*}
-
 \begin{equation*}
-  \boxed{\eta = 25.47\%}
+  \boxed{\eta = 25.5\%}
 \end{equation*}
 
 \textbf{(b)(2) Maximum detectable wavelength.}
 
+Using the shortcut relating bandgap to wavelength:
 \begin{equation*}
-  \lambda_{\max} = \frac{hc}{E_g} = \frac{1.24}{1.11}
+  \lambda_{\max} = \frac{1.24}{E_g[\text{eV}]} = \frac{1.24}{1.11}
 \end{equation*}
-
 \begin{equation*}
   \boxed{\lambda_{\max} = 1.117\,\mu\text{m}}
 \end{equation*}
 
 \textbf{(b)(3) Responsivity.}
 
+Using the shortcut we rigorously derived in Question 4:
 \begin{equation*}
-  \mathcal{R}_s = \frac{\eta e}{h\nu} = \frac{\eta\lambda}{1.24} = \frac{0.2547\times0.8}{1.24}
+  \mathcal{R} = \frac{\eta\lambda[\mu\text{m}]}{1.24} = \frac{0.2552 \times 0.8}{1.24}
 \end{equation*}
-
 \begin{equation*}
-  \boxed{\mathcal{R}_s = 0.1644\,\text{A/W}}
+  \boxed{\mathcal{R} = 0.1646\,\text{A/W}}
 \end{equation*}
 
 \textbf{(b)(4) Photocurrent.}
 
 \begin{equation*}
-  I = \mathcal{R}_s\,P_{\text{inc}} = 0.1644\times1.5\times10^{-6}
+  I = \mathcal{R}\,P_{\text{inc}} = 0.1646 \times 1.5\,\mu\text{W}
 \end{equation*}
-
 \begin{equation*}
-  \boxed{I = 0.2447\,\mu\text{A}}
+  \boxed{I = 0.2469\,\mu\text{A}}
 \end{equation*}
 
 \begin{question}[Question 7]
@@ -347,42 +408,53 @@ The P$^+$ contact layer of a Si p-i-n photodiode is 1 \si{\micro\meter} thick. K
 
 \textbf{\large Solution --- Question 7}
 
+\textbf{Physical Insight: Side Illumination}
+In a "side illumination" geometry, the light enters parallel to the junction rather than through the top surface. Here, the problem specifies that the light must travel transversely through $1\,\mu\text{m}$ of the $\text{P}^+$ contact layer before reaching the $\nu$-layer (the depletion region). We are told to ignore reflection ($R=0$). 
+To maximize quantum efficiency, we want the active zone ($\nu$-layer) to be infinitely thick ($W \to \infty$) so that it catches every single photon that manages to survive the $\text{P}^+$ dead zone.
+
 The given parameters are $x_0 = 1\,\mu\text{m}$ (P$^+$ contact layer thickness), $\alpha = 5\times10^4\,\text{m}^{-1}$, and $\lambda = 0.9\,\mu\text{m}$.
 
 \textbf{(a) Maximum quantum efficiency.}
 
-``Side illumination'' here means the light enters the device from the side of the P$^+$ contact layer, so it must traverse the full $x_0 = 1\,\mu\text{m}$ before reaching the depletion ($\nu$) region. The problem states $R = 0$ (silicon–air interface reflectivity neglected, i.e.\ $\xi = 1$, $1-R = 1$). The maximum quantum efficiency is achieved when the $\nu$-layer is infinitely thick — all photons entering the depletion region are absorbed:
+``Side illumination'' means the light enters from the side of the P$^+$ contact layer, traversing $x_0 = 1\,\mu\text{m}$ before hitting the active $\nu$-layer. We want the maximum efficiency, which occurs if the active zone is infinitely thick ($W \to \infty$) so no photons escape.
 
+We will use the standard efficiency formula:
 \begin{equation*}
-  \eta_{\max} = (1-R)\,e^{-\alpha x_0}\bigl(1 - e^{-\alpha\cdot\infty}\bigr) = (1)(1)e^{-(5\times10^4)(1\times10^{-6})}\times1
+  \eta = (1-R)(1 - e^{-\alpha L})\eta_{int}
 \end{equation*}
 
+We map the physical parameters directly:
+\begin{itemize}
+  \item \textbf{Reflection ($1-R$):} The problem tells us to ignore reflection, so $(1 - R) = 1$.
+  \item \textbf{Active Layer Absorption $(1 - e^{-\alpha L})$:} Here the active layer $L$ is infinitely thick, so $(1 - e^{-\alpha \cdot \infty}) = 1 - 0 = 1$
+  \item \textbf{Internal Efficiency ($\eta_{int}$):} The survival fraction through the dead zone ($x_0 = 1\,\mu\text{m}$), which is $e^{-\alpha x_0} = e^{-(5\times10^4)(1\times10^{-6})} = e^{-0.05} \approx 0.9512$
+\end{itemize}
+Multiplying them together gives the absolute maximum efficiency:
 \begin{equation*}
-  \eta_{\max} = e^{-0.05} = 0.9512
+  \eta_{\max} = 1 \times 1 \times 0.9512 = 0.9512
 \end{equation*}
-
 \begin{equation*}
-  \boxed{\eta_{\max} = 95\%}
+  \boxed{\eta_{\max} = 95.12\%}
 \end{equation*}
 
 \textbf{(b) Minimum $\nu$-layer thickness for $\eta = 0.8$.}
 
-We now set $\eta = 0.8$ and solve for $W$. Using the same formula with $R = 0$:
-
+We now want the total efficiency to be exactly $0.8$. The Reflection and Internal Efficiency fractions remain exactly the same as in part (a), so we just set up the full efficiency equation and isolate the Active Layer Absorption term:
 \begin{equation*}
-  \eta = e^{-\alpha x_0}\bigl(1 - e^{-\alpha W}\bigr) = \eta_{\max}\bigl(1 - e^{-\alpha W}\bigr)
+  \eta = (1-R)(1 - e^{-\alpha L})\eta_{int} = \eta_{\max} \bigl(1 - e^{-\alpha W}\bigr)
 \end{equation*}
-
 \begin{equation*}
-  1 - e^{-\alpha W} = \frac{\eta}{\eta_{\max}} = \frac{0.8}{0.9512} \quad\Longrightarrow\quad e^{-\alpha W} = 1 - \frac{0.8}{0.9512} = 1 - 0.841 = 0.159
+  0.8 = 0.9512 \bigl(1 - e^{-\alpha W}\bigr) \quad\Longrightarrow\quad 1 - e^{-\alpha W} = \frac{0.8}{0.9512} = 0.8410
 \end{equation*}
-
 \begin{equation*}
-  -\alpha W = \ln(0.159) = -1.838 \quad\Longrightarrow\quad W = \frac{1.838}{5\times10^4\,\text{m}^{-1}}
+  e^{-\alpha W} = 1 - 0.8410 = 0.1590
 \end{equation*}
-
+Taking the natural logarithm of both sides:
 \begin{equation*}
-  \boxed{W = 36.76\,\mu\text{m}}
+  -\alpha W = \ln(0.1590) \approx -1.8388 \quad\Longrightarrow\quad W = \frac{1.8388}{5\times10^4\,\text{m}^{-1}}
+\end{equation*}
+\begin{equation*}
+  \boxed{W = 36.78\,\mu\text{m}}
 \end{equation*}
 
 
@@ -395,55 +467,68 @@ A Si p$^+$-i-n$^+$ photodiode is 0.1 mm square. Its i-layer is 30 \si{\micro\met
 
 \textbf{\large Solution --- Question 8}
 
+\textbf{Physical Insight: Transit Time vs. Absorption}
+This question explores the fundamental trade-off in photodiode design. 
+\begin{itemize}
+\item To absorb more light and increase efficiency, you want a very \textbf{wide} active zone ($W$).
+\item But, to make the photodiode fast (high bandwidth), you want a very \textbf{narrow} active zone, so that the electrons and holes have less distance to travel (shorter transit time $t = W/v$).
+\end{itemize}
+
 The given parameters are $\text{Area} = 0.1\,\text{mm}^2$, $W = 30\,\mu\text{m} = 30\times10^{-6}\,\text{m}$, $R = 0$ (surface reflection neglected), $x_0 = 0$ (no contact-layer absorption), $\alpha = 7\times10^4\,\text{m}^{-1}$, $\lambda = 0.82\,\mu\text{m}$, $v_e = 7\times10^4\,\text{m/s}$, and $v_h = 4\times10^4\,\text{m/s}$.
 
 \textbf{(a) Maximum quantum efficiency and responsivity.}
 
-With $R = 0$ and $x_0 = 0$ (the light enters directly into the i-layer), the quantum efficiency is:
-
+We will use the standard efficiency formula:
 \begin{equation*}
-  \eta = (1-R)\,e^{-\alpha x_0}(1 - e^{-\alpha W}) = (1)(1)(1 - e^{-\alpha W})
+  \eta = (1-R)(1 - e^{-\alpha L})\eta_{int}
 \end{equation*}
 
+We map the physical parameters directly:
+\begin{itemize}
+  \item \textbf{Reflection ($1-R$):} The problem says neglect surface reflection, so $(1 - R) = 1$.
+  \item \textbf{Active Layer Absorption $(1 - e^{-\alpha L})$:} Here $L = W = 30\,\mu\text{m}$, giving $1 - e^{-(7\times10^4)(30\times10^{-6})} = 1 - e^{-2.1} = 1 - 0.1225 = 0.8775$
+  \item \textbf{Internal Efficiency ($\eta_{int}$):} The problem says neglect contact layer absorption (no dead zone, $x_0 = 0$), so $\eta_{int} = e^0 = 1$.
+\end{itemize}
+Multiplying them together gives the overall efficiency:
 \begin{equation*}
-  \eta_{\max} = 1 - e^{-(7\times10^4)(30\times10^{-6})} = 1 - e^{-2.1} = 1 - 0.1225
+  \eta_{\max} = 1 \times 0.8775 \times 1 = 0.8775
 \end{equation*}
-
 \begin{equation*}
   \boxed{\eta_{\max} = 87.75\%}
 \end{equation*}
 
-The responsivity at this wavelength is:
-
+For the responsivity, we use the shortcut formula from Question 4:
 \begin{equation*}
-  \mathcal{R} = \frac{\eta\lambda}{1.24} = \frac{0.8775\times0.82}{1.24} = \frac{0.7196}{1.24}
+  \mathcal{R} = \frac{\eta\lambda[\mu\text{m}]}{1.24} = \frac{0.8775 \times 0.82}{1.24} = \frac{0.71955}{1.24}
 \end{equation*}
-
 \begin{equation*}
   \boxed{\mathcal{R} = 0.5803\,\text{A/W}}
 \end{equation*}
 
 \textbf{(b) Transit times across the i-region.}
 
-The transit time of a carrier across the i-layer is simply the layer width divided by the average drift velocity. For a carrier drifting under the high reverse-bias electric field, $t = W/v$:
-
+We will use the standard drift time formula:
 \begin{equation*}
-  t_e = \frac{W}{v_e} = \frac{30\times10^{-6}}{7\times10^4} = 0.4286\times10^{-9}\,\text{s}
+  \tau_{drift} = \frac{W}{v_d}
 \end{equation*}
 
+For the electrons:
 \begin{equation*}
-  \boxed{t_e = 0.428\,\text{ns}}
+  \tau_{drift,e} = \frac{W}{v_e} = \frac{30\times10^{-6}\,\text{m}}{7\times10^4\,\text{m/s}} \approx 0.4286\times10^{-9}\,\text{s}
+\end{equation*}
+\begin{equation*}
+  \boxed{\tau_{drift,e} = 0.4286\,\text{ns}}
 \end{equation*}
 
+For the holes:
 \begin{equation*}
-  t_h = \frac{W}{v_h} = \frac{30\times10^{-6}}{4\times10^4} = 0.75\times10^{-9}\,\text{s}
+  \tau_{drift,h} = \frac{W}{v_h} = \frac{30\times10^{-6}\,\text{m}}{4\times10^4\,\text{m/s}} = 0.75\times10^{-9}\,\text{s}
+\end{equation*}
+\begin{equation*}
+  \boxed{\tau_{drift,h} = 0.75\,\text{ns}}
 \end{equation*}
 
-\begin{equation*}
-  \boxed{t_h = 0.75\,\text{ns}}
-\end{equation*}
-
-The bandwidth of the photodiode is limited by the longer of the two transit times, which is $t_h = 0.75\,\text{ns}$, corresponding to the slower holes.
+\textbf{Conclusion:} The overall bandwidth of this photodiode is heavily limited by the slower carriers (the holes), which take $0.75\,\text{ns}$ to cross the active zone.
 
 \begin{question}[Question 9]
 Calculate the maximum values of load resistance that may be used when a photodiode having 1 pF self-capacitance is required to have an upper cutoff frequency of (a) 1 MHz (b) 1 GHz.
@@ -451,30 +536,29 @@ Calculate the maximum values of load resistance that may be used when a photodio
 
 \textbf{\large Solution --- Question 9}
 
+\textbf{Physical Insight: The RC Bandwidth Limit}
+Even if the transit time of the carriers is extremely fast, the photodiode is still part of an electrical circuit. The internal capacitance of the diode junction ($C_D$) and the external load resistance ($R_B$) form a standard RC low-pass filter. If you want high-speed operation (GHz), you are forced to use a very tiny load resistor, which unfortunately produces a much weaker output voltage signal.
+
 The given parameter is $C_D = 1\,\text{pF} = 10^{-12}\,\text{F}$.
 
-The RC time constant of the photodiode circuit sets its bandwidth. The junction capacitance $C_D$ and the load resistance $R_B$ form a simple first-order RC low-pass filter whose 3-dB cutoff frequency is:
-
+\textbf{Step 1: The RC Bandwidth Formula}
+The RC time constant ($\tau_{RC}$) of the photodiode circuit sets its bandwidth. The junction capacitance $C_D$ (where theoretically $C_D = \epsilon_s A / W$) and the load resistance $R_B$ form a simple first-order RC low-pass filter with time constant $\tau_{RC} = R_B C_D$. Its 3-dB cutoff frequency is:
 \begin{equation*}
-  f_{3\text{dB}} = \frac{1}{2\pi R_B C_D} \quad\Longrightarrow\quad R_B = \frac{1}{2\pi f_{3\text{dB}} C_D}
+  f_{3\text{dB}} = \frac{1}{2\pi \tau_{RC}} = \frac{1}{2\pi R_B C_D} \quad\Longrightarrow\quad R_B = \frac{1}{2\pi f_{3\text{dB}} C_D}
 \end{equation*}
 
-\textbf{(a) $f_{3\text{dB}} = 1\,\text{MHz}$:}
-
+\textbf{Step 2: Calculate for 1 MHz}
 \begin{equation*}
-  R_B = \frac{1}{2\pi\times10^6\times10^{-12}} = \frac{1}{6.283\times10^{-6}}
+  R_B = \frac{1}{2\pi (10^6) (10^{-12})} = \frac{1}{2\pi \times 10^{-6}} \approx 159.15\,\text{k}\Omega
 \end{equation*}
-
 \begin{equation*}
   \boxed{R_B = 159.2\,\text{k}\Omega}
 \end{equation*}
 
-\textbf{(b) $f_{3\text{dB}} = 1\,\text{GHz}$:}
-
+\textbf{Step 3: Calculate for 1 GHz}
 \begin{equation*}
-  R_B = \frac{1}{2\pi\times10^9\times10^{-12}} = \frac{1}{6.283\times10^{-3}}
+  R_B = \frac{1}{2\pi (10^9) (10^{-12})} = \frac{1}{2\pi \times 10^{-3}} \approx 159.15\,\Omega
 \end{equation*}
-
 \begin{equation*}
   \boxed{R_B = 159.2\,\Omega}
 \end{equation*}
@@ -487,40 +571,41 @@ A conventional APD with gain G = 20 operates at a wavelength $\lambda = 1.55$ \s
 
 \textbf{\large Solution --- Question 10}
 
+\textbf{Physical Insight: Avalanche Multiplication}
+An Avalanche Photodiode (APD) is operated under an extreme reverse bias. When a photon generates a primary electron, that electron is accelerated so violently by the electric field that it smashes into the crystal lattice, knocking loose more electrons (impact ionization). This creates an avalanche effect, multiplying the primary photocurrent by a gain factor $G$.
+
 The given parameters are $G = 20$, $\lambda = 1.55\,\mu\text{m}$, $\mathcal{R}_{\text{APD}} = 12\,\text{A/W}$, and $\Phi_{\text{in}} = 10^{10}\,\text{photons/s}$.
 
-An avalanche photodiode (APD) multiplies the primary photocurrent by the avalanche gain $G$. Its total responsivity is therefore:
-
+\textbf{Step 1: Calculate Quantum Efficiency ($\eta$)}
+An avalanche photodiode (APD) simply multiplies the raw responsivity of a normal PIN diode by the avalanche gain $G$.
 \begin{equation*}
-  \mathcal{R}_{\text{APD}} = G\,\mathcal{R}_{\text{PIN}} = G\,\frac{\eta e}{h\nu}
+  \mathcal{R}_{\text{APD}} = G \cdot \mathcal{R}_{\text{PIN}} = G \left( \frac{\eta \lambda[\mu\text{m}]}{1.24} \right)
 \end{equation*}
-
-Solving for the quantum efficiency:
-
+Rearranging to solve for the quantum efficiency:
 \begin{equation*}
-  \eta = \frac{\mathcal{R}_{\text{APD}}\,h\nu}{G\,e} = \frac{\mathcal{R}_{\text{APD}}}{G}\cdot\frac{hc/e}{\lambda}
-  = \frac{12}{20}\cdot\frac{1.24}{1.55}
+  \eta = \frac{1.24 \cdot \mathcal{R}_{\text{APD}}}{G \cdot \lambda[\mu\text{m}]} = \frac{1.24 \times 12}{20 \times 1.55} = \frac{14.88}{31} = 0.48
 \end{equation*}
-
-\begin{equation*}
-  \eta = 0.6 \times 0.8
-\end{equation*}
-
 \begin{equation*}
   \boxed{\eta = 48\%}
 \end{equation*}
 
-For the photocurrent, the incident optical power is $P = \Phi_{\text{in}}\cdot h\nu = \Phi_{\text{in}}\cdot hc/\lambda$. Using the APD responsivity:
-
+\textbf{Step 2: Calculate Photocurrent ($I$)}
+We are given the incoming photon flux ($\Phi_{\text{in}} = 10^{10}\,\text{photons/s}$), not the optical power. We must first find the energy of a single photon to find the total power. Using the energy shortcut:
 \begin{equation*}
-  I = \mathcal{R}_{\text{APD}}\,P = \mathcal{R}_{\text{APD}}\cdot\Phi_{\text{in}}\cdot h\nu
-  = 12 \times 10^{10} \times \frac{1.24\times1.6\times10^{-19}}{1.55}
+  E_{\text{photon}} = \frac{1.24}{\lambda[\mu\text{m}]}\,\text{eV} = \frac{1.24}{1.55}\,\text{eV} = 0.8\,\text{eV}
 \end{equation*}
-
+Convert this to Joules ($1\,\text{eV} = 1.6\times10^{-19}\,\text{J}$):
 \begin{equation*}
-  I = 12\times10^{10}\times\frac{1.984\times10^{-19}}{1.55} = 12\times10^{10}\times1.28\times10^{-19}
+  E_{\text{photon}} = 0.8 \times 1.6\times10^{-19} = 1.28\times10^{-19}\,\text{J}
 \end{equation*}
-
+The total optical power is the energy per photon times the number of photons per second:
+\begin{equation*}
+  P = \Phi_{\text{in}} \times E_{\text{photon}} = (10^{10}) \times (1.28\times10^{-19}) = 1.28\times10^{-9}\,\text{W} = 1.28\,\text{nW}
+\end{equation*}
+Now use the responsivity to find the final photocurrent:
+\begin{equation*}
+  I = \mathcal{R}_{\text{APD}} \times P = 12\,\text{A/W} \times 1.28\,\text{nW}
+\end{equation*}
 \begin{equation*}
   \boxed{I = 15.36\,\text{nA}}
 \end{equation*}
@@ -530,6 +615,10 @@ Show that a carrier of charge $Q$ moving with a velocity $v(t)$ in the $x$-direc
 \end{question}
 
 \textbf{\large Solution --- Formative Assignment: Ramo's Theorem}
+
+\textbf{Physical Insight: The Illusion of Charge Collection}
+It is incredibly tempting to think: "If a photon creates 1 electron and 1 hole, and they both travel to the opposite terminals, didn't I just collect $2e$ of charge?"
+\textbf{No!} Ramo's Theorem proves that this is an illusion. The current in the wires isn't waiting for the electron to arrive. The moment the electron starts moving, it pushes charge through the external wires via the electric field. By using the universal law of \textbf{Energy Conservation}, we can prove that the total work done by the battery moving the entire electron-hole pair sums perfectly to exactly $1e$ of charge, regardless of where in the device the photon was absorbed.
 
 \textbf{Part 1 — Deriving Ramo's theorem.}
 

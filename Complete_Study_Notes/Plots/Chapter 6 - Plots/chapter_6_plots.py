@@ -341,78 +341,6 @@ def fig_04():
 
 fig_04()
 
-
-# ==============================================================================
-#  FIG-5  Fermi Occupation Functions and Population Inversion
-# ==============================================================================
-def fig_05():
-    kBT = 0.026
-    configs = [
-        (-0.03, -0.03, "--", "Low injection", 0.70),
-        (0.08, 0.02, "-", "High injection", 1.00),
-    ]
-    delta = np.linspace(0.0, 0.18, 500)
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5.5))
-
-    # Left: f_c and 1-f_v for states linked by a direct transition.
-    ax = axes[0]
-    for (eta_c, eta_v, ls, lbl, alpha) in configs:
-        _, fc, hole_occ = inversion_factor(delta, eta_c, eta_v, kBT)
-        ax.plot(delta, fc, color=SKYBLUE, lw=2.5, ls=ls, alpha=alpha,
-                label=rf"$f_c$  ({lbl})")
-        ax.plot(delta, hole_occ, color=CORAL, lw=2.5, ls=ls, alpha=alpha,
-                label=rf"$1-f_v$  ({lbl})")
-    ax.axhline(0.5, color=AXES_CLR, lw=0.8, ls=":")
-    ax.axhline(0,   color=AXES_CLR, lw=0.8)
-    ax.axhline(1,   color=AXES_CLR, lw=0.8)
-    ax.set_xlabel(r"Transition excess energy $h\nu - E_g$  (eV)", fontsize=12)
-    ax.set_ylabel("Occupation probability", fontsize=12)
-    ax.set_title(r"(a) Occupation of Coupled Electron-Hole States", pad=8)
-    ax.set_xlim(0.0, 0.18); ax.set_ylim(-0.05, 1.10)
-    ax.legend(fontsize=9.5, framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.grid(True)
-
-    # Right: inversion factor fc - fv.
-    ax = axes[1]
-    ax.axhline(0, color=AXES_CLR, lw=1.5)
-    diffs = {}
-    for (eta_c, eta_v, ls, lbl, alpha) in configs:
-        diff, _, _ = inversion_factor(delta, eta_c, eta_v, kBT)
-        diffs[lbl] = diff
-        ax.plot(delta, diff,
-                color=TEAL if alpha > 0.9 else SKYBLUE,
-                lw=2.5, ls=ls, alpha=alpha, label=lbl)
-
-    diff_hi = diffs["High injection"]
-    diff_lo = diffs["Low injection"]
-    ax.fill_between(delta, 0, diff_hi, where=diff_hi >= 0, color=TEAL, alpha=0.14)
-    ax.fill_between(delta, 0, diff_lo, where=diff_lo <= 0, color=CORAL, alpha=0.10)
-
-    zero_hi = np.where(np.diff(np.sign(diff_hi)))[0]
-    if len(zero_hi):
-        x_zero = delta[zero_hi[0]]
-        ax.annotate("", xy=(x_zero, 0.22), xytext=(0, 0.22),
-                    arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.2))
-        ax.text(x_zero/2, 0.27, f"~{x_zero*1000:.0f} meV gain window",
-                ha="center", color=AXES_CLR, fontsize=10)
-
-    ax.text(0.070, 0.42, "Gain", color=TEAL, fontsize=12, ha="center")
-    ax.text(0.112, -0.40, "Absorption", color=CORAL, fontsize=11, ha="center")
-    ax.set_xlabel(r"$h\nu - E_g$  (eV)", fontsize=12)
-    ax.set_ylabel(r"$f_c - f_v$", fontsize=12)
-    ax.set_title(r"(b) Population Inversion Factor for Direct Transitions", pad=8)
-    ax.set_xlim(0.0, 0.18); ax.set_ylim(-0.95, 0.85)
-    ax.legend(fontsize=10, framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.grid(True)
-
-    fig.tight_layout(pad=2.0)
-    save(fig, "fermi_occupation_gain_window.jpg")
-
-
-fig_05()
-
-
 # ==============================================================================
 #  FIG-7  Minority Carrier Profile in a Forward-Biased Homojunction
 # ==============================================================================
@@ -456,160 +384,6 @@ def fig_07():
 
 
 fig_07()
-
-
-# ==============================================================================
-#  FIG-8  Optical Field Confinement: Homojunction vs. Double Heterojunction
-# ==============================================================================
-def fig_08():
-    z = np.linspace(-3, 3, 600)   # position in um
-    d_act = 0.2                   # active layer half-width in um
-
-    # Refractive index profiles
-    nr_homo = np.full_like(z, 3.64)
-    nr_dh   = np.where(np.abs(z) <= d_act, 3.64, 3.50)
-
-    # Optical mode: Gaussian (broad for homo, narrow for DH)
-    sigma_homo = 1.20
-    sigma_dh   = 0.15
-    mode_homo  = np.exp(-z**2 / (2*sigma_homo**2))
-    mode_dh    = np.exp(-z**2 / (2*sigma_dh**2))
-    mode_homo /= mode_homo.max()
-    mode_dh   /= mode_dh.max()
-
-    # Confinement factors
-    def Gamma(z, d, mode):
-        inside = np.abs(z) <= d
-        return np.trapezoid(mode[inside], z[inside]) / np.trapezoid(mode, z)
-    G_homo = Gamma(z, d_act, mode_homo)
-    G_dh   = Gamma(z, d_act, mode_dh)
-
-    fig, axes = plt.subplots(2, 2, figsize=(12, 7), sharex=True)
-
-    titles_top = ["Homojunction: Refractive Index",
-                  "Double Heterojunction: Refractive Index"]
-    titles_bot = ["Homojunction: Optical Mode",
-                  "Double Heterojunction: Optical Mode"]
-    nr_profiles = [nr_homo, nr_dh]
-    modes       = [mode_homo, mode_dh]
-    gammas      = [G_homo, G_dh]
-
-    for col, (nr, mode, gamma, tt, tb) in enumerate(
-            zip(nr_profiles, modes, gammas, titles_top, titles_bot)):
-        # Top: refractive index
-        ax = axes[0, col]
-        ax.plot(z, nr, color=SKYBLUE, lw=2.5)
-        ax.axvspan(-d_act, d_act, color=GOLD, alpha=0.15)
-        for xd in [-d_act, d_act]:
-            ax.axvline(xd, color=AXES_CLR, lw=0.9, ls="--")
-        ax.set_ylabel(r"$n_r$", fontsize=12)
-        ax.set_ylim(3.40, 3.75)
-        ax.set_title(tt, pad=6, fontsize=11)
-        ax.grid(True)
-        if col == 1:
-            ax.annotate("", xy=(d_act, 3.57), xytext=(d_act, 3.50),
-                        arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.2))
-            ax.text(d_act+0.1, 3.535, r"$\Delta n_r = 0.14$",
-                    color=AXES_CLR, fontsize=9)
-        else:
-            ax.text(0, 3.66, "Constant $n_r$ — no waveguiding",
-                    ha="center", color=CORAL, fontsize=9.5)
-
-        # Bottom: optical mode
-        ax = axes[1, col]
-        ax.axvspan(-d_act, d_act, color=TEAL, alpha=0.20)
-        outside = np.abs(z) > d_act
-        ax.fill_between(z, 0, np.where(outside, mode, 0),
-                        color=CORAL, alpha=0.15, label="Loss region")
-        ax.plot(z, mode, color=AXES_CLR, lw=2.5)
-        for xd in [-d_act, d_act]:
-            ax.axvline(xd, color=AXES_CLR, lw=0.9, ls="--")
-        gamma_y = 0.50 if col == 0 else 0.45
-        gamma_x = 0 if col == 0 else 0.6
-        ax.text(gamma_x, gamma_y,
-                rf"$\Gamma \approx {gamma*100:.0f}\%$",
-                ha="center", color=TEAL, fontsize=11, fontweight="bold")
-        ax.set_ylabel(r"$|\mathcal{E}|^2$  (norm.)", fontsize=12)
-        ax.set_xlabel(r"Position $z$  ($\mu$m)", fontsize=12)
-        ax.set_ylim(-0.05, 1.10)
-        ax.set_title(tb, pad=6, fontsize=11)
-        ax.grid(True)
-
-    fig.suptitle("Optical Confinement: Homojunction vs. Double Heterojunction",
-                 fontsize=14, y=1.02)
-    fig.tight_layout()
-    save(fig, "optical_confinement_comparison.jpg")
-
-
-fig_08()
-
-# ==============================================================================
-#  FIG-11  Threshold Current: Homojunction vs. Double Heterojunction
-# ==============================================================================
-def fig_11():
-    J = np.linspace(0, 50, 400)   # kA/cm^2
-
-    # Modal gain: slope * J + intercept
-    # Homojunction: small slope (poor confinement)
-    slope_homo = 1.5; intcpt_homo = -20.0
-    gamma_homo = slope_homo * J + intcpt_homo
-
-    # DH: steep slope (high confinement)
-    slope_dh = 30.0; intcpt_dh = -30.0
-    gamma_dh = slope_dh * J + intcpt_dh
-
-    alpha_th = 30.0   # threshold gain (cm^-1)
-
-    # Threshold currents
-    Jth_homo = (alpha_th - intcpt_homo) / slope_homo
-    Jth_dh   = (alpha_th - intcpt_dh)   / slope_dh
-
-    fig, ax = plt.subplots(figsize=(9, 6))
-
-    # Gain/loss shading
-    ax.axhspan(alpha_th, 110, color=TEAL,  alpha=0.08)
-    ax.axhspan(-60, 0,        color=CORAL, alpha=0.06)
-    ax.axhline(0,        color=AXES_CLR, lw=0.9)
-    ax.plot([-0.5, 50], [alpha_th, alpha_th], color=AXES_CLR, lw=1.6, ls="--", zorder=4)
-    ax.text(1, alpha_th, r"Loss threshold $\alpha_\mathrm{th}$",
-            color=AXES_CLR, fontsize=10, va="center", bbox=dict(facecolor=WHITE, edgecolor='none', pad=2.0), zorder=10)
-
-    ax.plot(J, gamma_homo, color=SKYBLUE, lw=2.5, ls="--",
-            label="Homojunction")
-    ax.plot(J, gamma_dh,   color=CORAL,   lw=2.5, ls="-",
-            label="Double Heterojunction (DH)")
-
-    # Vertical drop lines at thresholds
-    threshold_labels = [
-        (Jth_homo, SKYBLUE, r"$J_{th}^\mathrm{homo}$", "center", -55),
-        (Jth_dh,   CORAL,   r"$J_{th}^\mathrm{DH}$",   "left",   -51),
-    ]
-    for Jth, clr, lbl, ha, ytxt in threshold_labels:
-        if 0 <= Jth <= 50:
-            ax.plot([Jth, Jth], [-48, 110], color=clr, lw=1.2, ls=":")
-            xtext = Jth + (0.25 if ha == "left" else 0.0)
-            ax.text(xtext, ytxt, lbl, ha=ha, color=clr, fontsize=10)
-
-    # ~20x reduction annotation
-    ax.annotate("", xy=(Jth_dh, alpha_th+18), xytext=(Jth_homo, alpha_th+18),
-                arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.3))
-    reduction = Jth_homo / Jth_dh
-    ax.text((Jth_homo+Jth_dh)/2, alpha_th+22, rf"$\sim {reduction:.0f}\times$ reduction",
-            ha="center", color=AXES_CLR, fontsize=10)
-
-    ax.set_xlabel(r"Current density $J$  (kA$\cdot$cm$^{-2}$)", fontsize=13)
-    ax.set_ylabel(r"Modal gain $\Gamma\gamma$  (cm$^{-1}$)", fontsize=13)
-    ax.set_title("Threshold Current: Homojunction vs. Double Heterojunction", pad=10)
-    ax.set_xlim(-0.5, 50); ax.set_ylim(-60, 110)
-    ax.legend(loc="upper left", framealpha=0.9, facecolor="#f5f5f5", edgecolor="#cccccc")
-    ax.grid(True)
-
-    fig.tight_layout()
-    save(fig, "threshold_current_comparison.jpg")
-
-
-fig_11()
-
 
 # ==============================================================================
 #  FIG-12  E-k Band Diagram (Optical Gain)
@@ -754,7 +528,7 @@ def fig_13():
     hnu = np.linspace(0, 2.5, 800)
 
     # ── Joint DOS: ρ(ν) ∝ sqrt(hν − Eg) ──────────────────────────────────────
-    rho = np.where(hnu >= Eg, np.sqrt(hnu - Eg), 0.0)
+    rho = np.sqrt(np.maximum(hnu - Eg, 0.0))
     rho_norm = rho / (np.max(rho) + 1e-12)
 
     # ── Inversion factor: f_c(ν) − f_v(ν) ────────────────────────────────────
@@ -779,7 +553,7 @@ def fig_13():
     for ax in axes:
         ax.set_xlim(0, 2.5)
         ax.set_xticks([0, Eg, Efc_Efv])
-        ax.set_xticklabels(["$0$", "$E_g$", "$E_{fc}\!-\!E_{fv}$"], fontsize=12)
+        ax.set_xticklabels([r"$0$", r"$E_g$", r"$E_{fc}\!-\!E_{fv}$"], fontsize=12)
         ax.axvline(Eg, color=AXES_CLR, lw=1.0, ls=":")
         ax.axvline(Efc_Efv, color=AXES_CLR, lw=1.0, ls=":")
         ax.set_xlabel(r"Photon energy $h\nu$", fontsize=13)
@@ -926,3 +700,450 @@ def fig_14():
 
 
 fig_14()
+
+
+# ==============================================================================
+#  FIG-15  Formation of the Heterojunction Band Diagram (3-Step Evolution)
+#  Panel (a): Isolated materials — bands aligned to vacuum level
+#  Panel (b): Thermal equilibrium — Fermi levels aligned, bands bend
+#  Panel (c): Forward bias — quasi-Fermi levels split, carriers injected
+# ==============================================================================
+def fig_15():
+    fig, axes = plt.subplots(1, 3, figsize=(18, 6.5))
+
+    # Material parameters (conceptual, in eV and arbitrary position units)
+    # P-cladding (wide gap)  |  Active (narrow gap)  |  N-cladding (wide gap)
+    Eg_clad = 2.0
+    Eg_act  = 1.4
+    chi_clad = 4.0    # electron affinity of cladding
+    chi_act  = 4.3    # electron affinity of active layer
+
+    # Band discontinuities
+    dEc = chi_act - chi_clad    # 0.3 eV (conduction band offset)
+    dEv = (Eg_clad - Eg_act) - dEc  # 0.3 eV (valence band offset)
+
+    # Spatial coordinates for each region
+    x_p   = np.linspace(0, 2.0, 200)     # P-cladding
+    x_act = np.linspace(2.0, 3.0, 100)   # Active layer
+    x_n   = np.linspace(3.0, 5.0, 200)   # N-cladding
+
+    # ── Panel (a): Isolated Materials ─────────────────────────────────────────
+    ax = axes[0]
+
+    # Vacuum level reference (flat)
+    ax.hlines(0, -0.2, 5.2, color=AXES_CLR, lw=1.0, ls=":")
+    ax.text(5.3, 0, r"$E_\mathrm{vac}$", va="center", fontsize=11, color=AXES_CLR)
+
+    # P-cladding bands (isolated)
+    Ec_p_iso = -chi_clad
+    Ev_p_iso = Ec_p_iso - Eg_clad
+    ax.hlines(Ec_p_iso, 0, 1.8, color=SKYBLUE, lw=2.5)
+    ax.hlines(Ev_p_iso, 0, 1.8, color=CORAL, lw=2.5)
+    Ef_p = Ev_p_iso + 0.15  # Fermi near valence (p-type)
+    ax.hlines(Ef_p, 0, 1.8, color=AXES_CLR, lw=1.5, ls="--")
+
+    # Active layer bands (isolated)
+    Ec_act_iso = -chi_act
+    Ev_act_iso = Ec_act_iso - Eg_act
+    ax.hlines(Ec_act_iso, 2.2, 2.8, color=SKYBLUE, lw=2.5)
+    ax.hlines(Ev_act_iso, 2.2, 2.8, color=CORAL, lw=2.5)
+    Ef_act = (Ec_act_iso + Ev_act_iso) / 2  # intrinsic
+    ax.hlines(Ef_act, 2.2, 2.8, color=AXES_CLR, lw=1.5, ls="--")
+
+    # N-cladding bands (isolated)
+    Ec_n_iso = -chi_clad
+    Ev_n_iso = Ec_n_iso - Eg_clad
+    ax.hlines(Ec_n_iso, 3.2, 5.0, color=SKYBLUE, lw=2.5)
+    ax.hlines(Ev_n_iso, 3.2, 5.0, color=CORAL, lw=2.5)
+    Ef_n = Ec_n_iso - 0.15  # Fermi near conduction (n-type)
+    ax.hlines(Ef_n, 3.2, 5.0, color=AXES_CLR, lw=1.5, ls="--")
+
+    # Electron affinity annotations
+    ax.annotate("", xy=(0.3, Ec_p_iso), xytext=(0.3, 0),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(0.1, (0 + Ec_p_iso)/2, r"$\chi_\mathrm{clad}$",
+            color=GOLD, fontsize=10, ha="right", va="center")
+
+    ax.annotate("", xy=(2.5, Ec_act_iso), xytext=(2.5, 0),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(2.65, (0 + Ec_act_iso)/2, r"$\chi_\mathrm{act}$",
+            color=GOLD, fontsize=10, ha="left", va="center")
+
+    # Bandgap annotations
+    ax.annotate("", xy=(1.5, Ev_p_iso), xytext=(1.5, Ec_p_iso),
+                arrowprops=dict(arrowstyle="<->", color=LAVENDER, lw=1.3))
+    ax.text(1.65, (Ec_p_iso + Ev_p_iso)/2, r"$E_{g,\mathrm{clad}}$",
+            color=LAVENDER, fontsize=10, ha="left", va="center")
+
+    ax.annotate("", xy=(2.35, Ev_act_iso), xytext=(2.35, Ec_act_iso),
+                arrowprops=dict(arrowstyle="<->", color=LAVENDER, lw=1.3))
+    ax.text(2.15, (Ec_act_iso + Ev_act_iso)/2, r"$E_{g,\mathrm{act}}$",
+            color=LAVENDER, fontsize=10, ha="right", va="center")
+
+    # Region labels
+    ax.text(0.9, Ev_p_iso - 0.45, "P-clad", ha="center", color=CORAL, fontsize=10)
+    ax.text(2.5, Ev_act_iso - 0.45, "Active", ha="center", color=TEAL, fontsize=10)
+    ax.text(4.1, Ev_n_iso - 0.45, "N-clad", ha="center", color=SKYBLUE, fontsize=10)
+
+    # Fermi level labels
+    ax.text(-0.1, Ef_p, r"$E_{F,p}$", ha="right", va="center", fontsize=9, color=AXES_CLR)
+    ax.text(5.1, Ef_n, r"$E_{F,n}$", ha="left", va="center", fontsize=9, color=AXES_CLR)
+
+    # Band edge labels
+    ax.text(-0.1, Ec_p_iso, r"$E_c$", ha="right", va="center", fontsize=10, color=SKYBLUE)
+    ax.text(-0.1, Ev_p_iso, r"$E_v$", ha="right", va="center", fontsize=10, color=CORAL)
+
+    # Separation lines
+    for xsep in [2.0, 3.0]:
+        ax.axvline(xsep, color=AXES_CLR, lw=1.0, ls=":", alpha=0.5)
+
+    ax.set_xlim(-0.5, 5.5)
+    ax.set_ylim(Ev_p_iso - 0.8, 0.5)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_ylabel(r"Electron energy $E$", fontsize=12)
+    ax.set_title("(a) Isolated Materials", pad=10, fontsize=12)
+    ax.grid(False)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    # ── Panel (b): Thermal Equilibrium (Zero Bias) ────────────────────────────
+    ax = axes[1]
+
+    # At equilibrium, the Fermi level is flat everywhere
+    Ef_eq = -4.5  # chosen for visual clarity
+
+    # Build smooth band bending using tanh transitions
+    x_full = np.linspace(0, 5, 800)
+
+    # Active layer boundaries
+    x_left, x_right = 2.0, 3.0
+
+    # Conduction band: clad level in bulk, dips down in active by dEc
+    Ec_clad_eq = Ef_eq + 0.85  # position Ec_clad relative to Ef
+    Ec_act_eq  = Ec_clad_eq - dEc  # active Ec is lower by dEc
+
+    # Build Ec profile with smooth transitions at interfaces
+    w_trans = 0.08  # transition width
+    step_left  = 0.5 * (1 + np.tanh((x_full - x_left) / w_trans))
+    step_right = 0.5 * (1 + np.tanh((x_full - x_right) / w_trans))
+    # Goes: clad -> active -> clad
+    Ec_eq = Ec_clad_eq - dEc * (step_left - step_right)
+
+    # Valence band
+    Ev_clad_eq = Ec_clad_eq - Eg_clad
+    Ev_act_eq  = Ec_act_eq - Eg_act
+    dEv_actual = Ev_act_eq - Ev_clad_eq  # positive means active Ev is higher
+    Ev_eq = Ev_clad_eq + dEv_actual * (step_left - step_right)
+
+    ax.plot(x_full, Ec_eq, color=SKYBLUE, lw=2.5)
+    ax.plot(x_full, Ev_eq, color=CORAL, lw=2.5)
+    ax.hlines(Ef_eq, 0, 5.0, color=AXES_CLR, lw=1.8, ls="--")
+
+    # Band shading
+    ax.fill_between(x_full, Ec_eq, Ec_eq + 0.35, color=SKYBLUE, alpha=0.08)
+    ax.fill_between(x_full, Ev_eq - 0.35, Ev_eq, color=CORAL, alpha=0.08)
+
+    # Active region shading
+    ax.axvspan(x_left, x_right, color=TEAL, alpha=0.08)
+
+    # dEc and dEv annotations
+    ax.annotate("", xy=(x_right + 0.15, Ec_act_eq), xytext=(x_right + 0.15, Ec_clad_eq),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(x_right + 0.25, (Ec_act_eq + Ec_clad_eq)/2, r"$\Delta E_c$",
+            color=GOLD, fontsize=10, va="center")
+
+    ax.annotate("", xy=(x_right + 0.15, Ev_act_eq), xytext=(x_right + 0.15, Ev_clad_eq),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(x_right + 0.25, (Ev_act_eq + Ev_clad_eq)/2, r"$\Delta E_v$",
+            color=GOLD, fontsize=10, va="center")
+
+    # Labels
+    ax.text(-0.1, Ef_eq, r"$E_F$", ha="right", va="center", fontsize=10, color=AXES_CLR)
+    ax.text(-0.1, Ec_clad_eq, r"$E_c$", ha="right", va="center", fontsize=10, color=SKYBLUE)
+    ax.text(-0.1, Ev_clad_eq, r"$E_v$", ha="right", va="center", fontsize=10, color=CORAL)
+
+    # Interface boundaries
+    for xd in [x_left, x_right]:
+        ax.axvline(xd, color=AXES_CLR, lw=1.0, ls=":", alpha=0.5)
+
+    # Region labels
+    ax.text(1.0, Ev_clad_eq - 0.45, "P-clad", ha="center", color=CORAL, fontsize=10)
+    ax.text(2.5, Ev_act_eq - 0.55, "Active", ha="center", color=TEAL, fontsize=10)
+    ax.text(4.0, Ev_clad_eq - 0.45, "N-clad", ha="center", color=SKYBLUE, fontsize=10)
+
+    ax.set_xlim(-0.5, 5.5)
+    ax.set_ylim(Ev_clad_eq - 0.8, Ec_clad_eq + 0.7)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_title("(b) Thermal Equilibrium", pad=10, fontsize=12)
+    ax.grid(False)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    # ── Panel (c): Forward Bias (Lasing Condition) ────────────────────────────
+    ax = axes[2]
+
+    # Under forward bias, quasi-Fermi levels split
+    # The bands flatten and the well becomes more pronounced
+    Efc = Ec_act_eq + 0.05   # quasi-Fermi for electrons (inside CB well)
+    Efv = Ev_act_eq - 0.05   # quasi-Fermi for holes (inside VB well)
+
+    # Under forward bias, the band slopes are reduced
+    # P-side slopes down slightly, N-side slopes up slightly
+    V_bias = 0.4
+    slope_p = V_bias / (2 * x_left) if x_left > 0 else 0
+    slope_n = -V_bias / (2 * (5.0 - x_right)) if (5.0 - x_right) > 0 else 0
+
+    # Build biased profile
+    Ec_bias = np.copy(Ec_eq)
+    Ev_bias = np.copy(Ev_eq)
+
+    # Add linear tilt to p and n regions
+    for i, xv in enumerate(x_full):
+        if xv < x_left:
+            tilt = slope_p * (xv - x_left)
+            Ec_bias[i] += tilt
+            Ev_bias[i] += tilt
+        elif xv > x_right:
+            tilt = slope_n * (xv - x_right)
+            Ec_bias[i] += tilt
+            Ev_bias[i] += tilt
+
+    ax.plot(x_full, Ec_bias, color=SKYBLUE, lw=2.5)
+    ax.plot(x_full, Ev_bias, color=CORAL, lw=2.5)
+
+    # Band shading
+    ax.fill_between(x_full, Ec_bias, Ec_bias + 0.35, color=SKYBLUE, alpha=0.08)
+    ax.fill_between(x_full, Ev_bias - 0.35, Ev_bias, color=CORAL, alpha=0.08)
+
+    # Active region shading
+    ax.axvspan(x_left, x_right, color=TEAL, alpha=0.08)
+
+    # Quasi-Fermi levels (flat in the active region, extend into bulk)
+    ax.hlines(Efc, 0.5, x_right + 0.3, color=SKYBLUE, lw=1.8, ls="--")
+    ax.hlines(Efv, x_left - 0.3, 4.5, color=CORAL, lw=1.8, ls="--")
+
+    # Labels
+    ax.text(-0.1, Efc, r"$E_{Fc}$", ha="right", va="center", fontsize=10, color=SKYBLUE)
+    ax.text(5.1, Efv, r"$E_{Fv}$", ha="left", va="center", fontsize=10, color=CORAL)
+
+    # qV annotation
+    ax.annotate("", xy=(4.5, Efv), xytext=(4.5, Efc),
+                arrowprops=dict(arrowstyle="<->", color=LAVENDER, lw=1.4))
+    ax.text(4.6, (Efc + Efv)/2, r"$qV$", color=LAVENDER, fontsize=11, va="center")
+
+    # Electrons in the well (filled circles)
+    for dx in [-0.25, -0.1, 0.0, 0.1, 0.25]:
+        for dy in [0.04, 0.12, 0.20]:
+            ax.plot(2.5 + dx, Ec_act_eq + dy, "o", color=SKYBLUE, ms=4, zorder=5)
+
+    # Holes in the well (open circles)
+    for dx in [-0.25, -0.1, 0.0, 0.1, 0.25]:
+        for dy in [0.04, 0.12, 0.20]:
+            ax.plot(2.5 + dx, Ev_act_eq - dy, "o", mfc="white", mec=CORAL,
+                    ms=4, lw=1.0, zorder=5)
+
+    # Photon emission arrow
+    mid_E = (Ec_act_eq + Ev_act_eq) / 2
+    ax.annotate("", xy=(2.5, Ev_act_eq + 0.05), xytext=(2.5, Ec_act_eq - 0.05),
+                arrowprops=dict(arrowstyle="->", color=GOLD, lw=2.0,
+                                connectionstyle="arc3,rad=0.3"))
+    ax.text(2.75, mid_E, r"$h\nu$", color=GOLD, fontsize=12, va="center")
+
+    # Interface boundaries
+    for xd in [x_left, x_right]:
+        ax.axvline(xd, color=AXES_CLR, lw=1.0, ls=":", alpha=0.5)
+
+    # Active layer width annotation
+    ax.annotate("", xy=(x_left, Ev_clad_eq - 0.55), xytext=(x_right, Ev_clad_eq - 0.55),
+                arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.2))
+    ax.text(2.5, Ev_clad_eq - 0.65, r"$d$", ha="center", color=AXES_CLR, fontsize=11)
+
+    # Region labels
+    ax.text(1.0, Ev_clad_eq - 0.45, "P-clad", ha="center", color=CORAL, fontsize=10)
+    ax.text(2.5, Ev_act_eq - 0.55, "Active", ha="center", color=TEAL, fontsize=10)
+    ax.text(4.0, Ev_clad_eq - 0.45, "N-clad", ha="center", color=SKYBLUE, fontsize=10)
+
+    ax.set_xlim(-0.5, 5.5)
+    ax.set_ylim(Ev_clad_eq - 0.8, Ec_clad_eq + 0.7)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.set_title("(c) Forward Bias (Lasing)", pad=10, fontsize=12)
+    ax.grid(False)
+    for spine in ax.spines.values():
+        spine.set_visible(False)
+
+    fig.tight_layout(pad=2.0)
+    save(fig, "heterojunction_band_formation.jpg")
+
+
+fig_15()
+
+
+# ==============================================================================
+#  FIG-16  DH Confinement: Stacked 3-Panel (Band Diagram + n_r + Optical Mode)
+#  Unified plot showing how one structure solves both carrier and photon
+#  confinement. All three panels share the same z-axis.
+# ==============================================================================
+def fig_16():
+    z = np.linspace(-2.0, 2.0, 800)   # position in um
+    d = 0.15                            # active layer half-width in um
+
+    # ── (a) Energy Band Diagram ───────────────────────────────────────────────
+    # Smooth transitions at z = ±d using tanh
+    w_trans = 0.015  # transition width
+    step_left  = 0.5 * (1 + np.tanh((z - (-d)) / w_trans))
+    step_right = 0.5 * (1 + np.tanh((z - d) / w_trans))
+    well = step_left - step_right  # 1 inside active, 0 outside
+
+    Ec_clad = 1.7;  Ec_act = 1.4
+    Ev_clad = 0.0;  Ev_act = 0.2
+    Ec = Ec_clad - (Ec_clad - Ec_act) * well
+    Ev = Ev_clad + (Ev_act - Ev_clad) * well
+
+    # Quasi-Fermi levels
+    Efc = 1.5;  Efv = 0.15
+
+    # ── (b) Refractive Index Profile ──────────────────────────────────────────
+    nr_clad = 3.40;  nr_act = 3.64
+    nr = nr_clad + (nr_act - nr_clad) * well
+
+    # ── (c) Optical Mode Profile ──────────────────────────────────────────────
+    sigma_mode = 0.12
+    mode = np.exp(-z**2 / (2 * sigma_mode**2))
+    mode /= mode.max()
+
+    # Confinement factor
+    inside = np.abs(z) <= d
+    G = np.trapezoid(mode[inside], z[inside]) / np.trapezoid(mode, z)
+
+    # ── Create stacked figure ─────────────────────────────────────────────────
+    fig, axes = plt.subplots(3, 1, figsize=(9, 11), sharex=True,
+                             gridspec_kw={"height_ratios": [3, 1.5, 2]})
+
+    # Common: active region shading and dashed boundary lines
+    for ax in axes:
+        ax.axvspan(-d, d, color=TEAL, alpha=0.06)
+        ax.axvline(-d, color=AXES_CLR, lw=1.0, ls="--", alpha=0.6)
+        ax.axvline(d,  color=AXES_CLR, lw=1.0, ls="--", alpha=0.6)
+
+    # ── Panel (a): Band Diagram ───────────────────────────────────────────────
+    ax = axes[0]
+    ax.plot(z, Ec, color=SKYBLUE, lw=2.5, label=r"$E_c$")
+    ax.plot(z, Ev, color=CORAL,   lw=2.5, label=r"$E_v$")
+
+    # Band shading
+    ax.fill_between(z, Ec, Ec + 0.25, color=SKYBLUE, alpha=0.08)
+    ax.fill_between(z, Ev - 0.25, Ev, color=CORAL, alpha=0.08)
+
+    # Quasi-Fermi levels
+    ax.hlines(Efc, z[0], z[-1], color=SKYBLUE, lw=1.5, ls="--", label=r"$E_{Fc}$")
+    ax.hlines(Efv, z[0], z[-1], color=CORAL,   lw=1.5, ls="--", label=r"$E_{Fv}$")
+
+    # dEc and dEv annotations on the right interface
+    ax.annotate("", xy=(d + 0.08, Ec_act), xytext=(d + 0.08, Ec_clad),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(d + 0.15, (Ec_act + Ec_clad)/2, r"$\Delta E_c$",
+            color=GOLD, fontsize=10, va="center")
+
+    ax.annotate("", xy=(d + 0.08, Ev_act), xytext=(d + 0.08, Ev_clad),
+                arrowprops=dict(arrowstyle="<->", color=GOLD, lw=1.3))
+    ax.text(d + 0.15, (Ev_act + Ev_clad)/2, r"$\Delta E_v$",
+            color=GOLD, fontsize=10, va="center")
+
+    # Electrons and holes in the well
+    np.random.seed(42)
+    for _ in range(12):
+        xp = np.random.uniform(-d * 0.8, d * 0.8)
+        yp = Ec_act + np.random.uniform(0.02, 0.18)
+        ax.plot(xp, yp, "o", color=SKYBLUE, ms=4.5, zorder=5)
+    for _ in range(12):
+        xp = np.random.uniform(-d * 0.8, d * 0.8)
+        yp = Ev_act - np.random.uniform(0.02, 0.14)
+        ax.plot(xp, yp, "o", mfc="white", mec=CORAL, ms=4.5, lw=1.0, zorder=5)
+
+    # Photon emission
+    ax.annotate("", xy=(0, Ev_act + 0.03), xytext=(0, Ec_act - 0.03),
+                arrowprops=dict(arrowstyle="->", color=GOLD, lw=2.0,
+                                connectionstyle="arc3,rad=0.35"))
+    ax.text(0.06, (Ec_act + Ev_act)/2, r"$h\nu$", color=GOLD, fontsize=11, va="center")
+
+    # Region labels
+    ax.text(-1.2, Ec_clad + 0.15, r"P$^+$-cladding", ha="center", color=CORAL, fontsize=10)
+    ax.text(0, Ec_act + 0.25, "Active", ha="center", color=TEAL, fontsize=10, fontweight="bold")
+    ax.text(1.2, Ec_clad + 0.15, r"N$^+$-cladding", ha="center", color=SKYBLUE, fontsize=10)
+
+    # Band edge labels
+    ax.text(z[0] - 0.05, Ec_clad, r"$E_c$", ha="right", va="center", fontsize=10, color=SKYBLUE)
+    ax.text(z[0] - 0.05, Ev_clad, r"$E_v$", ha="right", va="center", fontsize=10, color=CORAL)
+    ax.text(z[-1] + 0.05, Efc, r"$E_{Fc}$", ha="left", va="center", fontsize=9, color=SKYBLUE)
+    ax.text(z[-1] + 0.05, Efv, r"$E_{Fv}$", ha="left", va="center", fontsize=9, color=CORAL)
+
+    ax.set_ylabel(r"Electron energy $E$", fontsize=12)
+    ax.set_ylim(Ev_clad - 0.4, Ec_clad + 0.4)
+    ax.set_yticks([])
+    ax.set_title("(a) Band Diagram — Carrier Confinement", pad=8, fontsize=12)
+    ax.grid(False)
+
+    # ── Panel (b): Refractive Index ───────────────────────────────────────────
+    ax = axes[1]
+    ax.plot(z, nr, color=TEAL, lw=2.5)
+    ax.fill_between(z, nr_clad, nr, color=TEAL, alpha=0.12)
+
+    # Delta n_r annotation
+    ax.annotate("", xy=(d + 0.12, nr_act), xytext=(d + 0.12, nr_clad),
+                arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.3))
+    ax.text(d + 0.18, (nr_act + nr_clad)/2,
+            rf"$\Delta n_r = {nr_act - nr_clad:.2f}$",
+            color=AXES_CLR, fontsize=10, va="center")
+
+    # Value labels
+    ax.text(-1.2, nr_clad + 0.01, rf"$n_{{r,\mathrm{{clad}}}} = {nr_clad}$",
+            ha="center", color=AXES_CLR, fontsize=9)
+    ax.text(0, nr_act + 0.02, rf"$n_{{r,\mathrm{{act}}}} = {nr_act}$",
+            ha="center", color=TEAL, fontsize=9)
+
+    ax.set_ylabel(r"$n_r$", fontsize=13)
+    ax.set_ylim(nr_clad - 0.08, nr_act + 0.08)
+    ax.set_title("(b) Refractive Index — Waveguiding", pad=8, fontsize=12)
+    ax.grid(False)
+
+    # ── Panel (c): Optical Mode ───────────────────────────────────────────────
+    ax = axes[2]
+    ax.plot(z, mode, color=AXES_CLR, lw=2.5)
+    ax.fill_between(z, 0, mode, where=inside, color=TEAL, alpha=0.20,
+                    label=r"Gain region")
+    outside = ~inside
+    ax.fill_between(z, 0, mode, where=outside, color=CORAL, alpha=0.12,
+                    label="Evanescent tail (loss)")
+
+    # Gamma annotation
+    ax.text(0, 0.5, rf"$\Gamma \approx {G*100:.0f}\%$",
+            ha="center", color=TEAL, fontsize=13, fontweight="bold")
+
+    ax.set_ylabel(r"$|\mathcal{E}(z)|^2$ (norm.)", fontsize=12)
+    ax.set_xlabel(r"Position $z$", fontsize=13)
+    ax.set_ylim(-0.05, 1.15)
+    ax.set_title("(c) Optical Mode — Photon Confinement", pad=8, fontsize=12)
+    ax.legend(loc="upper right", framealpha=0.9,
+              facecolor="#f5f5f5", edgecolor="#cccccc", fontsize=10)
+    ax.grid(False)
+
+    # Active layer width annotation on bottom panel
+    ax.annotate("", xy=(-d, -0.12), xytext=(d, -0.12),
+                arrowprops=dict(arrowstyle="<->", color=AXES_CLR, lw=1.2),
+                annotation_clip=False)
+    ax.text(0, -0.18, r"$d$", ha="center", color=AXES_CLR, fontsize=12,
+            clip_on=False)
+    ax.set_ylim(-0.25, 1.15)
+
+    # Custom x-ticks
+    ax.set_xticks([-d, 0, d])
+    ax.set_xticklabels([r"$-d/2$", "$0$", r"$d/2$"], fontsize=11)
+
+    fig.tight_layout(h_pad=1.0)
+    save(fig, "dh_confinement_stacked.jpg")
+
+
+fig_16()

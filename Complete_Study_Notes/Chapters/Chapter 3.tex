@@ -464,9 +464,355 @@ Several important physical observations follow directly from this comparison:
 \begin{enumerate}
     \item \textbf{$N_0$ is unbounded in Cases 1 \& 2, but bounded in Case 3.} With a constant pump $R$, the small-signal inversion $N_0 = 2R\tau_{21} - N_a$ grows without limit as $R$ increases. In Case 3, however, $N_0$ asymptotes strictly to $+N_a$ as $\Phi_p \to \infty$ — because you can never invert more atoms than you have in the system.
 
-    \item \textbf{$\Phi_s$ is a fixed material constant in Cases 1 \& 2, but pump-dependent in Case 3.} In the constant-$R$ model, $\Phi_s = 1/(2\sigma\tau_{21})$ depends only on intrinsic material properties; every amplifier operating with the same gain medium saturates at the same signal level. In Case 3, $\Phi_s$ increases with pump strength $\Phi_p$ — a stronger pump actively fights back against signal-driven depletion of $E_2$, making the amplifier harder to saturate. This is a direct consequence of the self-consistent feedback loop: as stimulated emission drains $E_1 \to E_2$ back into $E_1$, a stronger pump immediately re-evacuates those atoms.
+\item \textbf{$\Phi_s$ is a fixed material constant in Cases 1 \& 2, but pump-dependent in Case 3.} In the constant-$R$ model, $\Phi_s = 1/(2\sigma\tau_{21})$ depends only on intrinsic material properties; every amplifier operating with the same gain medium saturates at the same signal level. In Case 3, $\Phi_s$ increases with pump strength $\Phi_p$ — a stronger pump actively fights back against signal-driven depletion of $E_2$, making the amplifier harder to saturate. This is a direct consequence of the self-consistent feedback loop: as stimulated emission drains $E_1 \to E_2$ back into $E_1$, a stronger pump immediately re-evacuates those atoms.
 
     \item \textbf{Cases 1 \& 2 share the same threshold, Case 3 introduces a new one.} Both constant-pump cases require $R > N_a/2\tau_{21}$ to achieve inversion. Case 3 translates this into a photon flux threshold $\Phi_p > 1/(\sigma_p\tau_{21})$, which states that the pump must deliver photons fast enough to keep the upward pumping rate faster than the spontaneous relaxation rate.
+\end{enumerate}
+
+% =============================================================
+\section{The Four-Level Laser System and Kinetics}
+% =============================================================
+
+By introducing a second intermediate energy level below the lower lasing level, the four-level laser architecture successfully decouples the ground state from the lasing pathway. In a four-level system, the pump excites atoms from the ground state $E_0$ to an upper pump level $E_3$. From $E_3$, atoms rapidly cascade to the metastable upper lasing level $E_2$ via fast non-radiative decay ($\tau_{32} \to 0$). The lasing transition occurs between $E_2$ and the lower lasing level $E_1$. Finally, atoms in $E_1$ decay to the ground state $E_0$ with a finite spontaneous lifetime $\tau_{10}$.
+
+The fundamental advantage of a four-level laser over a three-level laser is that the lower lasing level $E_1$ is \emph{not} the ground state. At thermal equilibrium, $E_1$ is essentially empty, so any amount of pumping immediately produces a positive population inversion between $E_2$ and $E_1$ — no threshold pump rate is needed just to overcome ground-state absorption.
+
+\subsection{System Variables and Assumptions}
+
+The four-level system has four energy levels $E_0 < E_1 < E_2 < E_3$, with populations $N_0, N_1, N_2, N_3$.
+\begin{itemize}
+    \item $E_0$: the \textbf{ground state}, containing the bulk of the population at thermal equilibrium.
+    \item $E_1$: the \textbf{lower lasing level}, with spontaneous relaxation lifetime $\tau_{10}$ to the ground state.
+    \item $E_2$: the \textbf{metastable upper lasing level}, with spontaneous radiative lifetime $\tau_{21}$ to level 1 and spontaneous non-radiative lifetime $\tau_{20}$ directly to level 0. The total lifetime $\tau_2$ of level 2 satisfies $\frac{1}{\tau_2} = \frac{1}{\tau_{21}} + \frac{1}{\tau_{20}}$.
+    \item $E_3$: the \textbf{pump level} to which atoms are actively excited. The non-radiative decay $E_3 \to E_2$ is assumed to be extremely fast ($\tau_{32} \to 0$, i.e.\ atoms pumped into $E_3$ immediately cascade to $E_2$). As a result, atoms never accumulate in $E_3$: $N_3 \approx 0$.
+\end{itemize}
+
+The total density of active atoms is strictly fixed:
+\begin{keyresult}
+    \begin{equation}
+        N_a = N_0 + N_1 + N_2 + N_3 \approx N_0 + N_1 + N_2
+    \end{equation}
+\end{keyresult}
+
+Because $E_3$ empties instantly into $E_2$, pumping $E_3$ is equivalent to pumping directly into $E_2$. The pump rate $R$ (atoms per unit volume per unit time transferred from $E_0$ to $E_2$ via $E_3$) plays the role of the source term in the rate equations.
+
+\subsection{Case 1: Constant Pump Rate, No Signal (\texorpdfstring{$\Phi = 0$}{Phi=0})}
+
+We first ask: what population inversion can the pump establish \emph{before} any signal is present? To find out, we assume no external signal ($\Phi = 0$) and a constant generic pump pulling atoms up at a steady rate $R$. Let us explicitly map out the processes governing the populations of levels $E_2$ and $E_1$.
+
+For the upper lasing level $E_2$, there are two governing processes:
+\begin{enumerate}
+    \item \textbf{Pump Arrival:} Atoms are effectively injected into $E_2$ from the ground state at a rate $+R$ (since $N_3 \approx 0$, the pump funnels directly into $E_2$).
+    \item \textbf{Spontaneous Decay:} Atoms spontaneously decay from $E_2$ at a total rate $-\frac{N_2}{\tau_2}$, where $\frac{1}{\tau_2} = \frac{1}{\tau_{21}} + \frac{1}{\tau_{20}}$ accounts for both the radiative path to $E_1$ and the non-radiative path to $E_0$.
+\end{enumerate}
+
+The differential rate equation for $N_2$ is:
+\begin{equation}
+    \frac{dN_2}{dt} = \underbrace{R}_{\text{Pump In}} - \underbrace{\frac{N_2}{\tau_2}}_{\text{Spont. Decay}} \tag{I}
+\end{equation}
+
+For the lower lasing level $E_1$, there are two governing processes:
+\begin{enumerate}
+    \item \textbf{Spontaneous Arrival:} Atoms arrive from $E_2$ via the radiative branch at a rate $+\frac{N_2}{\tau_{21}}$.
+    \item \textbf{Spontaneous Exit:} Atoms decay to the ground state $E_0$ at a rate $-\frac{N_1}{\tau_{10}}$.
+\end{enumerate}
+
+The differential rate equation for $N_1$ is:
+\begin{equation}
+    \frac{dN_1}{dt} = \underbrace{\frac{N_2}{\tau_{21}}}_{\text{Arrival from } E_2} - \underbrace{\frac{N_1}{\tau_{10}}}_{\text{Decay to } E_0} \tag{II}
+\end{equation}
+
+The equation for the ground state $N_0$ (level 0) is mathematically redundant. Because the total number of atoms in the system is strictly conserved ($N_0 + N_1 + N_2 = N_a$), following any two populations automatically dictates the third. We therefore only need to solve \textup{(I)} and \textup{(II)}.
+
+\subsubsection*{Steady-State Analysis}
+
+To determine the final populations achievable by this pump, we let the system settle into steady state where the populations no longer change in time. We set the derivatives to zero.
+
+Starting with the upper lasing level $E_2$ by setting $dN_2/dt = 0$ in equation \textup{(I)}:
+\begin{equation*}
+    0 = R - \frac{N_2}{\tau_2} \quad \Longrightarrow \quad N_2 = R\tau_2
+\end{equation*}
+
+Next, we evaluate the lower lasing level $E_1$ by setting $dN_1/dt = 0$ in equation \textup{(II)}:
+\begin{equation*}
+    0 = \frac{N_2}{\tau_{21}} - \frac{N_1}{\tau_{10}} \quad \Longrightarrow \quad N_1 = N_2 \frac{\tau_{10}}{\tau_{21}} = R\tau_2 \frac{\tau_{10}}{\tau_{21}}
+\end{equation*}
+
+Finally, we calculate the \textbf{population inversion} $N \equiv N_2 - N_1$:
+\begin{equation*}
+    N = R\tau_2 - R\tau_2 \frac{\tau_{10}}{\tau_{21}} \quad \Longrightarrow \quad N = R\tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)
+\end{equation*}
+
+Because this derivation assumes there is no external signal ($\Phi = 0$), this is purely the baseline \textbf{small-signal population inversion}. We formally lock this maximum undisturbed value in as $N_0$:
+\begin{keyresult}
+    \begin{equation}
+        N_0 = R\tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)
+    \end{equation}
+\end{keyresult}
+where:
+$N_0$: small-signal population inversion.
+$\tau_2$: total lifetime of level 2.
+$\tau_{10}$: spontaneous relaxation lifetime of level 1.
+$\tau_{21}$: spontaneous radiative lifetime from level 2 to level 1.
+
+Because this value represents the undisturbed maximum inversion before any signal begins to deplete it ($\Phi = 0$), it directly establishes the \textbf{small-signal gain coefficient} ($\gamma_0$) of the amplifier:
+\begin{keyresult}
+    \begin{equation}
+        \gamma_0 = \sigma N_0 = \sigma R\tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)
+    \end{equation}
+\end{keyresult}
+where:
+$\gamma_0$: small-signal gain coefficient.
+$\sigma$: transition cross-section.
+
+\subsubsection*{Inversion Condition}
+
+If a positive population inversion is to build up ($N_0 > 0$, and therefore $\gamma_0 > 0$), then we must satisfy the fundamental lifetime condition:
+\begin{equation*}
+    1 - \frac{\tau_{10}}{\tau_{21}} > 0 \quad \Longrightarrow \quad \tau_{10} < \tau_{21}
+\end{equation*}
+\begin{keyresult}
+    \begin{equation}
+        \tau_{10} < \tau_{21}
+    \end{equation}
+\end{keyresult}
+
+Physically, the lower lasing level must drain to the ground state faster than it is filled by spontaneous decay from the upper lasing level. To understand the operational consequences of this condition, we analyze the two possible lifetime regimes:
+\begin{enumerate}
+    \item \textbf{Inversion Regime ($\tau_{10} < \tau_{21}$):} If the decay rate of the lower lasing level is faster than its filling rate from the upper level, then a positive population inversion is established ($N_0 > 0$), permitting optical gain.
+    \item \textbf{Bottleneck Regime ($\tau_{10} \ge \tau_{21}$):} If the lower level lifetime is equal to or longer than the upper level lifetime, then atoms accumulate in level 1, resulting in a negative inversion ($N_0 \le 0$), where the medium acts strictly as an absorber.
+\end{enumerate}
+
+Critically, unlike the three-level laser, there is \emph{no minimum pump rate} required just to reach inversion. Any $R > 0$ produces a positive $N_0$ as long as the lifetime condition holds. The threshold pump rate for a four-level laser is $R_{\text{th}} = 0$ — limited only by cavity losses, not by atomic kinetics.
+
+\subsection{Case 2: Constant Pump Rate, With Signal (\texorpdfstring{$\Phi \neq 0$}{Phi not=0})}
+
+Now we introduce the optical signal: $\Phi \neq 0$. The pump continues to run at a constant rate $R$, but the signal now actively drives stimulated transitions between $E_2$ and $E_1$. Let us explicitly map out the physical processes.
+
+For the upper lasing level $E_2$, we now have three governing processes:
+\begin{enumerate}
+    \item \textbf{Pump Arrival:} Atoms are effectively injected into $E_2$ at a rate $+R$.
+    \item \textbf{Spontaneous Decay:} Atoms spontaneously decay from $E_2$ at a rate $-\frac{N_2}{\tau_2}$.
+    \item \textbf{Net Stimulated Transitions:} The signal actively forces atoms out of $E_2$ (stimulated emission) and atoms into $E_2$ (stimulated absorption). Because both processes are identically driven by the external field $\Phi$, they are grouped into a single net downward rate: $-\sigma\Phi(N_2 - N_1)$.
+\end{enumerate}
+
+The differential rate equation for $N_2$ expands to:
+\begin{equation}
+    \frac{dN_2}{dt} = \underbrace{R}_{\text{Pump}} - \underbrace{\frac{N_2}{\tau_2}}_{\text{Spont. Decay}} - \underbrace{\sigma\Phi(N_2 - N_1)}_{\text{Net Stimulated Exit}} \tag{I}
+\end{equation}
+
+For the lower lasing level $E_1$, we now have three governing processes:
+\begin{enumerate}
+    \item \textbf{Spontaneous Arrival:} Atoms arrive from $E_2$ via the radiative branch at a rate $+\frac{N_2}{\tau_{21}}$.
+    \item \textbf{Spontaneous Exit:} Atoms decay to $E_0$ at a rate $-\frac{N_1}{\tau_{10}}$.
+    \item \textbf{Net Stimulated Arrival:} Atoms are driven into $E_1$ by net stimulated emission at a rate $+\sigma\Phi(N_2 - N_1)$.
+\end{enumerate}
+
+The differential rate equation for $N_1$ expands to:
+\begin{equation}
+    \frac{dN_1}{dt} = \underbrace{\frac{N_2}{\tau_{21}}}_{\text{Spont. Arrival}} - \underbrace{\frac{N_1}{\tau_{10}}}_{\text{Spont. Decay}} + \underbrace{\sigma\Phi(N_2 - N_1)}_{\text{Net Stimulated Arrival}} \tag{II}
+\end{equation}
+
+As before, the equation for the ground state $N_0$ (level 0) is redundant thanks to the conservation constraint ($N_0 + N_1 + N_2 = N_a$). We proceed with \textup{(I)} and \textup{(II)}.
+
+\subsubsection*{Steady-State Analysis}
+
+Let $N \equiv N_2 - N_1$ represent the population inversion. We isolate $N_2$ from the upper-level rate equation \textup{(I)} by setting $dN_2/dt = 0$:
+\begin{equation*}
+    R - \frac{N_2}{\tau_2} - \sigma\Phi N = 0 \quad \Longrightarrow \quad N_2 = \tau_2(R - \sigma\Phi N)
+\end{equation*}
+
+Substituting this expression for $N_2$ into the lower-level rate equation \textup{(II)} with $dN_1/dt = 0$:
+\begin{equation*}
+    \frac{N_1}{\tau_{10}} = \frac{N_2}{\tau_{21}} + \sigma\Phi N = \frac{\tau_2(R - \sigma\Phi N)}{\tau_{21}} + \sigma\Phi N \quad \Longrightarrow \quad N_1 = R \tau_{10} \frac{\tau_2}{\tau_{21}} + \sigma\Phi N \tau_{10} \left( 1 - \frac{\tau_2}{\tau_{21}} \right)
+\end{equation*}
+
+Using the identity $1 - \frac{\tau_2}{\tau_{21}} = \frac{\tau_2}{\tau_{20}}$, we simplify the lower level population $N_1$:
+\begin{equation*}
+    N_1 = R \tau_{10} \frac{\tau_2}{\tau_{21}} + \sigma\Phi N \tau_{10} \frac{\tau_2}{\tau_{20}}
+\end{equation*}
+
+We now compute the population inversion $N = N_2 - N_1$ by subtracting this $N_1$ expression from the $N_2$ expression:
+\begin{align*}
+    N &= \tau_2(R - \sigma\Phi N) - \left( R \tau_{10} \frac{\tau_2}{\tau_{21}} + \sigma\Phi N \tau_{10} \frac{\tau_2}{\tau_{20}} \right) \\
+      &= R\tau_2\left(1 - \frac{\tau_{10}}{\tau_{21}}\right) - \sigma\Phi N \tau_2 \left(1 + \frac{\tau_{10}}{\tau_{20}}\right)
+\end{align*}
+
+Substituting the small-signal population inversion $N_0$ from Case 1:
+\begin{equation*}
+    N = N_0 - \sigma\Phi N \tau_2 \left(1 + \frac{\tau_{10}}{\tau_{20}}\right)
+\end{equation*}
+
+Grouping all terms with $N$ on the left and factoring:
+\begin{equation*}
+    N \left[ 1 + \sigma\Phi \tau_2 \left(1 + \frac{\tau_{10}}{\tau_{20}}\right) \right] = N_0 \quad \Longrightarrow \quad N = \frac{N_0}{1 + \Phi/\Phi_s}
+\end{equation*}
+
+where the saturation photon flux density $\Phi_s$ is defined as:
+\begin{keyresult}
+    \begin{equation}
+        \Phi_s = \frac{1}{\sigma \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{20}} \right)}
+    \end{equation}
+\end{keyresult}
+where:
+$\Phi_s$: saturation photon flux density.
+
+Substituting these definitions, we recover the universal gain saturation model:
+\begin{keyresult}
+    \begin{gather}
+        N = \frac{N_0}{1 + \Phi/\Phi_s} \\[2ex]
+        \gamma = \frac{\gamma_0}{1 + \Phi/\Phi_s}
+    \end{gather}
+\end{keyresult}
+where:
+$\gamma$: saturated gain coefficient.
+
+To check the physical limits of this saturation behavior, we analyze two extreme signal regimes:
+\begin{enumerate}
+    \item \textbf{Small-Signal Limit ($\Phi \to 0$):} If the signal flux is weak, then the denominator approaches $1$, and the population inversion reduces to the unperturbed value:
+       \begin{equation*}
+           N \approx N_0
+       \end{equation*}
+    \item \textbf{Deep-Saturation Limit ($\Phi \to \infty$):} If the signal flux becomes extremely intense, then the stimulated emission rate dominates all spontaneous decay paths, driving the population inversion to zero:
+       \begin{equation*}
+           N \to 0
+       \end{equation*}
+       Under these conditions, the stimulated transitions keep the populations of levels 2 and 1 equalized, rendering the medium transparent.
+\end{enumerate}
+
+\subsection{Case 3: Optical Pump, With Signal (\texorpdfstring{$\Phi \neq 0$, $R = \sigma_p\Phi_p N_{\text{gs}}$}{realistic pump model})}
+
+In a realistic optical pumping scheme, the pump rate is \emph{not} an abstract independent constant. A pump laser of photon flux density $\Phi_p$ relies on atomic absorption to do its work. Therefore, the rate at which it forces atoms out of $E_0$ depends directly on how many atoms are actually sitting in $E_0$ available to be absorbed:
+\begin{equation*}
+    R = \sigma_p\Phi_p N_{\text{gs}}
+\end{equation*}
+where:
+$\sigma_p$: pump absorption cross-section.
+$\Phi_p$: pump photon flux density.
+$N_{\text{gs}}$: ground state population density (level 0).
+
+Substituting this into the steady-state rate equations derived in Case 2 (with $R = \sigma_p\Phi_p N_{\text{gs}}$) and solving as before:
+\begin{align}
+    N_2 &= \tau_2 ( \sigma_p\Phi_p N_{\text{gs}} - \sigma\Phi N ) \tag{I} \\
+    N_1 &= \sigma_p\Phi_p N_{\text{gs}} \tau_{10} \frac{\tau_2}{\tau_{21}} + \sigma\Phi N \tau_{10} \frac{\tau_2}{\tau_{20}} \tag{II}
+\end{align}
+
+Subtracting the lower-level population in equation \textup{(II)} from the upper-level population in equation \textup{(I)} yields:
+\begin{equation}
+    N = \sigma_p\Phi_p N_{\text{gs}} \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right) - \sigma\Phi N \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right) \tag{III}
+\end{equation}
+
+To solve for the ground state population $N_{\text{gs}}$, we sum equations \textup{(I)} and \textup{(II)}:
+\begin{equation*}
+    N_1 + N_2 = \sigma_p\Phi_p N_{\text{gs}} \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) - \sigma\Phi N \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{20}} \right)
+\end{equation*}
+
+Substituting this sum into the conservation constraint $N_{\text{gs}} = N_a - (N_1 + N_2)$:
+\begin{equation*}
+    N_{\text{gs}} = N_a - \sigma_p\Phi_p N_{\text{gs}} \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) + \sigma\Phi N \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{20}} \right)
+\end{equation*}
+
+Isolating the $N_{\text{gs}}$ terms on the left gives:
+\begin{equation*}
+    N_{\text{gs}} \left[ 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) \right] = N_a + \sigma\Phi N \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{20}} \right)
+\end{equation*}
+\begin{equation}
+    N_{\text{gs}} = \frac{N_a + \sigma\Phi N \tau_2 \left( 1 - \dfrac{\tau_{10}}{\tau_{20}} \right)}{1 + \sigma_p\Phi_p \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{21}} \right)} \tag{IV}
+\end{equation}
+
+We now substitute this expression for $N_{\text{gs}}$ in equation \textup{(IV)} back into our difference equation \textup{(III)}:
+\begin{equation*}
+    N = \sigma_p\Phi_p \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right) \left[ \frac{N_a + \sigma\Phi N \tau_2 \left( 1 - \dfrac{\tau_{10}}{\tau_{20}} \right)}{1 + \sigma_p\Phi_p \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{21}} \right)} \right] - \sigma\Phi N \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right)
+\end{equation*}
+
+Multiplying the entire equation by the denominator and grouping terms:
+\begin{equation*}
+\begin{split}
+    N &\left[ 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) \right] = \sigma_p\Phi_p N_a \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right) + \sigma_p\Phi_p \sigma\Phi N \tau_2^2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)\!\left( 1 - \frac{\tau_{10}}{\tau_{20}} \right) \\
+    &\quad - \sigma\Phi N \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right)\!\left[ 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) \right]
+\end{split}
+\end{equation*}
+
+Collecting the $N$ terms on the left yields:
+\begin{equation}
+\begin{split}
+    N &\left\{ \left[ 1 + \sigma\Phi \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right) \right]\!\left[ 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) \right] - \sigma_p\Phi_p \sigma\Phi \tau_2^2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)\!\left( 1 - \frac{\tau_{10}}{\tau_{20}} \right) \right\} \\
+    &\quad = \sigma_p\Phi_p N_a \tau_2 \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)
+\end{split}
+\tag{V}
+\end{equation}
+
+We simplify the term inside the curly braces (denoted as $D$):
+\begin{align*}
+    D &= 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) + \sigma\Phi \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right) \\
+      &\quad + \sigma_p\Phi_p \sigma\Phi \tau_2^2 \left[ \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right)\left( 1 + \frac{\tau_{10}}{\tau_{20}} \right) - \left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)\left( 1 - \frac{\tau_{10}}{\tau_{20}} \right) \right]
+\end{align*}
+Using the algebraic expansion $(1+x)(1+y)-(1-x)(1-y) = 2(x+y)$, where $x = \tau_{10}/\tau_{21}$ and $y = \tau_{10}/\tau_{20}$:
+\begin{equation*}
+    D = 1 + \sigma_p\Phi_p \tau_2 \left( 1 + \frac{\tau_{10}}{\tau_{21}} \right) + \sigma\Phi \tau_2 \left[ \left( 1 + \frac{\tau_{10}}{\tau_{20}} \right) + 2\sigma_p\Phi_p \tau_2 \left( \frac{\tau_{10}}{\tau_{21}} + \frac{\tau_{10}}{\tau_{20}} \right) \right]
+\end{equation*}
+
+Solving equation \textup{(V)} for $N$ gives the general population inversion:
+\begin{keyresult}
+    \begin{equation}
+        N = \frac{N_a \sigma_p\Phi_p \tau_2 \left( 1 - \dfrac{\tau_{10}}{\tau_{21}} \right)}{1 + \sigma_p\Phi_p \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{21}} \right) + \sigma\Phi \tau_2 \left[ \left( 1 + \dfrac{\tau_{10}}{\tau_{20}} \right) + 2\sigma_p\Phi_p \tau_2 \left( \dfrac{\tau_{10}}{\tau_{21}} + \dfrac{\tau_{10}}{\tau_{20}} \right) \right]}
+    \end{equation}
+\end{keyresult}
+
+We can refactor this into the standard saturation model ($N = \frac{N_{0}'}{1 + \Phi/\Phi_s'}$):
+\begin{keyresult}
+    \begin{gather}
+        N_0' = \frac{N_a \sigma_p\Phi_p \tau_2 \left( 1 - \dfrac{\tau_{10}}{\tau_{21}} \right)}{1 + \sigma_p\Phi_p \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{21}} \right)} \\[3ex]
+        \Phi_s' = \frac{1 + \sigma_p\Phi_p \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{21}} \right)}{\sigma \tau_2 \left[ \left( 1 + \dfrac{\tau_{10}}{\tau_{20}} \right) + 2\sigma_p\Phi_p \tau_2 \left( \dfrac{\tau_{10}}{\tau_{21}} + \dfrac{\tau_{10}}{\tau_{20}} \right) \right]}
+    \end{gather}
+\end{keyresult}
+where:
+$N_0'$: small-signal population inversion ceiling for the optically pumped four-level laser.
+$\Phi_s'$: pump-dependent saturation photon flux density.
+
+To understand the behavior of this inversion ceiling, we analyze two extreme pump regimes:
+\begin{enumerate}
+    \item \textbf{Weak-Pump Limit ($\Phi_p \to 0$):} If the pump is weak, then the term $\sigma_p \Phi_p \tau_2 \ll 1$. The population inversion approaches zero from below:
+       \begin{equation*}
+           N_0' \to 0
+       \end{equation*}
+       The medium has negligible inversion — essentially no atoms have been lifted from the ground state.
+    \item \textbf{Strong-Pump Limit ($\Phi_p \to \infty$):} If the pump flux becomes extremely large, then the ground state population is fully depleted, and the inversion saturates at its maximum physical limit:
+       \begin{equation*}
+           N_0' \to N_a \frac{1 - \tau_{10}/\tau_{21}}{1 + \tau_{10}/\tau_{21}}
+       \end{equation*}
+       If the lower level clears instantly ($\tau_{10} \to 0$), this limit is exactly $+N_a$ — representing the state where every active atom in the medium has been successfully held in the upper lasing level.
+\end{enumerate}
+
+\subsection{Comparison of Three-Level and Four-Level Kinetics}
+
+Comparing the three-level and four-level systems highlights the fundamental superiority of the four-level architecture:
+
+\begin{enumerate}
+    \item \textbf{Unsaturated Population Inversion ($N_0$):}
+          In the constant-pumping regime, the small-signal population inversion densities are:
+          \begin{equation*}
+              N_{0,\text{3-level}} = 2R\tau_{21} - N_a, \qquad N_{0,\text{4-level}} = R\tau_2\left( 1 - \frac{\tau_{10}}{\tau_{21}} \right)
+          \end{equation*}
+          For the three-level laser, $N_{0}$ is negative at zero pump ($R=0$), and becomes positive only when the pump rate is high enough to lift more than half the total atomic density into level 2. For the four-level laser, $N_{0}$ is always positive for any $R > 0$, provided the lifetime condition $\tau_{10} < \tau_{21}$ holds.
+
+    \item \textbf{Threshold Pumping Rate ($R_{\text{th}}$):}
+          The threshold pump rate required to achieve optical gain ($\gamma_0 > 0$) is:
+          \begin{equation*}
+              R_{\text{th,3-level}} = \frac{N_a}{2\tau_{21}}, \qquad R_{\text{th,4-level}} = 0
+          \end{equation*}
+          In practice, a real four-level laser has a non-zero threshold pump rate, but it is limited solely by the optical losses of the cavity (e.g., mirror transmission and internal absorption), rather than the thermodynamic requirement to lift half of the atomic population out of the ground state.
+
+    \item \textbf{Saturation Behavior ($\Phi_s$):}
+          The saturation photon flux densities under a constant pump rate are:
+          \begin{equation*}
+              \Phi_{s,\text{3-level}} = \frac{1}{2\sigma\tau_{21}}, \qquad \Phi_{s,\text{4-level}} = \frac{1}{\sigma \tau_2 \left( 1 + \dfrac{\tau_{10}}{\tau_{20}} \right)}
+          \end{equation*}
+          In the ideal four-level limit where decay directly to the ground state is negligible ($\tau_{20} \to \infty$) and the lower level clears out instantly ($\tau_{10} \to 0$), the saturation flux becomes:
+          \begin{equation*}
+              \Phi_{s,\text{4-level}} \approx \frac{1}{\sigma\tau_{21}}
+          \end{equation*}
+          This is exactly twice the saturation flux of the three-level laser. This means that a four-level medium is twice as hard to saturate as a three-level medium under the same transition cross-section and lifetime parameters, allowing it to support higher intracavity power before the gain clamps.
 \end{enumerate}
 
 % =============================================================
@@ -477,7 +823,7 @@ Everything we have derived so far describes \emph{local} atomic kinetics, which 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Figures/Chapter 3/twa_concept.jpg}
+    \includegraphics[width=0.4\textwidth]{Figures/Chapter 3/twa_concept.jpg}
     \caption{The Travelling-Wave Amplifier (TWA): Single-pass signal amplification through an AR-coated gain medium of length $L$.}
 \end{figure}
 
