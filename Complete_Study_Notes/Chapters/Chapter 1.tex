@@ -66,18 +66,11 @@ where $k_s$ is the effective "spring constant" of the atom, $x$ is the displacem
 
 Now, applying Newton's second law ($F = m a$, where acceleration $a = \frac{d^2x}{dt^2}$) to this motion, we substitute our force to get our natural, unforced impulse response equation:
 \begin{equation*}
-    m\frac{d^2x}{dt^2} = -k_s x
-\end{equation*}
-Rearranging terms by bringing everything to one side, we write:
-\begin{equation*}
-    m\frac{d^2x}{dt^2} + k_s x = 0
+    m\frac{d^2x}{dt^2} = -k_s x \quad \Rightarrow \quad m\frac{d^2x}{dt^2} + k_s x = 0
 \end{equation*}
 To isolate the highest derivative, we must divide the entire equation strictly by the mass $m$:
 \begin{equation*}
-    \frac{m}{m}\frac{d^2x}{dt^2} + \frac{k_s}{m} x = \frac{0}{m}
-\end{equation*}
-\begin{equation*}
-    \frac{d^2x}{dt^2} + \left(\frac{k_s}{m}\right) x = 0
+    \frac{m}{m}\frac{d^2x}{dt^2} + \frac{k_s}{m} x = \frac{0}{m} \quad \Rightarrow \quad \frac{d^2x}{dt^2} + \left(\frac{k_s}{m}\right) x = 0
 \end{equation*}
 We now substitute a new constant $k_s/m$ with $\omega_0^2$. Substitute $\omega_0^2 = \frac{k_s}{m}$:
 \begin{keyresult}
@@ -113,10 +106,7 @@ So, we model this by adding a damping force that is strictly proportional to the
 
 Once again, to solve this, we must isolate the highest order derivative by dividing the entire equation by the electron mass $m$:
 \begin{equation*}
-    \frac{m}{m}\frac{d^2x}{dt^2}+\frac{b}{m}\frac{dx}{dt}+\frac{k_s}{m}x= \frac{0}{m}
-\end{equation*}
-\begin{equation*}
-    \frac{d^2x}{dt^2}+\left(\frac{b}{m}\right)\frac{dx}{dt}+\left(\frac{k_s}{m}\right)x=0
+    \frac{m}{m}\frac{d^2x}{dt^2}+\frac{b}{m}\frac{dx}{dt}+\frac{k_s}{m}x= \frac{0}{m} \quad \Rightarrow \quad \frac{d^2x}{dt^2}+\left(\frac{b}{m}\right)\frac{dx}{dt}+\left(\frac{k_s}{m}\right)x=0
 \end{equation*}
 We now define two fundamental substitutions. Substitute $\eta = \frac{b}{m}$ (defined as the damping coefficient) and substitute $\omega_0^2 = \frac{k_s}{m}$ (our natural frequency squared). This yields our new governing equation:
 \begin{equation*}
@@ -129,14 +119,7 @@ To solve this linear homogeneous differential equation with constant coefficient
 \end{equation*}
 We apply the quadratic formula $s = \frac{-B \pm \sqrt{B^2 - 4AC}}{2A}$. Substitute $A=1$, $B=\eta$, and $C=\omega_0^2$:
 \begin{equation*}
-    s = \frac{-\eta \pm \sqrt{\eta^2 - 4(1)(\omega_0^2)}}{2(1)}
-\end{equation*}
-\begin{equation*}
-    s = -\frac{\eta}{2} \pm \frac{\sqrt{\eta^2 - 4\omega_0^2}}{2}
-\end{equation*}
-To bring the $\frac{1}{2}$ inside the square root, we square it as $1/4$:
-\begin{equation*}
-    s = -\frac{\eta}{2} \pm \sqrt{\frac{\eta^2}{4} - \frac{4\omega_0^2}{4}} = -\frac{\eta}{2} \pm \sqrt{\left(\frac{\eta}{2}\right)^2 - \omega_0^2}
+    s = \frac{-\eta \pm \sqrt{\eta^2 - 4(1)(\omega_0^2)}}{2(1)} \quad \Rightarrow \quad s = -\frac{\eta}{2} \pm \frac{\sqrt{\eta^2 - 4\omega_0^2}}{2} = -\frac{\eta}{2} \pm \sqrt{\left(\frac{\eta}{2}\right)^2 - \omega_0^2}
 \end{equation*}
 
 The behavior of the system depends entirely on the value inside this square root. We must define the cases:
@@ -154,7 +137,7 @@ The behavior of the system depends entirely on the value inside this square root
 
 Since we are dealing with optical phenomena where damping is relatively small, we always assume the \textbf{Underdamped} case. Thus, our solution becomes an exponentially decaying oscillation:
 \begin{equation*}
-    x(t)=A e^{-\eta t/2}\cos(\omega_d t+\phi)
+    x(t)=A e^{-\eta t/2}\cos(\omega_d t+\phi),
 \end{equation*}
 where $\omega_d$ is the damped natural frequency, defined as:
 \begin{equation*}
@@ -239,35 +222,24 @@ Now we'll see what happens when we expose our damped electron to light. Recall t
 
 If we shine this wave onto our electron, it exerts a force known as the Lorentz force. The total Lorentz force $\bm{F}$ exerted by an electromagnetic wave on a charge $q$ moving with velocity $\bm{v}$ is:
 \begin{equation*}
-    \bm{F}=\bm{F}_e+\bm{F}_m=q\bm{E}+q(\bm{v}\times\bm{B})
+    \bm{F}=\bm{F}_e+\bm{F}_m=q\bm{E}+q(\bm{v}\times\bm{B}),
 \end{equation*}
 where $q$ is the charge ($-e$ for an electron), $\bm{E}$ is the electric field vector, $\bm{v}$ is the electron velocity vector, and $\bm{B}$ is the magnetic field vector.
 
 \begin{keyinsight}[Why the Magnetic Force is Negligible]
     For a plane wave in a medium, the ratio of the magnetic field magnitude to the electric field magnitude is strictly determined by the phase velocity $v_p$ of the light:
     \begin{equation*}
-        \frac{|\bm{B}|}{|\bm{E}|} = \frac{1}{v_p}
+        \frac{|\bm{B}|}{|\bm{E}|} = \frac{1}{v_p} \quad \Rightarrow \quad |\bm{B}| = \frac{|\bm{E}|}{v_p},
     \end{equation*}
-    where the phase velocity $v_p$ is defined by the free-space speed of light $c_0 \approx 3 \times 10^8$ m/s as $v_p = \frac{c_0}{n}$. We rearrange this to isolate $|\bm{B}|$:
-    \begin{equation*}
-        |\bm{B}| = \frac{|\bm{E}|}{v_p}
-    \end{equation*}
+    where the phase velocity $v_p$ is defined by the free-space speed of light $c_0 \approx 3 \times 10^8$ m/s as $v_p = \frac{c_0}{n}$, with $n$ being the refractive index of the medium.
 
     Now let's compare the magnitude of the magnetic force part $|\bm{F}_m| = |q(\bm{v}\times\bm{B})| \approx q v |\bm{B}|$ (assuming perpendicular velocity to maximize the possible cross product force) to the basic electric force part $|\bm{F}_e| = q |\bm{E}|$. We structure their ratio explicitly:
     \begin{equation*}
-        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{q v |\bm{B}|}{q |\bm{E}|}
-    \end{equation*}
-    The charges $q$ cancel completely:
-    \begin{equation*}
-        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{v |\bm{B}|}{|\bm{E}|}
+        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{q v |\bm{B}|}{q |\bm{E}|} = \frac{v |\bm{B}|}{|\bm{E}|}
     \end{equation*}
     Substitute $|\bm{B}| = \frac{|\bm{E}|}{v_p}$ into the numerator:
     \begin{equation*}
-        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{v \left(\frac{|\bm{E}|}{v_p}\right)}{|\bm{E}|}
-    \end{equation*}
-    The electric field magnitudes $|\bm{E}|$ perfectly cancel out:
-    \begin{equation*}
-        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{v}{v_p}
+        \frac{|\bm{F}_m|}{|\bm{F}_e|} = \frac{v \left(\frac{|\bm{E}|}{v_p}\right)}{|\bm{E}|} = \frac{v}{v_p}
     \end{equation*}
     Substitute $v_p = \frac{c_0}{n}$:
     \begin{equation*}
@@ -299,25 +271,13 @@ Because our optical field strongly oscillates, we must solve this in the \textbf
 
 If we assume the incoming light wave oscillates at a steady driving frequency $\omega$ in the form $E(t)=\Re\{E_0 e^{j\omega t}\}$, then because the system is perfectly linear, the steady-state displacement $x(t)$ must also oscillate at that exact same frequency $\omega$, taking the form $x(t)=\Re\{x_0 e^{j\omega t}\}$.
 
-\begin{keyinsight}[The Two Frequencies: $\omega_0$ vs. $\omega$]
-    It is crucial to never confuse the two distinct frequencies now present in our equations:
-    \begin{itemize}
-        \item \textbf{Natural Frequency ($\omega_0$):} This is the \emph{internal} property of the atom itself, determined by the ``spring stiffness'' $k_s$ binding the electron. It is the frequency the electron inherently ``wants'' to vibrate at.
-        \item \textbf{Driving Frequency ($\omega$):} This is the \emph{external} property of the incoming electromagnetic light wave. It is the frequency at which the light physically \emph{forces} the electron to move.
-    \end{itemize}
-    The difference between them, called the \textbf{Detuning} ($\Delta\omega = \omega - \omega_0$), dictates the entire interaction. When the external push matches the natural rhythm ($\omega \approx \omega_0$), we hit resonance, causing massive energy transfer.
-\end{keyinsight}
-
 Substitute $x(t) = x_0 e^{j\omega t}$ into our differential equation. This allows us to convert time derivatives algebraically: $\frac{d}{dt} \to j\omega$ and $\frac{d^2}{dt^2} \to (j\omega)^2 = -\omega^2$.
 \begin{equation*}
     -\omega^2 x_0 e^{j\omega t} + \eta (j\omega) x_0 e^{j\omega t} + \omega_0^2 x_0 e^{j\omega t} = -\frac{e}{m} E_0 e^{j\omega t}
 \end{equation*}
 The exponential terms $e^{j\omega t}$ explicitly cancel from every single term on both sides. Next, we group the terms on the left side to factor out $x_0$:
 \begin{equation*}
-    x_0(-\omega^2) + x_0(j\eta\omega) + x_0(\omega_0^2) = -\frac{e}{m} E_0
-\end{equation*}
-\begin{equation*}
-    x_0 \left(-\omega^2+j\eta\omega + \omega_0^2 \right) = -\frac{e}{m} E_0
+    x_0(-\omega^2) + x_0(j\eta\omega) + x_0(\omega_0^2) = -\frac{e}{m} E_0 \quad \Rightarrow \quad x_0 \left(-\omega^2+j\eta\omega + \omega_0^2 \right) = -\frac{e}{m} E_0
 \end{equation*}
 This perfectly simplifies to our final solution for the phasor displacement $x_0$:
 \begin{keyresult}
@@ -325,6 +285,15 @@ This perfectly simplifies to our final solution for the phasor displacement $x_0
         x_0=-\frac{e}{m}\frac{E_0}{\omega_0^2-\omega^2+j\eta\omega}
     \end{equation}
 \end{keyresult}
+
+\begin{keyinsight}[The Two Frequencies: $\omega_0$ vs. $\omega$]
+    It is crucial to never confuse the two distinct frequencies now present in the equation for $x_0$:
+    \begin{itemize}
+        \item \textbf{Natural Frequency ($\omega_0$):} This is the \emph{internal} property of the atom itself, determined by the ``spring stiffness'' $k_s$ binding the electron. It is the frequency the electron inherently ``wants'' to vibrate at.
+        \item \textbf{Driving Frequency ($\omega$):} This is the \emph{external} property of the incoming electromagnetic light wave. It is the frequency at which the light physically \emph{forces} the electron to move.
+    \end{itemize}
+    The difference between them, called the \textbf{Detuning} ($\Delta\omega = \omega - \omega_0$), dictates the entire interaction. When the external push matches the natural rhythm ($\omega \approx \omega_0$), we hit resonance, causing massive energy transfer.
+\end{keyinsight}
 
 What does this equation tell us? It proves that the electron's movement $x_0$ depends enormously on the denominator.
 We must explicitly consider the resonance cases:
@@ -341,35 +310,26 @@ We must explicitly consider the resonance cases:
 \end{figure}
 
 \begin{keyinsight}[Physical Meaning of Phase and Energy Absorption]
-    Think of pushing a child on a swing. To pump maximum energy in, you must push forward exactly when the swing is moving forward — your Force must be in sync with the swing's \emph{Velocity}. Push at the wrong time and you fight the swing's own momentum, canceling your work. This same logic governs how a light wave pumps energy into an atom.
+    To pump maximum energy into a swing, you must push exactly when it moves forward—your force must be perfectly in-sync with its \emph{velocity}, not its position. Push out of sync, and you cancel your own work. This exact principle governs light-matter energy transfer: the average power absorbed by the atom strictly requires the electron's velocity to be in-phase with the light's driving force ($\langle P \rangle \propto \langle F \cdot v \rangle$).
 
-    The relevant rule is Power $= \bm{F} \cdot \bm{v}$. The light wave exerts a force $F = -eE(t)$ on the electron. Whether it can permanently do net work on the electron depends on whether the electron's \emph{velocity} is in phase with this force. The key is that we derived the phasor displacement amplitude:
+    In the purely phasor domain, velocity is simply the time-derivative of position ($v_0 = j\omega x_0$). Substituting our displacement equation, we find the explicit velocity phasor:
     \begin{equation*}
-        x_0 = -\frac{e}{m}\frac{E_0}{\underbrace{\omega_0^2 - \omega^2 + j\eta\omega}_{\text{determines the phase of }x_0}}
+        v_0 = j\omega \left( -\frac{e}{m}\frac{E_0}{\underbrace{\omega_0^2 - \omega^2 + j\eta\omega}_{\text{determines the phase}}} \right)
     \end{equation*}
-    Since velocity is the derivative of displacement ($v = \frac{dx}{dt}$), differentiating in the time domain turns a $\cos(\omega t)$ wave into a $-\sin(\omega t)$ wave. In phasor notation, this maps to $v_0 = j\omega\, x_0$ — meaning differentiation always rotates the phase by exactly $+90^\circ$. Let's assume the light's force oscillates as a simple cosine wave, $F(t) \propto \cos(\omega t)$, and track where the math leads:
+    The $j$ multiplier mathematically dictates that velocity is always strictly $+90^\circ$ ahead of displacement. Therefore, to align this velocity perfectly with a purely real driving force, the denominator itself must provide exactly $-90^\circ$ of phase lag (meaning the denominator must be purely imaginary) to cancel out the $j$ in the numerator. Let's evaluate this across our regimes:
+
     \begin{itemize}
-        \item \textbf{Case 1 — Low Frequency ($\omega \ll \omega_0$):} The denominator $(\omega_0^2 - \omega^2 + j\eta\omega)$ is dominated by the real term $\omega_0^2$, making $x_0$ purely real. This means the electron's position perfectly tracks the force in the time domain: $x(t) \propto \cos(\omega t)$. Taking the derivative to find velocity gives $v(t) \propto -\sin(\omega t)$ (which is $90^\circ$ out of phase). The light does positive work half the cycle and takes it right back the other half. Net result over a full optical cycle:
+        \item \textbf{Off-Resonance ($\omega \ll \omega_0$ or $\omega \gg \omega_0$):} The real terms ($\omega_0^2$ or $-\omega^2$) completely dominate the denominator, making it purely real. Because the denominator is real, the $j$ in the numerator survives, forcing the final velocity $v_0$ to be purely imaginary.
               \begin{equation*}
-                  \langle P \rangle \propto \langle F(t) \cdot v(t) \rangle = \langle \cos(\omega t) \cdot (-\sin(\omega t)) \rangle = 0
+                  \text{Force and Velocity are } 90^\circ \text{ out of phase} \quad \Rightarrow \quad \langle P \rangle = 0
               \end{equation*}
-              No net absorption. The atom just jiggles elastically and lets the light pass.
+              The atom jiggles elastically, absorbing energy and instantly returning it to the field. Light passes through completely unabsorbed.
 
-        \item \textbf{Case 2 — High Frequency ($\omega \gg \omega_0$):} The denominator is dominated by the real term $-\omega^2$, so $x_0$ is purely real but negative. The position is exactly inverted: $x(t) \propto -\cos(\omega t)$. The derivative is velocity $v(t) \propto \sin(\omega t)$. The force and velocity are still $90^\circ$ out of sync, so the exact same cancellation occurs:
+        \item \textbf{On Resonance ($\omega = \omega_0$):} The real terms exactly cancel ($\omega_0^2 - \omega^2 = 0$). The denominator collapses to the purely imaginary $j\eta\omega$. When we plug this into our velocity equation, the complex $j$ in the numerator and the $j$ in the denominator perfectly annihilate each other!
               \begin{equation*}
-                  \langle P \rangle \propto \langle F(t) \cdot v(t) \rangle = \langle \cos(\omega t) \cdot \sin(\omega t) \rangle = 0
+                  v_0 = j\omega \left( -\frac{e}{m}\frac{E_0}{j\eta\omega} \right) = -\frac{e}{m}\frac{E_0}{\eta} \quad \Rightarrow \quad v_0 \text{ is purely \emph{real}}
               \end{equation*}
-              No net absorption. The light oscillates too fast for the electron to keep up.
-
-        \item \textbf{Case 3 — On Resonance ($\omega = \omega_0$):} The two real terms kill each other: $\omega_0^2 - \omega^2 = 0$. The denominator collapses to the purely imaginary $j\eta\omega$, making $x_0$ purely imaginary. In the time domain, dividing by an imaginary number forces the position wave to lag by $90^\circ$, meaning it becomes a sine wave: $x(t) \propto \sin(\omega t)$. Now, when we take the derivative to find velocity, it turns back into a cosine wave! $v(t) \propto \cos(\omega t)$. Velocity is now perfectly in phase with the force $F(t) \propto \cos(\omega t)$.
-              \begin{equation*}
-                  v_0 = j\omega \cdot x_0 \quad \xrightarrow{x_0 \text{ is imaginary}} \quad v_0 \text{ is purely \emph{real} (in phase with force)}
-              \end{equation*}
-              Because force and velocity are perfectly in sync, Power $= F \cdot v$ is strictly positive at every instant. The light irreversibly dumps all its energy into the atom:
-              \begin{equation*}
-                  \langle P \rangle \propto \langle F(t) \cdot v(t) \rangle = \langle \cos(\omega t) \cdot \cos(\omega t) \rangle = \langle \cos^2(\omega t) \rangle = \tfrac{1}{2} > 0
-              \end{equation*}
-              This is the perfect resonance absorption condition — the atom acts as an uninterrupted energy sink for the light wave.
+              Velocity is now perfectly in-phase with the driving force! The light constantly does positive work, irreversibly dumping its energy into the atom: $\langle P \rangle > 0$. This is the perfect resonance absorption condition—the atom acts as an uninterrupted energy sink.
     \end{itemize}
 \end{keyinsight}
 
@@ -381,14 +341,13 @@ We start directly from the base equation for the displacement amplitude we just 
 \end{equation*}
 
 To isolate the real and imaginary parts, we must clear the complex unit $j$ from the denominator. We do this by multiplying the numerator and denominator by the complex conjugate of the denominator, $(\omega_0^2 - \omega^2) - j\eta\omega$:
-\begin{align*}
-    x_0 & = -\frac{e}{m} \left[ \frac{E_0}{(\omega_0^2 - \omega^2) + j\eta\omega} \cdot \frac{(\omega_0^2 - \omega^2) - j\eta\omega}{(\omega_0^2 - \omega^2) - j\eta\omega} \right] \\[1ex]
-        & = -\frac{e}{m} \left[ \frac{E_0[(\omega_0^2 - \omega^2) - j\eta\omega]}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right]
-\end{align*}
+\begin{equation*}
+    x_0 = -\frac{e}{m} \left[ \frac{E_0}{(\omega_0^2 - \omega^2) + j\eta\omega} \cdot \frac{(\omega_0^2 - \omega^2) - j\eta\omega}{(\omega_0^2 - \omega^2) - j\eta\omega} \right] \quad \Rightarrow \quad x_0 = -\frac{e}{m} \left[ \frac{E_0[(\omega_0^2 - \omega^2) - j\eta\omega]}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right]
+\end{equation*}
 
 We can now cleanly separate the fraction into a purely real part ($x'$) and a purely imaginary part ($x''$), defined such that $x_0 = x' + jx''$.
 
-The real part $x'$ gives the in-phase displacement component, and the imaginary part $x''$ gives the out-of-phase (lagging) displacement component:
+The real part $x'$ gives the in-phase displacement (which will ultimately scale up to drive the macroscopic refractive index), and the imaginary part $x''$ gives the out-of-phase displacement (which will dictate optical absorption):
 \begin{keyresult}
     \begin{gather}
         x' = -\frac{e}{m} \left[ \frac{E_0(\omega_0^2 - \omega^2)}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ In-Phase Displacement)} \\[1ex]
@@ -396,17 +355,17 @@ The real part $x'$ gives the in-phase displacement component, and the imaginary 
     \end{gather}
 \end{keyresult}
 
-By applying the complex conjugate technique to the displacement phasor, we cleanly separated the electron's response into two strictly real quantities: $x'$, the in-phase component that will scale up to drive the macroscopic refractive index, and $x''$, the out-of-phase component that will dictate optical absorption. With the single-atom picture fully resolved, we are now ready to scale this up to an entire block of material.
+With the single-atom picture fully resolved, we are now ready to scale this up to an entire macroscopic block of material.
 
 \section{Susceptibility and the Complex Refractive Index}
 
 \subsection{From Single-Atom Dipole to Macroscopic Polarization}
 
-Now we'll scale up from a single microscopic atom to an entire macroscopic block of material. The phasor displacement $x_0$ of the driven electron relative to its nucleus fundamentally creates a displaced charge pair. This pair — the positive nucleus and the displaced negative electron — forms an electric dipole. Physically, the \textbf{atomic dipole moment} quantifies how far the charge has been pulled apart and how strong the resulting local electric field distortion is. We define it as charge times displacement:
+When the driving light displaces an electron from its positive nucleus by $x_0$, it stretches the atom into an electric dipole. The strength of this charge separation is the \textbf{atomic dipole moment}, defined simply as charge times displacement:
 \begin{equation*}
-    p_0 = q\,x_0 = -e\,x_0
+    p_0 = -e\,x_0,
 \end{equation*}
-where $q = -e$ is the electron charge (negative by convention). The larger the displacement $x_0$, the stronger the dipole.
+where $-e$ is the electron's charge.
 
 If our material contains $N_A$ optically active atoms per unit volume, then the total \textbf{macroscopic polarization} $P_0$ — the aggregate electrical stretching of the material per unit volume — is simply the sum of all individual dipoles:
 \begin{keyresult}
@@ -414,7 +373,7 @@ If our material contains $N_A$ optically active atoms per unit volume, then the 
         P_0 = N_A\,p_0 = -N_A\,e\,x_0
     \end{equation}
 \end{keyresult}
-where:
+Where:
 \begin{itemize}
     \item $P_0$: The macroscopic polarization (units: C/m$^2$), representing the total dipole moment per unit volume.
     \item $N_A$: The number density of active atoms (atoms per m$^3$).
@@ -432,7 +391,7 @@ Ultimately, each atom's displaced electron cloud creates a tiny dipole $p_0$, an
 
 Recall from fundamental electromagnetics that macroscopic polarization is formally linked to the external electric field by a dimensionless material property called the \textbf{electric susceptibility} $\chi$:
 \begin{equation*}
-    P_0 = \varepsilon_0\,\chi(\omega)\,E_0
+    P_0 = \varepsilon_0\,\chi(\omega)\,E_0,
 \end{equation*}
 where $\varepsilon_0$ is the permittivity of free space and $\chi(\omega)$ is a complex, frequency-dependent number that tells us exactly how strongly the material polarizes in response to the applied field at frequency $\omega$.
 
@@ -440,25 +399,17 @@ To find a concrete expression for $\chi(\omega)$, we equate our two definitions 
 \begin{equation*}
     \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e\,x_0
 \end{equation*}
-Substituting the phasor displacement $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$ of the driven oscillator:
+Substituting our explicitly derived displacement phasor $x_0 = -\dfrac{e}{m}\dfrac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}$:
 \begin{equation*}
-    \varepsilon_0\,\chi(\omega)\,E_0 = -N_A\,e \left(-\frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}\right) \implies \varepsilon_0\,\chi(\omega)\,E_0 = N_A\,e \cdot \frac{e}{m}\frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}
+    \varepsilon_0\,\chi(\omega)\,E_0 = \frac{N_A\,e^2}{m} \frac{E_0}{\omega_0^2 - \omega^2 + j\eta\omega}
 \end{equation*}
-Next, we group all numerator terms together:
-\begin{equation*}
-    \varepsilon_0\,\chi(\omega)\,E_0 = \frac{N_A\,e^2\,E_0}{m(\omega_0^2 - \omega^2 + j\eta\omega)}
-\end{equation*}
-To isolate $\chi(\omega)$, divide both sides by $\varepsilon_0\,E_0$:
-\begin{equation*}
-    \frac{\varepsilon_0\,\chi(\omega)\,E_0}{\varepsilon_0\,E_0} = \frac{N_A\,e^2\,E_0}{m\,\varepsilon_0\,E_0(\omega_0^2 - \omega^2 + j\eta\omega)}
-\end{equation*}
-The $E_0$ fields explicitly cancel on both sides, yielding our fundamental result:
+The applied field $E_0$ perfectly cancels from both sides, proving that susceptibility is an intrinsic material property independent of the light's intensity (the hallmark of linear optics). Isolating $\chi(\omega)$ yields our fundamental result:
 \begin{keyresult}
     \begin{equation}
         \chi(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m}\,\frac{1}{\omega_0^2 - \omega^2 + j\eta\omega}
     \end{equation}
 \end{keyresult}
-Note that $\chi(\omega)$ is complex-valued — its real part will drive dispersion and its imaginary part will drive absorption or gain. This expression is \emph{exact} within the Lorentz model. Its magnitude peaks sharply at $\omega = \omega_0$, and its phase encodes whether the material's response leads or lags the driving field.
+Note that $\chi(\omega)$ is complex-valued — its real part will drive dispersion and its imaginary part will drive optical absorption. This expression is \emph{exact} within the classical Lorentz model (which, behaving as a damped spring, can only dissipate energy, never amplify it). Its magnitude peaks sharply at $\omega = \omega_0$, and its phase encodes whether the material's response leads or lags the driving field.
 
 \subsubsection{The Exact \texorpdfstring{$\chi'$, $\chi''$}{χ', χ''} Spectral Profiles}
 
@@ -469,12 +420,7 @@ Just like we did for the microscopic displacement $x_0$, we can decompose the to
 
 By explicitly writing both variables in their expanded complex forms ($\chi = \chi' + j\chi''$ and $x_0 = x' + jx''$), we can substitute them directly into the bridge equation:
 \begin{equation*}
-    \chi' + j\chi'' = -\frac{N_A e}{\varepsilon_0 E_0} (x' + jx'')
-\end{equation*}
-
-To see the relationship clearly, we distribute the scaling coefficient on the right-hand side:
-\begin{equation*}
-    \chi' + j\chi'' = \left(-\frac{N_A e}{\varepsilon_0 E_0}x'\right) + j\left(-\frac{N_A e}{\varepsilon_0 E_0}x''\right)
+    \chi' + j\chi'' = -\frac{N_A e}{\varepsilon_0 E_0} (x' + jx'') \quad \Rightarrow \quad \chi' + j\chi'' = \left(-\frac{N_A e}{\varepsilon_0 E_0}x'\right) + j\left(-\frac{N_A e}{\varepsilon_0 E_0}x''\right)
 \end{equation*}
 
 For two complex equations to be mathematically equal, their purely real parts must exactly match, and their strictly imaginary parts must exactly match. Equating them directly proves that the macroscopic susceptibility components are nothing more than perfectly scaled replicas of the electron's displacement components:
@@ -482,7 +428,7 @@ For two complex equations to be mathematically equal, their purely real parts mu
     \chi' = -\frac{N_A e}{\varepsilon_0 E_0}x' \quad \text{and} \quad \chi'' = -\frac{N_A e}{\varepsilon_0 E_0}x''
 \end{equation*}
 
-Finally, we simply substitute the exact algebraic formulas for $x'$ and $x''$ of the driven electron into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
+Finally, we simply substitute the exact algebraic formulas for $x'$ and $x''$ of the driven electron (which we derived earlier) into these two scaling equations. This immediately yields the exact mathematical forms for the macroscopic susceptibility profiles:
 \begin{keyresult}
     \begin{gather}
         \chi'(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m} \left[ \frac{\omega_0^2 - \omega^2}{(\omega_0^2 - \omega^2)^2 + (\eta\omega)^2} \right] \quad \text{(Real Part $\to$ Controls Dispersion)} \\[1ex]
@@ -490,78 +436,65 @@ Finally, we simply substitute the exact algebraic formulas for $x'$ and $x''$ of
     \end{gather}
 \end{keyresult}
 
-\begin{keyinsight}[The Universal Scope of the Exact Profiles]
-    These exact classical equations are universally true. They completely dictate the optical response of the material at \emph{every} possible electromagnetic frequency — from $0$ Hz (a DC field) all the way up to extreme X-rays. While physically flawless, their massive denominator terms make them bulky and slightly unintuitive to manipulate when mathematically modeling modern lasers or narrow-band filters.
-\end{keyinsight}
-
-So, when all the math clears, the full macroscopic susceptibility profiles perfectly inherit the real and imaginary structure of the isolated electron's displacement. Because dealing with these exact, full-spectrum formulas is mathematically cumbersome, we will now zoom in strictly on the ultra-narrow frequency range where lasers actually operate to derive a far more elegant and powerful approximation.
+As expected, the macroscopic susceptibility profiles have perfectly inherited the real and imaginary mathematical structure of the single isolated electron.
 
 \subsubsection{The Near-Resonance Approximation}
 
-While the exact equations cover the entire electromagnetic spectrum, in laser physics and applied optics we almost exclusively operate extremely close to the atomic resonance peak. This allows us to make a powerful simplifying assumption: $\omega \approx \omega_0$.
+While the classical equations derived above are mathematically rigorous for a theoretical spring, applying them to a real atom across the entire spectrum is a physical mistake. In reality, this single-oscillator model only accurately captures the true behavior of real atoms within a very narrow frequency band extremely close to a specific atomic transition. Furthermore, outside of this tight window, the resonant susceptibility drops to zero and the atoms become optically invisible. Because all the relevant optical physics occurs precisely where $\omega \approx \omega_0$, we are physically justified in making a powerful mathematical simplification.
 
-Let's look at the term $\omega_0^2 - \omega^2$ appearing in our susceptibility equations. This is a classic difference of squares, which explicitly factors as:
+To navigate the mathematics near resonance, it is extremely useful to define a new universal parameter called the \textbf{normalised frequency detuning} $\delta$. It measures exactly how far the driving frequency $\omega$ is from the resonance $\omega_0$, scaled by the half-linewidth $\eta/2$:
 \begin{equation*}
-    \omega_0^2 - \omega^2 = (\omega_0 - \omega)(\omega_0 + \omega)
+    \delta \equiv \frac{\omega - \omega_0}{\eta/2} = \frac{2(\omega - \omega_0)}{\eta}
 \end{equation*}
-If we apply our assumption that $\omega \approx \omega_0$, then the sum $(\omega_0 + \omega) \approx 2\omega$:
-\begin{equation*}
-    \omega_0^2 - \omega^2 \approx (\omega_0 - \omega)(2\omega)
-\end{equation*}
+Because both the numerator and denominator have units of frequency (rad/s), $\delta$ is completely dimensionless. It serves as a pure, unitless ``score'' of how far off-resonance the light is.
 
-To write this cleanly, we define the \textbf{normalised frequency detuning} $\delta$, which measures exactly how far the driving frequency $\omega$ is from the resonance $\omega_0$, scaled by half the damping rate $\eta/2$:
+With this definition in hand, we now apply our near-resonance approximation ($\omega \approx \omega_0$) to the exact susceptibility equation. We start by factoring the $\omega_0^2 - \omega^2$ term in its denominator as a difference of squares:
 \begin{equation*}
-    \delta = \frac{\omega - \omega_0}{\eta/2} = \frac{2(\omega - \omega_0)}{\eta}
-\end{equation*}
-From this definition, we isolate $(\omega_0 - \omega)$:
-\begin{equation*}
-    \delta\eta = 2(\omega - \omega_0) \quad \Rightarrow \quad \omega - \omega_0 = \frac{\delta\eta}{2} \quad \Rightarrow \quad \omega_0 - \omega = -\frac{\delta\eta}{2}
-\end{equation*}
-Substitute back into the approximated difference of squares:
-\begin{equation*}
-    \omega_0^2 - \omega^2 \approx \left(-\frac{\delta\eta}{2}\right)(2\omega) = -\delta\eta\omega
+    \omega_0^2 - \omega^2 = (\omega_0 - \omega)(\omega_0 + \omega) \quad \Rightarrow \quad \omega_0^2 - \omega^2 \approx 2\omega(\omega_0 - \omega)
 \end{equation*}
 
-Now we plug this into the denominator of $\chi(\omega)$:
+Substituting this approximated term back into the exact expression for $\chi(\omega)$ gives:
 \begin{equation*}
-    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m}\,\frac{1}{-\delta\eta\omega + j\eta\omega}
-\end{equation*}
-Factor out the common term $\eta\omega$ from the denominator:
-\begin{equation*}
-    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\,\frac{1}{j - \delta}
+    \chi(\omega) = \frac{N_A\,e^2}{\varepsilon_0\,m}\,\frac{1}{\omega_0^2 - \omega^2 + j\eta\omega} \quad \Rightarrow \quad \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m}\,\frac{1}{2\omega(\omega_0 - \omega) + j\eta\omega}
 \end{equation*}
 
-To separate this into its purely real and purely imaginary parts ($\chi = \chi' + j\chi''$), we multiply numerator and denominator by the conjugate of $(j - \delta)$, which is $(-j - \delta)$:
+To mathematically expose our detuning parameter, we factor out the common friction term $\eta\omega$ from the denominator:
 \begin{equation*}
-    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{1}{j - \delta}\cdot\frac{-j - \delta}{-j - \delta}\right)
-\end{equation*}
-So the equation becomes:
-\begin{equation*}
-    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-j - \delta}{1 + \delta^2}\right) = \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-\delta}{1 + \delta^2} + j\,\frac{-1}{1 + \delta^2}\right)
+    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega} \frac{1}{\dfrac{2(\omega_0 - \omega)}{\eta} + j}
 \end{equation*}
 
-By cleanly separating the real and imaginary components, we obtain the two functions that govern how light interacts with matter near a resonance:
+Looking at the purely real fraction that has organically emerged in the denominator, we immediately recognize it as the exact negative of our detuning factor: $\dfrac{2(\omega_0 - \omega)}{\eta} = -\delta$.
+
+Substituting this definition into our susceptibility yields its elegant, universal near-resonance form:
+\begin{equation*}
+    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega} \frac{1}{-\delta + j}
+\end{equation*}
+
+Finally, to cleanly separate this into its purely real and purely imaginary parts ($\chi = \chi' + j\chi''$), we multiply the numerator and denominator by the complex conjugate $(-\delta - j)$:
+\begin{equation*}
+    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega} \left( \frac{1}{-\delta + j} \cdot \frac{-\delta - j}{-\delta - j} \right) \quad \Rightarrow \quad \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega} \left( \frac{-\delta - j}{\delta^2 + 1} \right)
+\end{equation*}
+
+By cleanly splitting the fraction, we explicitly isolate the real and imaginary components:
+\begin{equation*}
+    \chi(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega} \left( \frac{-\delta}{1 + \delta^2} + j \frac{-1}{1 + \delta^2} \right)
+\end{equation*}
+
+This definitively yields the two individual functions that strictly govern how light interacts with matter near a resonance:
 \begin{keyresult}
     \begin{gather}
         \chi'(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-\delta}{1 + \delta^2}\right) \quad \text{(Real Part $\to$ Controls Dispersion)}\\[1ex]
-        \chi''(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-1}{1 + \delta^2}\right) \quad \text{(Imaginary Part $\to$ Controls Loss/Gain)}
+        \chi''(\omega) \approx \frac{N_A\,e^2}{\varepsilon_0\,m\,\eta\omega}\left(\frac{-1}{1 + \delta^2}\right) \quad \text{(Imaginary Part $\to$ Controls Absorption)}
     \end{gather}
 \end{keyresult}
 
-\begin{keyinsight}[Understanding the Detuning Factor $\delta$]
-    Both $\chi'$ and $\chi''$ share the same building blocks — a prefactor and a spectral shape function that depends entirely on $\delta$. But what is $\delta$ actually telling us?
-
-    Recall that we defined the normalised detuning as:
-    \begin{equation*}
-        \delta = \frac{2(\omega - \omega_0)}{\eta}
-    \end{equation*}
-    Think of $\delta$ as a dimensionless ``score'' of how far off-resonance the driving light is. The denominator $\eta$ normalises that raw frequency gap against the damping rate, so $\delta$ tells you the mismatch \emph{relative to how fast the atom naturally loses energy}:
+\begin{keyinsight}[The Anatomy of the Lorentzian Profiles]
+    Both $\chi'$ and $\chi''$ share the exact same denominator $(1 + \delta^2)$, but their different numerators completely dictate their physical behavior as you tune the laser across the resonance:
     \begin{itemize}
-        \item \textbf{$\delta = 0$:} The driving frequency $\omega$ exactly equals the resonance $\omega_0$. We are perfectly on resonance. Because $\delta$ is exactly zero in the numerator of $\chi'$, dispersion vanishes entirely ($|\chi'| = 0$). However, the denominator $(1 + \delta^2) = 1$ is at its absolute minimum, meaning the absorption term $|\chi''|$ reaches its absolute maximum peak. At exact resonance, the atom's entire response goes into absorbing energy, not bending light.
-        \item \textbf{$|\delta| = 1$:} We are off resonance by exactly $\eta/2$ in frequency (i.e., $|\omega - \omega_0| = \eta/2$). The denominator $(1 + \delta^2) = 2$, meaning the absorption $|\chi''|$ has dropped to exactly half of its peak value. However, something completely different happens for dispersion! Because $\chi' \propto \frac{\delta}{1+\delta^2}$, setting $|\delta|=1$ yields $\frac{1}{2}$, which is the mathematical \emph{maximum} of this function. So exactly at the points where absorption drops to half, dispersion fiercely peaks.
-        \item \textbf{$|\delta| \gg 1$:} We are far from resonance — the mismatch $|\omega - \omega_0|$ is much larger than the damping rate $\eta$. The denominator $(1 + \delta^2) \approx \delta^2 \gg 1$, driving both $\chi'$ and $\chi''$ to essentially zero. Far off-resonance, the classical electron either acts as a pure spring (Case 1, $\omega \ll \omega_0$) or a pure inertial mass (Case 2, $\omega \gg \omega_0$) — and in both cases no net energy is absorbed. The large $\delta^2$ in the denominator is the mathematical signature of that same physics.
+        \item \textbf{Exact Resonance ($\delta = 0$):} The laser perfectly matches the atomic frequency $\omega_0$. Because the numerator of $\chi'$ is exactly zero, dispersion vanishes entirely ($|\chi'| = 0$). However, the denominator $(1 + \delta^2) = 1$ is at its absolute minimum, meaning the absorption term $|\chi''|$ reaches its maximum possible peak. At exact resonance, the atom's entire response goes into absorbing energy, not bending light.
+        \item \textbf{The Half-Width Points ($|\delta| = 1$):} The laser is off-resonance by exactly $\eta/2$. The denominator becomes $(1 + 1^2) = 2$, meaning absorption $|\chi''|$ has dropped to exactly half of its peak value. However, something completely different happens for dispersion! Because $\chi' \propto \frac{\delta}{1+\delta^2}$, setting $|\delta|=1$ yields $\frac{1}{2}$, which is the mathematical \emph{maximum} of this function. So exactly at the points where absorption drops to 50\%, dispersion fiercely peaks.
+        \item \textbf{Far Off-Resonance ($|\delta| \gg 1$):} The mismatch is much larger than the damping rate $\eta$. The denominator $(1 + \delta^2) \approx \delta^2 \gg 1$, driving both $\chi'$ and $\chi''$ to effectively zero. As seen earlier, far from resonance the classical electron acts as either a pure spring or a pure inertial mass, and in both cases, no net energy is permanently absorbed. The large $\delta^2$ dominating the denominator is the mathematical signature of that physics.
     \end{itemize}
-    To strip away the math for a second, $\delta$ is the single number that encodes where you are sitting on the resonance curve. The closer $|\delta|$ is to zero, the more dramatically the atom responds to the light.
 \end{keyinsight}
 
 \begin{figure}[H]
@@ -572,49 +505,32 @@ By cleanly separating the real and imaginary components, we obtain the two funct
 
 Now let's extract the physical implications embedded within the susceptibility profiles shown above. This visualization provides us with a rigorous mathematical map of the atom's optical response, simultaneously encoding the exact behaviour of both its internal friction (manifesting as absorption) and its physical inertia (manifesting as dispersion) as it interacts with the light.
 
-Starting with the absorption peak: notice the double-headed arrow labelled FWHM. The \textbf{Full Width at Half Maximum (FWHM)} is the total horizontal width of the absorption curve measured between the two points where $|\chi''|$ has dropped to exactly half of its peak value. As established conceptually, friction ($\eta$) physically smears the atom's frequency response into a wider band --- the FWHM is the precise, quantitative measure of that smearing. To prove this, we need to find where the absorption drops to half its peak. Since $|\chi''|$ is normalised to peak at 1, we set:
+Starting with the absorption peak, notice the double-headed arrow labelled FWHM. The \textbf{Full Width at Half Maximum (FWHM)} is the physical frequency span between the two points where the absorption profile drops to exactly half of its peak value.
+
+To calculate this span, we first find where the normalized Lorentzian absorption drops to 50\%:
 \begin{equation*}
-    \frac{1}{1 + \delta^2} = \frac{1}{2}
-\end{equation*}
-By cross-multiplying, we solve for $\delta$:
-\begin{equation*}
-    1 + \delta^2 = 2 \quad \implies \quad \delta^2 = 1 \quad \implies \quad \delta = \pm 1
+    \frac{1}{1 + \delta^2} = \frac{1}{2} \quad \Rightarrow \quad 1 + \delta^2 = 2 \quad \Rightarrow \quad \delta = \pm 1
 \end{equation*}
 
-This tells us that the absorption drops to 50\% at two specific normalised coordinates: $\delta_1 = -1$ and $\delta_2 = +1$. The total width of the curve in this normalised $\delta$ domain is simply the distance between these two points:
+This tells us that the absorption drops to half its maximum at two specific dimensionless detunings: $\delta = +1$ and $\delta = -1$. To convert these coordinates back into physical frequencies, we simply rearrange our detuning definition to solve for $\omega$:
 \begin{equation*}
-    \Delta\delta = \delta_2 - \delta_1 = (+1) - (-1) = 2
+    \delta = \frac{2(\omega - \omega_0)}{\eta} \quad \Rightarrow \quad \omega = \omega_0 + \frac{\eta}{2}\delta
 \end{equation*}
 
-Now we must convert this dimensionless span back to a physical angular frequency span ($\Delta\omega_{\text{FWHM}}$). Recall our definition of the normalised detuning:
+Plugging in our two half-maximum points ($\delta = \pm 1$), the exact physical frequencies where the absorption drops to 50\% are:
 \begin{equation*}
-    \delta = \frac{2(\omega - \omega_0)}{\eta}
+    \omega_1 = \omega_0 - \frac{\eta}{2} \quad \text{and} \quad \omega_2 = \omega_0 + \frac{\eta}{2}
 \end{equation*}
 
-To find the width in terms of physical frequency, we substitute this definition for both half-maximum points back into our width equation $\Delta\delta = \delta_2 - \delta_1$:
+The FWHM is simply the difference between these two boundary frequencies ($\Delta\omega_{\text{FWHM}} = \omega_2 - \omega_1$). Subtracting them immediately yields a profound mathematical result:
 \begin{equation*}
-    2 = \left[ \frac{2(\omega_2 - \omega_0)}{\eta} \right] - \left[ \frac{2(\omega_1 - \omega_0)}{\eta} \right]
+    \Delta\omega_{\text{FWHM}} = \left( \omega_0 + \frac{\eta}{2} \right) - \left( \omega_0 - \frac{\eta}{2} \right) \quad \Rightarrow \quad \Delta\omega_{\text{FWHM}} = \eta
 \end{equation*}
 
-Since the terms share a common denominator $\eta$, we can combine the fractions. Notice how the central resonance frequency $\omega_0$ cancels out completely:
-\begin{equation*}
-    2 = \frac{2\omega_2 - 2\omega_0 - 2\omega_1 + 2\omega_0}{\eta} = \frac{2(\omega_2 - \omega_1)}{\eta}
-\end{equation*}
-
-The term $(\omega_2 - \omega_1)$ is precisely the physical frequency span between the two half-maximum points, which is the exact definition of $\Delta\omega_{\text{FWHM}}$. Substituting this in yields the final physical linewidth:
-\begin{gather*}
-    2 = \frac{2(\Delta\omega_{\text{FWHM}})}{\eta} \\
-    \Delta\omega_{\text{FWHM}} = \eta
-\end{gather*}
-
-where $\Delta\omega_{\text{FWHM}}$ is the full width at half maximum in angular frequency (rad/s), and $\eta$ is the damping rate of the atom (rad/s).
-
-One important practical note before moving on. Throughout our derivations we have worked exclusively in angular frequency $\omega$ (rad/s), which is the natural language of the mathematics. However, optical bandwidth in any real laboratory is measured in ordinary frequency $\nu$ (Hz). Because $\omega = 2\pi\nu$, the frequency width $\Delta\nu_{\text{FWHM}}$ is found simply by dividing the angular frequency width by $2\pi$:
+Before we interpret this physically, a practical note is required. We have worked exclusively in angular frequency $\omega$ (rad/s), which is the natural language of the mathematics. However, optical bandwidth in any real laboratory is measured in ordinary frequency $\nu$ (Hz). Because $\omega = 2\pi\nu$, the frequency width $\Delta\nu_{\text{FWHM}}$ is found by simply dividing by $2\pi$:
 \begin{equation*}
     \Delta\nu_{\text{FWHM}} = \frac{\Delta\omega_{\text{FWHM}}}{2\pi} = \frac{\eta}{2\pi}
 \end{equation*}
-
-where $\Delta\nu_{\text{FWHM}}$ is the FWHM linewidth in Hz. This is the number you would directly read off a laser spectrum analyser.
 
 We collect both of these extremely important forms into a single definitive summary:
 
@@ -625,7 +541,7 @@ We collect both of these extremely important forms into a single definitive summ
     \end{gather}
 \end{keyresult}
 
-A physical system with higher internal friction naturally restricts the electron's ability to sustain a long, ringing oscillation, causing its excited state energy to decay much more rapidly. In the frequency domain, this faster time decay translates directly into a broader, more smeared-out resonance bandwidth. By proving that the Full Width at Half Maximum (FWHM) is mathematically identical to $\eta$, we have accomplished something profound: we have taken an abstract friction coefficient from a microscopic, theoretical differential equation and revealed it to be exactly the macroscopic, easily measurable spectral width of the light that you would see on a laboratory spectrum analyser!
+This derivation achieves something beautiful: it bridges the microscopic math to the macroscopic reality. A physical system with higher internal friction ($\eta$) naturally restricts the electron's ability to sustain a long, ringing oscillation, causing its excited energy to decay much more rapidly. In the frequency domain, this faster time decay translates directly into a broader, more smeared-out resonance bandwidth. By proving that the FWHM is mathematically identical to $\eta$ (or $\eta/2\pi$ in Hz), we have taken an abstract friction coefficient from a microscopic differential equation and revealed it to be exactly the macroscopic, measurable spectral width of the light that you would see on a laboratory spectrum analyser.
 
 \begin{keyinsight}[Why Dispersion Flips but Absorption is Symmetrical]
     Re-examining the susceptibility profiles plotted earlier, notice that the absorption curve ($\chi''$, the dashed line) is perfectly symmetric around $\delta = 0$. Mathematically, its denominator $(1+\delta^2)$ squares the detuning, erasing the sign. Physically, the atom doesn't care if you drive it too fast ($\delta > 0$) or too slow ($\delta < 0$) — either way, you are off-rhythm, and energy transfer drops symmetrically.
@@ -642,31 +558,24 @@ A physical system with higher internal friction naturally restricts the electron
     Notice how $\chi'$ and $\chi''$ are intrinsically linked — they share the exact same denominator $(1 + \delta^2)$. This is not a coincidence. Because causation must precede effect (the causality principle), the dispersive and absorptive responses of any linear, causal medium are never independent: they are rigorously locked together via integral transforms known as the \textbf{Kramers-Kronig relations}. Knowing the absorption profile $\chi''(\omega)$ at all frequencies is sufficient to uniquely reconstruct the dispersion profile $\chi'(\omega)$, and vice versa. Physically, this means a material cannot absorb light without also bending it — dispersion and absorption are two inseparable facets of the same underlying causal response.
 \end{keyinsight}
 
-\begin{keyinsight}[Why the Approximate Form Is the Physically Relevant Profile]
-    One might ask: we applied $\omega \approx \omega_0$ to reach these expressions, so how can we confidently treat them as the universal spectral profiles? The key is that $\chi$ is only appreciable within a narrow bandwidth of order $\eta$ around $\omega_0$. Outside this bandwidth, $|\chi|$ is negligibly small and contributes virtually nothing to the refractive index, absorption, or any measurable optical property. Therefore, the near-resonance Lorentzian form captures the \emph{entire} physically significant behaviour of $\chi$, and the regions where the approximation breaks down are precisely the regions where $\chi$ is too small to matter.
-\end{keyinsight}
-
-The physical takeaway here is that scaling $x_0$ to $N_A$ atoms builds the material susceptibility $\chi$. Splitting $\chi$ into real and imaginary parts proves that any medium interacting with light will simultaneously change the light's velocity ($\chi'$, dispersion) and change its power ($\chi''$, absorption or gain). Now we must connect $\chi$ to the refractive index and the wave propagation — and for that, we need the \textbf{relative permittivity}.
-
 \subsection{Relative Permittivity and the Complex Refractive Index}
 
 In every real optoelectronic device, there are \textit{two} optically distinct populations of atoms that we must account for simultaneously:
 
 \begin{enumerate}
     \item \textbf{The host medium.} This is the passive, transparent bulk material — silica glass in an optical fibre, a YAG crystal in a solid-state laser, or even just a background gas in a vapour cell. The host has its own refractive index $n_b$ (the subscript $b$ stands for ``background''), which is real, large, and essentially constant across the narrow frequency ranges we care about. It does not absorb at our operating frequency.
-
-    \item \textbf{The transition atoms.} These are the optically active species embedded inside the host — Er$^{3+}$ ions in a silica fibre, Nd$^{3+}$ ions in a YAG crystal, and so on. They are a tiny minority compared to the host atoms, but they are the only ones doing anything interesting: they absorb, amplify, and shift the phase of the wave via their quantum resonance. Their contribution to the susceptibility is small, complex, and strongly frequency-dependent.
+    \item \textbf{The transition atoms.} These are the optically active species embedded inside the host — Er$^{3+}$ ions in a silica fibre, Nd$^{3+}$ ions in a YAG crystal, and so on. They are a tiny minority compared to the host atoms, but they are the only ones doing anything interesting: they absorb and shift the phase of the wave via their dipole resonance. Their contribution to the susceptibility is small, complex, and strongly frequency-dependent.
 \end{enumerate}
 
 Every subsequent derivation relies explicitly on this physical split. The host medium establishes a large, purely real background, while the transition atoms introduce a small, complex, and highly resonant correction.
 
 With this foundation in place, we can now define the exact quantity that bridges the microscopic atomic susceptibility to the macroscopic propagation of the wave.
 
-\subsubsection{From Susceptibility to Permittivity — The General Case}
+\subsubsection{From Susceptibility to Permittivity}
 
-Recall from Maxwell's equations that the electric displacement field $\mathbf{D}$ is related to the applied electric field $\mathbf{E}$ and the polarisation $\mathbf{P}$ of the medium by:
+Recall from Maxwell's equations that the electric displacement field $\mathbf{D}$ is related to the applied electric field $\mathbf{E}$ and the total macroscopic polarisation $\mathbf{P}$ of the medium by:
 \begin{equation*}
-    \mathbf{D} = \varepsilon_0 \mathbf{E} + \mathbf{P}
+    \mathbf{D} = \varepsilon_0 \mathbf{E} + \mathbf{P},
 \end{equation*}
 where:
 \begin{itemize}
@@ -675,51 +584,47 @@ where:
     \item $\mathbf{P}$: the macroscopic polarisation — the dipole moment per unit volume induced in the medium.
 \end{itemize}
 
-Now, $\mathbf{P}$ is linearly related to $\mathbf{E}$ via the electric susceptibility $\chi$:
+In a linear medium, the total polarisation $\mathbf{P}$ is driven by the electric field via the total electric susceptibility $\chi_{\text{total}}$:
 \begin{equation*}
-    \mathbf{P} = \varepsilon_0 \chi \mathbf{E}
+    \mathbf{P} = \varepsilon_0 \chi_{\text{total}} \mathbf{E},
 \end{equation*}
-where $\chi$ is dimensionless and, in general, complex. Substituting this into the expression for $\mathbf{D}$:
+where $\chi_{\text{total}}$ is dimensionless and complex. Substituting this back into the expression for $\mathbf{D}$ yields:
 \begin{equation*}
-    \mathbf{D} = \varepsilon_0 \mathbf{E} + \varepsilon_0 \chi \mathbf{E} = \varepsilon_0(1 + \chi)\mathbf{E}
+    \mathbf{D} = \varepsilon_0 \mathbf{E} + \varepsilon_0 \chi_{\text{total}} \mathbf{E} = \varepsilon_0(1 + \chi_{\text{total}})\mathbf{E}.
 \end{equation*}
 
-We now define the \textbf{relative permittivity} $\varepsilon_r$ (also called the \textbf{dielectric constant}) as precisely the factor relating $\mathbf{D}$ to $\varepsilon_0 \mathbf{E}$:
+We now define the \textbf{relative permittivity} $\varepsilon_r$ (often called the \textbf{dielectric constant}) as precisely the complex factor relating $\mathbf{D}$ directly to $\varepsilon_0 \mathbf{E}$:
 \begin{equation*}
-    \varepsilon_r = 1 + \chi
+    \varepsilon_r = 1 + \chi_{\text{total}},
 \end{equation*}
-so that $\mathbf{D} = \varepsilon_0 \varepsilon_r \mathbf{E}$. Since $\chi$ is complex, $\varepsilon_r$ is also complex. This single number encodes everything the material does to an electromagnetic wave propagating through it — both its phase velocity (the real part) and its absorption or gain (the imaginary part).
+so that $\mathbf{D} = \varepsilon_0 \varepsilon_r \mathbf{E}$. This single complex number encodes absolutely everything the composite material does to an electromagnetic wave — its real part dictates the phase velocity, and its imaginary part dictates the absorption.
 
-But this formula, $\varepsilon_r = 1 + \chi$, implicitly assumes that the atoms are sitting in \textit{vacuum}. As we noted above, that is never the case in a real device. Let's now do the general case properly.
-
-\subsubsection{The Total Permittivity: Host + Transition Atoms}
-
-Since the host and the transition atoms are two independent populations, their polarisation responses simply add. The total susceptibility of the composite medium is therefore:
+Because the host and the transition atoms respond independently to the light, their individual susceptibilities simply add together to form the total response:
 \begin{equation*}
-    \chi_{\text{total}} = \chi_{\text{host}} + \chi_{\text{transition}}
+    \chi_{\text{total}} = \chi_{\text{host}} + \chi_{\text{transition}},
 \end{equation*}
-and so the total relative permittivity is:
+and therefore, the total relative permittivity of the device is:
 \begin{equation*}
-    \varepsilon_r = 1 + \chi_{\text{total}} = 1 + \chi_{\text{host}} + \chi_{\text{transition}}
+    \varepsilon_r = 1 + \chi_{\text{host}} + \chi_{\text{transition}}.
 \end{equation*}
 
 Now we apply two key physical facts about the host that let us simplify this immediately.
 
 \textbf{Fact 1 — The host is lossless at our operating frequency.} Since the host is transparent, it has no absorption, which means its susceptibility is purely real:
 \begin{equation*}
-    \chi''_{\text{host}} = 0 \quad \Longrightarrow \quad \chi_{\text{host}} \in \mathbb{R}
+    \chi''_{\text{host}} = 0 \quad \Rightarrow \quad \chi_{\text{host}} \in \mathbb{R}.
 \end{equation*}
 The host shifts the phase of the wave (it has a refractive index), but it does not attenuate it.
 
-\textbf{Fact 2 — The host already has a well-defined refractive index $n_b$.} By the standard definition linking permittivity to refractive index, the host's permittivity is simply $n_b^2$:
+\textbf{Fact 2 — The pure host material has a well-defined refractive index $n_b$.} If the active transition atoms were completely removed, the remaining pure host medium would have its own standalone relative permittivity, $\varepsilon_{r,\text{host}} = 1 + \chi_{\text{host}}$. By the fundamental relationship between permittivity and refractive index ($\varepsilon_r = n^2$), this baseline permittivity must exactly equal the square of the host's refractive index $n_b$:
 \begin{equation*}
-    \varepsilon_{r,\text{host}} = 1 + \chi_{\text{host}} = n_b^2
+    \varepsilon_{r,\text{host}} = 1 + \chi_{\text{host}} = n_b^2,
 \end{equation*}
-where $n_b$ is purely real. For reference, $n_b \approx 1.45$ for silica glass and $n_b \approx 3.5$ for GaAs. These are the numbers you would look up in a datasheet for the host material alone, ignoring the dopant atoms entirely.
+This is simply the standard refractive index you would look up in a datasheet for the bulk host material, ignoring the active dopant atoms entirely.
 
-We can now substitute directly. Starting from the general expression above:
+We can now substitute this baseline host response directly back into our equation for the total permittivity:
 \begin{equation*}
-    \varepsilon_r = \underbrace{1 + \chi_{\text{host}}}_{=\; n_b^2} + \chi_{\text{transition}}
+    \varepsilon_r = \underbrace{1 + \chi_{\text{host}}}_{n_b^2} + \chi_{\text{transition}}.
 \end{equation*}
 
 From this point forward, we will write $\chi$ to mean $\chi_{\text{transition}}$ exclusively — the small, complex, resonant susceptibility of the active atoms only. With that convention, the full expression collapses to:
@@ -729,25 +634,22 @@ From this point forward, we will write $\chi$ to mean $\chi_{\text{transition}}$
         \varepsilon_r = n_b^2 + \chi
     \end{equation}
 \end{keyresult}
-
-where:
+Where:
 \begin{itemize}
-    \item $n_b^2$: The \textbf{host background} contribution — real, large, non-resonant. It sets the baseline refractive index that the wave ``sees'' even when the active atoms are completely inactive (e.g.\ unpumped).
-    \item $\chi = \chi' + j\chi''$: The \textbf{transition atoms'} contribution — small, complex, and strongly resonant. $\chi'$ causes dispersion (a frequency-dependent shift in phase velocity); $\chi''$ causes absorption or gain.
+    \item $n_b^2$: The \textbf{host background} contribution — real, large, non-resonant. It sets the baseline refractive index that the wave ``sees'' even when the active atoms are completely inactive.
+    \item $\chi = \chi' + j\chi''$: The \textbf{transition atoms'} contribution — small, complex, and strongly resonant. Specifically, $\chi'$ dictates dispersion (a frequency-dependent shift in phase velocity), while $\chi''$ dictates absorption.
 \end{itemize}
-
-Notice what happened structurally: the $1$ in the vacuum formula $\varepsilon_r = 1 + \chi$ has been replaced by $n_b^2$. This is not just a cosmetic change — $n_b^2$ can be much larger than $1$ (e.g.\ $n_b = 3.5$ gives $n_b^2 = 12.25$), so the host completely dominates the permittivity. The vacuum case is simply the special case where $n_b = 1$.
 
 \subsubsection{Deriving the Complex Refractive Index \texorpdfstring{$\tilde{n}$}{ñ}}
 
-We know from electromagnetics that the refractive index of a material is defined as $n = \sqrt{\varepsilon_r}$. Since $\varepsilon_r = n_b^2 + \chi$ is complex (because $\chi$ is complex), the square root will also be complex in general. We therefore define the \textbf{complex refractive index} $\tilde{n}$ as the quantity whose square equals $\varepsilon_r$:
+Because the total relative permittivity $\varepsilon_r = n_b^2 + \chi$ is complex, the refractive index of the composite material must also be complex. We therefore define the \textbf{complex refractive index} $\tilde{n}$ precisely as the quantity whose square equals the total permittivity:
 \begin{equation*}
-    \tilde{n}^2 = \varepsilon_r = n_b^2 + \chi, \qquad \tilde{n} \equiv n + j\kappa
+    \tilde{n}^2 = \varepsilon_r = n_b^2 + \chi, \qquad \tilde{n} = n + j\kappa,
 \end{equation*}
 where:
 \begin{itemize}
-    \item $n$: the real refractive index. It determines how fast the wave's phase propagates through the medium (phase velocity is $c_0/n$). It ``rides'' on top of the host background $n_b$, shifted slightly by the dispersive part $\chi'$ of the transition atoms' susceptibility.
-    \item $\kappa$: the \textbf{extinction coefficient}. It determines how quickly the wave's amplitude grows or decays as it propagates. It is entirely due to the absorptive part $\chi''$, and is scaled down by the host index $n_b$.
+    \item $n$: the real refractive index. It determines how fast the wave's phase propagates through the medium (phase velocity is $c_0/n$).
+    \item $\kappa$: the \textbf{extinction coefficient}. It determines how quickly the wave's amplitude decays as it propagates.
 \end{itemize}
 
 Our goal now is to isolate $n$ and $\kappa$ individually in terms of quantities we already know: $n_b$, $\chi'$, and $\chi''$. We start by relating them through the square root of the relative permittivity:
@@ -760,10 +662,10 @@ By factoring out $n_b^2$, we can expose a dimensionless ratio inside the square 
     \tilde{n} = \sqrt{n_b^2\!\left(1 + \frac{\chi}{n_b^2}\right)} = n_b\sqrt{1 + \frac{\chi}{n_b^2}}
 \end{equation*}
 
-At this point, we apply the binomial approximation $(1+x)^{1/2} \approx 1 + x/2$. This expansion is strictly valid only when $|x| \ll 1$, which in our derivation mathematically requires that $|\chi| \ll n_b^2$. Before executing this expansion, we must ask: does this harsh mathematical constraint actually hold true in real optoelectronic materials?
+To simplify the square root, we apply the binomial approximation $(1+x)^{1/2} \approx 1 + x/2$. This mathematical expansion is only valid when the second term is very small ($|x| \ll 1$), which in our equation requires that $|\chi| \ll n_b^2$. Fortunately, this is not just a convenient assumption—it is a physical guarantee in optoelectronic devices.
 
 \begin{keyinsight}[Why the Transition Atom Contribution is Always Small]
-    It is not merely a mathematical convenience—it is physically guaranteed. The active transition atoms are just a \textit{dilute dopant} embedded inside a vast host lattice. There are, for example, vastly fewer Er$^{3+}$ ions per unit volume than native SiO$_2$ molecules in an optical fiber. Since macroscopic susceptibility scales directly with number density, the dopants inherently produce only a microscopic perturbation ($\chi$) atop the host's massive background permittivity ($n_b^2$). Therefore, the condition $|\chi| \ll n_b^2$ is an intrinsic geometric feature of every physical device we will ever analyze.
+    Because the active transition atoms are typically a \textit{dilute dopant} within a dense host medium, their number density is extremely low. Since macroscopic susceptibility scales directly with density, these sparse dopants produce only a tiny perturbation ($\chi$) atop the host's massive baseline permittivity ($n_b^2$). Thus, the condition $|\chi| \ll n_b^2$ is physically guaranteed.
 \end{keyinsight}
 
 Because the condition securely holds, we substitute $x = \chi / n_b^2$ into the binomial expansion:
@@ -787,20 +689,14 @@ Matching this directly against our definition $\tilde{n} = n + j\kappa$, we can 
 
 We can notice that if the transition atoms are switched off entirely ($\chi = 0$), then $n \to n_b$ and $\kappa \to 0$: the wave propagates through the host with no attenuation, exactly as expected.
 
-\begin{keyinsight}[The Vacuum Case]
-    If the transition atoms were not embedded in a solid host medium but were instead floating freely in a pure vacuum (such as in a low-pressure atomic gas cell), the background refractive index becomes simply that of free space: $n_b = 1$. In this perfectly evacuated environment, the massive host background vanishes entirely, and the macroscopic permittivity reduces to $\varepsilon_r = 1 + \chi$. This direct relationship structurally yields the exact vacuum approximations $n \approx 1 + \chi'/2$ and $\kappa \approx \chi''/2$.
-\end{keyinsight}
-
-Ultimately, by factoring the relative permittivity as $\varepsilon_r = n_b^2 + \chi$ and applying the binomial expansion (justified by the geometric restriction $|\chi| \ll n_b^2$), we dissect the complex refractive index into two fundamentally distinct physical components. The real refractive index $n$ governs the wave's phase velocity and is overwhelmingly dominated by the passive background host. In contrast, the extinction coefficient $\kappa$ exclusively controls the exponential amplitude growth or decay, and is driven entirely by the active quantum transitions of our dopant atoms. Together, these two fundamental numbers dictate the complete macroscopic evolution of an electromagnetic wave traversing a medium. Armed with these parameters, we can now investigate exactly how they manifest in the propagating electric field itself.
-
-\newpage
-
 \section{Wave Propagation: Attenuation and Dispersion}
+
+
 \subsection{Power Attenuation and the Absorption Coefficient \texorpdfstring{$\alpha$}{α}}
 
 Recall that a plane wave propagating in the $+z$ direction through a medium with complex refractive index $\tilde{n}$ has the form:
 \begin{equation*}
-    E(z) = E_0\,e^{-j\tilde{n}\,k_0\,z} = E_0\,e^{-j(n + j\kappa)\,k_0\,z} = E_0\,e^{-jn\,k_0\,z}\cdot e^{\kappa\,k_0\,z}
+    E(z) = E_0\,e^{-j\tilde{n}\,k_0\,z} = E_0\,e^{-j(n + j\kappa)\,k_0\,z} = E_0\,e^{-jn\,k_0\,z}\cdot e^{\kappa\,k_0\,z},
 \end{equation*}
 where $k_0 = 2\pi/\lambda_0$ is the free-space wavenumber and $\lambda_0$ is the free-space wavelength.
 
@@ -808,44 +704,38 @@ The first exponential $e^{-jnk_0z}$ is the oscillating phase term — it describ
 
 The optical power (intensity) is proportional to $|E|^2$, so:
 \begin{equation*}
-    P(z) \propto |E(z)|^2 \propto e^{2\kappa\,k_0\,z}
+    P(z) \propto |E(z)|^2 \propto e^{2\kappa\,k_0\,z}.
 \end{equation*}
 We define the \textbf{power attenuation coefficient} $\alpha$ so that power decays (or grows) as:
 \begin{equation*}
-    P(z) = P(0)\,e^{-\alpha z}
+    P(z) = P(0)\,e^{-\alpha z}.
 \end{equation*}
 Comparing the two expressions:
 \begin{equation*}
-    e^{-\alpha z} = e^{2\kappa\,k_0\,z} \quad \Rightarrow \quad \alpha = -2k_0\kappa
+    e^{-\alpha z} = e^{2\kappa\,k_0\,z} \quad \Rightarrow \quad \alpha = -2k_0\kappa.
 \end{equation*}
 Substitute our expression $\kappa = \chi''/(2n_b)$:
 \begin{equation*}
-    \alpha = -2k_0 \cdot \frac{\chi''}{2n_b}
+    \alpha = -2k_0 \cdot \frac{\chi''}{2n_b}.
 \end{equation*}
 The factor of 2 cancels exactly:
 \begin{keyresult}
     \begin{equation}
-        \alpha = -\frac{k_0}{n_b}\,\chi''
+        \alpha = -\frac{k_0}{n_b}\,\chi''.
     \end{equation}
 \end{keyresult}
 
-Because $\chi''$ is inherently negative in our sign convention (absorption corresponds to $\chi'' < 0$), the formula $\alpha = -k_0\chi''/n_b$ yields a strictly positive $\alpha$, enforcing exponential power decay. The physical meaning is clear:
+In general optical theory, the sign of $\alpha$ dictates the fate of the wave's power:
 \begin{itemize}
     \item $\alpha > 0$: The power shrinks exponentially with distance — \textbf{attenuation (loss)}.
     \item $\alpha < 0$: The power grows exponentially with distance — \textbf{amplification (gain)}.
 \end{itemize}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\textwidth]{Figures/Chapter 1/power_decay_lossy_medium.jpg}
-    \caption{Power Decay in a Lossy Medium: A strictly positive attenuation coefficient ($\alpha > 0$) causes the wave's power to decay exponentially with distance.}
-\end{figure}
-
-The imaginary part of the susceptibility $\chi''$ directly controls how fast power decays (or grows) through the material, via $\alpha = -k_0\chi''/n_b$. Together, $n$ and $\alpha$ completely describe a wave's journey through any linear optical medium. Now let's understand how $n$ varies across the frequency spectrum.
+However, in our Classical Electron Oscillator (CEO) model, the atoms are purely passive; they can only drain energy from the wave via internal friction. Because of this, the classical susceptibility $\chi''$ is inherently negative everywhere across the spectrum. Consequently, the formula $\alpha = -\frac{k_0}{n_b}\chi''$ guarantees a strictly positive $\alpha$. In a classical medium, amplification is impossible, and $\alpha$ acts exclusively as an attenuation factor.
 
 \subsection{Normal vs.\ Anomalous Dispersion}
 
-Now let's talk about how the real part of the refractive index $n$ behaves across the frequency spectrum. Away from any resonance, the refractive index $n$ increases as $\omega$ increases. This is the well-known behavior called \textbf{Normal Dispersion} — it is why a prism separates white light into a rainbow, with blue (higher $\omega$) bending more than red (lower $\omega$).
+Away from any resonance, the real refractive index $n$ increases as the optical frequency $\omega$ increases. This is the well-known behavior called \textbf{Normal Dispersion} — it is why a prism separates white light into a rainbow, with blue (higher $\omega$) bending more than red (lower $\omega$).
 
 However, very close to the resonance frequency $\omega_0$, something unusual happens. The real part $\chi'$ (which controls $n$) has a characteristic dispersive profile that actually \emph{dips} near $\omega_0$. In a narrow band around resonance, the refractive index $n$ \textbf{decreases} as $\omega$ increases. This phenomenon is called \textbf{Anomalous Dispersion}.
 
@@ -855,15 +745,13 @@ However, very close to the resonance frequency $\omega_0$, something unusual hap
     \caption{Normal vs Anomalous Dispersion (Single Resonance): The localized anomalous dispersion dip temporarily interrupts the fundamental trend of normal dispersion.}
 \end{figure}
 
-\begin{keyinsight}[Normal Dispersion vs.\ Our Formula: The Apparent Contradiction]
-    We derived $n \approx n_b + \frac{\chi'}{2n_b}$, and our near-resonance formula gives $\chi' \approx \frac{N_A e^2}{\varepsilon_0 m \eta\omega}\left(\frac{-\delta}{1+\delta^2}\right)$. This formula dictates a steep downward slope near resonance, meaning $n$ should \emph{drop} as $\omega$ increases. Yet normal dispersion in glass shows $n$ smoothly rising with frequency. Why?
+\begin{keyinsight}[The Mathematical Origins of Dispersion]
+    We have derived that the refractive index tracks the real susceptibility: $n \approx n_b + \frac{\chi'}{2n_b}$.
 
-    The issue is that our $\delta$-based formula was derived solely for $\omega \approx \omega_0$. It captures only the steep anomalous dip \emph{inside} the resonance, and breaks down entirely in the broad transparent regions between resonances.
+    If we look at the full CEO susceptibility formula: $\chi(\omega) = \frac{N_A e^2}{\varepsilon_0 m}\frac{1}{\omega_0^2-\omega^2+j\eta\omega}$, we can understand \textbf{normal dispersion}. For frequencies far below resonance, the real part is dominated by the $\omega_0^2 - \omega^2$ term in the denominator. As $\omega$ increases, this denominator shrinks, causing $\chi'$ (and therefore $n$) to steadily \emph{increase}. This confirms the fundamental trend of normal dispersion.
 
-    The full susceptibility, $\chi(\omega) = \frac{N_A e^2}{\varepsilon_0 m}\frac{1}{\omega_0^2-\omega^2+j\eta\omega}$, tells the complete story. For visible light, the atomic resonances of glass lie far in the deep UV ($\omega_0 \gg \omega$), so $\omega_0^2$ dominates the denominator. As $\omega$ slowly increases toward that distant resonance, $\omega_0^2 - \omega^2$ shrinks, causing $\chi'$ and therefore $n$ to steadily climb. This is the true mechanism of normal dispersion.
+    However, to see what happens exactly \emph{at} resonance, we switch to our specialized near-resonance approximation: $\chi' \approx \frac{N_A e^2}{\varepsilon_0 m \eta\omega}\left(\frac{-\delta}{1+\delta^2}\right)$. Because the normalized detuning $\delta$ sweeps from negative to positive as we cross $\omega_0$, the crucial $-\delta$ term in the numerator forces $\chi'$ to crash steeply downward. This localized, sharp drop in $\chi'$ translates directly into a drop in $n$, mathematically proving the existence of \textbf{anomalous dispersion}.
 \end{keyinsight}
-
-So, the obvious takeaway is that the refractive index $n$ increases with frequency everywhere (normal dispersion) \emph{except} in the immediate vicinity of a resonance, where it temporarily decreases (anomalous dispersion). The anomalous region is also exactly where absorption is strongest. This is not a coincidence — both effects share the same physical root: the driven oscillators are completely out of phase with the driving field near $\omega_0$, so the medium simultaneously extracts energy from the wave (absorption) and distorts its phase velocity (anomalous dispersion).
 
 \subsection{Multiple Resonances and the Broadband Refractive Index}
 
@@ -877,47 +765,41 @@ As we sweep across the entire electromagnetic spectrum, the refractive index $n$
     \caption{Broadband Refractive Index: Normal dispersion occurs between resonance peaks, while localized anomalous dispersion sharply dips exactly at each atomic resonance.}
 \end{figure}
 
-Real materials possess multiple atomic and molecular resonances spread widely across the electromagnetic spectrum. The overall broadband refractive index $n(\omega)$ that we measure in the laboratory is the continuous cumulative result of all of them perfectly overlapping, with each distinct resonance contributing its own dedicated absorption band and highly localised anomalous dispersion dip. At this point, we have built a complete, powerful toolkit strictly from the classical model: the susceptibility $\chi$, the complex refractive index $\tilde{n}$, and the macroscopic attenuation coefficient $\alpha$. Now let's confidently use these foundational tools to dissect the exact spectral profile of absorption — the line shape function.
-
 \section{The Line Shape Function}
 
 \subsection{Motivation: What Happens to Light Passing Through Matter?}
 
-Imagine shining a broadband light source—like a continuous white-light continuum covering a wide spread of frequencies—directly into a block of material or a chamber of gas. What emerges on the other side?
+Imagine shining a broadband white-light source directly into a block of material or a chamber of gas. What emerges on the other side?
 
 If we shine this emerging light through a prism, it disperses into the continuous visible spectrum — from red at one end to violet at the other. But fundamentally, each distinct color simply represents a distinct driving frequency $\nu$. The material treats every single color (frequency) completely differently.
 
-For the vast majority of frequencies, the light passes directly through the medium. The photons at these frequencies might slightly jiggle the electron clouds as they pass (which physically gives rise to the real refractive index $n$ and macroscopic phase delay), but they do not possess the exact required energy to be permanently captured. They are scattered forward and emerge on the other side. This baseline behavior is what we call \textbf{transmission}.
+For the vast majority of frequencies, the incoming photons do not possess the exact energy required to be permanently captured. They might slightly jiggle the electron clouds as they pass (which macroscopically gives rise to phase delay and the real refractive index $n$), but they are ultimately scattered forward and emerge on the other side. This baseline behavior is \textbf{transmission}.
 
-However, at certain highly specific frequencies—the fundamental \textbf{resonance frequencies} of the material—something completely different happens. To understand this, we must look at the quantum structure of the atoms themselves. Every atom possesses a distinct, quantized set of allowed electron orbits or energy levels. If an incoming photon carries a packet of energy that \emph{exactly} matches the energy gap between a lower level ($E_1$) and an empty upper level ($E_2$), the photon is completely annihilated.
-
-Its entire energy is permanently absorbed by the electron, violently promoting the electron into the higher excited state. This resonant condition is governed by the celebrated Planck-Einstein relation:
+However, at certain highly specific frequencies, the material behaves entirely differently. According to quantum mechanics, every atom possesses a distinct, quantized ladder of allowed energy levels. If an incoming photon carries a packet of energy that \emph{exactly} matches the gap between a lower level ($E_1$) and an empty upper level ($E_2$), it is completely annihilated. Its energy is permanently absorbed, promoting the electron into the higher excited state. This resonant condition is governed by the Planck-Einstein relation,
 \begin{equation*}
-    E_{\text{photon}} = \Delta E = E_2 - E_1 = h\nu_0
+    E_{\text{photon}} = \Delta E = E_2 - E_1 = h\nu_0,
 \end{equation*}
-where $h$ is Planck's constant, and $\nu_0$ is the resonance frequency required to trigger the jump.
+where $h$ is Planck's constant, and $\nu_0$ is the fundamental resonance frequency required to trigger the jump.
 
-Because these specific photons are destroyed and their energy is locally consumed by the material, that specific frequency of light disappears from the transmitted beam. If you look at the prism's rainbow on the output, you will see a bright, continuous rainbow of transmitted light interrupted by dark, missing narrow shadows (exactly like the famous Fraunhofer dark lines in the solar spectrum). These missing frequencies are what we define as \textbf{absorption lines}.
-
-As a result, most frequencies pass through a material essentially unchanged, but photons whose frequency exactly matches an atomic transition energy $h\nu_0$ are destroyed. The transmission spectrum becomes punctuated by dark absorption shadows — each shadow corresponding to a specific quantum jump inside the atom.
+Because these specific photons are destroyed, their corresponding colors vanish from the transmitted beam. If you observe the emerging light through our prism, the bright, continuous rainbow will be interrupted by narrow, dark shadows (much like the famous Fraunhofer lines in the solar spectrum). These missing frequencies are what we define as the material's \textbf{absorption lines}.
 
 \begin{keyinsight}[Multiple Transitions Mean Multiple Lines]
     Real atoms and molecules are complex. They do not have just two energy levels; they have dozens or hundreds, creating a vast ladder of possible states. Consequently, a photon can be absorbed not just from level $1\to2$, but perhaps $1\to3$, $2\to4$, or $3\to5$. Every single unique allowed transition gap ($\Delta E$) produces its own unique resonance frequency ($\nu_0$). Because of this, the output spectrum of a real material will feature a unique ``fingerprint'' of multiple distinct absorption lines, each corresponding to a specific internal quantum jump.
 \end{keyinsight}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/output_transmission_spectrum.jpg}
-    \caption{The Output Transmission Spectrum: The baseline transmission remains high, but drops sharply at the specific atomic resonance frequencies, carving out characteristic absorption shadows in the spectrum.}
-\end{figure}
-
-At this point, if we take the mathematical idealisation strictly at face value, the output intensity spectrum seems conceptually straightforward: it is essentially a completely flat baseline curve suddenly punctuated by several infinitely thin, perfectly vertical, sharp dark dips situated at exactly the atomic resonances $\nu_0$. However, as we are about to rigorously discover through the lens of decay dynamics, this highly simplified picture is fundamentally physically impossible. Atomic energy transitions are never perfectly sharp, and they must inherently occupy a continuous, finite spectral bandwidth.
+If we take this idealized quantum picture at face value, the transmission spectrum seems conceptually straightforward: a flat baseline punctuated by infinitely thin, perfectly vertical dark dips exactly at the atomic resonances $\nu_0$. However, as we are about to rigorously discover, this highly simplified picture is physically impossible. Atomic energy transitions are never perfectly sharp; they must inherently occupy a continuous, finite spectral bandwidth.
 
 \subsection{The Absorption Line Is Not a Delta Function}
 
-If we look back at our transmission spectrum, one might naively expect absorption at resonance to perfectly resemble a vertical spike. Mathematically, this represents a Dirac delta function $\delta(\nu - \nu_0)$, implying the atom absorbs energy \emph{exclusively} at $\nu_0$. However, physical reality differs fundamentally.
+As the actual transmission spectrum below visually confirms, real absorption dips do not manifest as the perfectly vertical mathematical spikes—Dirac delta functions, $\delta(\nu - \nu_0)$—predicted by the purely idealized model. Instead, they form smooth, broadened curves.
 
-In practice, absorption always spans a \textbf{range of frequencies} centred around $\nu_0$. It peaks exactly at resonance but smoothly tapers off on either side. Why does this occur?
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{Figures/Chapter 1/output_transmission_spectrum.jpg}
+    \caption{The Output Transmission Spectrum: Real absorption lines are not infinitely sharp Dirac delta functions. Instead, they form broadened dips that span a finite frequency bandwidth around each resonance.}
+\end{figure}
+
+Since physical absorption clearly occupies a continuous bandwidth rather than occurring exclusively at $\nu_0$, what exactly forces reality to diverge from the Dirac delta ideal? What causes this inherent broadening?
 
 Fundamentally, any real oscillating system experiences damping ($\eta$), which inherently broadens the resonance response. In the quantum picture, atomic energy levels are never perfectly sharp; they possess an intrinsic energy spread dictated by the excited state's finite lifetime via the Heisenberg Uncertainty Principle.
 
@@ -931,19 +813,17 @@ Consequently, if a photon arrives with a frequency $\nu$ slightly off $\nu_0$, t
 
 To model this smeared probability mathematically, we define the \textbf{line shape function} $g_{\nu_0}(\nu)$ — a continuous probability density representing the chance that a photon of frequency $\nu$ will be absorbed by an atomic transition centred at resonance frequency $\nu_0$. Because $g_{\nu_0}(\nu)$ is a true probability density function, the total area under the curve must equal exactly 1.
 
-This proves that an atomic transition never absorbs at one infinitely sharp frequency; damping (classically $\eta$, quantum-mechanically the finite excited-state lifetime) smears the absorption into a continuous probability distribution $g_{\nu_0}(\nu)$ centred at $\nu_0$. Now let's derive its explicit mathematical form.
-
 \subsection{Deriving the Line Shape Function and the Final Form of \texorpdfstring{$\alpha$}{α}}
 
-Our overarching goal here is to transform the absorption coefficient $\alpha$ from a messy theoretical expression into a clean, empirical formula that we can actually use in the lab. The central idea is that $\alpha$ must be separable into two completely independent physical concepts: its overall ``strength'' and its statistical ``shape''.
+Our goal is to transform the absorption coefficient $\alpha$ from a dense theoretical expression into a clean, practical formula. The central physical insight is that $\alpha$ must be completely separable into two independent components: its overall ``strength'' and its statistical ``shape''.
 \begin{equation*}
     \alpha = \underbrace{(\text{constant prefactor})}_{\text{Total Absorbing Strength}} \times \underbrace{(\text{pure frequency profile})}_{\text{Probability Shape}}
 \end{equation*}
 
-We will achieve this separation, and mathematically clean up both parts, in a single continuous algebraic pass:
+We will execute this separation, and mathematically clean up both parts, in a single continuous algebraic pass:
 \begin{enumerate}
-    \item \textbf{Isolating the Shape as a Probability Density:} We will extract the pure frequency profile and convert it into lab-measurable variables (ordinary frequency $\nu$ and linewidth $\Delta\nu$). Crucially, we will rigorously force this profile to mathematically integrate to exactly 1. This guarantees it carries absolutely zero information about the material's total absorption strength. Instead, it becomes a pure probability density function — the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$ — which tells us solely \emph{how} the atom's capability to absorb a photon is distributed across the spectrum. By decoupling the shape from the magnitude, we ensure $g_{\nu_0}(\nu)$ acts as a completely universal statistical tool that functions identically for \emph{any} atomic transition, regardless of how aggressively or weakly it absorbs.
-    \item \textbf{Cleaning the Prefactor (The Strength):} By forcing the shape function's area to unity, we essentially vacuum all of the actual absorbing power into the constant prefactor. However, this prefactor will initially be a messy cluster of unobservable microscopic constants ($e$, $m$, $\varepsilon_0$). We will use classical Larmor radiation theory to bundle all of them into a single macroscopic, measurable parameter: the \textbf{radiative lifetime} $\tau_r$. This elegantly collapses the hidden mechanics of a single oscillating electron into a simple, empirical time constant that fundamentally dictates the raw optical power of the entire transition.
+    \item \textbf{Isolating the Shape (Probability Density):} First, we isolate the part of the formula that depends on frequency and express it using practical variables (ordinary frequency $\nu$ and linewidth $\Delta\nu$). We then mathematically normalize this profile so that its total area is exactly 1. By doing this, the profile stops representing the \emph{amount} of absorption and instead becomes a pure probability density curve—the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$. It simply tells us \emph{how} the absorption is distributed across the spectrum, acting as a universal template for any atomic transition.
+    \item \textbf{Cleaning the Prefactor (Total Strength):} Because we forced the shape's area to equal 1, the constant multiplier sitting in front of it must now carry the \emph{entire} physical strength of the absorption. Initially, this prefactor is a messy collection of microscopic constants ($e$, $m$, $\varepsilon_0$). We will use classical radiation theory to bundle these microscopic details into a single, measurable macroscopic parameter: the \textbf{radiative lifetime}, $\tau_r$. This single time constant will completely dictate the overall optical power of the transition.
 \end{enumerate}
 
 \begin{keyinsight}[The Mathematical Target: The Lorentzian Profile]
@@ -963,62 +843,38 @@ To expose the frequency dependence hidden inside $\delta$, we substitute its def
     \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \left(\dfrac{2(\omega - \omega_0)}{\eta}\right)^2} \quad \Rightarrow \quad \chi'' \approx -\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
 \end{equation*}
 
-Now substitute $\chi''$ into $\alpha = -k_0\chi''/n_b$. The two minus signs cancel exactly, so $\alpha$ remains positive — which is correct for an absorbing medium:
+Now substitute $\chi''$ into $\alpha = -k_0\chi''/n_b$:
 \begin{equation*}
     \alpha = -\frac{k_0}{n_b}\left(-\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}\right) \quad \Rightarrow \quad \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4(\omega - \omega_0)^2}{\eta^2}}
 \end{equation*}
 
-To break the ratio in the denominator apart and expose the explicit $(\text{Half-Width})^2 + (\text{Detuning})^2$ geometric layout we are aiming for, multiply the expression by $\eta^2/\eta^2$:
+The line shape function $g_{\nu_0}(\nu)$ must ultimately be expressed in ordinary frequency $\nu$. Convert the detuning via $\omega - \omega_0 = 2\pi(\nu - \nu_0)$. We also substitute $k_0 = \omega/c_0$, introducing an $\omega$ that cleanly cancels the remaining angular frequency dependence in the prefactor:
 \begin{equation*}
-    \alpha = \frac{k_0}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
+    \alpha = \frac{(\omega/c_0)}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{1}{1 + \dfrac{4\left[2\pi(\nu - \nu_0)\right]^2}{\eta^2}} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{1}{1 + \dfrac{16\pi^2(\nu - \nu_0)^2}{\eta^2}}
 \end{equation*}
 
-Next, we eliminate the wavenumber $k_0$ in favour of a true frequency. Substitute $k_0 = \omega/c_0$:
+To force the denominator into our target $(\text{Half-Width})^2 + (\text{Detuning})^2$ layout, first multiply the numerator and denominator by $\eta^2$, then divide them both by $16\pi^2$ and group into a perfect square:
 \begin{equation*}
-    \alpha = \frac{(\omega/c_0)}{n_b}\cdot\frac{N_A\,e^2}{m\,\eta\,\omega\,\varepsilon_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
-\end{equation*}
-Notice the perfect cancellation: the angular frequency $\omega$ in the numerator (just introduced from the optical wavenumber $k_0$) exactly cancels the $\omega$ sitting in the denominator of the microscopic atomic fraction. With this explicit $\omega$ dependence cleanly stripped away, we consolidate the remaining prefactors to get:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 4(\omega - \omega_0)^2}
+    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 16\pi^2(\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\left(\dfrac{\eta}{4\pi}\right)^2}{\left(\dfrac{\eta}{4\pi}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
 
-The expression is still in angular frequency $\omega$. The line shape function $g_{\nu_0}(\nu)$ must ultimately be a function of ordinary frequency $\nu$. Substitute $\omega - \omega_0 = 2\pi(\nu - \nu_0)$ and expand the bracket:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 4\left[2\pi(\nu - \nu_0)\right]^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\eta^2}{\eta^2 + 16\pi^2(\nu - \nu_0)^2}
-\end{equation*}
-
-The detuning is now explicitly in ordinary frequency, but the denominator still carries an unwanted $16\pi^2$ coefficient. To force the fraction into our target $(\text{Half-Width})^2 + (\text{Detuning})^2$ geometric layout, divide the numerator and denominator by $16\pi^2$ and immediately group it into a perfect square:
-\begin{equation*}
-    \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\dfrac{\eta^2}{16\pi^2}}{\dfrac{\eta^2}{16\pi^2} + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\eta\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\left(\dfrac{\eta}{4\pi}\right)^2}{\left(\dfrac{\eta}{4\pi}\right)^2 + (\nu - \nu_0)^2}
-\end{equation*}
-
-The mathematical shape is now visually flawless, but the width is still written using the unmeasurable theoretical damping rate $\eta$. We trade this for the lab-measurable FWHM linewidth $\Delta\nu$ using their known physical relation:
-\begin{equation*}
-    \Delta\nu = \frac{\eta}{2\pi} \quad \Rightarrow \quad \eta = 2\pi\Delta\nu
-\end{equation*}
-Substituting this everywhere:
+The mathematical shape is now visually flawless, but the width is still written using the unmeasurable theoretical damping rate $\eta$. We trade this for the lab-measurable FWHM linewidth $\Delta\nu$, governed by the physical relation $\Delta\nu = \eta/2\pi$. Substituting the rearranged form $\eta = 2\pi\Delta\nu$ throughout the equation:
 \begin{equation*}
     \alpha = \frac{N_A\,e^2}{m\,(2\pi\Delta\nu)\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\left(\dfrac{2\pi\Delta\nu}{4\pi}\right)^2}{\left(\dfrac{2\pi\Delta\nu}{4\pi}\right)^2 + (\nu - \nu_0)^2} \quad \Rightarrow \quad \alpha = \frac{N_A\,e^2}{m\,\varepsilon_0\,n_b\,c_0}\cdot\frac{1}{2\pi\Delta\nu}\cdot\frac{\left(\dfrac{\Delta\nu}{2}\right)^2}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-
-The denominator now has its final Lorentzian form. We simplify the numerical prefactor — collecting $\frac{1}{2\pi\Delta\nu}\cdot\left(\frac{\Delta\nu}{2}\right)^2$ step by step:
-\begin{equation*}
-    \frac{1}{2\pi\Delta\nu}\cdot\left(\frac{\Delta\nu}{2}\right)^2
-    = \frac{1}{2\pi\Delta\nu}\cdot\frac{(\Delta\nu)^2}{4}
-    = \frac{\Delta\nu}{8\pi}
-\end{equation*}
-Substituting this back:
+Absorbing the $1/(2\pi\Delta\nu)$ factor into the numerator of the fraction simplifies it to:
 \begin{equation*}
     \alpha = \frac{N_A\,e^2}{m\,\varepsilon_0\,n_b\,c_0}\cdot\frac{\dfrac{\Delta\nu}{8\pi}}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
-At this point, the numerator contains $\Delta\nu/8\pi$. However, a true Lorentzian probability distribution must integrate to exactly 1. This mathematically guarantees that the shape function dictates \emph{only} the spectral profile, cleanly separating it from the total absorption strength. To enforce this strict normalisation, the fraction's numerator must be exactly $\Delta\nu/2\pi$. We therefore split $1/8\pi = (1/4)\cdot(1/2\pi)$ and absorb the $1/4$ into the constant prefactor:
+
+For $g_{\nu_0}(\nu)$ to be a true probability density, the Lorentzian fraction must integrate to exactly 1. This mathematical normalization requires the numerator to be precisely $\Delta\nu/2\pi$. By factoring a $1/4$ out of our current $\Delta\nu/8\pi$ numerator, we isolate the perfect normalized shape:
 \begin{equation*}
-    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot\frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+    \alpha = \frac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\cdot\underbrace{\frac{\dfrac{\Delta\nu}{2\pi}}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}}_{g_{\nu_0}(\nu)}
 \end{equation*}
 
-The mathematical separation is now fully visible: the prefactor $\dfrac{N_A e^2}{4\varepsilon_0 m n_b c_0}$ is a pure constant, and the remaining fraction is exclusively a function of $\nu$. We have successfully isolated the Lorentzian profile! This cleanly separated frequency fraction is exactly what we call the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$.
+The mathematical separation is now fully visible: the prefactor $\dfrac{N_A e^2}{4\varepsilon_0 m n_b c_0}$ is a pure constant, and the remaining frequency fraction is exactly what we call the \textbf{Lorentzian line shape function}, $g_{\nu_0}(\nu)$.
 
-However, the physics isn't finished yet. The prefactor remains a messy cluster of unobservable microscopic constants ($e$, $m$, $\varepsilon_0$). To fulfill our goal of a truly empirical formula, we must collapse these into a single macroscopic, measurable parameter before we can declare our final forms for $\alpha$ and $g_{\nu_0}(\nu)$.
+However, the physics isn't finished yet. The prefactor remains a messy cluster of unobservable microscopic constants ($e$, $m$, $\varepsilon_0$). To fulfill our goal of a truly empirical formula, we must collapse these into a single macroscopic, measurable parameter before we can declare our final form for $\alpha$.
 
 The tool we need is the \textbf{radiative lifetime} $\tau_r$. The radiative lifetime is the average time an excited atom takes to spontaneously emit a photon and return to the ground state, assuming no non-radiative decay channels compete. It is an intrinsic property of the transition that we can measure spectroscopically. From the classical Larmor radiation theory — which models the oscillating electron as an accelerating charged particle radiating electromagnetic energy — the result is:
 \begin{keyresult}
@@ -1058,21 +914,21 @@ Here, $\lambda_0$ is the resonance wavelength in vacuum. Inside the background m
     \alpha = \left[ \frac{3N_A\,\lambda^2}{8\pi\,\tau_r} \right] \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
 \end{equation*}
 
-Now we have exactly what we came for. Every piece of the prefactor ($\lambda$, $\tau_r$, $N_A$) is a directly measurable macroscopic property of the material, and the geometry of the frequency fraction perfectly matches our targeted distribution. We can now officially declare our final, macroscopic expressions for both $\alpha$ and the line shape function $g_{\nu_0}(\nu)$ side-by-side:
+Now we have exactly what we came for. Every piece of the prefactor ($\lambda$, $\tau_r$, $N_A$) is a directly measurable macroscopic property of the material. We can now officially declare our final, fully macroscopic expression for the absorption spectrum $\alpha$, presented alongside its isolated line shape function:
 \begin{keyresult}
     \begin{gather}
         \alpha = \frac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu) \\[2ex]
-        g_{\nu_0}(\nu) = \frac{\Delta\nu/2\pi}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
+        g_{\nu_0}(\nu) = \frac{\dfrac{\Delta\nu}{2\pi}}{\left(\dfrac{\Delta\nu}{2}\right)^2 + (\nu - \nu_0)^2}
     \end{gather}
 \end{keyresult}
-where:
+Where:
 \begin{itemize}
     \item $\lambda = \lambda_0/n_b$: The resonant wavelength inside the host medium.
     \item $\tau_r$: The radiative lifetime of the transition.
     \item $N_A$: The number density of absorbing atoms.
     \item $\nu$: The optical frequency at which we evaluate the absorption.
     \item $\nu_0$: The resonance frequency at the centre of the line.
-    \item $\Delta\nu$: The FWHM linewidth of the transition, set by the total lifetime $\tau_t$ via $\Delta\nu = 1/(2\pi\tau_t)$.
+    \item $\Delta\nu$: The FWHM linewidth of the transition.
 \end{itemize}
 
 \begin{keyinsight}[Why $\lambda$, Not $\lambda_0$, Appears in the Final Formula]
@@ -1086,10 +942,6 @@ Ultimately, this derivation succeeded in translating abstract theoretical physic
     \item \textbf{Microscopic form:} $\alpha = \dfrac{N_A\,e^2}{4\varepsilon_0\,m\,n_b\,c_0}\,g_{\nu_0}(\nu)$ exposes the fundamental electrical mechanics of the atomic transition itself.
     \item \textbf{Optical form:} $\alpha = \dfrac{3N_A\,\lambda^2}{8\pi\,\tau_r}\,g_{\nu_0}(\nu)$ relies entirely on macroscopic, observable material properties.
 \end{itemize}
-
-One final, vital insight explains why this works so cleanly. Because $\lambda = c_0/(n_b\nu)$, one might expect the $\lambda^2$ prefactor to continuously sweep as we alter frequency. Physically, however, optical spectral linewidths ($\Delta\nu$) are profoundly narrow compared to their massive carrier frequencies ($\nu_0$). The wavelength variation across the active band is completely negligible. We simply lock $\lambda$ as a fixed parameter measured strictly at resonance, forcing all dynamic spectral shape to reside exclusively within $g_{\nu_0}(\nu)$.
-
-Now that we have rigorously isolated this Lorentzian line shape function, we must understand its pure statistical behaviour. Let's physically dissect $g_{\nu_0}(\nu)$ to see what its normalisation implies, and what geometric reality the linewidth $\Delta\nu$ actively controls.
 
 \subsection{Normalisation and the Physical Meaning of \texorpdfstring{$g_{\nu_0}(\nu)$}{g(ν)}}
 
@@ -1363,7 +1215,7 @@ From statistical mechanics, the velocity component of a gas atom along a single 
     \end{equation}
 \end{keyresult}
 
-where:
+Where:
 \begin{itemize}
     \item $V$: The velocity component of the gas atom along the axis of light propagation.
     \item $\sigma_V = \sqrt{k_BT/m}$: The standard deviation of the velocity distribution, where $T$ is the absolute gas temperature, $m$ is the mass of a single atom, and $k_B$ is Boltzmann's constant. It dictates the distribution's width, which broadens at higher temperatures and narrows for more massive atoms.

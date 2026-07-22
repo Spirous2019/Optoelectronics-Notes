@@ -287,7 +287,7 @@ def plot_transmission_spectrum():
     """
     T(ν) = exp(−α₁(ν) − α₂(ν))  where αᵢ(ν) is a Lorentzian.
     Demonstrates "Shading First, Labels Second" rule by conveying the FWHM
-    bands and transparency window entirely with shaded backgrounds.
+    bands entirely with shaded backgrounds.
     """
     nu = np.linspace(0.0, 11.0, 6000)
 
@@ -318,11 +318,6 @@ def plot_transmission_spectrum():
     ax.axvspan(b1_lo, b1_hi, alpha=0.11, color=CORAL,
                label=r"Absorption Bandwidth ($\Delta\nu$ FWHM)")
     ax.axvspan(b2_lo, b2_hi, alpha=0.11, color=CORAL)
-
-    # ── Transparency window shading (subtle definition of the gap region) ────
-    # Boundaries are exactly b1_hi and b2_lo so green starts precisely where red ends.
-    ax.axvspan(b1_hi, b2_lo, alpha=0.06, color=TEAL,
-               label="Transparency Window")
 
     # ── Axes cosmetics ───────────────────────────────────────────────────────
     ax.set_xlim(0.0, 11.0)
@@ -956,47 +951,6 @@ def plot_energy_decay_profile():
     plt.close(fig)
 
 
-# ═══════════════════════════════════════════════════════════════════════════
-#  FIGURE 13  —  Electromagnetic Attenuation in a Lossy Medium
-# ═══════════════════════════════════════════════════════════════════════════
-
-def plot_power_decay_lossy_medium():
-    """E(z) oscillating field, amplitude envelope A(z), power P(z)."""
-    alpha = 0.22; k = 12.0
-    z = np.linspace(0, 10, 8000)
-    A = np.exp(-alpha * z)
-    E = A * np.cos(k * z)
-    P = A**2
-
-    fig, ax = plt.subplots(figsize=(11, 5.5))
-    ax.plot(z, E, color=SKYBLUE, lw=1.3, alpha=0.75,
-            label=r"Electric Field $E(z)$")
-    ax.plot(z, A, color=CORAL, lw=2.5, ls="--",
-            label=r"Amplitude Envelope $A(z)$")
-    ax.plot(z, P, color=TEAL, lw=2.8,
-            label=r"Power Envelope $P(z) \propto |E|^2$")
-    ax.axhline(0, color=AXES_CLR, lw=0.8)
-
-    ax.set_xlim(0, 10); ax.set_ylim(-1.08, 1.12)
-    ax.set_yticks([-1, 0, 1])
-    ax.set_yticklabels([r"$-1$", r"$0$", r"$1$"], fontsize=11)
-    ax.set_xticks([0])
-    ax.set_xticklabels([r"$0$"], fontsize=11)
-    ax.set_xlabel(r"Propagation Distance $z$", fontsize=13)
-    ax.set_ylabel("Normalized Response", fontsize=13)
-    ax.set_title("Electromagnetic Attenuation in a Lossy Medium",
-                 fontsize=15, pad=12)
-    ax.grid(True)
-    ax.legend(loc="upper right", framealpha=1, facecolor="#f5f5f5",
-              edgecolor="#cccccc", labelcolor=AXES_CLR)
-
-    fig.tight_layout()
-    out_path = os.path.join(OUT_DIR, "power_decay_lossy_medium.jpg")
-    fig.savefig(out_path, dpi=200, bbox_inches="tight")
-    print(f"Saved: {out_path}")
-    plt.close(fig)
-
-
 # ── Entry point ─────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     plot_susceptibility_lineshapes()
@@ -1011,4 +965,3 @@ if __name__ == "__main__":
     plot_broadband_refractive_index()
     plot_delta_vs_real_absorption()
     plot_energy_decay_profile()
-    plot_power_decay_lossy_medium()
